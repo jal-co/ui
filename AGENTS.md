@@ -36,6 +36,16 @@ Goals:
 - Use clear prop names and sensible defaults.
 - Avoid overengineering APIs before real usage justifies it.
 - When creating registry items, ensure they are installable, readable, and easy to adapt.
+- When building or refactoring React/Next.js components, consult:
+  - `.pi/skills/vercel-react-best-practices/SKILL.md`
+  - `.pi/skills/vercel-composition-patterns/SKILL.md`
+  - `.pi/skills/tailwind-design-system/SKILL.md`
+- When building or maintaining Jalco UI registry infrastructure or registry items, consult:
+  - `.pi/skills/jalco-shadcn-registry/SKILL.md`
+- Use the Vercel React best-practices skill for performance, rendering, data fetching, and Next.js architecture decisions.
+- Use the Vercel composition patterns skill for component API design, composition, compound components, and avoiding boolean-prop-heavy interfaces.
+- Use the Tailwind design-system skill for Tailwind v4 tokens, semantic styling, variant systems, theming, and design-system consistency.
+- Use the Jalco shadcn registry skill for item typing, `registry.json`, namespacing, authentication planning, MCP compatibility, Open in v0 considerations, and registry structure decisions.
 
 ### Styling
 - Keep styling patterns uniform across components and docs.
