@@ -1,23 +1,58 @@
-# registry-template
+# Jalco UI
 
-You can use the `shadcn` CLI to run your own component registry. Running your own
-component registry allows you to distribute your custom components, hooks, pages, and
-other files to any React project.
+A curated shadcn-style registry by Justin Levine.
 
-> [!IMPORTANT]  
-> This template uses Tailwind v4. For Tailwind v3, see [registry-template-v3](https://github.com/shadcn-ui/registry-template-v3).
+## Overview
 
-## Getting Started
+Jalco UI is a personal registry and documentation system for reusable UI components, blocks, and patterns.
 
-This is a template for creating a custom registry using Next.js.
+The goal is to create a polished, public-facing collection of installable registry items with a strong documentation experience, including:
+- live previews
+- copyable code blocks
+- clear installation instructions
+- support for multiple package managers where relevant
+- production-quality examples
 
-- The template uses a `registry.json` file to define components and their files.
-- The `shadcn build` command is used to build the registry.
-- The registry items are served as static files under `public/r/[name].json`.
-- The template also includes a route handler for serving registry items.
-- Every registry item are compatible with the `shadcn` CLI.
-- We have also added v0 integration using the `Open in v0` api.
+## Goals
 
-## Documentation
+- Build a high-quality shadcn registry.
+- Prioritize accessibility, consistency, and composability.
+- Maintain a documentation-first developer experience.
+- Keep examples practical and easy to adapt.
+- Publish components and blocks that feel ready to ship.
 
-Visit the [shadcn documentation](https://ui.shadcn.com/docs/registry) to view the full documentation.
+## Planned features
+
+- Component registry items
+- Block registry items
+- Preview vs code presentation
+- Installation tabs for npm, pnpm, bun, and yarn
+- Documentation pages for setup and usage
+- Theming and styling guidance
+- Curated examples and patterns
+
+## Project principles
+
+- Clarity over cleverness
+- Consistency over novelty
+- Small, reviewable changes
+- Strong defaults
+- Open-source maintainability
+
+## Getting started
+
+This repository is currently based on the shadcn registry template and will evolve into Jalco UI.
+
+## Contributing
+
+Please read:
+- [`AGENTS.md`](./AGENTS.md)
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+
+## Status
+
+Early repository setup.
+
+## License
+
+TBD

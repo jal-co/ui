@@ -1,0 +1,34 @@
+* text=auto eol=lf
+
+*.ts text
+*.tsx text
+*.js text
+*.jsx text
+*.mjs text
+*.cjs text
+*.json text
+*.md text
+*.mdx text
+*.css text
+*.scss text
+*.html text
+*.yml text
+*.yaml text
+*.sh text eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.mp4 binary
+*.mov binary
+*.zip binary
+*.gz binary
+*.tgz binary
+*.pdf binary
