@@ -8,10 +8,12 @@
       "type": "registry:component",
       "title": "Hello World",
       "description": "A simple hello world component",
-      "registryDependencies": ["button"],
+      "registryDependencies": [
+        "button"
+      ],
       "files": [
         {
-          "path": "registry/blocks/hello-world/hello-world.tsx",
+          "path": "registry/hello-world/hello-world.tsx",
           "type": "registry:component"
         }
       ]
@@ -21,11 +23,19 @@
       "type": "registry:component",
       "title": "Example Form",
       "description": "A contact form with Zod validation.",
-      "dependencies": ["zod"],
-      "registryDependencies": ["button", "input", "label", "textarea", "card"],
+      "dependencies": [
+        "zod"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label",
+        "textarea",
+        "card"
+      ],
       "files": [
         {
-          "path": "registry/blocks/example-form/example-form.tsx",
+          "path": "registry/example-form/example-form.tsx",
           "type": "registry:component"
         }
       ]
@@ -35,27 +45,29 @@
       "type": "registry:component",
       "title": "Complex Component",
       "description": "A complex component showing hooks, libs and components.",
-      "registryDependencies": ["card"],
+      "registryDependencies": [
+        "card"
+      ],
       "files": [
         {
-          "path": "registry/blocks/complex-component/page.tsx",
+          "path": "registry/complex-component/page.tsx",
           "type": "registry:page",
           "target": "app/pokemon/page.tsx"
         },
         {
-          "path": "registry/blocks/complex-component/components/pokemon-card.tsx",
+          "path": "registry/complex-component/components/pokemon-card.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/blocks/complex-component/components/pokemon-image.tsx",
+          "path": "registry/complex-component/components/pokemon-image.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/blocks/complex-component/lib/pokemon.ts",
+          "path": "registry/complex-component/lib/pokemon.ts",
           "type": "registry:lib"
         },
         {
-          "path": "registry/blocks/complex-component/hooks/use-pokemon.ts",
+          "path": "registry/complex-component/hooks/use-pokemon.ts",
           "type": "registry:hook"
         }
       ]
@@ -67,46 +79,56 @@
       "description": "A login form with a CSS file.",
       "files": [
         {
-          "path": "registry/blocks/example-with-css/example-card.tsx",
+          "path": "registry/example-with-css/example-card.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/blocks/example-with-css/example-card.css",
+          "path": "registry/example-with-css/example-card.css",
           "type": "registry:component"
         }
       ]
     },
     {
       "name": "waitlist-card",
-      "type": "registry:block",
+      "type": "registry:component",
       "title": "Waitlist Card",
       "description": "A polished waitlist signup card with an email field and call to action.",
-      "registryDependencies": ["button", "card", "input"],
-      "categories": ["marketing", "forms"],
+      "registryDependencies": [
+        "button",
+        "card",
+        "input"
+      ],
+      "categories": [
+        "marketing",
+        "forms"
+      ],
       "files": [
         {
-          "path": "registry/blocks/waitlist-card/waitlist-card.tsx",
+          "path": "registry/waitlist-card/waitlist-card.tsx",
           "type": "registry:component"
         }
       ]
     },
     {
       "name": "github-stars-button",
-      "type": "registry:block",
+      "type": "registry:component",
       "title": "GitHub Stars Button",
       "description": "A link button showing a GitHub repo's star count with the octocat logo. Supports variant, size, icon style, and repo name display. Fetches stars server-side with ISR caching.",
-      "categories": ["marketing", "social"],
+      "categories": [
+        "marketing",
+        "social"
+      ],
       "files": [
         {
-          "path": "registry/blocks/github-stars-button/github-stars-button.tsx",
+          "path": "registry/github-stars-button/github-stars-button.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/blocks/github-stars-button/github-button-group.tsx",
+          "path": "registry/github-stars-button/github-button-group.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/blocks/github-stars-button/lib/github.ts",
+          "path": "registry/github-stars-button/lib/github.ts",
           "type": "registry:lib"
         }
       ]

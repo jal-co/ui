@@ -5,7 +5,7 @@ import {
   fetchGitHubRepo,
   formatCount,
   type GitHubRepo,
-} from "@/registry/blocks/github-stars-button/lib/github"
+} from "@/registry/github-stars-button/lib/github"
 
 /* --------------------------------------------------------------------- */
 /*  Icons                                                                */

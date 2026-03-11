@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import {
   fetchGitHubRepo,
   formatCount,
-} from "@/registry/blocks/github-stars-button/lib/github"
+} from "@/registry/github-stars-button/lib/github"
 
 type IconStyle = "currentColor" | "github" | "copilot" | "muted"
 
