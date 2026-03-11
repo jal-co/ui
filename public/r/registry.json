@@ -11,7 +11,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "registry/new-york/blocks/hello-world/hello-world.tsx",
+          "path": "registry/blocks/hello-world/hello-world.tsx",
           "type": "registry:component"
         }
       ]
@@ -25,7 +25,7 @@
       "registryDependencies": ["button", "input", "label", "textarea", "card"],
       "files": [
         {
-          "path": "registry/new-york/blocks/example-form/example-form.tsx",
+          "path": "registry/blocks/example-form/example-form.tsx",
           "type": "registry:component"
         }
       ]
@@ -38,24 +38,24 @@
       "registryDependencies": ["card"],
       "files": [
         {
-          "path": "registry/new-york/blocks/complex-component/page.tsx",
+          "path": "registry/blocks/complex-component/page.tsx",
           "type": "registry:page",
           "target": "app/pokemon/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/complex-component/components/pokemon-card.tsx",
+          "path": "registry/blocks/complex-component/components/pokemon-card.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/complex-component/components/pokemon-image.tsx",
+          "path": "registry/blocks/complex-component/components/pokemon-image.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/complex-component/lib/pokemon.ts",
+          "path": "registry/blocks/complex-component/lib/pokemon.ts",
           "type": "registry:lib"
         },
         {
-          "path": "registry/new-york/blocks/complex-component/hooks/use-pokemon.ts",
+          "path": "registry/blocks/complex-component/hooks/use-pokemon.ts",
           "type": "registry:hook"
         }
       ]
@@ -67,11 +67,11 @@
       "description": "A login form with a CSS file.",
       "files": [
         {
-          "path": "registry/new-york/blocks/example-with-css/example-card.tsx",
+          "path": "registry/blocks/example-with-css/example-card.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/example-with-css/example-card.css",
+          "path": "registry/blocks/example-with-css/example-card.css",
           "type": "registry:component"
         }
       ]
@@ -85,7 +85,7 @@
       "categories": ["marketing", "forms"],
       "files": [
         {
-          "path": "registry/new-york/blocks/waitlist-card/waitlist-card.tsx",
+          "path": "registry/blocks/waitlist-card/waitlist-card.tsx",
           "type": "registry:component"
         }
       ]
@@ -98,15 +98,15 @@
       "categories": ["marketing", "social"],
       "files": [
         {
-          "path": "registry/new-york/blocks/github-stars-button/github-stars-button.tsx",
+          "path": "registry/blocks/github-stars-button/github-stars-button.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/github-stars-button/github-button-group.tsx",
+          "path": "registry/blocks/github-stars-button/github-button-group.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/github-stars-button/lib/github.ts",
+          "path": "registry/blocks/github-stars-button/lib/github.ts",
           "type": "registry:lib"
         }
       ]

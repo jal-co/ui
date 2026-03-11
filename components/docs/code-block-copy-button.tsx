@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Check, Copy } from "lucide-react"
-import { Button } from "@/registry/new-york/ui/button"
+import { Button } from "@/registry/ui/button"
 
 interface CodeBlockCopyButtonProps {
   value: string

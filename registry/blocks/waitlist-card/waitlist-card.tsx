@@ -7,9 +7,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york/ui/card"
-import { Input } from "@/registry/new-york/ui/input"
-import { Button } from "@/registry/new-york/ui/button"
+} from "@/registry/ui/card"
+import { Input } from "@/registry/ui/input"
+import { Button } from "@/registry/ui/button"
 import { cn } from "@/lib/utils"
 
 export function WaitlistCard() {
