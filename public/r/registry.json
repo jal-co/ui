@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "acme",
-  "homepage": "https://acme.com",
+  "name": "jalco-ui",
+  "homepage": "https://ui.justinlevine.me",
   "items": [
     {
       "name": "hello-world",
@@ -73,6 +73,41 @@
         {
           "path": "registry/new-york/blocks/example-with-css/example-card.css",
           "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "waitlist-card",
+      "type": "registry:block",
+      "title": "Waitlist Card",
+      "description": "A polished waitlist signup card with an email field and call to action.",
+      "registryDependencies": ["button", "card", "input"],
+      "categories": ["marketing", "forms"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/waitlist-card/waitlist-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "github-stars-button",
+      "type": "registry:block",
+      "title": "GitHub Stars Button",
+      "description": "A link button showing a GitHub repo's star count with the octocat logo. Supports variant, size, icon style, and repo name display. Fetches stars server-side with ISR caching.",
+      "categories": ["marketing", "social"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/github-stars-button/github-stars-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/github-stars-button/github-button-group.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/github-stars-button/lib/github.ts",
+          "type": "registry:lib"
         }
       ]
     }
