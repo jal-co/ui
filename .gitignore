@@ -48,3 +48,4 @@ next-env.d.ts
 skills-lock.json
 bun.lock
 .pi/skills/.DS_Store
+.source

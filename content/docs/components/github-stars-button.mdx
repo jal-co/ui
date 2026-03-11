@@ -1,0 +1,95 @@
+---
+title: GitHub Stars Button
+description: A link button showing a GitHub repo's star count with the octocat icon. Async server component — fetches data at build time with ISR.
+---
+
+import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-button"
+
+## Preview
+
+<div className="flex flex-wrap items-center gap-3 rounded-xl border bg-fd-card p-6">
+  <GitHubStarsButton owner="shadcn-ui" repo="ui" />
+</div>
+
+## Installation
+
+```bash
+npx shadcn@latest add https://ui.justinlevine.me/r/github-stars-button.json
+```
+
+## Usage
+
+```tsx
+import { GitHubStarsButton } from "@/components/github-stars-button"
+
+export function MyComponent() {
+  return <GitHubStarsButton owner="shadcn-ui" repo="ui" />
+}
+```
+
+Since this is an **async server component**, it must be rendered in a server context. It fetches the GitHub API at build time and caches the result for 1 hour via Next.js ISR.
+
+## Examples
+
+### Variants
+
+<div className="flex flex-col gap-6 rounded-xl border bg-fd-card p-6">
+  <div className="flex flex-col gap-2">
+    <p className="text-xs font-medium uppercase tracking-wide text-fd-muted-foreground">Default</p>
+    <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="default" />
+  </div>
+  <div className="flex flex-col gap-2">
+    <p className="text-xs font-medium uppercase tracking-wide text-fd-muted-foreground">Outline</p>
+    <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="outline" />
+  </div>
+  <div className="flex flex-col gap-2">
+    <p className="text-xs font-medium uppercase tracking-wide text-fd-muted-foreground">Ghost</p>
+    <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="ghost" />
+  </div>
+  <div className="flex flex-col gap-2">
+    <p className="text-xs font-medium uppercase tracking-wide text-fd-muted-foreground">Subtle</p>
+    <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="subtle" />
+  </div>
+</div>
+
+### Sizes
+
+<div className="flex flex-wrap items-center gap-3 rounded-xl border bg-fd-card p-6">
+  <GitHubStarsButton owner="shadcn-ui" repo="ui" size="sm" />
+  <GitHubStarsButton owner="shadcn-ui" repo="ui" size="default" />
+  <GitHubStarsButton owner="shadcn-ui" repo="ui" size="lg" />
+</div>
+
+### With repo name
+
+<div className="flex flex-col gap-3 rounded-xl border bg-fd-card p-6">
+  <GitHubStarsButton owner="shadcn-ui" repo="ui" showRepo />
+  <GitHubStarsButton owner="vercel" repo="next.js" showRepo variant="outline" />
+</div>
+
+### Icon styles
+
+<div className="flex flex-wrap items-center gap-3 rounded-xl border bg-fd-card p-6">
+  <GitHubStarsButton owner="shadcn-ui" repo="ui" iconStyle="currentColor" showRepo />
+  <GitHubStarsButton owner="shadcn-ui" repo="ui" iconStyle="github" showRepo />
+  <GitHubStarsButton owner="shadcn-ui" repo="ui" iconStyle="copilot" showRepo />
+  <GitHubStarsButton owner="shadcn-ui" repo="ui" iconStyle="muted" showRepo />
+</div>
+
+## API Reference
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `owner` | `string` | — | GitHub username or organization. Required. |
+| `repo` | `string` | — | GitHub repository name. Required. |
+| `variant` | `"default" \| "outline" \| "ghost" \| "subtle"` | `"default"` | Visual style variant. |
+| `size` | `"sm" \| "default" \| "lg"` | `"default"` | Button size. |
+| `stars` | `number` | — | Pre-fetched star count. Skips the API call when provided. |
+| `showRepo` | `boolean` | `false` | Show the `owner/repo` label alongside the count. |
+| `iconStyle` | `"currentColor" \| "github" \| "copilot" \| "muted"` | `"currentColor"` | Octocat icon color style. |
+
+## Notes
+
+- **No API key required.** The component uses the public GitHub REST API. Optionally set `GITHUB_TOKEN` as an environment variable to raise the rate limit from 60 to 5,000 requests/hour.
+- **ISR caching.** Results are cached for 1 hour via `next.revalidate`.
+- **Pre-fetched stars.** Pass the `stars` prop to skip the API call entirely — useful when you already have the data.

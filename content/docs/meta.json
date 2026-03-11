@@ -1,0 +1,10 @@
+{
+  "title": "Jalco UI",
+  "pages": [
+    "---Getting Started---",
+    "index",
+    "installation",
+    "---Components---",
+    "components/..."
+  ]
+}
