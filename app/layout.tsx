@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
-import { RootProvider } from "fumadocs-ui/provider/next"
 import "./globals.css"
 
 const geistSans = Geist({
@@ -14,10 +13,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: {
-    default: "Jalco UI",
-    template: "%s — Jalco UI",
-  },
+  title: "Jalco UI",
   description: "A curated shadcn-style registry by Justin Levine.",
 }
 
@@ -27,13 +23,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
-      suppressHydrationWarning
-    >
-      <body className="antialiased">
-        <RootProvider>{children}</RootProvider>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {children}
       </body>
     </html>
   )
