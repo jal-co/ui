@@ -47,6 +47,23 @@ Goals:
 - Use the Tailwind design-system skill for Tailwind v4 tokens, semantic styling, variant systems, theming, and design-system consistency.
 - Use the Jalco shadcn registry skill for item typing, `registry.json`, namespacing, authentication planning, MCP compatibility, Open in v0 considerations, and registry structure decisions.
 
+### Showcasing components and variants
+
+When adding a new component or docs component to the site, follow the established showcase pattern from `app/page.tsx`:
+
+- **Section wrapper:** Each component gets its own `<section>` with `rounded-xl border p-4 sm:p-5` and a `flex flex-col gap-4` layout.
+- **Section header:** A title (`text-lg font-semibold tracking-tight`) and a short description (`text-sm text-muted-foreground`). For registry items, include an `<OpenInV0Button>` aligned to the right on larger screens.
+- **Variant showcase:** When a component has multiple variants, props, or visual states, show each one as a labeled sub-section:
+  - Group all variants in a `<div className="flex flex-col gap-6">`.
+  - Each variant gets a `<div className="flex flex-col gap-2">` containing:
+    - A label: `<p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Variant Name</p>`
+    - The component rendered with that variant's props.
+  - Use descriptive, concise labels (e.g., "Default", "Scrollable", "Muted + Collapsible", "Colored Icons").
+- **Single-variant components:** If a component only has one visual state, render it directly inside the section without variant labels.
+- **Realistic content:** Populate examples with realistic, polished content — not lorem ipsum or bare-minimum placeholders.
+
+This pattern keeps the page scannable: every component section reads as title → description → labeled visual examples.
+
 ### Styling
 - Keep styling patterns uniform across components and docs.
 - Prefer existing utility/classname conventions over inventing new ones.
