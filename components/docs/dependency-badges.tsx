@@ -23,6 +23,13 @@ const depIconKeyMap: Record<string, string> = {
 }
 
 /**
+ * Prefix-based icon matching for scoped packages.
+ */
+const depIconPrefixes: [string, string][] = [
+  ["@radix-ui/", "Radix"],
+]
+
+/**
  * Lucide has no SVGL entry — use their logo directly.
  * Returns [lightSrc, darkSrc] or null.
  */
@@ -60,8 +67,16 @@ function DependencyIcon({ name }: { name: string }) {
     )
   }
 
-  // Try bundled icon
-  const iconKey = depIconKeyMap[name]
+  // Try bundled icon (exact match, then prefix match)
+  let iconKey = depIconKeyMap[name]
+  if (!iconKey) {
+    for (const [prefix, key] of depIconPrefixes) {
+      if (name.startsWith(prefix)) {
+        iconKey = key
+        break
+      }
+    }
+  }
   if (!iconKey) return null
 
   const svg = depIcons[iconKey]
