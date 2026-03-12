@@ -25,9 +25,9 @@ const sourceFiles = [
   "registry/tip-jar/lib/chains.ts",
 ]
 
-const ETH_ADDRESS = "0x1a2B3c4D5e6F7890AbCdEf1234567890aBcDeF12"
-const BTC_ADDRESS = "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"
-const SOL_ADDRESS = "7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV"
+const ETH_ADDRESS = "0x585c3Ad932471B24c733A557ad8FA64A2BacF508"
+const BTC_ADDRESS = "3Js3LsTiEt15nYzsEGpgnbNKDcGndefEw9"
+const SOL_ADDRESS = "HiGZkNDuhMrGi2YAmJFNrqaq9C1dPP1Eoqs8nRq4k2Kc"
 
 export default async function TipJarPage() {
   return (
@@ -44,7 +44,7 @@ export default async function TipJarPage() {
             { provider: "ethereum", address: ETH_ADDRESS },
             { provider: "bitcoin", address: BTC_ADDRESS },
             { provider: "solana", address: SOL_ADDRESS },
-            { provider: "paypal", address: "justinlevine" },
+            { provider: "paypal", address: "jalco" },
           ]}
         />
       }
@@ -123,9 +123,9 @@ export default async function TipJarPage() {
                     wallets={[
                       { provider: "ethereum", address: ETH_ADDRESS },
                       { provider: "bitcoin", address: BTC_ADDRESS },
-                      { provider: "paypal", address: "justinlevine" },
-                      { provider: "kofi", address: "justinlevine" },
-                      { provider: "patreon", address: "justinlevine" },
+                      { provider: "paypal", address: "jalco" },
+                      { provider: "kofi", address: "jalco" },
+                      { provider: "patreon", address: "jalco" },
                     ]}
                   />
                 ),
@@ -273,11 +273,11 @@ export default async function TipJarPage() {
             items={[
               {
                 label: "PayPal — Card",
-                code: `<TipJarCard provider="paypal" address="justinlevine" title="Support my work" />`,
+                code: `<TipJarCard provider="paypal" address="jalco" title="Support my work" />`,
                 preview: (
                   <TipJarCard
                     provider="paypal"
-                    address="justinlevine"
+                    address="jalco"
                     title="Support my work"
                     label="Send a tip via PayPal"
                   />
@@ -285,27 +285,27 @@ export default async function TipJarPage() {
               },
               {
                 label: "Ko-fi — Compact",
-                code: `<TipJarCompact provider="kofi" address="justinlevine" label="Buy me a coffee" />`,
+                code: `<TipJarCompact provider="kofi" address="jalco" label="Buy me a coffee" />`,
                 preview: (
                   <TipJarCompact
                     provider="kofi"
-                    address="justinlevine"
+                    address="jalco"
                     label="Buy me a coffee"
                   />
                 ),
               },
               {
                 label: "Patreon — Inline",
-                code: `<TipJarInline provider="patreon" address="justinlevine" />`,
+                code: `<TipJarInline provider="patreon" address="jalco" />`,
                 preview: (
-                  <TipJarInline provider="patreon" address="justinlevine" />
+                  <TipJarInline provider="patreon" address="jalco" />
                 ),
               },
               {
                 label: "PayPal — Inline",
-                code: `<TipJarInline provider="paypal" address="justinlevine" />`,
+                code: `<TipJarInline provider="paypal" address="jalco" />`,
                 preview: (
-                  <TipJarInline provider="paypal" address="justinlevine" />
+                  <TipJarInline provider="paypal" address="jalco" />
                 ),
               },
             ]}
@@ -598,6 +598,13 @@ export default async function TipJarPage() {
               lib/chains.ts
             </code>
             .
+          </li>
+          <li>
+            <strong className="text-foreground">Live addresses.</strong>{" "}
+            The addresses and handles in the demos above are real — they belong
+            to the maintainer. No one should ever feel any obligation to send
+            anything. They&apos;re here so the QR codes and explorer links work
+            end-to-end.
           </li>
         </ul>
       </section>
