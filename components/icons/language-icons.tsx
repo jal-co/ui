@@ -1,5 +1,5 @@
-import { SvglIcon } from "@/components/icons/svgl-icon"
-import { getLanguageSvglTitle } from "@/lib/svgl"
+import { cn } from "@/lib/utils"
+import { getLanguageIcon } from "@/registry/code-block/lib/language-icons"
 
 interface LanguageIconProps {
   language: string
@@ -8,13 +8,23 @@ interface LanguageIconProps {
 }
 
 /**
- * Renders the SVGL icon for a programming language.
- * Automatically maps language identifiers (tsx, py, go, etc.) to SVGL titles.
- * Server component — fetches SVG at build/render time.
+ * Renders the bundled SVG icon for a programming language.
+ * Automatically maps language identifiers (tsx, py, go, etc.) to icons.
+ * No network requests — all icons are bundled locally.
  */
-export async function LanguageIcon({ language, muted, className }: LanguageIconProps) {
-  const title = getLanguageSvglTitle(language)
-  if (!title) return null
+export function LanguageIcon({ language, muted, className }: LanguageIconProps) {
+  const svg = getLanguageIcon(language)
+  if (!svg) return null
 
-  return <SvglIcon title={title} muted={muted} className={className} />
+  return (
+    <span
+      className={cn(
+        "inline-flex size-4 shrink-0 [&>svg]:size-full",
+        muted && "grayscale opacity-50",
+        className
+      )}
+      aria-hidden="true"
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
+  )
 }

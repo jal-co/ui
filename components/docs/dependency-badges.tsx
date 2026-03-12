@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { fetchSvgByTitle } from "@/lib/svgl"
+import { depIcons } from "@/lib/dep-icons"
 
 interface DependencyBadgesProps {
   /** npm package dependencies (e.g. ["shiki", "lucide-react"]) */
@@ -10,17 +10,16 @@ interface DependencyBadgesProps {
 }
 
 /**
- * Maps npm dependency names to their SVGL title for icon lookup.
+ * Maps npm dependency names to their bundled icon key.
  * Extend as new dependencies are added to registry items.
  */
-const depSvglTitleMap: Record<string, string> = {
+const depIconKeyMap: Record<string, string> = {
   shiki: "Shiki",
   zod: "Zod",
   react: "React",
   "react-dom": "React",
-  "class-variance-authority": "cva",
+  "class-variance-authority": "Tailwind CSS",
   "tailwind-merge": "Tailwind CSS",
-  clsx: "clsx",
 }
 
 /**
@@ -37,7 +36,7 @@ function getLucideLogoUrls(dep: string): [string, string] | null {
   return null
 }
 
-async function DependencyIcon({ name }: { name: string }) {
+function DependencyIcon({ name }: { name: string }) {
   // Check for lucide first (no SVGL entry)
   const lucideUrls = getLucideLogoUrls(name)
   if (lucideUrls) {
@@ -61,11 +60,11 @@ async function DependencyIcon({ name }: { name: string }) {
     )
   }
 
-  // Try SVGL
-  const svglTitle = depSvglTitleMap[name]
-  if (!svglTitle) return null
+  // Try bundled icon
+  const iconKey = depIconKeyMap[name]
+  if (!iconKey) return null
 
-  const svg = await fetchSvgByTitle(svglTitle)
+  const svg = depIcons[iconKey]
   if (!svg) return null
 
   return (
@@ -79,9 +78,6 @@ async function DependencyIcon({ name }: { name: string }) {
 
 /**
  * Parse a registry dependency into a display name and optional source.
- * Handles:
- * - URL-based deps: "https://svgl.app/r/svgl.json" → { name: "svgl", source: "svgl" }
- * - Plain shadcn deps: "button" → { name: "button", source: "shadcn" }
  */
 function parseRegistryDep(dep: string): { name: string; source: "shadcn" | "svgl" | "other" } {
   if (dep.startsWith("https://svgl.app/")) {
@@ -95,9 +91,9 @@ function parseRegistryDep(dep: string): { name: string; source: "shadcn" | "svgl
   return { name: dep, source: "shadcn" }
 }
 
-async function RegistryDepIcon({ source }: { source: "shadcn" | "svgl" | "other" }) {
-  const title = source === "svgl" ? "Svgl" : "shadcn/ui"
-  const svg = await fetchSvgByTitle(title)
+function RegistryDepIcon({ source }: { source: "shadcn" | "svgl" | "other" }) {
+  const key = source === "svgl" ? "Svgl" : "shadcn/ui"
+  const svg = depIcons[key]
   if (!svg) return null
 
   return (
@@ -111,10 +107,9 @@ async function RegistryDepIcon({ source }: { source: "shadcn" | "svgl" | "other"
 
 /**
  * Dependency badges with logos for component doc pages.
- *
- * Server component — fetches SVG icons from SVGL at build time.
+ * All icons are bundled locally — no build-time API calls.
  */
-export async function DependencyBadges({
+export function DependencyBadges({
   dependencies = [],
   registryDependencies = [],
   className,
