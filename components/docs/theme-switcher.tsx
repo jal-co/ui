@@ -124,47 +124,33 @@ export function ThemeSwitcher() {
 
   return (
     <div className="flex items-center gap-1">
-      <div className="flex items-center rounded-lg border border-border/60 bg-muted/40 p-0.5">
-        <button
-          type="button"
-          onClick={() => setTheme("light")}
-          className={cn(
-            "inline-flex size-7 items-center justify-center rounded-md transition-colors",
-            theme === "light"
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-          aria-label="Light mode"
-        >
-          <Sun className="size-3.5" />
-        </button>
-        <button
-          type="button"
-          onClick={() => setTheme("dark")}
-          className={cn(
-            "inline-flex size-7 items-center justify-center rounded-md transition-colors",
-            theme === "dark"
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-          aria-label="Dark mode"
-        >
-          <Moon className="size-3.5" />
-        </button>
-        <button
-          type="button"
-          onClick={() => setTheme("system")}
-          className={cn(
-            "inline-flex size-7 items-center justify-center rounded-md transition-colors",
-            theme === "system"
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-          aria-label="System theme"
-        >
-          <Monitor className="size-3.5" />
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={() => {
+          const next = theme === "system"
+            ? (resolvedTheme === "dark" ? "light" : "dark")
+            : theme === "light"
+              ? "dark"
+              : "system"
+          setTheme(next)
+        }}
+        className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground"
+        aria-label={
+          theme === "system"
+            ? "System theme (click for light)"
+            : theme === "light"
+              ? "Light mode (click for dark)"
+              : "Dark mode (click for system)"
+        }
+      >
+        {theme === "system" ? (
+          <Monitor className="size-4" />
+        ) : resolvedTheme === "dark" ? (
+          <Moon className="size-4" />
+        ) : (
+          <Sun className="size-4" />
+        )}
+      </button>
 
       <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
         <PopoverPrimitive.Trigger asChild>

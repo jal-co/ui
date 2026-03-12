@@ -9,24 +9,33 @@ import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-b
 export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
     <div className="mx-auto flex min-h-screen max-w-6xl flex-col">
-      <header className="sticky top-0 z-30 flex h-14 items-center border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
+      <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <MobileNav />
+
         <Link
           href="/docs"
-          className="flex items-center gap-2 text-sm font-semibold"
+          className="flex items-center gap-2 text-sm font-semibold tracking-tight"
         >
-          <JalcoLogo className="h-6 w-auto" />
-          Jalco UI
+          <JalcoLogo className="h-5 w-auto" />
+          <span className="hidden sm:inline">Jalco UI</span>
         </Link>
-        <nav className="ml-6 hidden items-center gap-4 text-sm text-muted-foreground sm:flex">
+
+        <nav className="ml-4 hidden items-center gap-1 text-sm md:flex">
           <Link
             href="/docs"
-            className="transition-colors hover:text-foreground"
+            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
           >
             Docs
           </Link>
+          <Link
+            href="/docs/components/code-block"
+            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Components
+          </Link>
         </nav>
-        <div className="ml-auto flex items-center gap-2">
+
+        <div className="ml-auto flex items-center gap-1.5">
           <GitHubStarsButton
             owner="jal-co"
             repo="ui"
