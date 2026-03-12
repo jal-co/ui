@@ -4,6 +4,8 @@ import { DependencyBadges } from "@/components/docs/dependency-badges"
 import { ComponentPreview } from "@/components/docs/component-preview"
 import { InstallCommand } from "@/components/docs/install-command"
 import { getRegistryItem } from "@/lib/registry"
+import { generateComponentPrompt } from "@/lib/prompts"
+import { CopyPromptButton } from "@/components/docs/copy-prompt-button"
 
 interface ComponentDocsPageProps {
   /** Component display name (e.g. "Code Line"). */
@@ -52,19 +54,26 @@ export async function ComponentDocsPage({
       : ""
   }`
 
+  const aiPrompt = registryName
+    ? generateComponentPrompt(registryName)
+    : null
+
   return (
     <div className="flex flex-col gap-12">
       {/* Header */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between gap-4">
           <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
-          <AiCopyButton
-            value={pageSummary}
-            size="sm"
-            variant="outline"
-            brandColors
-            label="Copy Page"
-          />
+          <div className="flex items-center gap-1.5">
+            {aiPrompt && <CopyPromptButton value={aiPrompt} />}
+            <AiCopyButton
+              value={pageSummary}
+              size="sm"
+              variant="outline"
+              brandColors
+              label="Copy Page"
+            />
+          </div>
         </div>
         <p className="text-base text-muted-foreground">{description}</p>
         {item && (

@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import { CodeLine } from "@/registry/code-line/code-line"
+import { CopyPromptButton } from "@/components/docs/copy-prompt-button"
+import { generateInstallationPrompt } from "@/lib/prompts"
 
 export const metadata: Metadata = {
   title: "Installation — Jalco UI",
@@ -7,10 +9,15 @@ export const metadata: Metadata = {
 }
 
 export default async function InstallationPage() {
+  const aiPrompt = generateInstallationPrompt()
+
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Installation</h1>
+        <div className="flex items-center justify-between gap-4">
+          <h1 className="text-3xl font-bold tracking-tight">Installation</h1>
+          <CopyPromptButton value={aiPrompt} />
+        </div>
         <p className="text-base text-muted-foreground">
           Jalco UI components are distributed as a{" "}
           <a
