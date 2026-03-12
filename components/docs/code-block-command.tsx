@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Check, Copy } from "lucide-react"
 import { cn } from "@/lib/utils"
-
+import { track } from "@/lib/analytics"
 import { PackageManagerIcon } from "@/components/icons/package-manager-icons"
 
 type PackageManager = "pnpm" | "yarn" | "npm" | "bun" | "shadcn"
@@ -76,13 +76,19 @@ export function CodeBlockCommand({
     if (typeof window !== "undefined") {
       localStorage.setItem(STORAGE_KEY, manager)
     }
-
+    track("package_manager_selected", { package_manager: manager })
   }
 
   async function handleCopy() {
     const command = commands[active]
     if (!command) return
     await navigator.clipboard.writeText(command)
+    const isInstall = command.includes("shadcn") && command.includes("add")
+    track(isInstall ? "component_installed" : "code_copied", {
+      command,
+      package_manager: active,
+      component: isInstall ? command.split("/r/")[1]?.replace(".json", "") : undefined,
+    })
     setCopied(true)
     window.setTimeout(() => setCopied(false), 1500)
 

@@ -5,7 +5,7 @@ import { useTheme } from "next-themes"
 import { Sun, Moon, Monitor, Paintbrush, X, RotateCcw } from "lucide-react"
 import { Popover as PopoverPrimitive } from "radix-ui"
 import { cn } from "@/lib/utils"
-
+import { track } from "@/lib/analytics"
 
 const CSS_VAR_RE = /--([\w-]+)\s*:\s*([^;]+)/g
 const STORAGE_KEY = "jalco-custom-theme"
@@ -108,7 +108,7 @@ export function ThemeSwitcher() {
     localStorage.setItem(STORAGE_KEY, customCSS)
     applyFromCSS(customCSS, resolvedTheme)
     setOpen(false)
-
+    track("custom_theme_applied")
   }
 
   function handleReset() {
@@ -135,7 +135,7 @@ export function ThemeSwitcher() {
               ? "dark"
               : "system"
           setTheme(next)
-
+          track("theme_changed", { theme: next })
         }}
         className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground"
         aria-label={
