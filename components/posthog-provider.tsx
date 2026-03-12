@@ -3,6 +3,7 @@
 import posthog from "posthog-js"
 import { PostHogProvider as PHProvider } from "posthog-js/react"
 import { useEffect } from "react"
+import { captureReferralSource } from "@/lib/analytics"
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -13,6 +14,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
       capture_pageview: true,
       capture_pageleave: true,
     })
+    captureReferralSource()
   }, [])
 
   return <PHProvider client={posthog}>{children}</PHProvider>

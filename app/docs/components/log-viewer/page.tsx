@@ -7,6 +7,7 @@ import {
   LogViewerTerminal,
   LogViewerMinimal,
   LogViewerFilterable,
+  type LevelColorScale,
 } from "@/registry/log-viewer/log-viewer"
 import {
   generateSampleLogs,
@@ -27,6 +28,52 @@ const sourceFiles = [
 
 const sampleData = generateSampleLogs(40, 42)
 const smallSample = generateSampleLogs(12, 99)
+
+const oceanColors: LevelColorScale = {
+  error: {
+    text: "text-red-400 dark:text-red-400",
+    dot: "bg-red-400",
+    badge: "bg-red-400/15 text-red-500 dark:text-red-400",
+  },
+  warn: {
+    text: "text-yellow-400 dark:text-yellow-300",
+    dot: "bg-yellow-400",
+    badge: "bg-yellow-400/15 text-yellow-500 dark:text-yellow-300",
+  },
+  info: {
+    text: "text-cyan-500 dark:text-cyan-400",
+    dot: "bg-cyan-500",
+    badge: "bg-cyan-500/15 text-cyan-600 dark:text-cyan-400",
+  },
+  debug: {
+    text: "text-blue-400 dark:text-blue-400",
+    dot: "bg-blue-400",
+    badge: "bg-blue-400/15 text-blue-500 dark:text-blue-400",
+  },
+}
+
+const warmColors: LevelColorScale = {
+  error: {
+    text: "text-red-500 dark:text-red-400",
+    dot: "bg-red-500",
+    badge: "bg-red-500/15 text-red-600 dark:text-red-400",
+  },
+  warn: {
+    text: "text-orange-500 dark:text-orange-400",
+    dot: "bg-orange-500",
+    badge: "bg-orange-500/15 text-orange-600 dark:text-orange-400",
+  },
+  info: {
+    text: "text-emerald-500 dark:text-emerald-400",
+    dot: "bg-emerald-500",
+    badge: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
+  },
+  debug: {
+    text: "text-amber-500 dark:text-amber-400",
+    dot: "bg-amber-500",
+    badge: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
+  },
+}
 
 export default function LogViewerPage() {
   return (
@@ -183,6 +230,50 @@ export default function LogViewerPage() {
         </div>
       </section>
 
+      {/* Custom colors */}
+      <section className="flex flex-col gap-8">
+        <h2 className="text-xl font-semibold tracking-tight">Custom colors</h2>
+        <p className="text-sm text-muted-foreground">
+          Pass a <code className="rounded bg-muted px-1 py-0.5 text-xs">colorScale</code> to
+          override colors per level. Only specify the levels you want to change — the
+          rest fall back to defaults.
+        </p>
+
+        <VariantGrid
+          registryName="log-viewer"
+          files={sourceFiles}
+          columns={1}
+          fullWidth
+          items={[
+            {
+              label: "Ocean",
+              code: `<LogViewerFilterable entries={logs} colorScale={{ error: { text: "text-red-400", dot: "bg-red-400", badge: "bg-red-400/15 text-red-500" }, info: { text: "text-cyan-500", dot: "bg-cyan-500", badge: "bg-cyan-500/15 text-cyan-600" }, ... }} />`,
+              preview: (
+                <LogViewerFilterable
+                  entries={sampleData}
+                  title="Ocean"
+                  maxHeight={280}
+                  colorScale={oceanColors}
+                  levels={["error", "warn", "info", "debug"]}
+                />
+              ),
+            },
+            {
+              label: "Warm",
+              code: `<LogViewerTerminal entries={logs} colorScale={{ error: { text: "text-red-500", ... }, warn: { text: "text-orange-500", ... }, info: { text: "text-emerald-500", ... }, debug: { text: "text-amber-500", ... } }} />`,
+              preview: (
+                <LogViewerTerminal
+                  entries={sampleData}
+                  title="Warm"
+                  maxHeight={280}
+                  colorScale={warmColors}
+                />
+              ),
+            },
+          ]}
+        />
+      </section>
+
       {/* Deploy log example */}
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">
@@ -278,6 +369,13 @@ export default function LogViewerPage() {
                 "Enable auto-scroll to bottom on new entries. Defaults to true.",
             },
             {
+              name: "colorScale",
+              type: "LevelColorScale",
+              description:
+                "Custom colors per log level. Merges with defaults — only override what you need.",
+              fullType: "Partial<Record<LogLevel, Partial<{ text: string; dot: string; badge: string }>>>",
+            },
+            {
               name: "onClear",
               type: "() => void",
               description:
@@ -316,6 +414,13 @@ export default function LogViewerPage() {
               type: "boolean",
               description:
                 "Enable auto-scroll to bottom on new entries. Defaults to true.",
+            },
+            {
+              name: "colorScale",
+              type: "LevelColorScale",
+              description:
+                "Custom colors per log level. Merges with defaults — only override what you need.",
+              fullType: "Partial<Record<LogLevel, Partial<{ text: string; dot: string; badge: string }>>>",
             },
             {
               name: "className",
@@ -364,6 +469,13 @@ export default function LogViewerPage() {
               fullType: 'Array<"info" | "warn" | "error" | "debug" | "verbose">',
             },
             {
+              name: "colorScale",
+              type: "LevelColorScale",
+              description:
+                "Custom colors per log level. Merges with defaults — only override what you need.",
+              fullType: "Partial<Record<LogLevel, Partial<{ text: string; dot: string; badge: string }>>>",
+            },
+            {
               name: "onClear",
               type: "() => void",
               description:
@@ -373,6 +485,27 @@ export default function LogViewerPage() {
               name: "className",
               type: "string",
               description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+        <ApiRefTable
+          title="LevelColors"
+          props={[
+            {
+              name: "text",
+              type: "string",
+              description: "CSS class for the level label text color.",
+            },
+            {
+              name: "dot",
+              type: "string",
+              description: "CSS class for the colored dot background.",
+            },
+            {
+              name: "badge",
+              type: "string",
+              description: "CSS class for the filter badge when active.",
             },
           ]}
         />

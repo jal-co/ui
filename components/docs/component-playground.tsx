@@ -13,6 +13,7 @@
 import * as React from "react"
 import { Check, Copy } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { track } from "@/lib/analytics"
 
 interface BooleanControl {
   name: string
@@ -154,6 +155,7 @@ function CopyButton({ value }: { value: string }) {
       await navigator.clipboard.writeText(value)
       setCopied(true)
       setTimeout(() => setCopied(false), 1500)
+      track("code_copied", { source: "playground" })
     } catch {}
   }
 
@@ -309,6 +311,7 @@ export function ComponentPlayground({
 
   function setValue(name: string, value: unknown) {
     setValues((prev) => ({ ...prev, [name]: value }))
+    track("playground_prop_changed", { component: componentName, prop: name, value: String(value) })
   }
 
   const resolvedValues = React.useMemo(() => {

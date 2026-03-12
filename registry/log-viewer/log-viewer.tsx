@@ -22,7 +22,6 @@ import * as React from "react"
 import {
   ArrowDown,
   Check,
-  ChevronDown,
   Circle,
   Copy,
   Download,
@@ -51,50 +50,76 @@ export interface LogEntry {
   timestamp?: string
 }
 
+/** Per-level color classes. Each key is optional — omitted levels use defaults. */
+export type LevelColors = {
+  /** CSS class for the level label text (e.g. "text-rose-500 dark:text-rose-400"). */
+  text: string
+  /** CSS class for the colored dot (e.g. "bg-rose-500"). */
+  dot: string
+  /** CSS class for the filter badge when active (e.g. "bg-rose-500/15 text-rose-600"). */
+  badge: string
+}
+
+/** Partial map of log levels to custom color classes. */
+export type LevelColorScale = Partial<Record<LogLevel, Partial<LevelColors>>>
+
 /* ------------------------------------------------------------------ */
-/*  Constants & Utilities                                             */
+/*  Default colors                                                    */
 /* ------------------------------------------------------------------ */
 
-const LEVEL_CONFIG: Record<
-  LogLevel,
-  { label: string; dotClass: string; textClass: string; bgClass: string; badgeClass: string }
-> = {
+const DEFAULT_LEVEL_COLORS: Record<LogLevel, LevelColors> = {
   error: {
-    label: "ERR",
-    dotClass: "bg-rose-500",
-    textClass: "text-rose-500 dark:text-rose-400",
-    bgClass: "bg-rose-500/5 dark:bg-rose-500/10",
-    badgeClass: "bg-rose-500/15 text-rose-600 dark:text-rose-400",
+    text: "text-rose-500 dark:text-rose-400",
+    dot: "bg-rose-500",
+    badge: "bg-rose-500/15 text-rose-600 dark:text-rose-400",
   },
   warn: {
-    label: "WRN",
-    dotClass: "bg-amber-500",
-    textClass: "text-amber-500 dark:text-amber-400",
-    bgClass: "bg-amber-500/5 dark:bg-amber-500/10",
-    badgeClass: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
+    text: "text-amber-500 dark:text-amber-400",
+    dot: "bg-amber-500",
+    badge: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
   },
   info: {
-    label: "INF",
-    dotClass: "bg-sky-500",
-    textClass: "text-sky-500 dark:text-sky-400",
-    bgClass: "bg-sky-500/5 dark:bg-sky-500/10",
-    badgeClass: "bg-sky-500/15 text-sky-600 dark:text-sky-400",
+    text: "text-sky-500 dark:text-sky-400",
+    dot: "bg-sky-500",
+    badge: "bg-sky-500/15 text-sky-600 dark:text-sky-400",
   },
   debug: {
-    label: "DBG",
-    dotClass: "bg-violet-500",
-    textClass: "text-violet-400 dark:text-violet-400",
-    bgClass: "bg-violet-500/5 dark:bg-violet-500/10",
-    badgeClass: "bg-violet-500/15 text-violet-600 dark:text-violet-400",
+    text: "text-violet-500 dark:text-violet-400",
+    dot: "bg-violet-500",
+    badge: "bg-violet-500/15 text-violet-600 dark:text-violet-400",
   },
   verbose: {
-    label: "VRB",
-    dotClass: "bg-zinc-400 dark:bg-zinc-500",
-    textClass: "text-zinc-400 dark:text-zinc-500",
-    bgClass: "bg-transparent",
-    badgeClass: "bg-muted text-muted-foreground",
+    text: "text-zinc-400 dark:text-zinc-500",
+    dot: "bg-zinc-400 dark:bg-zinc-500",
+    badge: "bg-muted text-muted-foreground",
   },
 }
+
+const LEVEL_LABELS: Record<LogLevel, string> = {
+  error: "ERR",
+  warn: "WRN",
+  info: "INF",
+  debug: "DBG",
+  verbose: "VRB",
+}
+
+function resolveLevelColors(
+  level: LogLevel,
+  colorScale?: LevelColorScale
+): LevelColors {
+  const defaults = DEFAULT_LEVEL_COLORS[level]
+  const overrides = colorScale?.[level]
+  if (!overrides) return defaults
+  return {
+    text: overrides.text ?? defaults.text,
+    dot: overrides.dot ?? defaults.dot,
+    badge: overrides.badge ?? defaults.badge,
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                         */
+/* ------------------------------------------------------------------ */
 
 function formatTimestamp(ts?: string): string {
   const d = ts ? new Date(ts) : new Date()
@@ -168,7 +193,7 @@ function exportLogs(entries: LogEntry[]): void {
   const text = entries
     .map(
       (e) =>
-        `[${formatTimestampFull(e.timestamp)}] [${LEVEL_CONFIG[e.level].label}] ${e.message}`
+        `[${formatTimestampFull(e.timestamp)}] [${LEVEL_LABELS[e.level]}] ${e.message}`
     )
     .join("\n")
   const blob = new Blob([text], { type: "text/plain" })
@@ -246,6 +271,8 @@ interface LogViewerTerminalProps {
   timestamps?: boolean
   /** Enable auto-scroll to bottom on new entries. @default true */
   autoScroll?: boolean
+  /** Custom colors per log level. Merges with defaults — only override what you need. */
+  colorScale?: LevelColorScale
   /** Called when the user clicks "Clear". When provided, a clear button appears. */
   onClear?: () => void
   className?: string
@@ -258,6 +285,7 @@ function LogViewerTerminal({
   lineNumbers = true,
   timestamps = true,
   autoScroll = true,
+  colorScale,
   onClear,
   className,
 }: LogViewerTerminalProps) {
@@ -280,7 +308,7 @@ function LogViewerTerminal({
     const text = entries
       .map(
         (e) =>
-          `[${formatTimestampFull(e.timestamp)}] [${LEVEL_CONFIG[e.level].label}] ${e.message}`
+          `[${formatTimestampFull(e.timestamp)}] [${LEVEL_LABELS[e.level]}] ${e.message}`
       )
       .join("\n")
     copy(text)
@@ -383,36 +411,33 @@ function LogViewerTerminal({
           </div>
         ) : (
           filteredEntries.map((entry, i) => {
-            const config = LEVEL_CONFIG[entry.level]
+            const colors = resolveLevelColors(entry.level, colorScale)
             return (
               <div
                 key={i}
-                className={cn(
-                  "flex gap-0 border-b border-border/20 px-3 py-1 transition-colors hover:bg-muted/30",
-                  config.bgClass
-                )}
+                className="flex gap-3 border-b border-border/20 px-3 py-1 transition-colors hover:bg-muted/30"
               >
                 {lineNumbers && (
                   <span
-                    className="shrink-0 select-none pr-3 text-right text-muted-foreground/50"
-                    style={{ width: `${lineNumberWidth + 1}ch` }}
+                    className="shrink-0 select-none text-right text-muted-foreground/50"
+                    style={{ width: `${lineNumberWidth}ch` }}
                     aria-hidden="true"
                   >
                     {i + 1}
                   </span>
                 )}
                 {timestamps && (
-                  <span className="shrink-0 pr-2 text-muted-foreground/60">
+                  <span className="shrink-0 text-muted-foreground/60">
                     {formatTimestampFull(entry.timestamp)}
                   </span>
                 )}
                 <span
                   className={cn(
-                    "w-[3ch] shrink-0 pr-2 text-right font-semibold",
-                    config.textClass
+                    "w-[3ch] shrink-0 text-right font-semibold",
+                    colors.text
                   )}
                 >
-                  {config.label}
+                  {LEVEL_LABELS[entry.level]}
                 </span>
                 <span className="min-w-0 flex-1 whitespace-pre-wrap break-all text-foreground/90">
                   {highlightSearch(entry.message, searchQuery)}
@@ -452,6 +477,8 @@ interface LogViewerMinimalProps {
   timestamps?: boolean
   /** Enable auto-scroll to bottom on new entries. @default true */
   autoScroll?: boolean
+  /** Custom colors per log level. Merges with defaults — only override what you need. */
+  colorScale?: LevelColorScale
   className?: string
 }
 
@@ -460,6 +487,7 @@ function LogViewerMinimal({
   maxHeight = 300,
   timestamps = false,
   autoScroll = true,
+  colorScale,
   className,
 }: LogViewerMinimalProps) {
   const { scrollRef, isAtBottom, handleScroll, scrollToBottom } = useAutoScroll(
@@ -490,14 +518,14 @@ function LogViewerMinimal({
           </div>
         ) : (
           entries.map((entry, i) => {
-            const config = LEVEL_CONFIG[entry.level]
+            const colors = resolveLevelColors(entry.level, colorScale)
             return (
               <div
                 key={i}
                 className="flex items-start gap-2 border-b border-border/20 px-3 py-1.5"
               >
                 <Circle
-                  className={cn("mt-[3px] size-2 shrink-0 fill-current", config.textClass)}
+                  className={cn("mt-[3px] size-2 shrink-0 fill-current", colors.text)}
                   aria-label={entry.level}
                 />
                 {timestamps && (
@@ -545,6 +573,8 @@ interface LogViewerFilterableProps {
   autoScroll?: boolean
   /** Levels shown in the filter bar. @default ["error", "warn", "info", "debug"] */
   levels?: LogLevel[]
+  /** Custom colors per log level. Merges with defaults — only override what you need. */
+  colorScale?: LevelColorScale
   /** Called when the user clicks "Clear". When provided, a clear button appears. */
   onClear?: () => void
   className?: string
@@ -557,6 +587,7 @@ function LogViewerFilterable({
   timestamps = true,
   autoScroll = true,
   levels = ["error", "warn", "info", "debug"],
+  colorScale,
   onClear,
   className,
 }: LogViewerFilterableProps) {
@@ -600,7 +631,7 @@ function LogViewerFilterable({
     const text = filteredEntries
       .map(
         (e) =>
-          `[${formatTimestampFull(e.timestamp)}] [${LEVEL_CONFIG[e.level].label}] ${e.message}`
+          `[${formatTimestampFull(e.timestamp)}] [${LEVEL_LABELS[e.level]}] ${e.message}`
       )
       .join("\n")
     copy(text)
@@ -650,7 +681,7 @@ function LogViewerFilterable({
         {/* Level toggles */}
         <div className="flex items-center gap-1">
           {levels.map((level) => {
-            const config = LEVEL_CONFIG[level]
+            const colors = resolveLevelColors(level, colorScale)
             const isActive = activeLevels.has(level)
             const count = levelCounts[level] ?? 0
             return (
@@ -665,17 +696,17 @@ function LogViewerFilterable({
                   "inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium transition-colors outline-none",
                   "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
                   isActive
-                    ? cn(config.badgeClass)
+                    ? colors.badge
                     : "bg-muted/50 text-muted-foreground/50 line-through"
                 )}
               >
                 <Circle
                   className={cn(
                     "size-1.5 fill-current",
-                    isActive ? config.textClass : "text-muted-foreground/30"
+                    isActive ? colors.text : "text-muted-foreground/30"
                   )}
                 />
-                {config.label}
+                {LEVEL_LABELS[level]}
                 {count > 0 && (
                   <span className="tabular-nums">{count}</span>
                 )}
@@ -735,31 +766,28 @@ function LogViewerFilterable({
           </div>
         ) : (
           filteredEntries.map((entry, i) => {
-            const config = LEVEL_CONFIG[entry.level]
+            const colors = resolveLevelColors(entry.level, colorScale)
             return (
               <div
                 key={i}
-                className={cn(
-                  "flex items-start gap-0 border-b border-border/20 px-3 py-1.5 transition-colors hover:bg-muted/30",
-                  config.bgClass
-                )}
+                className="flex items-start gap-3 border-b border-border/20 px-3 py-1.5 transition-colors hover:bg-muted/30"
               >
                 <Circle
-                  className={cn("mt-[5px] size-2 shrink-0 fill-current", config.textClass)}
+                  className={cn("mt-[5px] size-2 shrink-0 fill-current", colors.text)}
                   aria-hidden="true"
                 />
                 {timestamps && (
-                  <span className="shrink-0 pl-2 pr-2 text-muted-foreground/60">
+                  <span className="shrink-0 text-muted-foreground/60">
                     {formatTimestamp(entry.timestamp)}
                   </span>
                 )}
                 <span
                   className={cn(
-                    "w-[3ch] shrink-0 pr-2 text-right font-semibold",
-                    config.textClass
+                    "w-[3ch] shrink-0 text-right font-semibold",
+                    colors.text
                   )}
                 >
-                  {config.label}
+                  {LEVEL_LABELS[entry.level]}
                 </span>
                 <span className="min-w-0 flex-1 whitespace-pre-wrap break-all text-foreground/90">
                   {highlightSearch(entry.message, searchQuery)}
@@ -794,6 +822,8 @@ export {
   LogViewerTerminal,
   LogViewerMinimal,
   LogViewerFilterable,
+  DEFAULT_LEVEL_COLORS,
+  LEVEL_LABELS,
   type LogViewerTerminalProps,
   type LogViewerMinimalProps,
   type LogViewerFilterableProps,
