@@ -9,8 +9,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (posthog.__loaded) return
     posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-      api_host: "/ph",
-      ui_host: "https://us.posthog.com",
+      api_host: "https://us.i.posthog.com",
       person_profiles: "always",
       capture_pageview: true,
       capture_pageleave: true,
