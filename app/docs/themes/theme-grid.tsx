@@ -6,7 +6,7 @@ import {
   jsonThemes,
   type JsonColorTheme,
 } from "@/registry/json-viewer/lib/themes"
-import { track } from "@/lib/analytics"
+
 
 const themeEntries = Object.entries(jsonThemes) as [string, JsonColorTheme][]
 
@@ -61,7 +61,7 @@ function ThemeSwatch({
     navigator.clipboard.writeText(name).then(() => {
       setCopied(true)
       setTimeout(() => setCopied(false), 1500)
-      track("theme_name_copied", { theme_name: name })
+
     })
   }, [name])
 

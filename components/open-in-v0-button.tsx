@@ -2,7 +2,7 @@
 
 import { Button } from "@/registry/ui/button"
 import { cn } from "@/lib/utils"
-import { track } from "@/lib/analytics"
+
 
 export function OpenInV0Button({
   name,
@@ -22,7 +22,7 @@ export function OpenInV0Button({
         href={`https://v0.dev/chat/api/open?url=${process.env.NEXT_PUBLIC_BASE_URL}/r/${name}.json`}
         target="_blank"
         rel="noreferrer"
-        onClick={() => track("open_in_v0_clicked", { component: name })}
+
       >
         Open in{" "}
         <svg

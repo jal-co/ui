@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Check, Copy } from "lucide-react"
 import { Button } from "@/registry/ui/button"
-import { track } from "@/lib/analytics"
+
 
 interface CodeBlockCopyButtonProps {
   value: string
@@ -16,7 +16,7 @@ export function CodeBlockCopyButton({ value }: CodeBlockCopyButtonProps) {
     await navigator.clipboard.writeText(value)
     setCopied(true)
     window.setTimeout(() => setCopied(false), 1500)
-    track("code_copied", { source: "code_block" })
+
   }
 
   return (

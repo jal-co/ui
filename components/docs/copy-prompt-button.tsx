@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Check, Sparkles } from "lucide-react"
 import { Button } from "@/registry/ui/button"
-import { track } from "@/lib/analytics"
+
 
 interface CopyPromptButtonProps {
   value: string
@@ -16,7 +16,7 @@ export function CopyPromptButton({ value }: CopyPromptButtonProps) {
     await navigator.clipboard.writeText(value)
     setCopied(true)
     window.setTimeout(() => setCopied(false), 1500)
-    track("prompt_copied", { source: "docs" })
+
   }
 
   return (

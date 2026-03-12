@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Sora, Public_Sans, Fira_Code, Geist, Geist_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import { PostHogProvider } from "@/components/posthog-provider"
+
 import "./globals.css"
 import { cn } from "@/lib/utils";
 
@@ -116,9 +116,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <PostHogProvider>
-          <ThemeProvider>{children}</ThemeProvider>
-        </PostHogProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   )
