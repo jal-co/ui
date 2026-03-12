@@ -45,13 +45,20 @@ async function CodeLine({
 }: CodeLineProps) {
   const highlighted = await highlightCode(code.trim(), language, theme)
 
+  // Extract background color from shiki's inline theme output
+  const themeBg = theme
+    ? highlighted.match(/background-color:\s*([^;"]+)/)?.[1]
+    : undefined
+
   return (
     <div
       data-slot="code-line"
       className={cn(
-        "inline-flex w-full items-center gap-2 overflow-hidden rounded-lg border border-border/60 bg-muted/30 shadow-xs",
+        "inline-flex w-full items-center gap-2 overflow-hidden rounded-lg border border-border/60 shadow-xs",
+        !theme && "bg-muted/30",
         className
       )}
+      style={themeBg ? { backgroundColor: themeBg } : undefined}
     >
       {label && (
         <span className="flex shrink-0 items-center self-stretch border-r border-border/60 bg-muted/50 px-3 text-xs font-medium text-muted-foreground">

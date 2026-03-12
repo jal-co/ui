@@ -105,7 +105,10 @@ export async function CodeBlock({
         >
           <div
             className={cn(
-              "code-block [&_code]:font-mono [&_code]:text-[13px] [&_pre]:m-0 [&_pre]:overflow-x-auto [&_pre]:bg-transparent [&_pre]:p-4 [&_pre]:sm:p-5",
+              "code-block [&_code]:font-mono [&_code]:text-[13px] [&_pre]:m-0 [&_pre]:overflow-x-auto [&_pre]:p-4 [&_pre]:sm:p-5",
+              theme
+                ? "[&_pre]:rounded-b-xl"
+                : "[&_pre]:bg-transparent",
               muted && "[&_code]:opacity-80"
             )}
             dangerouslySetInnerHTML={{ __html: highlighted }}
