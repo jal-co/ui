@@ -35,6 +35,7 @@ export const docsNav: NavGroup[] = [
     items: [
       { title: "AI Copy Button", href: "/docs/components/ai-copy-button" },
       { title: "API Reference Table", href: "/docs/components/api-ref-table" },
+      { title: "Stepper", href: "/docs/components/stepper" },
     ],
   },
   {

@@ -341,6 +341,22 @@
           "type": "registry:lib"
         }
       ]
+    },
+    {
+      "name": "stepper",
+      "type": "registry:component",
+      "title": "Stepper",
+      "description": "Numbered step-by-step layout with vertical connector lines, auto-incrementing step numbers, and status indicators. Designed for installation guides, tutorials, onboarding flows, and multi-step documentation. Composable — nest any content inside each step.",
+      "categories": [
+        "docs",
+        "navigation"
+      ],
+      "files": [
+        {
+          "path": "registry/stepper/stepper.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
