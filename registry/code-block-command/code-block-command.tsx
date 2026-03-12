@@ -18,6 +18,7 @@
  * - icons?: pre-fetched SVG markup keyed by manager name
  * - iconStyle?: "none" | "colored" | "muted"
  * - show?: ordered subset of managers to display
+ * - colorTheme?: { bg, fg } for editor-style code area coloring
  *
  * Dependencies: lucide-react
  */
@@ -58,6 +59,11 @@ interface CodeBlockCommandProps {
    * @example ["yarn", "bun", "shadcn"]
    */
   show?: PackageManager[]
+  /**
+   * Editor color theme for the code area.
+   * Provide `{ bg, fg }` hex strings to override the default styling.
+   */
+  colorTheme?: { bg: string; fg: string }
   className?: string
 }
 
@@ -70,6 +76,7 @@ export function CodeBlockCommand({
   icons = {},
   iconStyle = "colored",
   show,
+  colorTheme,
   className,
 }: CodeBlockCommandProps) {
   const commands: Partial<Record<PackageManager, string>> = {
@@ -153,10 +160,31 @@ export function CodeBlockCommand({
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <div className="overflow-x-auto px-4 py-3">
+      <div
+        className="overflow-x-auto px-4 py-3"
+        style={
+          colorTheme
+            ? { backgroundColor: colorTheme.bg, color: colorTheme.fg }
+            : undefined
+        }
+      >
         <pre className="m-0">
-          <code className="font-mono text-[13px] text-foreground">
-            <span className="select-none text-muted-foreground">$ </span>
+          <code
+            className={cn(
+              "font-mono text-[13px]",
+              !colorTheme && "text-foreground"
+            )}
+          >
+            <span
+              className={cn(!colorTheme && "text-muted-foreground")}
+              style={
+                colorTheme
+                  ? { color: `${colorTheme.fg}80`, userSelect: "none" }
+                  : { userSelect: "none" }
+              }
+            >
+              ${" "}
+            </span>
             {currentCommand}
           </code>
         </pre>

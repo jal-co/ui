@@ -11,6 +11,7 @@
  * - language?: shiki language key, defaults to "tsx"
  * - label?: optional leading label
  * - hideCopy?: hide the copy button
+ * - theme?: shiki theme name for single-theme rendering (e.g. "dracula", "nord")
  *
  * Dependencies: shiki, lucide-react
  */
@@ -29,6 +30,8 @@ interface CodeLineProps {
   label?: string
   /** Hide the copy button. */
   hideCopy?: boolean
+  /** Shiki theme name for single-theme rendering (e.g. "dracula", "nord"). */
+  theme?: string
   className?: string
 }
 
@@ -37,9 +40,10 @@ async function CodeLine({
   language = "tsx",
   label,
   hideCopy = false,
+  theme,
   className,
 }: CodeLineProps) {
-  const highlighted = await highlightCode(code.trim(), language)
+  const highlighted = await highlightCode(code.trim(), language, theme)
 
   return (
     <div

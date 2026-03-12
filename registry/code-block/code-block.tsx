@@ -14,6 +14,7 @@
  * - overflow?: "default" | "scrollable" | "collapsible"
  * - maxHeight?: max height for scrollable/collapsible modes
  * - muted?: subdued visual treatment
+ * - theme?: shiki theme name for single-theme rendering (e.g. "dracula", "nord")
  *
  * Dependencies: shiki, lucide-react
  *
@@ -34,6 +35,8 @@ interface CodeBlockProps {
   overflow?: "default" | "scrollable" | "collapsible"
   maxHeight?: number
   muted?: boolean
+  /** Shiki theme name for single-theme rendering (e.g. "dracula", "nord"). */
+  theme?: string
   className?: string
 }
 
@@ -44,9 +47,10 @@ export async function CodeBlock({
   overflow = "default",
   maxHeight,
   muted = false,
+  theme,
   className,
 }: CodeBlockProps) {
-  const highlighted = await highlightCode(code, language)
+  const highlighted = await highlightCode(code, language, theme)
 
   return (
     <div
@@ -96,7 +100,7 @@ export async function CodeBlock({
         <div
           className={cn(
             "overflow-x-auto",
-            !muted && "bg-[var(--shiki-light-bg)] dark:bg-[var(--shiki-dark-bg)]"
+            !muted && !theme && "bg-[var(--shiki-light-bg)] dark:bg-[var(--shiki-dark-bg)]"
           )}
         >
           <div
