@@ -260,6 +260,29 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "log-viewer",
+      "type": "registry:component",
+      "title": "Log Viewer",
+      "description": "Scrollable log output component for displaying streaming logs or CLI-style output in web apps. Three variants: terminal (full CLI-style with toolbar, line numbers, search), minimal (compact scrolling lines), and filterable (level filtering with counts). Supports colored log levels, timestamps, auto-scrolling, copy, and export.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "categories": [
+        "dev-tools",
+        "dashboard"
+      ],
+      "files": [
+        {
+          "path": "registry/log-viewer/log-viewer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/log-viewer/lib/sample-logs.ts",
+          "type": "registry:lib"
+        }
+      ]
     }
   ]
 }

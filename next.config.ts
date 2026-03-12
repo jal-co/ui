@@ -3,6 +3,18 @@ import createMDX from "@next/mdx"
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
+  async rewrites() {
+    return [
+      {
+        source: "/ph/static/:path*",
+        destination: "https://us-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/ph/:path*",
+        destination: "https://us.i.posthog.com/:path*",
+      },
+    ]
+  },
 }
 
 const withMDX = createMDX({})

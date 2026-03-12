@@ -53,6 +53,7 @@ export const docsNav: NavGroup[] = [
   {
     title: "Dev Tools",
     items: [
+      { title: "Log Viewer", href: "/docs/components/log-viewer" },
       { title: "Request Viewer", href: "/docs/components/request-viewer" },
     ],
   },

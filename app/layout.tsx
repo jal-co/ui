@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Sora, Public_Sans, Fira_Code } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
+import { PostHogProvider } from "@/components/posthog-provider"
 import "./globals.css"
 
 const sora = Sora({
@@ -110,7 +111,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <ThemeProvider>{children}</ThemeProvider>
+        <PostHogProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </PostHogProvider>
       </body>
     </html>
   )
