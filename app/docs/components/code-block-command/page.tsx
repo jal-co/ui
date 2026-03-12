@@ -199,6 +199,76 @@ export default function CodeBlockCommandPage() {
         </div>
       </section>
 
+      {/* Color themes */}
+      <section className="flex flex-col gap-8">
+        <h2 className="text-xl font-semibold tracking-tight">Color themes</h2>
+        <p className="text-sm text-muted-foreground">
+          Pass a{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            colorTheme
+          </code>{" "}
+          prop with{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            {"{ bg, fg }"}
+          </code>{" "}
+          hex strings to style the code area with editor colors. You can pull
+          colors from the JSON Viewer&apos;s{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            jsonThemes
+          </code>{" "}
+          map for a consistent look — see the{" "}
+          <a
+            href="/docs/themes"
+            className="underline hover:text-foreground"
+          >
+            full theme list
+          </a>
+          .
+        </p>
+        <VariantGrid
+          registryName="code-block-command"
+          files={sourceFiles}
+          columns={1}
+          fullWidth
+          items={[
+            {
+              label: "Dracula",
+              code: `<CodeBlockCommand {...commands} colorTheme={{ bg: "#282A36", fg: "#F8F8F2" }} />`,
+              preview: (
+                <CodeBlockCommand
+                  {...convertNpmCommand("npm install zod")}
+                  icons={pmIcons}
+                  colorTheme={{ bg: "#282A36", fg: "#F8F8F2" }}
+                />
+              ),
+            },
+            {
+              label: "Nord",
+              code: `<CodeBlockCommand {...commands} colorTheme={{ bg: "#2e3440", fg: "#d8dee9" }} />`,
+              preview: (
+                <CodeBlockCommand
+                  {...convertNpmCommand("npm install zod")}
+                  icons={pmIcons}
+                  colorTheme={{ bg: "#2e3440", fg: "#d8dee9" }}
+                />
+              ),
+            },
+            {
+              label: "Tokyo Night",
+              code: `<CodeBlockCommand {...commands} colorTheme={{ bg: "#1a1b26", fg: "#a9b1d6" }} />`,
+              preview: (
+                <CodeBlockCommand
+                  {...convertNpmCommand("npx shadcn@latest add button")}
+                  icons={pmIcons}
+                  show={["shadcn", "pnpm", "npm"]}
+                  colorTheme={{ bg: "#1a1b26", fg: "#a9b1d6" }}
+                />
+              ),
+            },
+          ]}
+        />
+      </section>
+
       {/* API Reference */}
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">API Reference</h2>
@@ -248,6 +318,12 @@ export default function CodeBlockCommandPage() {
               description:
                 "Which tabs to display, in order. Only managers listed here that also have a command will render. Defaults to all with a command.",
               fullType: '("pnpm" | "yarn" | "npm" | "bun" | "shadcn")[]',
+            },
+            {
+              name: "colorTheme",
+              type: "{ bg: string; fg: string }",
+              description:
+                "Editor color theme for the code area. Provide bg and fg hex strings to override the default styling.",
             },
             {
               name: "className",

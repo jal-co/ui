@@ -212,6 +212,83 @@ export default async function CodeBlockPage() {
         </div>
       </section>
 
+      {/* Color themes */}
+      <section className="flex flex-col gap-8">
+        <h2 className="text-xl font-semibold tracking-tight">Color themes</h2>
+        <p className="text-sm text-muted-foreground">
+          Pass a{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            theme
+          </code>{" "}
+          prop with any shiki theme name to override the default dual
+          light/dark rendering. The code area renders with that theme&apos;s
+          exact colors. All 65 bundled shiki themes are supported — see the{" "}
+          <a
+            href="/docs/themes"
+            className="underline hover:text-foreground"
+          >
+            full theme list
+          </a>
+          .
+        </p>
+        <VariantGrid
+          registryName="code-block"
+          files={sourceFiles}
+          columns={1}
+          fullWidth
+          items={[
+            {
+              label: "Dracula",
+              code: `<CodeBlock code={code} language="ts" theme="dracula" />`,
+              preview: (
+                <CodeBlock
+                  code={tsExample}
+                  language="ts"
+                  title="schema.ts"
+                  theme="dracula"
+                />
+              ),
+            },
+            {
+              label: "Nord",
+              code: `<CodeBlock code={code} language="ts" theme="nord" />`,
+              preview: (
+                <CodeBlock
+                  code={tsExample}
+                  language="ts"
+                  title="schema.ts"
+                  theme="nord"
+                />
+              ),
+            },
+            {
+              label: "Tokyo Night",
+              code: `<CodeBlock code={code} language="css" theme="tokyo-night" />`,
+              preview: (
+                <CodeBlock
+                  code={cssExample}
+                  language="css"
+                  title="theme.css"
+                  theme="tokyo-night"
+                />
+              ),
+            },
+            {
+              label: "Catppuccin Mocha",
+              code: `<CodeBlock code={code} language="ts" theme="catppuccin-mocha" />`,
+              preview: (
+                <CodeBlock
+                  code={tsExample}
+                  language="ts"
+                  title="schema.ts"
+                  theme="catppuccin-mocha"
+                />
+              ),
+            },
+          ]}
+        />
+      </section>
+
       {/* API Reference */}
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">API Reference</h2>
@@ -255,6 +332,12 @@ export default async function CodeBlockPage() {
                 "Render with muted styling — softer borders, backgrounds, and reduced code opacity. Defaults to false.",
             },
             {
+              name: "theme",
+              type: "string",
+              description:
+                'Shiki theme name for single-theme rendering (e.g. "dracula", "nord", "catppuccin-mocha"). When omitted, uses dual github-light/github-dark for automatic light/dark mode.',
+            },
+            {
               name: "className",
               type: "string",
               description: "Additional CSS classes on the root element.",
@@ -281,15 +364,20 @@ export default async function CodeBlockPage() {
             at build time and cached for 24 hours.
           </li>
           <li>
-            <strong className="text-foreground">Dual theme.</strong> Uses{" "}
+            <strong className="text-foreground">Dual theme.</strong> By default,
+            uses{" "}
             <code className="rounded bg-muted px-1 py-0.5 text-xs">
               github-light
             </code>{" "}
-            and{" "}
+            /{" "}
             <code className="rounded bg-muted px-1 py-0.5 text-xs">
               github-dark
             </code>{" "}
-            shiki themes for automatic light/dark mode support.
+            for automatic light/dark mode. Pass the{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">
+              theme
+            </code>{" "}
+            prop to render with any of shiki&apos;s 65 bundled themes instead.
           </li>
         </ul>
       </section>

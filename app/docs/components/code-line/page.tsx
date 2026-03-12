@@ -148,6 +148,66 @@ export default async function CodeLinePage() {
         </div>
       </section>
 
+      {/* Color themes */}
+      <section className="flex flex-col gap-8">
+        <h2 className="text-xl font-semibold tracking-tight">Color themes</h2>
+        <p className="text-sm text-muted-foreground">
+          Pass a{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            theme
+          </code>{" "}
+          prop with any shiki theme name. The snippet renders with that
+          theme&apos;s exact colors and background. See the{" "}
+          <a
+            href="/docs/themes"
+            className="underline hover:text-foreground"
+          >
+            full list of 65 available themes
+          </a>
+          .
+        </p>
+        <VariantGrid
+          registryName="code-line"
+          files={sourceFiles}
+          columns={1}
+          fullWidth
+          items={[
+            {
+              label: "Dracula",
+              code: `<CodeLine code={code} theme="dracula" />`,
+              preview: (
+                <CodeLine
+                  code={`import { Button } from "@/components/ui/button"`}
+                  theme="dracula"
+                />
+              ),
+            },
+            {
+              label: "Nord",
+              code: `<CodeLine code={code} theme="nord" />`,
+              preview: (
+                <CodeLine
+                  code={`npx shadcn@latest add button`}
+                  language="bash"
+                  theme="nord"
+                />
+              ),
+            },
+            {
+              label: "Tokyo Night",
+              code: `<CodeLine code={code} theme="tokyo-night" />`,
+              preview: (
+                <CodeLine
+                  code={`const schema = z.object({ email: z.string().email() })`}
+                  language="ts"
+                  theme="tokyo-night"
+                />
+              ),
+            },
+          ]}
+        />
+      </section>
+
       {/* API Reference */}
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">API Reference</h2>
@@ -177,6 +237,12 @@ export default async function CodeLinePage() {
               type: "boolean",
               description:
                 "Hide the copy-to-clipboard button. Defaults to false.",
+            },
+            {
+              name: "theme",
+              type: "string",
+              description:
+                'Shiki theme name for single-theme rendering (e.g. "dracula", "nord"). When omitted, uses dual github-light/github-dark.',
             },
             {
               name: "className",
