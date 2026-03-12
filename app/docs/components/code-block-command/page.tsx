@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { CodeBlockCommand } from "@/registry/code-block-command/code-block-command"
 import { convertNpmCommand } from "@/registry/code-block-command/lib/convert-npm-command"
-import { fetchPackageManagerIcons } from "@/registry/code-block-command/lib/package-manager-icons"
+import { pmIcons } from "@/lib/pm-icons"
 import { ApiRefTable } from "@/registry/api-ref-table/api-ref-table"
 import { ComponentDocsPage } from "@/components/docs/component-docs-page"
 import { VariantGrid } from "@/components/docs/variant-grid"
@@ -22,8 +22,7 @@ const sourceFiles = [
   "registry/code-block-command/lib/package-manager-icons.ts",
 ]
 
-export default async function CodeBlockCommandPage() {
-  const pmIcons = await fetchPackageManagerIcons()
+export default function CodeBlockCommandPage() {
 
   return (
     <ComponentDocsPage

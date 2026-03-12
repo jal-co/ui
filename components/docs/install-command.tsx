@@ -1,6 +1,6 @@
 import { CodeBlockCommand } from "@/components/docs/code-block-command"
 import { convertNpmCommand } from "@/lib/convert-npm-command"
-import { fetchPackageManagerIcons } from "@/lib/package-manager-icons"
+import { pmIcons } from "@/lib/pm-icons"
 
 interface InstallCommandProps {
   /** Registry item name (e.g. "code-line", "code-block"). */
@@ -11,11 +11,9 @@ interface InstallCommandProps {
 /**
  * Self-contained install command block for a registry item.
  *
- * Server component — fetches package manager icons and renders
- * a tabbed install command for all supported package managers.
+ * Uses statically bundled SVG icons — no build-time API calls.
  */
-export async function InstallCommand({ name, className }: InstallCommandProps) {
-  const pmIcons = await fetchPackageManagerIcons()
+export function InstallCommand({ name, className }: InstallCommandProps) {
   const npmCommand = `npx shadcn@latest add https://ui.justinlevine.me/r/${name}.json`
 
   return (
