@@ -7,12 +7,19 @@ import { captureReferralSource } from "@/lib/analytics"
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    if (posthog.__loaded) return
     posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
       api_host: "/ph",
       ui_host: "https://us.posthog.com",
-      person_profiles: "identified_only",
+      person_profiles: "always",
       capture_pageview: true,
       capture_pageleave: true,
+      autocapture: true,
+      loaded: (ph) => {
+        if (process.env.NODE_ENV === "development") {
+          ph.debug()
+        }
+      },
     })
     captureReferralSource()
   }, [])
