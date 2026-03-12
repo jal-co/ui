@@ -8,7 +8,7 @@ import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-b
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="mx-auto flex min-h-screen max-w-6xl flex-col">
+    <div className="mx-auto flex min-h-screen max-w-6xl flex-col border-x border-dashed border-border">
       <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <MobileNav />
 
@@ -49,7 +49,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
 
       <div className="flex flex-1">
         <aside className="hidden w-56 shrink-0 border-r md:block">
-          <div className="sticky top-14 max-h-[calc(100vh-3.5rem)] overflow-y-auto p-4 no-scrollbar">
+          <div className="sticky top-14 h-[calc(100vh-3.5rem)]">
             <Sidebar />
           </div>
         </aside>
