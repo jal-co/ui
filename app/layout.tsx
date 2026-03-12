@@ -1,8 +1,13 @@
 import type { Metadata } from "next"
-import { Sora, Public_Sans, Fira_Code } from "next/font/google"
+import { Sora, Public_Sans, Fira_Code, Geist, Geist_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { PostHogProvider } from "@/components/posthog-provider"
 import "./globals.css"
+import { cn } from "@/lib/utils";
+
+const geistMono = Geist_Mono({subsets:['cyrillic','latin','latin-ext'],weight:['100','200','300','400','500','600','700','800','900'],variable:'--font-geist-mono'});
+
+const geist = Geist({subsets:['cyrillic','latin','latin-ext'],weight:['100','200','300','400','500','600','700','800','900'],variable:'--font-geist'});
 
 const sora = Sora({
   subsets: ["latin", "latin-ext"],
@@ -104,7 +109,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${sora.variable} ${publicSans.variable} ${firaCode.variable}`}
+      className={cn(sora.variable, publicSans.variable, firaCode.variable, "font-geist", "font-geist-mono", geist.variable, geistMono.variable)}
     >
       <body className="antialiased">
         <script
