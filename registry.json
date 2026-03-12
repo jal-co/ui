@@ -262,6 +262,64 @@
       ]
     },
     {
+      "name": "cron-schedule",
+      "type": "registry:component",
+      "title": "Cron Schedule",
+      "description": "Visual cron expression display with field breakdown, human-readable summary, and optional next-run preview. Designed for dashboards, serverless function docs, and scheduling UIs.",
+      "categories": [
+        "dev-tools",
+        "dashboard"
+      ],
+      "files": [
+        {
+          "path": "registry/cron-schedule/cron-schedule.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "json-viewer",
+      "type": "registry:component",
+      "title": "JSON Viewer",
+      "description": "Collapsible, syntax-colored JSON tree with path copying, search, expand/collapse controls, and 65 editor color themes. Designed for dev dashboards, API documentation, and debugging tools.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "categories": [
+        "dev-tools",
+        "dashboard"
+      ],
+      "files": [
+        {
+          "path": "registry/json-viewer/json-viewer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/json-viewer/lib/themes.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "env-table",
+      "type": "registry:component",
+      "title": "Env Table",
+      "description": "Read-only environment variable table with masked values, click-to-reveal, per-row copy, and bulk copy as .env. Designed for settings pages, deploy previews, and documentation.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "categories": [
+        "dev-tools",
+        "dashboard"
+      ],
+      "files": [
+        {
+          "path": "registry/env-table/env-table.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "log-viewer",
       "type": "registry:component",
       "title": "Log Viewer",

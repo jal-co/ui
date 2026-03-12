@@ -16,6 +16,7 @@ export const docsNav: NavGroup[] = [
     items: [
       { title: "Introduction", href: "/docs" },
       { title: "Installation", href: "/docs/installation" },
+      { title: "Color Themes", href: "/docs/themes" },
     ],
   },
   {
@@ -53,6 +54,9 @@ export const docsNav: NavGroup[] = [
   {
     title: "Dev Tools",
     items: [
+      { title: "Cron Schedule", href: "/docs/components/cron-schedule" },
+      { title: "Env Table", href: "/docs/components/env-table" },
+      { title: "JSON Viewer", href: "/docs/components/json-viewer" },
       { title: "Log Viewer", href: "/docs/components/log-viewer" },
       { title: "Request Viewer", href: "/docs/components/request-viewer" },
     ],
