@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { docsNav } from "@/lib/docs"
+import { docsNav, getActiveBadge } from "@/lib/docs"
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false)
@@ -54,13 +54,18 @@ export function MobileNav() {
                       key={item.href}
                       href={item.href}
                       className={cn(
-                        "rounded-md px-2 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground",
+                        "flex items-center gap-2 rounded-md px-2 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground",
                         pathname === item.href
                           ? "bg-accent font-medium text-accent-foreground"
                           : "text-muted-foreground"
                       )}
                     >
                       {item.title}
+                      {getActiveBadge(item) && (
+                        <span className="rounded-full border border-dashed border-[#ff4f00]/40 px-1.5 py-0.5 text-[10px] font-medium leading-none text-[#ff4f00]">
+                          {getActiveBadge(item)}
+                        </span>
+                      )}
                     </Link>
                   ))}
                 </div>

@@ -3,6 +3,26 @@ export interface NavItem {
   href: string
   /** Indicates this page documents a bundled export from another registry item. */
   bundledIn?: string
+  /** Optional badge shown next to the title (e.g. "New", "Beta"). */
+  badge?: string
+  /**
+   * ISO date string (e.g. "2026-03-12") when the badge was added.
+   * Badge auto-hides 14 days after this date. When omitted, badge is permanent.
+   */
+  badgeAdded?: string
+}
+
+/** Number of days a badge stays visible. */
+const BADGE_TTL_DAYS = 14
+
+/** Returns the badge text if it should still be shown, or undefined. */
+export function getActiveBadge(item: NavItem): string | undefined {
+  if (!item.badge) return undefined
+  if (!item.badgeAdded) return item.badge
+
+  const added = new Date(item.badgeAdded)
+  const expires = new Date(added.getTime() + BADGE_TTL_DAYS * 86_400_000)
+  return new Date() < expires ? item.badge : undefined
 }
 
 export interface NavGroup {
@@ -35,7 +55,7 @@ export const docsNav: NavGroup[] = [
     items: [
       { title: "AI Copy Button", href: "/docs/components/ai-copy-button" },
       { title: "API Reference Table", href: "/docs/components/api-ref-table" },
-      { title: "Stepper", href: "/docs/components/stepper" },
+      { title: "Stepper", href: "/docs/components/stepper", badge: "New", badgeAdded: "2026-03-12" },
     ],
   },
   {
