@@ -51,3 +51,4 @@ docs-component-format-spec.md
 AGENTS.md
 skills-lock.json
 bun.lock
+.env.local

@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { track } from "@/lib/analytics"
 
 interface VariantItem {
   label: string
@@ -60,6 +61,7 @@ export function VariantGridClient({
   function handleOpen(index: number) {
     setActiveFile(0)
     setOpenIndex(index)
+    track("component_code_viewed", { variant_label: variants[index]?.label })
   }
 
   return (
