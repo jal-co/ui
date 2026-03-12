@@ -49,7 +49,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
 
       <div className="flex flex-1">
         <aside className="hidden w-56 shrink-0 border-r md:block">
-          <div className="sticky top-14 max-h-[calc(100vh-3.5rem)] overflow-y-auto p-4 scrollbar-none">
+          <div className="sticky top-14 max-h-[calc(100vh-3.5rem)] overflow-y-auto p-4 no-scrollbar">
             <Sidebar />
           </div>
         </aside>
