@@ -1,22 +1,12 @@
 import type { MetadataRoute } from "next"
+import { docsNav } from "@/lib/docs"
 
 const siteUrl = "https://ui.justinlevine.me"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    "/docs",
-    "/docs/installation",
-    "/docs/components/activity-graph",
-    "/docs/components/ai-copy-button",
-    "/docs/components/api-ref-table",
-    "/docs/components/code-block",
-    "/docs/components/code-block-command",
-    "/docs/components/code-line",
-    "/docs/components/github-button-group",
-    "/docs/components/github-stars-button",
-    "/docs/components/request-viewer",
-    "/docs/components/tip-jar",
-  ]
+  const routes = docsNav.flatMap((group) =>
+    group.items.map((item) => item.href)
+  )
 
   return routes.map((route) => ({
     url: `${siteUrl}${route}`,
