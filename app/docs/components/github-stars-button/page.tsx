@@ -78,6 +78,17 @@ export default async function GitHubStarsButtonPage() {
                 ),
               },
               {
+                label: "Primary",
+                code: `<GitHubStarsButton owner="shadcn-ui" repo="ui" variant="primary" />`,
+                preview: (
+                  <GitHubStarsButton
+                    owner="shadcn-ui"
+                    repo="ui"
+                    variant="primary"
+                  />
+                ),
+              },
+              {
                 label: "Secondary",
                 code: `<GitHubStarsButton owner="shadcn-ui" repo="ui" variant="secondary" />`,
                 preview: (
@@ -309,7 +320,7 @@ export default async function GitHubStarsButtonPage() {
             },
             {
               name: "variant",
-              type: '"default" | "secondary" | "outline" | "ghost" | "subtle"',
+              type: '"default" | "primary" | "secondary" | "outline" | "ghost" | "subtle"',
               description: 'Visual style variant. Defaults to "default".',
             },
             {

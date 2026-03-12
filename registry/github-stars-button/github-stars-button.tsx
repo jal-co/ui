@@ -60,6 +60,8 @@ const githubStarsButtonVariants = cva(
       variant: {
         default:
           "rounded-md border border-border bg-muted/50 text-muted-foreground shadow-xs hover:bg-accent hover:text-accent-foreground",
+        primary:
+          "rounded-md bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
         secondary:
           "rounded-md border border-transparent bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         outline:

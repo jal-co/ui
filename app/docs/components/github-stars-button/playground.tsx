@@ -14,7 +14,7 @@ const controls: PlaygroundControl[] = [
   {
     name: "variant",
     type: "select",
-    options: ["default", "secondary", "outline", "ghost", "subtle"],
+    options: ["default", "primary", "secondary", "outline", "ghost", "subtle"],
     default: "default",
   },
   {
