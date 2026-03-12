@@ -1,0 +1,113 @@
+/**
+ * jalco-ui
+ * CodeBlock
+ * by Justin Levine
+ * ui.justinlevine.me
+ *
+ * Multi-line code block with syntax highlighting, language icon, copy button,
+ * and configurable overflow (default, scrollable, collapsible).
+ *
+ * Props:
+ * - code: source code string
+ * - language?: shiki language key, defaults to "tsx"
+ * - title?: optional header title
+ * - overflow?: "default" | "scrollable" | "collapsible"
+ * - maxHeight?: max height for scrollable/collapsible modes
+ * - muted?: subdued visual treatment
+ *
+ * Dependencies: shiki, lucide-react
+ *
+ * Notes:
+ * - Async server component
+ */
+
+import * as React from "react"
+import { CodeBlockCopyButton, CodeBlockWrapper } from "@/registry/code-block/code-block-client"
+import { highlightCode } from "@/registry/code-block/lib/highlight-code"
+import { LanguageIcon } from "@/registry/code-block/icons/language-icons"
+import { cn } from "@/lib/utils"
+
+interface CodeBlockProps {
+  code: string
+  language?: string
+  title?: string
+  overflow?: "default" | "scrollable" | "collapsible"
+  maxHeight?: number
+  muted?: boolean
+  className?: string
+}
+
+export async function CodeBlock({
+  code,
+  language = "tsx",
+  title,
+  overflow = "default",
+  maxHeight,
+  muted = false,
+  className,
+}: CodeBlockProps) {
+  const highlighted = await highlightCode(code, language)
+
+  return (
+    <div
+      className={cn(
+        "overflow-hidden rounded-xl border shadow-sm",
+        muted
+          ? "border-border/40 bg-muted/30"
+          : "border-border/60 bg-card",
+        className
+      )}
+    >
+      <div
+        className={cn(
+          "flex items-center justify-between gap-3 border-b px-4 py-3",
+          muted
+            ? "border-border/40 bg-muted/20"
+            : "border-border/60 bg-muted/40"
+        )}
+      >
+        <div className="flex min-w-0 items-center gap-2">
+          <LanguageIcon language={language} muted={muted} />
+          {title ? (
+            <p
+              className={cn(
+                "truncate text-sm font-medium",
+                muted ? "text-muted-foreground" : "text-foreground"
+              )}
+            >
+              {title}
+            </p>
+          ) : (
+            <span
+              className={cn(
+                "rounded-md border px-2 py-1 text-[11px] font-medium uppercase tracking-wide",
+                muted
+                  ? "border-border/40 bg-muted/40 text-muted-foreground/70"
+                  : "border-border/60 bg-background text-muted-foreground"
+              )}
+            >
+              {language}
+            </span>
+          )}
+        </div>
+        <CodeBlockCopyButton value={code} />
+      </div>
+      <CodeBlockWrapper overflow={overflow} maxHeight={maxHeight} muted={muted}>
+        <div
+          className={cn(
+            "overflow-x-auto",
+            !muted && "bg-[var(--shiki-light-bg)] dark:bg-[var(--shiki-dark-bg)]"
+          )}
+        >
+          <div
+            className={cn(
+              "code-block [&_code]:font-mono [&_code]:text-[13px] [&_pre]:m-0 [&_pre]:overflow-x-auto [&_pre]:bg-transparent [&_pre]:p-4 [&_pre]:sm:p-5",
+              muted && "[&_code]:opacity-80"
+            )}
+            dangerouslySetInnerHTML={{ __html: highlighted }}
+          />
+        </div>
+      </CodeBlockWrapper>
+    </div>
+  )
+}

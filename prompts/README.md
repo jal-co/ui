@@ -8,6 +8,7 @@ Repo-aware Pi Mono prompts for creating, reviewing, and ideating Jalco UI regist
 - `create-jalco-block.md` — create a Jalco UI registry block as a repo-aware implementation task
 - `review-jalco-component.md` — review a Jalco UI component or block against repository standards
 - `ideate-jalco-components.md` — ideate new additions based on the current repo state
+- `use-jalco-ui-skill.md` — route Jalco UI work through the dedicated `jalco-ui-registry` Pi skill
 
 ## Notes
 

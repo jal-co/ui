@@ -2,13 +2,16 @@
 
 You are working inside the Jalco UI repository.
 
-Before reviewing, read these files:
+Before reviewing, load and follow this Pi skill:
+- `~/.pi/agent/skills/jalco-ui-registry/SKILL.md`
+
+Then read these files:
 - `AGENTS.md`
 - `package.json`
 - `registry.json`
-- `.pi/skills/vercel-react-best-practices/SKILL.md`
-- `.pi/skills/vercel-composition-patterns/SKILL.md`
-- `.pi/skills/tailwind-design-system/SKILL.md`
+- `README.md`
+- `app/docs/page.mdx`
+- `app/docs/installation/page.mdx`
 
 Then inspect the relevant implementation files and any related registry items.
 
@@ -18,12 +21,22 @@ Review this Jalco UI component or block:
 
 {{REVIEW_TARGET}}
 
+## Required skill routing
+
+Load the relevant Jalco UI skill references:
+- `references/repo-map.md`
+- `references/review-checklist.md`
+- `references/variants-and-api.md`
+- `references/docs-patterns.md`
+- `references/registry-patterns.md`
+
 ## Review goals
 
 Audit it for:
 - accessibility
 - composition quality
 - API design
+- variant quality and necessity
 - Tailwind v4 design-system consistency
 - performance and implementation quality
 - shadcn-style ergonomics
@@ -33,7 +46,7 @@ Audit it for:
 ## Required process
 
 1. Read the required files first.
-2. Inspect the target implementation and related files.
+2. Inspect the target implementation, docs page, and related registry metadata.
 3. Determine whether it is ready for Jalco UI.
 4. Identify strengths, weaknesses, and concrete changes.
 5. Suggest the smallest useful set of improvements where possible.
@@ -46,14 +59,15 @@ Return these sections:
    - approved
    - approved with changes
    - not ready
-2. **What works well**
-3. **Issues found**
-4. **Recommended changes**
-5. **Accessibility notes**
-6. **API and composition notes**
-7. **Styling and design-system notes**
-8. **Registry and docs readiness**
-9. **Suggested commit summary**
+2. **Files reviewed**
+3. **What works well**
+4. **Issues found**
+5. **Recommended changes**
+6. **Accessibility notes**
+7. **API and composition notes**
+8. **Styling and design-system notes**
+9. **Registry and docs readiness**
+10. **Suggested commit summary**
 
 ## Review rule
 

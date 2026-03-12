@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -132,11 +133,9 @@
 
   .code-block span {
     color: var(--shiki-light);
-    background-color: var(--shiki-light-bg);
   }
 
   .dark .code-block span {
     color: var(--shiki-dark);
-    background-color: var(--shiki-dark-bg);
   }
 }

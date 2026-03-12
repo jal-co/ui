@@ -1,3 +1,24 @@
+/**
+ * jalco-ui
+ * GitHubStarsButton
+ * by Justin Levine
+ * ui.justinlevine.me
+ *
+ * Link button showing a GitHub repo's star count with optional repo label and visual variants.
+ *
+ * Props:
+ * - owner: GitHub username or organization
+ * - repo: GitHub repository name
+ * - stars?: pre-fetched star count
+ * - showRepo?: show owner/repo label
+ * - variant?: visual style variant
+ * - size?: button size
+ * - iconStyle?: icon color treatment
+ *
+ * Notes:
+ * - Async server component
+ */
+
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
@@ -39,6 +60,8 @@ const githubStarsButtonVariants = cva(
       variant: {
         default:
           "rounded-md border border-border bg-muted/50 text-muted-foreground shadow-xs hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "rounded-md border border-transparent bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         outline:
           "rounded-md border border-border bg-background text-foreground shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         ghost:

@@ -2,14 +2,15 @@
 
 You are working inside the Jalco UI repository.
 
-Before ideating, read these files:
+Before ideating, load and follow this Pi skill:
+- `~/.pi/agent/skills/jalco-ui-registry/SKILL.md`
+
+Then read these files:
 - `AGENTS.md`
 - `README.md`
 - `registry.json`
-- `app/page.tsx`
-- `.pi/skills/vercel-react-best-practices/SKILL.md`
-- `.pi/skills/vercel-composition-patterns/SKILL.md`
-- `.pi/skills/tailwind-design-system/SKILL.md`
+- `app/docs/page.mdx`
+- `app/docs/installation/page.mdx`
 
 Then inspect the current registry items and identify what categories, use cases, or quality levels are missing.
 
@@ -18,6 +19,15 @@ Then inspect the current registry items and identify what categories, use cases,
 Help ideate new Jalco UI additions based on this context:
 
 {{IDEATION_CONTEXT}}
+
+## Required skill routing
+
+Load the relevant Jalco UI skill references:
+- `references/repo-map.md`
+- `references/review-checklist.md`
+- `references/variants-and-api.md`
+- `references/docs-patterns.md`
+- `references/registry-patterns.md`
 
 ## Ideation goals
 
@@ -49,17 +59,18 @@ Consider whether each idea is best as a:
 Return these sections:
 
 1. **Current gap summary**
-2. **Top 10 proposed additions**
+2. **Files reviewed**
+3. **Top 10 proposed additions**
    - name
    - type
    - what it does
    - why it belongs in Jalco UI
    - implementation complexity: low / medium / high
    - docs/demo appeal: low / medium / high
-3. **Best 3 quick wins**
-4. **Best 3 standout additions**
-5. **Suggested build order**
-6. **Docs categories these ideas support**
+4. **Best 3 quick wins**
+5. **Best 3 standout additions**
+6. **Suggested build order**
+7. **Docs categories these ideas support**
 
 ## Ideation rule
 
