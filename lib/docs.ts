@@ -59,17 +59,18 @@ export const docsNav: NavGroup[] = [
     ],
   },
   {
-    title: "GitHub",
+    title: "Open Source",
     items: [
       { title: "Activity Graph", href: "/docs/components/activity-graph" },
       {
-        title: "Stars Button",
+        title: "GitHub Stars Button",
         href: "/docs/components/github-stars-button",
       },
       {
-        title: "Button Group",
+        title: "GitHub Button Group",
         href: "/docs/components/github-button-group",
       },
+      { title: "npm Badge", href: "/docs/components/npm-badge", badge: "New", badgeAdded: "2026-03-12" },
     ],
   },
   {

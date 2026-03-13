@@ -357,6 +357,29 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "npm-badge",
+      "type": "registry:component",
+      "title": "npm Badge",
+      "description": "Live npm package badge showing version, weekly downloads, license, and last publish date. Three layouts: inline pill, horizontal row, and expanded card. Async server component — fetches data at build time with ISR.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "categories": [
+        "open-source",
+        "marketing"
+      ],
+      "files": [
+        {
+          "path": "registry/npm-badge/npm-badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/npm-badge/lib/npm.ts",
+          "type": "registry:lib"
+        }
+      ]
     }
   ]
 }
