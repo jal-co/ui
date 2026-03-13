@@ -36,16 +36,18 @@ export const metadata: Metadata = {
     template: "%s — jal-co/ui",
   },
   description:
-    "A curated shadcn-style component registry. Self-contained, server-first React components for Next.js.",
+    "Open-source React component library. Polished, composable components for React and Tailwind CSS — distributed via a shadcn-compatible registry. Free forever, never paywalled.",
   keywords: [
-    "shadcn",
     "react",
-    "nextjs",
+    "react components",
     "tailwindcss",
-    "component-library",
-    "registry",
+    "tailwind components",
+    "component library",
+    "shadcn",
+    "shadcn registry",
+    "open source",
+    "ui components",
     "typescript",
-    "ui",
   ],
   authors: [{ name: "Justin Levine", url: "https://justinlevine.me" }],
   creator: "Justin Levine",
@@ -56,13 +58,13 @@ export const metadata: Metadata = {
     siteName: "jal-co/ui",
     title: "jal-co/ui",
     description:
-      "A curated shadcn-style component registry. Self-contained, server-first React components for Next.js.",
+      "Open-source React component library. Polished, composable components for React and Tailwind CSS — distributed via a shadcn-compatible registry. Free forever, never paywalled.",
   },
   twitter: {
     card: "summary_large_image",
     title: "jal-co/ui",
     description:
-      "A curated shadcn-style component registry. Self-contained, server-first React components for Next.js.",
+      "Open-source React component library. Polished, composable components for React and Tailwind CSS — distributed via a shadcn-compatible registry. Free forever, never paywalled.",
   },
   alternates: {
     canonical: siteUrl,
@@ -82,7 +84,7 @@ export default function RootLayout({
         name: "jal-co/ui",
         url: siteUrl,
         description:
-          "A curated shadcn-style component registry. Self-contained, server-first React components for Next.js.",
+          "Open-source React component library. Polished, composable components for React and Tailwind CSS — distributed via a shadcn-compatible registry. Free forever, never paywalled.",
         author: {
           "@type": "Person",
           name: "Justin Levine",

@@ -5,10 +5,19 @@
 </p>
 
 <p align="center">
-  A curated <a href="https://ui.shadcn.com">shadcn</a>-style component registry by <a href="https://justinlevine.me">Justin Levine</a>.
+  Open-source React component library for React and Tailwind CSS.<br />
+  Distributed via a <a href="https://ui.shadcn.com">shadcn</a>-compatible registry. Never paywalled.
 </p>
 
-**Docs & previews:** [ui.justinlevine.me](https://ui.justinlevine.me)
+<p align="center">
+  <a href="https://ui.justinlevine.me">Docs & Previews</a> · <a href="https://ui.justinlevine.me/docs">Components</a> · <a href="https://ui.justinlevine.me/docs/installation">Installation</a>
+</p>
+
+## About
+
+jal-co/ui is an open-source React component library by [Justin Levine](https://justinlevine.me). Every component is free, open source, and will never be paywalled.
+
+Components are polished, composable, and built for React and Tailwind CSS. Install them with a single command via the shadcn-compatible registry, or copy the source directly into your project.
 
 ## Install
 
@@ -16,7 +25,17 @@
 npx shadcn@latest add https://ui.justinlevine.me/r/[component].json
 ```
 
-## Commands
+Browse all components at [ui.justinlevine.me/docs](https://ui.justinlevine.me/docs).
+
+## Design principles
+
+- **Open source, never paywalled** — every component is free to use, modify, and distribute
+- **Self-contained** — components work without shadcn primitives unless complex interaction justifies it
+- **Zero dependencies preferred** — no Motion, no extra packages unless the payoff is clear
+- **Server-first** — async server components where it makes sense
+- **Strong defaults** — useful out of the box, not a blank canvas
+
+## Local development
 
 ```bash
 pnpm install        # install dependencies
@@ -25,12 +44,9 @@ pnpm build          # shadcn build + next build
 pnpm registry:build # registry only
 ```
 
-## Design principles
+## Contributing
 
-- **Self-contained** — components work without shadcn primitives unless complex interaction justifies it
-- **Zero dependencies preferred** — no Motion, no extra packages unless the payoff is clear
-- **Server-first** — async server components where it makes sense
-- **Strong defaults** — useful out of the box, not a blank canvas
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## License
 
