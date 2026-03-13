@@ -29,6 +29,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Generate preview imports
+        run: pnpm previews:generate
+
       - name: Type check
         run: pnpm exec tsc --noEmit
 
