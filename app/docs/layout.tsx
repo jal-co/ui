@@ -3,6 +3,8 @@ import Link from "next/link"
 import { Sidebar } from "@/components/docs/sidebar"
 import { MobileNav } from "@/components/docs/mobile-nav"
 import { ThemeSwitcher } from "@/components/docs/theme-switcher"
+import { PrevNextNav } from "@/components/docs/prev-next-nav"
+
 import { JalcoLogo } from "@/components/icons/jalco-logo"
 import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-button"
 import { ProductHuntButton } from "@/registry/producthunt-button/producthunt-button"
@@ -78,7 +80,10 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         </aside>
 
         <main className="min-w-0 flex-1 px-4 py-8 sm:px-8 md:px-12">
-          <div className="mx-auto max-w-3xl">{children}</div>
+          <div className="mx-auto max-w-3xl">
+            {children}
+            <PrevNextNav />
+          </div>
         </main>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { AiCopyButton } from "@/registry/ai-copy-button/ai-copy-button"
 import { DependencyBadges } from "@/components/docs/dependency-badges"
 import { ComponentPreview } from "@/components/docs/component-preview"
 import { InstallCommand } from "@/components/docs/install-command"
+
 import { getRegistryItem } from "@/lib/registry"
 import { generateComponentPrompt } from "@/lib/prompts"
 import { CopyPromptButton } from "@/components/docs/copy-prompt-button"
