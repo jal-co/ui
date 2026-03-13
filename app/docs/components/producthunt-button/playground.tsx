@@ -79,12 +79,12 @@ function ProductHuntIcon({
 function UpvoteIcon({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 12 12"
+      viewBox="0 0 16 16"
       aria-hidden="true"
       fill="currentColor"
       className={className}
     >
-      <path d="M6 1.5 1.5 7.5h9L6 1.5Z" />
+      <path d="M6.579 3.467c.71-1.067 2.132-1.067 2.842 0L12.975 8.8c.878 1.318.043 3.2-1.422 3.2H4.447c-1.464 0-2.3-1.882-1.422-3.2z" />
     </svg>
   )
 }

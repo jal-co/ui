@@ -422,26 +422,63 @@ export default async function ProductHuntButtonPage() {
         />
       </section>
 
-      {/* Notes */}
+      {/* Getting a Token */}
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">Notes</h2>
-        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
+        <h2 className="text-xl font-semibold tracking-tight">
+          Getting a Product Hunt Token
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          The component fetches live data from the Product Hunt GraphQL API.
+          To enable this, you need a developer token.
+        </p>
+        <ol className="list-decimal space-y-2 pl-6 text-sm text-muted-foreground">
           <li>
-            <strong className="text-foreground">API token required.</strong>{" "}
-            Set{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">
-              PRODUCTHUNT_TOKEN
-            </code>{" "}
-            to enable live data fetching. Get a developer token at{" "}
+            Go to the{" "}
             <a
               href="https://www.producthunt.com/v2/oauth/applications"
               target="_blank"
               rel="noopener noreferrer"
               className="underline underline-offset-4 hover:text-foreground"
             >
-              producthunt.com/v2/oauth/applications
+              Product Hunt API Dashboard
             </a>
             .
+          </li>
+          <li>
+            Click <strong className="text-foreground">Add an Application</strong>.
+            Enter any name and redirect URI (e.g. your site URL).
+          </li>
+          <li>
+            After creating the app, scroll down to the{" "}
+            <strong className="text-foreground">Developer Token</strong> section.
+            Copy the token value.
+          </li>
+          <li>
+            Add it to your environment:
+          </li>
+        </ol>
+        <CodeLine code="PRODUCTHUNT_TOKEN=your_developer_token_here" />
+        <p className="text-sm text-muted-foreground">
+          The developer token never expires and requires no OAuth flow. No
+          API key or secret exchange needed — the token from the dashboard
+          works directly as a bearer token.
+        </p>
+      </section>
+
+      {/* Notes */}
+      <section className="flex flex-col gap-4">
+        <h2 className="text-xl font-semibold tracking-tight">Notes</h2>
+        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
+          <li>
+            <strong className="text-foreground">No token? No problem.</strong>{" "}
+            Pass{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">
+              upvotes
+            </code>{" "}
+            and{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">name</code>{" "}
+            props to skip the API call entirely — useful for static sites or
+            when you already have the data.
           </li>
           <li>
             <strong className="text-foreground">ISR caching.</strong> Results
@@ -452,14 +489,9 @@ export default async function ProductHuntButtonPage() {
             .
           </li>
           <li>
-            <strong className="text-foreground">Pre-fetched data.</strong> Pass{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">
-              upvotes
-            </code>{" "}
-            and{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">name</code>{" "}
-            props to skip the API call entirely — useful for static sites or
-            when you already have the data.
+            <strong className="text-foreground">Graceful fallback.</strong>{" "}
+            Returns nothing when the post doesn&apos;t exist or the token is
+            missing — no broken UI.
           </li>
         </ul>
       </section>
