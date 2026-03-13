@@ -74,6 +74,17 @@ export const docsNav: NavGroup[] = [
     ],
   },
   {
+    title: "Marketing",
+    items: [
+      {
+        title: "Product Hunt Button",
+        href: "/docs/components/producthunt-button",
+        badge: "New",
+        badgeAdded: "2026-03-12",
+      },
+    ],
+  },
+  {
     title: "Dev Tools",
     items: [
       { title: "Cron Schedule", href: "/docs/components/cron-schedule" },
