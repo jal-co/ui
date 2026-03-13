@@ -18,7 +18,7 @@ const sampleContent = `# Getting Started with jalco ui
 Install the registry component you need:
 
 \`\`\`bash
-npx shadcn@latest add https://ui.justinlevine.me/r/ai-copy-button.json
+npx shadcn@latest add jalco/ai-copy-button
 \`\`\`
 
 Then import and use it in your project.`

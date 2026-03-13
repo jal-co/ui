@@ -50,7 +50,7 @@ export async function ComponentDocsPage({
 
   const pageSummary = `# ${title}\n\n${description}${
     registryName
-      ? `\n\n## Install\n\nnpx shadcn@latest add https://ui.justinlevine.me/r/${registryName}.json`
+      ? `\n\n## Install\n\nnpx shadcn@latest add jalco/${registryName}`
       : ""
   }`
 

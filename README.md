@@ -22,7 +22,7 @@ Components are polished, composable, and built for React and Tailwind CSS. Insta
 ## Install
 
 ```bash
-npx shadcn@latest add https://ui.justinlevine.me/r/[component].json
+npx shadcn@latest add jalco/[component]
 ```
 
 Browse all components at [ui.justinlevine.me/docs](https://ui.justinlevine.me/docs).
