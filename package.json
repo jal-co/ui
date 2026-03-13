@@ -6,7 +6,7 @@
     "dev": "tsx scripts/generate-preview-imports.ts && next dev",
     "build": "shadcn build && tsx scripts/generate-preview-imports.ts && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "registry:build": "shadcn build",
     "previews:generate": "tsx scripts/generate-preview-imports.ts",
     "prepare": "husky"

@@ -101,42 +101,6 @@ function hasSearchMatch(
   return false
 }
 
-function CopyButton({
-  value,
-  label,
-  size = "sm",
-}: {
-  value: string
-  label: string
-  size?: "sm" | "xs"
-}) {
-  const [copied, setCopied] = React.useState(false)
-
-  const handleCopy = React.useCallback(() => {
-    navigator.clipboard.writeText(value).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1500)
-    })
-  }, [value])
-
-  const iconSize = size === "xs" ? "size-3" : "size-3.5"
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      aria-label={label}
-      className="inline-flex items-center justify-center rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-    >
-      {copied ? (
-        <Check className={cn(iconSize, "text-emerald-500")} />
-      ) : (
-        <Copy className={iconSize} />
-      )}
-    </button>
-  )
-}
-
 function TokenSpan({
   token,
   children,
