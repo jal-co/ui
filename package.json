@@ -11,9 +11,6 @@
     "previews:generate": "tsx scripts/generate-preview-imports.ts"
   },
   "dependencies": {
-    "@mdx-js/loader": "^3.1.1",
-    "@mdx-js/react": "^3.1.1",
-    "@next/mdx": "^16.1.6",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/typography": "^0.5.19",
@@ -42,7 +39,6 @@
     "eslint": "^9.32.0",
     "eslint-config-next": "15.3.1",
     "html-to-image": "^1.11.13",
-    "playwright": "^1.58.2",
     "tailwindcss": "^4.1.11",
     "tsx": "^4.21.0",
     "typescript": "^5.9.2"

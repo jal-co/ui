@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://ui.justinlevine.me">
-    <img src="./repo-header.png" alt="jal-co/ui" />
+    <img src="./public/brand/repo-header.png" alt="jal-co/ui" />
   </a>
 </p>
 
