@@ -1,8 +1,9 @@
 # jalco-shadcn-registry
 
-Repo-local Pi skill for building and maintaining the jalco ui shadcn-compatible registry.
+Repo-local skill for building and maintaining the jalco ui shadcn-compatible registry.
 
 ## Use this skill for
+
 - registry item creation
 - registry.json maintenance
 - item type selection
@@ -13,6 +14,7 @@ Repo-local Pi skill for building and maintaining the jalco ui shadcn-compatible 
 - registry review workflows
 
 ## Primary references
+
 - `AGENTS.md`
 - `registry.json`
 - `package.json`
@@ -20,6 +22,7 @@ Repo-local Pi skill for building and maintaining the jalco ui shadcn-compatible 
 - local jalco ui component/design-system skills
 
 ## Notes
+
 This skill is tailored to jalco ui's use of the shadcn registry system and emphasizes:
 - installability
 - high-quality metadata

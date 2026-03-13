@@ -46,7 +46,6 @@ next-env.d.ts
 # local agent/tooling artifacts
 .agents/
 
-prompts/
 docs-component-format-spec.md
 
 skills-lock.json

@@ -3,11 +3,17 @@ name: tailwind-design-system
 description: Build scalable design systems with Tailwind CSS v4, design tokens, component libraries, and responsive patterns. Use when creating component libraries, implementing design systems, or standardizing UI patterns.
 ---
 
+<overview>
+
 # Tailwind Design System (v4)
 
 Build production-ready design systems with Tailwind CSS v4, including CSS-first configuration, design tokens, component variants, responsive patterns, and accessibility.
 
 > **Note**: This skill targets Tailwind CSS v4 (2024+). For v3 projects, refer to the [upgrade guide](https://tailwindcss.com/docs/upgrade-guide).
+
+</overview>
+
+<context>
 
 ## When to Use This Skill
 
@@ -27,6 +33,10 @@ Build production-ready design systems with Tailwind CSS v4, including CSS-first 
 | `darkMode: "class"`                   | `@custom-variant dark (&:where(.dark, .dark *))`                      |
 | `theme.extend.colors`                 | `@theme { --color-*: value }`                                         |
 | `require("tailwindcss-animate")`      | CSS `@keyframes` in `@theme` + `@starting-style` for entry animations |
+
+</context>
+
+<examples>
 
 ## Quick Start
 
@@ -160,6 +170,10 @@ Build production-ready design systems with Tailwind CSS v4, including CSS-first 
   }
 }
 ```
+
+</examples>
+
+<guidelines>
 
 ## Core Concepts
 
@@ -751,6 +765,10 @@ export const focusRing = cn(
 export const disabled = "disabled:pointer-events-none disabled:opacity-50";
 ```
 
+</examples>
+
+<guidelines>
+
 ## Advanced v4 Patterns
 
 ### Custom Utilities with `@utility`
@@ -832,6 +850,10 @@ Define reusable custom utilities:
 }
 ```
 
+</guidelines>
+
+<quality-checklist>
+
 ## v3 to v4 Migration Checklist
 
 - [ ] Replace `tailwind.config.ts` with CSS `@theme` block
@@ -845,22 +867,28 @@ Define reusable custom utilities:
 - [ ] Consider OKLCH colors for better color perception
 - [ ] Replace custom plugins with `@utility` directives
 
+</quality-checklist>
+
+<rules>
+
 ## Best Practices
 
 ### Do's
 
-- **Use `@theme` blocks** - CSS-first configuration is v4's core pattern
-- **Use OKLCH colors** - Better perceptual uniformity than HSL
-- **Compose with CVA** - Type-safe variants
-- **Use semantic tokens** - `bg-primary` not `bg-blue-500`
-- **Use `size-*`** - New shorthand for `w-* h-*`
-- **Add accessibility** - ARIA attributes, focus states
+- MUST use `@theme` blocks — CSS-first configuration is v4's core pattern
+- SHOULD use OKLCH colors — better perceptual uniformity than HSL
+- SHOULD compose with CVA — type-safe variants
+- MUST use semantic tokens — `bg-primary` not `bg-blue-500`
+- SHOULD use `size-*` — new shorthand for `w-* h-*`
+- MUST include accessibility — ARIA attributes, focus states
 
 ### Don'ts
 
-- **Don't use `tailwind.config.ts`** - Use CSS `@theme` instead
-- **Don't use `@tailwind` directives** - Use `@import "tailwindcss"`
-- **Don't use `forwardRef`** - React 19 passes ref as prop
-- **Don't use arbitrary values** - Extend `@theme` instead
-- **Don't hardcode colors** - Use semantic tokens
-- **Don't forget dark mode** - Test both themes
+- MUST NOT use `tailwind.config.ts` — use CSS `@theme` instead
+- MUST NOT use `@tailwind` directives — use `@import "tailwindcss"`
+- MUST NOT use `forwardRef` — React 19 passes ref as prop
+- SHOULD NOT use arbitrary values — extend `@theme` instead
+- MUST NOT hardcode colors — use semantic tokens
+- MUST NOT skip dark mode — test both themes
+
+</rules>

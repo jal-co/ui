@@ -3,9 +3,11 @@ name: jalco-component-builder
 description: "Build jalco ui components through a deliberate workflow: clarify requirements, judge scope and file boundaries, prefer strong default states and restrained variants, implement with shadcn-style ergonomics, and ship aligned docs. Use when the user asks to create a component, build a component, make a new UI component, add a registry component, create a docs component, add variants, refactor a component, or review public components, demos, or docs-facing UI."
 ---
 
+<overview>
+
 # jal-co/ui Component Builder
 
-Use this skill when creating, refining, or reviewing a jalco ui component, block, demo, or docs-facing UI.
+Primary workflow skill for creating, refining, or reviewing a jalco ui component, block, demo, or docs-facing UI.
 
 Common triggers include requests like:
 - create a component
@@ -17,17 +19,21 @@ Common triggers include requests like:
 - refactor this component
 - review this component
 
-This is the primary workflow skill for public component work in jalco ui. It should guide the sequence of decisions before implementation, while treating other skills as supporting references rather than equal peers.
+This skill guides the sequence of decisions before implementation, while treating other skills as supporting references rather than equal peers.
+
+</overview>
+
+<context>
 
 ## Required reading before changes
 
-Before implementing a public component, read:
+Before implementing a public component, the agent MUST read:
 - `AGENTS.md`
 - `docs-component-format-spec.md`
 - `.pi/skills/jalco-shadcn-registry/SKILL.md` for registry-backed work
 - `.pi/skills/jalco-writing-component-docs/SKILL.md` for docs work
 
-Also inspect:
+The agent MUST also inspect:
 - similar components already in the repo
 - related demo or preview files
 - related docs pages
@@ -46,7 +52,7 @@ Use these as references during implementation, not as separate workflow owners:
 
 Build components that feel intentional, production-ready, readable, and easy to adapt.
 
-jalco ui components should not merely be valid. They should:
+jalco ui components MUST NOT merely be valid. They MUST:
 - have a clear reason to exist
 - look strong in their default state
 - use restrained, consistent styling
@@ -54,11 +60,15 @@ jalco ui components should not merely be valid. They should:
 - be easy to scan, copy, and modify
 - ship with aligned docs, preview, and registry metadata when public
 
+</context>
+
+<workflow>
+
 ## Preferred workflow
 
 ### 1. Clarify before coding
 
-Do not jump straight into implementation when the request is underspecified.
+The agent MUST NOT jump straight into implementation when the request is underspecified.
 
 Use the `question` or `questionnaire` tool to clarify what should be built when needed.
 
@@ -74,11 +84,11 @@ Key questions to answer:
 - Should this stay in one file?
 - Is a new dependency truly justified?
 
-Use concise, Socratic questioning. Narrow the problem. Do not ask endless open-ended questions if a small number of targeted choices will do.
+Use concise, Socratic questioning. Narrow the problem. SHOULD NOT ask endless open-ended questions if a small number of targeted choices will do.
 
 ### 2. Define the component before implementation
 
-Before writing code, be able to state:
+Before writing code, the agent MUST be able to state:
 1. the core use case in one sentence
 2. the primary visual idea
 3. the minimum public API
@@ -87,11 +97,11 @@ Before writing code, be able to state:
 6. whether any dependency is required
 7. what the default preview should demonstrate
 
-If those decisions are fuzzy, do not start coding yet.
+If those decisions are fuzzy, the agent MUST NOT start coding yet.
 
 ### 3. Prefer one file by default
 
-For public jalco ui components, prefer a single file unless multiple files materially improve:
+For public jalco ui components, the agent SHOULD prefer a single file unless multiple files materially improve:
 - readability
 - runtime correctness
 - reuse across multiple items
@@ -106,7 +116,7 @@ Use multiple files only when:
 - the item is a true multi-part block
 - a single file becomes harder to understand than the separated version
 
-Avoid unnecessary files like:
+MUST NOT create unnecessary files like:
 - `types.ts` for one local interface
 - `constants.ts` for tiny local data
 - `utils.ts` for one component-local helper
@@ -114,9 +124,9 @@ Avoid unnecessary files like:
 
 ### 4. Prefer stronger defaults over more variants
 
-A component should be compelling in its default state.
+A component MUST be compelling in its default state.
 
-Variants must earn their existence.
+Variants MUST earn their existence.
 
 Use public variants only when they represent real differences in:
 - use case
@@ -125,13 +135,7 @@ Use public variants only when they represent real differences in:
 - emphasis
 - layout behavior
 
-Avoid decorative-only variants or tiny visual permutations.
-
-Consistency matters, but do not mechanically copy another component's variant list.
-
-Examples of acceptable variant language when appropriate:
-- `default`, `primary`, `secondary`, `outline`, `ghost`
-- `muted` and `colored` for icon treatments when those are meaningful and already established
+MUST NOT include decorative-only variants or tiny visual permutations.
 
 If a component needs substantially different structure across modes, prefer:
 - explicit exports
@@ -142,40 +146,38 @@ rather than one overloaded variant API.
 
 ### 5. Keep styling restrained and product-like
 
-Prefer:
+SHOULD prefer:
 - strong spacing and hierarchy
 - clear typography
 - semantic color usage
 - realistic layout rhythm
 - calm defaults
 
-Avoid:
-- layering border + tint + shadow + glow + gradient without purpose
-- adding icons just to make a demo look more interesting
-- overusing nested rounded containers
-- generic card wrappers with no clear opinion
-- demos that only work because they are over-decorated
+MUST NOT:
+- layer border + tint + shadow + glow + gradient without purpose
+- add icons just to make a demo look more interesting
+- overuse nested rounded containers
+- create generic card wrappers with no clear opinion
+- ship demos that only work because they are over-decorated
 
 If the component only looks good in its fanciest state, the base design is too weak.
 
 ### 6. Judge dependencies explicitly
 
-Do not add a dependency casually.
+The agent MUST NOT add a dependency casually.
 
-Before adding one, ask:
+Before adding one, evaluate:
 - Can this be done with existing repo dependencies?
 - Can this be done with CSS, Radix, or browser APIs?
 - Does the dependency materially improve the public component?
 - Does it make the registry item heavier or harder to adopt?
 - Would consumers reasonably expect this dependency?
 
-Default to no new dependency.
-
-Add one only when the benefit is clear. If using a dependency like Motion or another animation package, the implementation and docs should make that choice feel justified.
+Default to no new dependency. Add one only when the benefit is clear.
 
 ### 7. Implement with jalco ui conventions
 
-Implementation should:
+Implementation MUST:
 - match existing naming and styling conventions
 - use semantic tokens and repo utility patterns
 - avoid boolean-prop-heavy APIs
@@ -183,15 +185,15 @@ Implementation should:
 - preserve accessibility and copy-paste ergonomics
 
 For public entry files:
-- use the Jalco-style compact file header when appropriate
-- do not add decorative separator comments
-- keep comments minimal and useful
+- SHOULD use the Jalco-style compact file header when appropriate
+- MUST NOT add decorative separator comments
+- MUST keep comments minimal and useful
 
 ### 8. Ship docs and catalog preview as part of the component
 
 Public component work is not done until docs and the catalog card preview are updated.
 
-When applicable, update or create:
+When applicable, the agent MUST update or create:
 - component docs page
 - preview/demo source
 - install instructions
@@ -201,17 +203,21 @@ When applicable, update or create:
 - sidebar nav entry in `lib/docs.ts`
 - catalog card preview at `components/docs/previews/<registry-name>.tsx`
 
-After creating or modifying a card preview file, run `pnpm previews:generate` to regenerate the import map. The codegen also runs automatically on `pnpm dev` and `pnpm build`.
+After creating or modifying a card preview file, `pnpm previews:generate` MUST be run to regenerate the import map. The codegen also runs automatically on `pnpm dev` and `pnpm build`.
 
 Card preview files:
-- default-export an async server component
-- render a miniature version of the component with realistic sample data
-- show key variants, sizes, or layout exports when the component has them
-- are docs-site only, not part of the installable registry item
+- MUST default-export an async server component
+- MUST render a miniature version of the component with realistic sample data
+- SHOULD show key variants, sizes, or layout exports when the component has them
+- MUST NOT be part of the installable registry item
 - live in `components/docs/previews/`, not inside `registry/`
 - also appear on the `/dev/screenshots` utility page for PNG export
 
-Descriptions, names, and preview coverage should stay aligned across all surfaces.
+Descriptions, names, and preview coverage MUST stay aligned across all surfaces.
+
+</workflow>
+
+<quality-checklist>
 
 ## File boundary checklist
 
@@ -234,7 +240,7 @@ Before adding a new package, ask:
 4. Will this complicate registry install or public adoption?
 5. Would I still choose this dependency if the component were being copied into a production app today?
 
-If the answer is uncertain, do not add it.
+If the answer is uncertain, MUST NOT add it.
 
 ## Component quality checklist
 
@@ -252,6 +258,10 @@ Before shipping a public component, verify:
 11. A card preview file exists at `components/docs/previews/<registry-name>.tsx`.
 12. The sidebar nav entry exists in `lib/docs.ts`.
 
+</quality-checklist>
+
+<guidelines>
+
 ## Recommended questioning patterns
 
 When requirements are underspecified, prefer questions like:
@@ -262,19 +272,27 @@ When requirements are underspecified, prefer questions like:
 - Should this optimize for docs-site display, public reuse, or both?
 - Would you expect this to install as a single file?
 
-Prefer multiple-choice clarification when possible.
+SHOULD prefer multiple-choice clarification when possible.
+
+</guidelines>
+
+<constraints>
 
 ## Anti-patterns
 
-Avoid:
-- jumping to code before clarifying the use case
-- splitting modest components into many files
-- creating variants for completeness rather than usefulness
-- using icons, badges, or gradients to hide weak structure
-- over-abstracting local helpers
-- adding dependencies without a clear payoff
-- shipping public components without aligned docs
-- treating preview coverage as separate from design quality
+MUST NOT:
+- jump to code before clarifying the use case
+- split modest components into many files
+- create variants for completeness rather than usefulness
+- use icons, badges, or gradients to hide weak structure
+- over-abstract local helpers
+- add dependencies without a clear payoff
+- ship public components without aligned docs
+- treat preview coverage as separate from design quality
+
+</constraints>
+
+<workflow>
 
 ## Recommended workflow summary
 
@@ -293,3 +311,5 @@ Avoid:
 13. Open a PR using the component template (`.github/PULL_REQUEST_TEMPLATE/component.md`).
 14. Attach dark and light screenshots to the PR body.
 15. Review against the quality, file-boundary, and dependency checklists.
+
+</workflow>

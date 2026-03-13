@@ -3,6 +3,8 @@ name: jalco-writing-component-docs
 description: Write and review jalco ui component documentation with consistent structure, concise descriptions, realistic examples, and registry-aligned metadata. Use when creating new component docs, updating existing docs, reviewing doc quality, or syncing registry-backed component copy.
 ---
 
+<overview>
+
 # jal-co/ui Component Docs Skill
 
 Use this skill when creating, editing, or reviewing component documentation in jalco ui.
@@ -13,7 +15,11 @@ The single source of truth for docs page structure, section order, and formattin
 
 **`docs-component-format-spec.md`** (project root)
 
-Read it before writing or updating any component docs. This skill provides workflow guidance and review steps, not a parallel format definition.
+The agent MUST read it before writing or updating any component docs. This skill provides workflow guidance and review steps, not a parallel format definition.
+
+</overview>
+
+<context>
 
 ## Required reading before changes
 
@@ -21,7 +27,7 @@ Read it before writing or updating any component docs. This skill provides workf
 2. `AGENTS.md` — project conventions, quality bar, comment style
 3. `.pi/skills/jalco-shadcn-registry/SKILL.md` — for registry-backed items
 
-Also inspect:
+The agent MUST also inspect:
 - similar component docs already in the repo
 - the source component and its example/demo files
 - any related registry metadata
@@ -33,6 +39,10 @@ Also inspect:
 - reviewing docs for clarity and consistency
 - writing or refining descriptions
 - keeping registry-backed descriptions in sync
+
+</context>
+
+<workflow>
 
 ## Workflow
 
@@ -49,35 +59,48 @@ Also inspect:
 11. Ensure screenshots exist at `public/previews/<name>-dark.png` and `<name>-light.png`.
 12. Review using the checklist in `docs-component-format-spec.md`.
 
+</workflow>
+
+<rules>
+
 ## Quick rules
 
 These are the rules most frequently needed during docs work. For full details, see the format spec.
 
 ### Descriptions
-- One sentence, capability-first
-- No "A", "An", or "A React component for..." prefix
-- No subjective adjectives
-- Must match across: page metadata, ComponentDocsPage props, registry.json
+
+- MUST be one sentence, capability-first
+- MUST NOT start with "A", "An", or "A React component for..."
+- MUST NOT contain subjective adjectives
+- MUST match across: page metadata, ComponentDocsPage props, registry.json
 
 ### Usage section
-- Include import and minimal usage snippets via `CodeLine`
-- Put server/client rendering context here, not in Notes
-- Keep the first example minimal — layer complexity in Examples
+
+- MUST include import and minimal usage snippets via `CodeLine`
+- Server/client rendering context MUST go here, not in Notes
+- The first example SHOULD be minimal — layer complexity in Examples
 
 ### Examples
-- Use `VariantGrid` with labeled items
-- Group by meaning: Variants, Sizes, Languages, etc.
-- Do not call everything a variant
-- Use realistic content
+
+- MUST use `VariantGrid` with labeled items
+- MUST group by meaning: Variants, Sizes, Languages, etc.
+- MUST NOT call everything a variant
+- SHOULD use realistic content
 
 ### Notes
-- Caveats, limitations, and external service behavior only
-- Not for architecture decisions, feature highlights, or rendering context
-- Keep brief
+
+- MUST contain only caveats, limitations, and external service behavior
+- MUST NOT include architecture decisions, feature highlights, or rendering context
+- SHOULD be brief
 
 ### Bundled exports
-- Use `installNote` to explain the relationship
-- Set `bundledIn` on the nav item in `lib/docs.ts`
+
+- MUST use `installNote` to explain the relationship
+- MUST set `bundledIn` on the nav item in `lib/docs.ts`
+
+</rules>
+
+<quality-checklist>
 
 ## Review checklist
 
@@ -92,3 +115,5 @@ Key things to verify:
 6. Notes contains only caveats
 7. Sidebar entry is correct (title, order, bundledIn)
 8. Catalog card preview exists at `components/docs/previews/<registry-name>.tsx`
+
+</quality-checklist>
