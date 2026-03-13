@@ -32,8 +32,8 @@ const siteUrl = "https://ui.justinlevine.me"
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Jalco UI",
-    template: "%s — Jalco UI",
+    default: "jal-co/ui",
+    template: "%s — jal-co/ui",
   },
   description:
     "A curated shadcn-style component registry. Self-contained, server-first React components for Next.js.",
@@ -53,14 +53,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "Jalco UI",
-    title: "Jalco UI",
+    siteName: "jal-co/ui",
+    title: "jal-co/ui",
     description:
       "A curated shadcn-style component registry. Self-contained, server-first React components for Next.js.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jalco UI",
+    title: "jal-co/ui",
     description:
       "A curated shadcn-style component registry. Self-contained, server-first React components for Next.js.",
   },
@@ -79,7 +79,7 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "WebSite",
-        name: "Jalco UI",
+        name: "jal-co/ui",
         url: siteUrl,
         description:
           "A curated shadcn-style component registry. Self-contained, server-first React components for Next.js.",
@@ -91,7 +91,7 @@ export default function RootLayout({
       },
       {
         "@type": "SoftwareSourceCode",
-        name: "Jalco UI",
+        name: "jal-co/ui",
         url: "https://github.com/jal-co/ui",
         codeRepository: "https://github.com/jal-co/ui",
         programmingLanguage: ["TypeScript", "React"],

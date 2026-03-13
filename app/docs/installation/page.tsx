@@ -4,8 +4,8 @@ import { CopyPromptButton } from "@/components/docs/copy-prompt-button"
 import { generateInstallationPrompt } from "@/lib/prompts"
 
 export const metadata: Metadata = {
-  title: "Installation — Jalco UI",
-  description: "How to install Jalco UI components in your project.",
+  title: "Installation — jal-co/ui",
+  description: "How to install jalco ui components in your project.",
 }
 
 export default async function InstallationPage() {
@@ -19,7 +19,7 @@ export default async function InstallationPage() {
           <CopyPromptButton value={aiPrompt} />
         </div>
         <p className="text-base text-muted-foreground">
-          Jalco UI components are distributed as a{" "}
+          jalco ui components are distributed as a{" "}
           <a
             href="https://ui.shadcn.com/docs/registry"
             className="underline hover:text-foreground"

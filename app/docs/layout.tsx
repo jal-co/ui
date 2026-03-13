@@ -17,7 +17,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
           className="flex items-center gap-2 text-sm font-semibold tracking-tight"
         >
           <JalcoLogo className="h-5 w-auto" />
-          <span className="hidden sm:inline">Jalco UI</span>
+          <span className="hidden sm:inline">jal-co/ui</span>
         </Link>
 
         <nav className="ml-4 hidden items-center gap-1 text-sm md:flex">
@@ -25,13 +25,13 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
             href="/docs"
             className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
           >
-            Docs
+            Components
           </Link>
           <Link
-            href="/docs/components/code-block"
+            href="/docs/installation"
             className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
           >
-            Components
+            Installation
           </Link>
         </nav>
 

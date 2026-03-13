@@ -58,7 +58,7 @@ export function generateComponentPrompt(registryName: string): string {
   const lines: string[] = [
     `# ${item.title}`,
     "",
-    `> From the Jalco UI registry (${REGISTRY_BASE})`,
+    `> From the jalco ui registry (${REGISTRY_BASE})`,
     "",
     `## What it does`,
     "",
@@ -118,7 +118,7 @@ export function generateComponentPrompt(registryName: string): string {
 /**
  * Generate an AI-friendly prompt for the installation page.
  *
- * Explains the Jalco UI registry, how to install components,
+ * Explains the jalco ui registry, how to install components,
  * and lists all available components.
  */
 export function generateInstallationPrompt(): string {
@@ -132,7 +132,7 @@ export function generateInstallationPrompt(): string {
     .join("\n")
 
   return [
-    "# Jalco UI — Installation Guide",
+    "# jal-co/ui — Installation Guide",
     "",
     "> A curated shadcn-style component registry by Justin Levine.",
     "> Registry: https://ui.justinlevine.me/r",
@@ -164,7 +164,7 @@ export function generateInstallationPrompt(): string {
     "",
     "## Your task",
     "",
-    "Help the user install Jalco UI components in their project.",
+    "Help the user install jalco ui components in their project.",
     "",
     "1. Ask which component(s) they want to install.",
     "2. Confirm their project has the prerequisites above.",

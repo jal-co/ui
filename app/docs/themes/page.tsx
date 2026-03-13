@@ -5,7 +5,7 @@ import { CodeLine } from "@/registry/code-line/code-line"
 import { ThemeGrid } from "./theme-grid"
 
 export const metadata: Metadata = {
-  title: "Color Themes — Jalco UI",
+  title: "Color Themes — jal-co/ui",
   description:
     "65 editor color themes available across Code Block, Code Line, Code Block Command, and JSON Viewer.",
 }
@@ -40,7 +40,7 @@ export default async function ThemesPage() {
           >
             shiki
           </a>
-          , available across Jalco UI&apos;s code and data components. Click
+          , available across jalco ui&apos;s code and data components. Click
           any swatch to copy the theme name.
         </p>
       </div>

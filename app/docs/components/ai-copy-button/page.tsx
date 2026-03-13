@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const sourceFiles = ["registry/ai-copy-button/ai-copy-button.tsx"]
 
-const sampleContent = `# Getting Started with Jalco UI
+const sampleContent = `# Getting Started with jalco ui
 
 Install the registry component you need:
 
