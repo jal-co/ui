@@ -359,6 +359,29 @@
       ]
     },
     {
+      "name": "producthunt-button",
+      "type": "registry:component",
+      "title": "Product Hunt Button",
+      "description": "Link button showing a Product Hunt post's upvote count with the PH cat icon. Two layouts: inline button and expanded card. Async server component — fetches data at build time with ISR.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "categories": [
+        "marketing",
+        "launch"
+      ],
+      "files": [
+        {
+          "path": "registry/producthunt-button/producthunt-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/producthunt-button/lib/producthunt.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "npm-badge",
       "type": "registry:component",
       "title": "npm Badge",

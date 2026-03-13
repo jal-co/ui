@@ -71,6 +71,7 @@ export const docsNav: NavGroup[] = [
         href: "/docs/components/github-button-group",
       },
       { title: "npm Badge", href: "/docs/components/npm-badge", badge: "New", badgeAdded: "2026-03-12" },
+      { title: "Product Hunt", href: "/docs/components/producthunt-button", badge: "New", badgeAdded: "2026-03-12" },
     ],
   },
   {
