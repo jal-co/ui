@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "registry:build": "shadcn build",
-    "previews:generate": "tsx scripts/generate-preview-imports.ts"
+    "previews:generate": "tsx scripts/generate-preview-imports.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.7",
@@ -39,9 +40,14 @@
     "eslint": "^9.32.0",
     "eslint-config-next": "15.3.1",
     "html-to-image": "^1.11.13",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.3",
     "tailwindcss": "^4.1.11",
     "tsx": "^4.21.0",
     "typescript": "^5.9.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --max-warnings 0"
   },
   "pnpm": {
     "overrides": {
