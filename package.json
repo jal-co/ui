@@ -2,6 +2,7 @@
   "name": "jalco-ui",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.30.3",
   "scripts": {
     "dev": "tsx scripts/generate-preview-imports.ts && next dev",
     "build": "shadcn build && tsx scripts/generate-preview-imports.ts && next build",
