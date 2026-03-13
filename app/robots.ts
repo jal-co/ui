@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/"],
+        disallow: ["/api/", "/dev/"],
       },
     ],
     sitemap: "https://ui.justinlevine.me/sitemap.xml",
