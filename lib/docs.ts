@@ -34,7 +34,7 @@ export const docsNav: NavGroup[] = [
   {
     title: "Getting Started",
     items: [
-      { title: "Introduction", href: "/docs" },
+      { title: "Components", href: "/docs" },
       { title: "Installation", href: "/docs/installation" },
       { title: "Color Themes", href: "/docs/themes" },
     ],
