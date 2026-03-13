@@ -83,7 +83,7 @@ export default async function InstallationPage() {
           CLI to add any component from the registry:
         </p>
         <CodeLine
-          code="npx shadcn@latest add https://ui.justinlevine.me/r/github-stars-button.json"
+          code="npx shadcn@latest add jalco/github-stars-button"
           language="bash"
         />
         <p className="text-sm text-muted-foreground">This will:</p>
@@ -112,16 +112,19 @@ export default async function InstallationPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">Registry URL</h2>
+        <h2 className="text-xl font-semibold tracking-tight">Registry</h2>
         <p className="text-sm text-muted-foreground">
-          The base registry URL is:
+          jalco ui is listed in the official shadcn registry. All components use
+          the{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">jalco</code>{" "}
+          namespace:
         </p>
-        <CodeLine code="https://ui.justinlevine.me/r/" language="bash" />
+        <CodeLine code="npx shadcn@latest add jalco/{component-name}" language="bash" />
         <p className="text-sm text-muted-foreground">
-          Individual component payloads are available at:
+          You can also install directly from the registry URL:
         </p>
         <CodeLine
-          code="https://ui.justinlevine.me/r/{component-name}.json"
+          code="npx shadcn@latest add https://ui.justinlevine.me/r/{component-name}.json"
           language="bash"
         />
       </section>

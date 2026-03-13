@@ -14,7 +14,7 @@ interface InstallCommandProps {
  * Uses statically bundled SVG icons — no build-time API calls.
  */
 export function InstallCommand({ name, className }: InstallCommandProps) {
-  const npmCommand = `npx shadcn@latest add https://ui.justinlevine.me/r/${name}.json`
+  const npmCommand = `npx shadcn@latest add jalco/${name}`
 
   return (
     <CodeBlockCommand
