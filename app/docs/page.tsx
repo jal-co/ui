@@ -1,69 +1,117 @@
 import type { Metadata } from "next"
-import { CodeLine } from "@/registry/code-line/code-line"
+import { readdirSync } from "node:fs"
+import { join } from "node:path"
+import Link from "next/link"
+import { docsNav, getActiveBadge } from "@/lib/docs"
+import { getRegistryItem } from "@/lib/registry"
+import { ComponentCardPreviewImage } from "@/components/docs/component-card-preview-image"
 
 export const metadata: Metadata = {
-  title: "Introduction — Jalco UI",
-  description: "A curated shadcn-style component registry by Justin Levine.",
+  title: "Components — jal-co/ui",
+  description:
+    "Browse all jalco ui components. Polished, composable building blocks for React and Next.js.",
 }
 
-export default async function IntroductionPage() {
+// Check which preview images exist at build time
+const PREVIEWS_DIR = join(process.cwd(), "public/previews")
+const availableImages = new Set(
+  (() => {
+    try {
+      return readdirSync(PREVIEWS_DIR)
+        .filter((f) => f.endsWith("-dark.png"))
+        .map((f) => f.replace("-dark.png", ""))
+    } catch {
+      return []
+    }
+  })()
+)
+
+function getComponentDescription(href: string): string | null {
+  const slug = href.split("/").pop()
+  if (!slug) return null
+  const item = getRegistryItem(slug)
+  return item?.description ?? null
+}
+
+function getSlug(href: string): string {
+  return href.split("/").pop() ?? ""
+}
+
+export default function DocsPage() {
+  const componentGroups = docsNav.filter(
+    (group) => group.title !== "Getting Started"
+  )
+
+  const totalCount = componentGroups.reduce(
+    (sum, group) => sum + group.items.filter((i) => !i.bundledIn).length,
+    0
+  )
+
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Introduction</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Components</h1>
         <p className="text-base text-muted-foreground">
-          Jalco UI is a collection of polished, composable components built for
-          modern React and Next.js projects. Every component is designed to be
-          installed with a single command, copied into your project, and adapted
-          to your design system.
+          {totalCount} polished, composable components ready to install and
+          adapt.
         </p>
       </div>
 
-      <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">What you get</h2>
-        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
-          <li>
-            <strong className="text-foreground">Copy-paste components</strong>{" "}
-            — Install with{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">
-              shadcn add
-            </code>{" "}
-            or copy the source directly.
-          </li>
-          <li>
-            <strong className="text-foreground">Composable APIs</strong> —
-            Small, focused components with clear props. No boolean-prop sprawl.
-          </li>
-          <li>
-            <strong className="text-foreground">Design-system friendly</strong>{" "}
-            — Components use Tailwind tokens and adapt to your theme
-            automatically.
-          </li>
-          <li>
-            <strong className="text-foreground">Server-first</strong> — Async
-            server components where it makes sense. No unnecessary client
-            bundles.
-          </li>
-        </ul>
-      </section>
+      <div className="flex flex-col gap-10">
+        {componentGroups.map((group) => (
+          <section key={group.title} className="flex flex-col gap-4">
+            <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {group.title}
+            </h2>
 
-      <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">Quick start</h2>
-        <CodeLine
-          code="npx shadcn@latest add https://ui.justinlevine.me/r/github-stars-button.json"
-          language="bash"
-        />
-      </section>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {group.items
+                .filter((item) => !item.bundledIn)
+                .map((item) => {
+                  const description = getComponentDescription(item.href)
+                  const badge = getActiveBadge(item)
+                  const slug = getSlug(item.href)
+                  const hasImage = availableImages.has(slug)
 
-      <section className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold tracking-tight">
-          Browse components
-        </h2>
-        <p className="text-sm text-muted-foreground">
-          Check the sidebar to explore available components and their
-          documentation.
-        </p>
-      </section>
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="group relative flex flex-col overflow-hidden rounded-lg border border-border transition-colors hover:border-foreground/20 hover:bg-accent/50"
+                    >
+                      {hasImage && (
+                        <div className="relative overflow-hidden border-b border-border">
+                          <ComponentCardPreviewImage
+                            slug={slug}
+                            title={item.title}
+                          />
+                        </div>
+                      )}
+
+                      <div className="flex flex-col gap-1.5 p-4">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium text-foreground">
+                            {item.title}
+                          </span>
+                          {badge && (
+                            <span className="rounded-full border border-dashed border-[#ff4f00]/40 px-1.5 py-0.5 text-[10px] font-medium leading-none text-[#ff4f00]">
+                              {badge}
+                            </span>
+                          )}
+                        </div>
+                        {description && (
+                          <p className="line-clamp-2 text-[13px] leading-relaxed text-muted-foreground">
+                            {description}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  )
+                })}
+            </div>
+          </section>
+        ))}
+      </div>
     </div>
   )
 }

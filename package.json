@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "shadcn build && next build",
+    "dev": "tsx scripts/generate-preview-imports.ts && next dev",
+    "build": "shadcn build && tsx scripts/generate-preview-imports.ts && next build",
     "start": "next start",
     "lint": "next lint",
-    "registry:build": "shadcn build"
+    "registry:build": "shadcn build",
+    "previews:generate": "tsx scripts/generate-preview-imports.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -40,7 +41,10 @@
     "@types/react-dom": "19.1.2",
     "eslint": "^9.32.0",
     "eslint-config-next": "15.3.1",
+    "html-to-image": "^1.11.13",
+    "playwright": "^1.58.2",
     "tailwindcss": "^4.1.11",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.2"
   },
   "pnpm": {

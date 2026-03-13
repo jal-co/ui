@@ -52,3 +52,6 @@ AGENTS.md
 skills-lock.json
 bun.lock
 .env.local
+
+# Generated preview imports
+components/docs/__generated__/
