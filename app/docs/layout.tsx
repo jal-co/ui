@@ -5,6 +5,7 @@ import { MobileNav } from "@/components/docs/mobile-nav"
 import { ThemeSwitcher } from "@/components/docs/theme-switcher"
 import { JalcoLogo } from "@/components/icons/jalco-logo"
 import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-button"
+import { ProductHuntButton } from "@/registry/producthunt-button/producthunt-button"
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
@@ -36,6 +37,12 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5">
+          <ProductHuntButton
+            slug="jalco-ui"
+            variant="producthunt"
+            size="sm"
+            iconStyle="brand"
+          />
           <GitHubStarsButton
             owner="jal-co"
             repo="ui"
