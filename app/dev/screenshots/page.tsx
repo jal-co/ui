@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation"
 import {
   previewImports,
   availablePreviews,
@@ -10,6 +11,7 @@ export const metadata = {
 }
 
 export default async function ScreenshotsPage() {
+  if (process.env.NODE_ENV !== "development") notFound()
   const slugs = Array.from(availablePreviews).sort()
 
   const previews = await Promise.all(
