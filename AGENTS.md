@@ -41,7 +41,7 @@ Goals:
 - Prop names MUST be clear with sensible defaults.
 - APIs MUST NOT be overengineered before real usage justifies it.
 - Registry items MUST be installable, readable, and easy to adapt.
-- Public registry code and docs-facing source files MUST follow the comment and file header rules in `docs-component-format-spec.md`.
+- Public registry code and docs-facing source files MUST follow the comment and file header rules in `.pi/references/docs-component-format-spec.md`.
 - When building or refactoring public jalco ui components, agents MUST use `.pi/skills/jalco-component-builder/SKILL.md` as the primary workflow skill.
 - Agents SHOULD treat `shadcn-ui`, `.pi/skills/tailwind-design-system/SKILL.md`, `.pi/skills/vercel-composition-patterns/SKILL.md`, `.pi/skills/vercel-react-best-practices/SKILL.md`, and `component-engineering` as supporting references during component work.
 - When building or maintaining registry infrastructure or items, agents MUST consult `.pi/skills/jalco-shadcn-registry/SKILL.md`.
@@ -241,7 +241,7 @@ A dev-only page at `/dev/screenshots` renders every component preview at full si
 
 ### Writing component docs
 
-- `docs-component-format-spec.md` MUST be followed as the canonical docs format guide for public component and block pages.
+- `.pi/references/docs-component-format-spec.md` MUST be followed as the canonical docs format guide for public component and block pages.
 - Component doc descriptions MUST start with a concise one-sentence summary of what the component does.
 - Descriptions MUST NOT start with "A", "An", or "A React component for...".
 - Descriptions MUST NOT contain implementation details, subjective adjectives, or unnecessary jargon.

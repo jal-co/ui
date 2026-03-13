@@ -46,8 +46,6 @@ next-env.d.ts
 # local agent/tooling artifacts
 .agents/
 
-docs-component-format-spec.md
-
 skills-lock.json
 bun.lock
 .env.local

@@ -29,7 +29,7 @@ This skill guides the sequence of decisions before implementation, while treatin
 
 Before implementing a public component, the agent MUST read:
 - `AGENTS.md`
-- `docs-component-format-spec.md`
+- `.pi/references/docs-component-format-spec.md`
 - `.pi/skills/jalco-shadcn-registry/SKILL.md` for registry-backed work
 - `.pi/skills/jalco-writing-component-docs/SKILL.md` for docs work
 

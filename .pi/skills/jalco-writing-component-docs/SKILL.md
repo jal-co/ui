@@ -13,7 +13,7 @@ Use this skill when creating, editing, or reviewing component documentation in j
 
 The single source of truth for docs page structure, section order, and formatting rules is:
 
-**`docs-component-format-spec.md`** (project root)
+**`.pi/references/docs-component-format-spec.md`**
 
 The agent MUST read it before writing or updating any component docs. This skill provides workflow guidance and review steps, not a parallel format definition.
 
@@ -23,7 +23,7 @@ The agent MUST read it before writing or updating any component docs. This skill
 
 ## Required reading before changes
 
-1. `docs-component-format-spec.md` — page anatomy, section order, writing rules
+1. `.pi/references/docs-component-format-spec.md` — page anatomy, section order, writing rules
 2. `AGENTS.md` — project conventions, quality bar, comment style
 3. `.pi/skills/jalco-shadcn-registry/SKILL.md` — for registry-backed items
 
@@ -46,7 +46,7 @@ The agent MUST also inspect:
 
 ## Workflow
 
-1. Read `docs-component-format-spec.md` and this skill.
+1. Read `.pi/references/docs-component-format-spec.md` and this skill.
 2. Inspect similar docs pages in `app/docs/components/`.
 3. Review the component source, public API, and demo files.
 4. Create or update the page using `ComponentDocsPage` from `components/docs/component-docs-page.tsx`.
@@ -57,7 +57,7 @@ The agent MUST also inspect:
 9. Ensure the sidebar nav entry exists in `lib/docs.ts` with `badge: "New"` and `badgeAdded` set for new components.
 10. Run `pnpm previews:generate` if the card preview file was created or renamed.
 11. Ensure screenshots exist at `public/previews/<name>-dark.png` and `<name>-light.png`.
-12. Review using the checklist in `docs-component-format-spec.md`.
+12. Review using the checklist in `.pi/references/docs-component-format-spec.md`.
 
 </workflow>
 
@@ -104,7 +104,7 @@ These are the rules most frequently needed during docs work. For full details, s
 
 ## Review checklist
 
-Use the checklist in `docs-component-format-spec.md` before shipping any docs page.
+Use the checklist in `.pi/references/docs-component-format-spec.md` before shipping any docs page.
 
 Key things to verify:
 1. Page uses `ComponentDocsPage`
