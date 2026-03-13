@@ -31,7 +31,7 @@ export function ComponentCardPreviewImage({
       alt={`${title} preview`}
       width={1280}
       height={640}
-      className="h-[140px] w-full object-cover object-top"
+      className="w-full"
       unoptimized
     />
   )
