@@ -386,7 +386,6 @@ function TipJarTabs({
   if (!active) return null
 
   const config = providers[active.provider]
-  const isCrypto = isChain(active.provider)
   const paymentUri = config.buildUri(active.address, active.amount, active.token)
 
   return (
