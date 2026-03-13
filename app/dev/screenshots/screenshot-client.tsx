@@ -343,14 +343,15 @@ export function ScreenshotClient({ slugs, children }: ScreenshotClientProps) {
               <div
                 id={`preview-${slug}`}
                 style={{ width: WIDTH, height: HEIGHT }}
-                className="flex items-center justify-center overflow-hidden rounded-lg border border-border bg-card"
+                className="flex items-start justify-center overflow-hidden rounded-lg border border-border bg-card"
               >
                 <div
-                  className="flex items-center justify-center"
+                  className="flex items-start justify-center"
                   style={{
                     transform: `scale(${compScale})`,
-                    transformOrigin: "center",
+                    transformOrigin: "top center",
                     width: WIDTH / compScale,
+                    paddingTop: 40 / compScale,
                     paddingLeft: 40 / compScale,
                     paddingRight: 40 / compScale,
                     boxSizing: "border-box",
