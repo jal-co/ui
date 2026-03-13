@@ -9,7 +9,23 @@ import { ProductHuntButton } from "@/registry/producthunt-button/producthunt-but
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="mx-auto flex min-h-screen max-w-6xl flex-col border-x border-dashed border-border">
+    <div className="relative min-h-screen">
+      {/* Dot grid background — visible outside the content area */}
+      <div
+        className="pointer-events-none fixed inset-0"
+        style={{
+          backgroundImage: [
+            "linear-gradient(to right, color-mix(in oklab, var(--color-muted-foreground) 10%, transparent) 1px, transparent 1px)",
+            "linear-gradient(to bottom, color-mix(in oklab, var(--color-muted-foreground) 10%, transparent) 1px, transparent 1px)",
+          ].join(", "),
+          backgroundSize: "28px 28px",
+          maskImage:
+            "linear-gradient(to right, black, transparent 30%, transparent 70%, black)",
+          WebkitMaskImage:
+            "linear-gradient(to right, black, transparent 30%, transparent 70%, black)",
+        }}
+      />
+      <div className="relative mx-auto flex min-h-screen max-w-6xl flex-col border-x border-dashed border-border bg-background">
       <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <MobileNav />
 
@@ -65,6 +81,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
           <div className="mx-auto max-w-3xl">{children}</div>
         </main>
       </div>
+    </div>
     </div>
   )
 }
