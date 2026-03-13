@@ -1,0 +1,119 @@
+---
+name: jalco-writing-component-docs
+description: Write and review jalco ui component documentation with consistent structure, concise descriptions, realistic examples, and registry-aligned metadata. Use when creating new component docs, updating existing docs, reviewing doc quality, or syncing registry-backed component copy.
+---
+
+<overview>
+
+# jal-co/ui Component Docs Skill
+
+Use this skill when creating, editing, or reviewing component documentation in jalco ui.
+
+## Canonical reference
+
+The single source of truth for docs page structure, section order, and formatting rules is:
+
+**`.pi/references/docs-component-format-spec.md`**
+
+The agent MUST read it before writing or updating any component docs. This skill provides workflow guidance and review steps, not a parallel format definition.
+
+</overview>
+
+<context>
+
+## Required reading before changes
+
+1. `.pi/references/docs-component-format-spec.md` — page anatomy, section order, writing rules
+2. `AGENTS.md` — project conventions, quality bar, comment style
+3. `.pi/skills/jalco-shadcn-registry/SKILL.md` — for registry-backed items
+
+The agent MUST also inspect:
+- similar component docs already in the repo
+- the source component and its example/demo files
+- any related registry metadata
+
+## What this skill covers
+
+- writing new component docs
+- revising existing component docs
+- reviewing docs for clarity and consistency
+- writing or refining descriptions
+- keeping registry-backed descriptions in sync
+
+</context>
+
+<workflow>
+
+## Workflow
+
+1. Read `.pi/references/docs-component-format-spec.md` and this skill.
+2. Inspect similar docs pages in `app/docs/components/`.
+3. Review the component source, public API, and demo files.
+4. Create or update the page using `ComponentDocsPage` from `components/docs/component-docs-page.tsx`.
+5. Supply: `title`, `description`, `registryName`, `sourceFiles`, `preview`, `usage`.
+6. Add Examples, API Reference, Notes, or When to use sections as children — only when justified.
+7. Sync description and naming with `registry.json` and `lib/docs.ts`.
+8. Ensure a catalog card preview exists at `components/docs/previews/<registry-name>.tsx` with key variants.
+9. Ensure the sidebar nav entry exists in `lib/docs.ts` with `badge: "New"` and `badgeAdded` set for new components.
+10. Run `pnpm previews:generate` if the card preview file was created or renamed.
+11. Ensure screenshots exist at `public/previews/<name>-dark.png` and `<name>-light.png`.
+12. Review using the checklist in `.pi/references/docs-component-format-spec.md`.
+
+</workflow>
+
+<rules>
+
+## Quick rules
+
+These are the rules most frequently needed during docs work. For full details, see the format spec.
+
+### Descriptions
+
+- MUST be one sentence, capability-first
+- MUST NOT start with "A", "An", or "A React component for..."
+- MUST NOT contain subjective adjectives
+- MUST match across: page metadata, ComponentDocsPage props, registry.json
+
+### Usage section
+
+- MUST include import and minimal usage snippets via `CodeLine`
+- Server/client rendering context MUST go here, not in Notes
+- The first example SHOULD be minimal — layer complexity in Examples
+
+### Examples
+
+- MUST use `VariantGrid` with labeled items
+- MUST group by meaning: Variants, Sizes, Languages, etc.
+- MUST NOT call everything a variant
+- SHOULD use realistic content
+
+### Notes
+
+- MUST contain only caveats, limitations, and external service behavior
+- MUST NOT include architecture decisions, feature highlights, or rendering context
+- SHOULD be brief
+
+### Bundled exports
+
+- MUST use `installNote` to explain the relationship
+- MUST set `bundledIn` on the nav item in `lib/docs.ts`
+
+</rules>
+
+<quality-checklist>
+
+## Review checklist
+
+Use the checklist in `.pi/references/docs-component-format-spec.md` before shipping any docs page.
+
+Key things to verify:
+1. Page uses `ComponentDocsPage`
+2. Description matches across all surfaces
+3. Preview is realistic
+4. Usage includes runtime context
+5. Examples are labeled correctly
+6. Notes contains only caveats
+7. Sidebar entry is correct (title, order, bundledIn)
+8. Catalog card preview exists at `components/docs/previews/<registry-name>.tsx`
+
+</quality-checklist>
