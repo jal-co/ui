@@ -20,6 +20,7 @@ const depIconKeyMap: Record<string, string> = {
   "react-dom": "React",
   "class-variance-authority": "Tailwind CSS",
   "tailwind-merge": "Tailwind CSS",
+  "radix-ui": "Radix",
 }
 
 /**
@@ -27,6 +28,7 @@ const depIconKeyMap: Record<string, string> = {
  */
 const depIconPrefixes: [string, string][] = [
   ["@radix-ui/", "Radix"],
+  ["radix-ui", "Radix"],
 ]
 
 /**
