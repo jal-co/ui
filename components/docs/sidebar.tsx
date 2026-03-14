@@ -3,6 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { motion } from "motion/react"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { docsNav, getActiveBadge } from "@/lib/docs"
@@ -34,7 +35,6 @@ export function Sidebar() {
     }
   }, [])
 
-  // Re-check when scrolling — hide when near bottom
   React.useEffect(() => {
     const el = scrollRef.current
     if (!el) return
@@ -61,26 +61,41 @@ export function Sidebar() {
               <p className="px-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 {group.title}
               </p>
-              {group.items.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-accent hover:text-accent-foreground",
-                    item.bundledIn && "ml-3 text-[13px]",
-                    pathname === item.href
-                      ? "bg-accent font-medium text-accent-foreground"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  {item.title}
-                  {getActiveBadge(item) && (
-                    <span className="rounded-full border border-dashed border-[#ff4f00]/40 px-1.5 py-0.5 text-[10px] font-medium leading-none text-[#ff4f00]">
-                      {getActiveBadge(item)}
-                    </span>
-                  )}
-                </Link>
-              ))}
+              {group.items.map((item) => {
+                const isActive = pathname === item.href
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "relative flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:text-accent-foreground",
+                      item.bundledIn && "ml-3 text-[13px]",
+                      isActive
+                        ? "font-medium text-accent-foreground"
+                        : "text-muted-foreground"
+                    )}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="sidebar-active"
+                        className="absolute inset-0 rounded-md bg-accent"
+                        transition={{
+                          type: "spring",
+                          stiffness: 500,
+                          damping: 35,
+                        }}
+                      />
+                    )}
+                    <span className="relative z-10">{item.title}</span>
+                    {getActiveBadge(item) && (
+                      <span className="relative z-10 rounded-full border border-dashed border-[#ff4f00]/40 px-1.5 py-0.5 text-[10px] font-medium leading-none text-[#ff4f00]">
+                        {getActiveBadge(item)}
+                      </span>
+                    )}
+                  </Link>
+                )
+              })}
             </div>
           ))}
         </nav>
@@ -89,13 +104,11 @@ export function Sidebar() {
       {/* Scroll indicator */}
       <div
         className={cn(
-          "absolute inset-x-0 bottom-0 flex flex-col items-center transition-opacity duration-200",
+          "absolute inset-x-0 bottom-0 z-20 flex flex-col items-center transition-opacity duration-200",
           canScroll ? "opacity-100" : "pointer-events-none opacity-0"
         )}
       >
-        {/* Fade mask */}
         <div className="h-8 w-full bg-gradient-to-t from-background to-transparent" />
-        {/* Button */}
         <button
           type="button"
           aria-label="Scroll down for more"

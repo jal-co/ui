@@ -3,13 +3,31 @@ import Link from "next/link"
 import { Sidebar } from "@/components/docs/sidebar"
 import { MobileNav } from "@/components/docs/mobile-nav"
 import { ThemeSwitcher } from "@/components/docs/theme-switcher"
+import { PrevNextNav } from "@/components/docs/prev-next-nav"
+
 import { JalcoLogo } from "@/components/icons/jalco-logo"
 import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-button"
 import { ProductHuntButton } from "@/registry/producthunt-button/producthunt-button"
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="mx-auto flex min-h-screen max-w-6xl flex-col border-x border-dashed border-border">
+    <div className="relative min-h-screen">
+      {/* Dot grid background — visible outside the content area */}
+      <div
+        className="pointer-events-none fixed inset-0"
+        style={{
+          backgroundImage: [
+            "linear-gradient(to right, color-mix(in oklab, var(--color-muted-foreground) 10%, transparent) 1px, transparent 1px)",
+            "linear-gradient(to bottom, color-mix(in oklab, var(--color-muted-foreground) 10%, transparent) 1px, transparent 1px)",
+          ].join(", "),
+          backgroundSize: "28px 28px",
+          maskImage:
+            "linear-gradient(to right, black, transparent 30%, transparent 70%, black)",
+          WebkitMaskImage:
+            "linear-gradient(to right, black, transparent 30%, transparent 70%, black)",
+        }}
+      />
+      <div className="relative mx-auto flex min-h-screen max-w-6xl flex-col border-x border-dashed border-border bg-background">
       <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <MobileNav />
 
@@ -62,9 +80,13 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         </aside>
 
         <main className="min-w-0 flex-1 px-4 py-8 sm:px-8 md:px-12">
-          <div className="mx-auto max-w-3xl">{children}</div>
+          <div className="mx-auto max-w-3xl">
+            {children}
+            <PrevNextNav />
+          </div>
         </main>
       </div>
+    </div>
     </div>
   )
 }
