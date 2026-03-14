@@ -110,6 +110,16 @@ export default function JsonViewerPage() {
       description="Collapsible, syntax-colored JSON tree with path copying, search, and expand/collapse controls. Designed for dev dashboards, API documentation, and debugging tools."
       registryName="json-viewer"
       sourceFiles={sourceFiles}
+      requirements={
+        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
+          <li>
+            <strong className="text-foreground">No virtualization.</strong>{" "}
+            Renders all nodes directly. Suitable for typical API payloads (up to
+            a few hundred nodes). For very large datasets, consider truncating
+            the data before passing it in.
+          </li>
+        </ul>
+      }
       preview={
         <JsonViewer
           data={apiResponse}
@@ -483,12 +493,6 @@ export default function JsonViewerPage() {
             for expand/collapse state, search, and clipboard access.
           </li>
           <li>
-            <strong className="text-foreground">No virtualization.</strong>{" "}
-            Renders all nodes directly. Suitable for typical API payloads (up to
-            a few hundred nodes). For very large datasets, consider truncating
-            the data before passing it in.
-          </li>
-          <li>
             <strong className="text-foreground">Search behavior.</strong> When a
             search query is active, the tree auto-expands all nodes and hides
             branches with no matches. Clear the search to restore the previous
@@ -508,6 +512,20 @@ export default function JsonViewerPage() {
             requires React, Tailwind, lucide-react, and the{" "}
             <code className="rounded bg-muted px-1 py-0.5 text-xs">cn</code>{" "}
             utility.
+          </li>
+          <li>
+            <strong className="text-foreground">Icon library.</strong>{" "}
+            Uses{" "}
+            <a
+              href="https://lucide.dev"
+              className="underline hover:text-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Lucide
+            </a>{" "}
+            icons by default. Since this is copy-paste code, you can swap the
+            imports if your project uses a different icon library.
           </li>
         </ul>
       </section>

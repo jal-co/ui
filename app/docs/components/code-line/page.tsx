@@ -22,6 +22,30 @@ export default async function CodeLinePage() {
       description="Compact single-line code snippet with syntax highlighting and an inline copy button. Ideal for imports, CLI commands, env vars, and config values."
       registryName="code-line"
       sourceFiles={sourceFiles}
+      requirements={
+        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
+          <li>
+            <strong className="text-foreground">Requires a highlight utility.</strong>{" "}
+            Expects a{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">
+              highlightCode
+            </code>{" "}
+            function at{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">
+              @/lib/highlight-code
+            </code>
+            . If you don&apos;t have one, create it with shiki&apos;s{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">
+              codeToHtml
+            </code>
+            .
+          </li>
+          <li>
+            <strong className="text-foreground">Single-line only.</strong>{" "}
+            For multi-line code, use a full code block component instead.
+          </li>
+        </ul>
+      }
       preview={
         <CodeLine code={`import { Button } from "@/components/ui/button"`} />
       }
@@ -259,24 +283,18 @@ export default async function CodeLinePage() {
         <h2 className="text-xl font-semibold tracking-tight">Notes</h2>
         <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
           <li>
-            <strong className="text-foreground">Requires a highlight utility.</strong>{" "}
-            Expects a{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">
-              highlightCode
-            </code>{" "}
-            function at{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">
-              @/lib/highlight-code
-            </code>
-            . If you don&apos;t have one, create it with shiki&apos;s{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">
-              codeToHtml
-            </code>
-            .
-          </li>
-          <li>
-            <strong className="text-foreground">Designed for single lines.</strong>{" "}
-            For multi-line code, use a full code block component instead.
+            <strong className="text-foreground">Icon library.</strong>{" "}
+            Uses{" "}
+            <a
+              href="https://lucide.dev"
+              className="underline hover:text-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Lucide
+            </a>{" "}
+            icons by default. Since this is copy-paste code, you can swap the
+            imports if your project uses a different icon library.
           </li>
         </ul>
       </section>

@@ -27,6 +27,17 @@ export default async function GitHubButtonGroupPage() {
       description="Segmented button group displaying multiple GitHub repo metrics (stars, forks, watchers, issues) with per-segment links."
       registryName="github-button-group"
       sourceFiles={sourceFiles}
+      requirements={
+        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
+          <li>
+            <strong className="text-foreground">Graceful null return.</strong>{" "}
+            Returns{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">null</code>{" "}
+            if the GitHub API call fails — wrap in a Suspense boundary or
+            provide a fallback.
+          </li>
+        </ul>
+      }
       preview={<GitHubButtonGroup owner="shadcn-ui" repo="ui" />}
       usage={
         <>
@@ -331,12 +342,6 @@ export default async function GitHubButtonGroupPage() {
           <li>
             Each metric segment links to the corresponding GitHub page
             (stargazers, forks, watchers, or issues).
-          </li>
-          <li>
-            Returns{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">null</code>{" "}
-            if the GitHub API call fails — handle with a Suspense boundary or
-            fallback.
           </li>
         </ul>
       </section>

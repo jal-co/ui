@@ -115,6 +115,24 @@ export default function EnvTablePage() {
       description="Read-only environment variable table with masked values, click-to-reveal, per-row copy, and bulk copy as .env format. Designed for settings pages, deploy previews, and documentation."
       registryName="env-table"
       sourceFiles={sourceFiles}
+      requirements={
+        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
+          <li>
+            <strong className="text-foreground">Display-only.</strong> This
+            component does not read from{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">
+              process.env
+            </code>{" "}
+            or any external source. You supply the data — it renders it.
+          </li>
+          <li>
+            <strong className="text-foreground">Visual masking only.</strong>{" "}
+            Values show the first 4 characters plus dots. Values shorter than 5
+            characters show only dots. This is visual masking — values are still
+            in the DOM. Do not use this for true secret concealment.
+          </li>
+        </ul>
+      }
       preview={<EnvTable variables={vercelVars} title="Environment Variables" />}
       usage={
         <>
@@ -303,25 +321,11 @@ export default function EnvTablePage() {
         <h2 className="text-xl font-semibold tracking-tight">Notes</h2>
         <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
           <li>
-            <strong className="text-foreground">Display-only.</strong> This
-            component does not read from{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">
-              process.env
-            </code>{" "}
-            or any external source. You supply the data — it renders it.
-          </li>
-          <li>
             <strong className="text-foreground">Client component.</strong> Uses{" "}
             <code className="rounded bg-muted px-1 py-0.5 text-xs">
               &quot;use client&quot;
             </code>{" "}
             for reveal toggle state and clipboard access.
-          </li>
-          <li>
-            <strong className="text-foreground">Masking.</strong> Values show
-            the first 4 characters plus dots. Values shorter than 5 characters
-            show only dots. This is visual masking — values are still in the
-            DOM. Do not use this for true secret concealment.
           </li>
           <li>
             <strong className="text-foreground">Copy .env.</strong> The toolbar
@@ -339,6 +343,20 @@ export default function EnvTablePage() {
             <strong className="text-foreground">Duplicate keys.</strong> The
             component handles duplicate keys gracefully — common when showing
             the same variable across multiple environments.
+          </li>
+          <li>
+            <strong className="text-foreground">Icon library.</strong>{" "}
+            Uses{" "}
+            <a
+              href="https://lucide.dev"
+              className="underline hover:text-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Lucide
+            </a>{" "}
+            icons by default. Since this is copy-paste code, you can swap the
+            imports if your project uses a different icon library.
           </li>
         </ul>
       </section>

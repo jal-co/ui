@@ -82,6 +82,15 @@ export default function LogViewerPage() {
       description="Scrollable log output component for displaying streaming logs or CLI-style output in web apps. Three variants — terminal, minimal, and filterable — cover most log display needs."
       registryName="log-viewer"
       sourceFiles={sourceFiles}
+      requirements={
+        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
+          <li>
+            <strong className="text-foreground">No virtualization.</strong>{" "}
+            Renders all entries directly — no virtual-scrolling library.
+            Suitable for log sets up to a few thousand entries.
+          </li>
+        </ul>
+      }
       preview={
         <div className="w-full">
           <LogViewerTerminal
@@ -567,8 +576,21 @@ export default function LogViewerPage() {
             <strong className="text-foreground">No dependencies.</strong> Only
             requires React, Tailwind, lucide-react, and the{" "}
             <code className="rounded bg-muted px-1 py-0.5 text-xs">cn</code>{" "}
-            utility. No virtual-scrolling library — suitable for log sets up
-            to a few thousand entries.
+            utility.
+          </li>
+          <li>
+            <strong className="text-foreground">Icon library.</strong>{" "}
+            Uses{" "}
+            <a
+              href="https://lucide.dev"
+              className="underline hover:text-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Lucide
+            </a>{" "}
+            icons by default. Since this is copy-paste code, you can swap the
+            imports if your project uses a different icon library.
           </li>
         </ul>
       </section>

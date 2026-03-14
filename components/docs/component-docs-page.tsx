@@ -3,6 +3,8 @@ import { AiCopyButton } from "@/registry/ai-copy-button/ai-copy-button"
 import { DependencyBadges } from "@/components/docs/dependency-badges"
 import { ComponentPreview } from "@/components/docs/component-preview"
 import { InstallCommand } from "@/components/docs/install-command"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { TriangleAlert } from "lucide-react"
 
 import { getRegistryItem } from "@/lib/registry"
 import { generateComponentPrompt } from "@/lib/prompts"
@@ -24,6 +26,8 @@ interface ComponentDocsPageProps {
   preview?: React.ReactNode
   /** Custom note rendered below the InstallCommand (e.g. "Included in X package"). */
   installNote?: React.ReactNode
+  /** Prerequisites, constraints, or caveats that affect adoption decisions. Rendered between Installation and Usage. */
+  requirements?: React.ReactNode
   /** Usage section content. */
   usage?: React.ReactNode
   /** Everything after Usage — examples, API ref, notes, etc. */
@@ -44,6 +48,7 @@ export async function ComponentDocsPage({
   sourceFiles,
   preview,
   installNote,
+  requirements,
   usage,
   children,
 }: ComponentDocsPageProps) {
@@ -102,6 +107,19 @@ export async function ComponentDocsPage({
           {installNote}
           <InstallCommand name={registryName} />
         </section>
+      )}
+
+      {/* Requirements */}
+      {requirements && (
+        <Card className="gap-3 py-4">
+          <CardHeader className="px-4">
+            <CardTitle className="flex items-center gap-2 text-sm font-medium">
+              <TriangleAlert className="size-4 text-muted-foreground" />
+              Requirements
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="px-4">{requirements}</CardContent>
+        </Card>
       )}
 
       {/* Usage */}
