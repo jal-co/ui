@@ -4,7 +4,7 @@ import * as React from "react"
 import { Check, Copy } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { track } from "@/lib/analytics"
-import { PackageManagerIcon } from "@/components/icons/package-manager-icons"
+import { pmIcons } from "@/lib/pm-icons"
 
 type PackageManager = "pnpm" | "yarn" | "npm" | "bun" | "shadcn"
 
@@ -20,8 +20,8 @@ interface CodeBlockCommandProps {
   npm?: string
   bun?: string
   shadcn?: string
-  /** Pre-fetched SVG markup keyed by package manager name */
-  icons?: Partial<Record<PackageManager, string>>
+  /** Custom icons keyed by package manager name. Merged over built-in icons. */
+  icons?: Partial<Record<PackageManager, React.ReactNode>>
   /**
    * Icon display style:
    * - `"none"` — no icons shown
@@ -38,6 +38,19 @@ interface CodeBlockCommandProps {
    */
   show?: PackageManager[]
   className?: string
+}
+
+function DefaultIcon({ svg, muted }: { svg: string; muted: boolean }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex size-3.5 shrink-0 [&>svg]:size-full",
+        muted && "grayscale opacity-50"
+      )}
+      aria-hidden="true"
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
+  )
 }
 
 export function CodeBlockCommand({
@@ -70,6 +83,7 @@ export function CodeBlockCommand({
   })
 
   const [copied, setCopied] = React.useState(false)
+  const isMuted = iconStyle === "muted"
 
   function handleSelect(manager: PackageManager) {
     setActive(manager)
@@ -91,7 +105,17 @@ export function CodeBlockCommand({
     })
     setCopied(true)
     window.setTimeout(() => setCopied(false), 1500)
+  }
 
+  function renderIcon(manager: PackageManager) {
+    if (iconStyle === "none") return null
+
+    const custom = icons[manager]
+    if (custom !== undefined) return custom
+
+    const svg = pmIcons[manager]
+    if (!svg) return null
+    return <DefaultIcon svg={svg} muted={isMuted} />
   }
 
   const currentCommand = commands[active] ?? ""
@@ -104,7 +128,6 @@ export function CodeBlockCommand({
       )}
     >
       <div className="flex items-center justify-between border-b border-border/60 bg-muted/40">
-
         <div className="flex" role="tablist" aria-label="Package manager">
           {available.map((manager) => (
             <button
@@ -120,9 +143,7 @@ export function CodeBlockCommand({
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              {iconStyle !== "none" && icons[manager] ? (
-                <PackageManagerIcon svg={icons[manager]} muted={iconStyle === "muted"} />
-              ) : null}
+              {renderIcon(manager)}
               {manager}
             </button>
           ))}

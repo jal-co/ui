@@ -250,7 +250,8 @@ A dev-only page at `/dev/screenshots` renders every component preview at full si
 - Features sections SHOULD be limited to 2-4 short bullets written in capability-first language.
 - Component docs MUST support the site's preview, code, install, and usage flow using the shared docs anatomy: Metadata, Header, Preview, Installation, Usage, then only justified optional sections.
 - Not every example is a variant; Variants, Sizes, Examples, Configurations, and bundled export labels MUST be used intentionally.
-- Important setup requirements MUST be surfaced before Examples; adoption blockers MUST NOT be buried in Notes.
+- Adoption blockers, hard prerequisites, scope constraints, and security caveats MUST use the `requirements` prop on `ComponentDocsPage` so they render between Installation and Usage — they MUST NOT be buried in Notes.
+- Notes (bottom of page) MUST contain only supplementary behavioral details, not blockers.
 - API, variants, examples, requirements, or notes sections SHOULD only be added when they provide meaningful value.
 - Naming MUST be aligned across component titles, slugs, registry items, preview names, and exports.
 - Examples SHOULD use realistic, polished content over placeholder content.

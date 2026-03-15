@@ -10,8 +10,9 @@ Every component docs page MUST use `ComponentDocsPage` from `components/docs/com
 2. **Header** — rendered by `ComponentDocsPage`: title, description, AiCopyButton, DependencyBadges
 3. **Preview** — live component inside `ComponentPreview` with source file tabs
 4. **Installation** — `InstallCommand` with registry name; `installNote` for bundled exports
-5. **Usage** — import snippet via `CodeLine`, minimal usage example, server/client rendering context
-6. **Children** (optional, order as needed):
+5. **Requirements** (optional) — prerequisites, constraints, or caveats that affect whether or how someone adopts the component. Rendered via the `requirements` prop.
+6. **Usage** — import snippet via `CodeLine`, minimal usage example, server/client rendering context
+7. **Children** (optional, order as needed):
    - Playground
    - Examples (variants, sizes, configurations, etc.)
    - API Reference
@@ -27,6 +28,7 @@ Every component docs page MUST use `ComponentDocsPage` from `components/docs/com
 | `sourceFiles` | `(string \| { path, name?, language? })[]` | no | Source file paths for the code tab |
 | `preview` | `ReactNode` | no | Live component for the Preview section |
 | `installNote` | `ReactNode` | no | Note below install command (e.g. bundled-in explanation) |
+| `requirements` | `ReactNode` | no | Prerequisites, constraints, or caveats surfaced before Usage |
 | `usage` | `ReactNode` | no | Usage section content |
 | `children` | `ReactNode` | no | Everything after Usage |
 
@@ -64,11 +66,61 @@ Every component docs page MUST use `ComponentDocsPage` from `components/docs/com
 - MUST use `ApiRefTable` from `registry/api-ref-table/api-ref-table`
 - SHOULD list all public props with name, type, required flag, and description
 
+### Requirements section
+
+The Requirements section surfaces adoption-blocking information — things a user needs to know *before* they install or integrate the component. It is rendered between Installation and Usage via the `requirements` prop, inside an amber-tinted `Card` with a warning icon.
+
+- MUST be used when the component has hard prerequisites, scope constraints, security caveats, or performance limits that affect adoption decisions
+- MUST NOT be used for general behavioral notes, nice-to-know details, or supplementary context
+- Content SHOULD be a short `<ul>` with the same styling as Notes (`list-disc space-y-2 pl-6 text-sm text-muted-foreground`)
+- Each bullet SHOULD use a bolded lead label in `text-foreground`
+- The Card wrapper, heading, and icon are handled by `ComponentDocsPage` — pages only supply the inner content via the `requirements` prop
+
+A note belongs in Requirements when it answers one of these questions:
+- Will this break or fail without additional setup? (e.g. "Requires a `highlightCode` utility")
+- Does this component *not* do something users will assume it does? (e.g. "Display-only — does not read from `process.env`")
+- Is there a hard scope limitation that affects whether someone should install it? (e.g. "Standard 5-field only", "No virtualization")
+- Is there a security or correctness caveat? (e.g. "Visual masking — values are still in the DOM")
+- Is there a fragility or reliability concern? (e.g. "Scrapes HTML — parser may need updating")
+
+A note belongs in Notes (bottom) when it answers:
+- What runtime boundary does this use? (server/client component)
+- What icon library does it use?
+- How does caching work?
+- How does a particular feature behave in detail?
+- What accessibility patterns does it use?
+
+When migrating a bullet from Notes to Requirements, remove it from Notes entirely — do not duplicate.
+
 ### Notes section
 
-- MUST contain only caveats, limitations, and external service behavior
-- MUST NOT contain architecture decisions, feature highlights, or rendering context
+- MUST contain only supplementary behavioral details, implementation context, and nice-to-know caveats
+- MUST NOT contain adoption blockers, hard prerequisites, or scope limitations — those belong in Requirements
+- MUST NOT contain architecture decisions or feature highlights
 - SHOULD be brief — a short bulleted list
+
+### Icon library note
+
+Components that depend on `lucide-react` MUST include the following note in their Notes section:
+
+```tsx
+<li>
+  <strong className="text-foreground">Icon library.</strong>{" "}
+  Uses{" "}
+  <a
+    href="https://lucide.dev"
+    className="underline hover:text-foreground"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Lucide
+  </a>{" "}
+  icons by default. Since this is copy-paste code, you can swap the
+  imports if your project uses a different icon library.
+</li>
+```
+
+This note communicates that Lucide is the default but is not a hard requirement, and that the user can adapt the icons to match their shadcn theme's icon library (Tabler, Phosphor, HugeIcons, Remix, etc.).
 
 ### Bundled exports
 
@@ -116,8 +168,9 @@ Before shipping a component docs page, verify:
 - [ ] `metadata.description` matches `ComponentDocsPage` `description` and `registry.json`
 - [ ] Preview renders a realistic default state
 - [ ] Usage includes import, minimal example, and server/client context
+- [ ] Adoption blockers and prerequisites are in Requirements, not buried in Notes
 - [ ] Examples use `VariantGrid` with accurate group labels
-- [ ] Notes contains only caveats (no features, no architecture)
+- [ ] Notes contains only supplementary details (no blockers, no features, no architecture)
 - [ ] Sidebar entry in `lib/docs.ts` is correct (title, order, badge, bundledIn)
 - [ ] Card preview exists at `components/docs/previews/<registry-name>.tsx`
 - [ ] Screenshots exist at `public/previews/<name>-dark.png` and `<name>-light.png`

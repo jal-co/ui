@@ -12,11 +12,9 @@
  * - title: table heading
  * - props: array of prop definitions (name, type, required, description, fullType)
  *
- * Dependencies: lucide-react
  */
 
 import * as React from "react"
-import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface ApiProp {
@@ -95,12 +93,21 @@ function ApiRefRow({ prop }: { prop: ApiProp }) {
           <TypeDisplay type={prop.type} />
         </span>
         {hasDetails && (
-          <ChevronDown
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
             className={cn(
               "size-4 shrink-0 text-muted-foreground transition-transform",
               open && "rotate-180"
             )}
-          />
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
         )}
       </button>
       {open && hasDetails && (

@@ -3,6 +3,7 @@ import { AiCopyButton } from "@/registry/ai-copy-button/ai-copy-button"
 import { DependencyBadges } from "@/components/docs/dependency-badges"
 import { ComponentPreview } from "@/components/docs/component-preview"
 import { InstallCommand } from "@/components/docs/install-command"
+import { TriangleAlert } from "lucide-react"
 
 import { getRegistryItem } from "@/lib/registry"
 import { generateComponentPrompt } from "@/lib/prompts"
@@ -24,6 +25,8 @@ interface ComponentDocsPageProps {
   preview?: React.ReactNode
   /** Custom note rendered below the InstallCommand (e.g. "Included in X package"). */
   installNote?: React.ReactNode
+  /** Prerequisites, constraints, or caveats that affect adoption decisions. Rendered between Installation and Usage. */
+  requirements?: React.ReactNode
   /** Usage section content. */
   usage?: React.ReactNode
   /** Everything after Usage — examples, API ref, notes, etc. */
@@ -44,6 +47,7 @@ export async function ComponentDocsPage({
   sourceFiles,
   preview,
   installNote,
+  requirements,
   usage,
   children,
 }: ComponentDocsPageProps) {
@@ -100,6 +104,18 @@ export async function ComponentDocsPage({
             Installation
           </h2>
           {installNote}
+
+          {/* Requirements */}
+          {requirements && (
+            <div className="w-full overflow-hidden rounded-md border border-destructive bg-card bg-grid-pattern p-4">
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <TriangleAlert className="size-4 text-destructive" />
+                Requirements
+              </div>
+              <div className="mt-3">{requirements}</div>
+            </div>
+          )}
+
           <InstallCommand name={registryName} />
         </section>
       )}

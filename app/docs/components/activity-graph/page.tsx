@@ -72,6 +72,16 @@ export default async function ActivityGraphPage() {
       description="GitHub-style activity heatmap that visualizes daily counts as a color-intensity grid with month labels, day labels, and a Less/More legend. Includes a helper to fetch real GitHub contribution data."
       registryName="activity-graph"
       sourceFiles={sourceFiles}
+      requirements={
+        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
+          <li>
+            <strong className="text-foreground">GitHub scraping.</strong> The
+            fetch helper scrapes GitHub&apos;s public contributions HTML page.
+            No API key needed, but if GitHub changes their markup the parser may
+            need updating.
+          </li>
+        </ul>
+      }
       preview={
         <div className="flex w-full flex-col gap-2">
           {totalLabel && (
@@ -347,10 +357,8 @@ export default async function ActivityGraphPage() {
             to opt into horizontal scrolling instead.
           </li>
           <li>
-            <strong className="text-foreground">GitHub scraping.</strong> The
-            fetch helper scrapes GitHub&apos;s public contributions HTML page.
-            No API key needed. Cached for 1 hour via ISR. If GitHub changes
-            their markup, the parser may need updating.
+            <strong className="text-foreground">ISR caching.</strong> GitHub
+            contribution data is cached for 1 hour via ISR.
           </li>
           <li>
             <strong className="text-foreground">Intensity mapping.</strong>{" "}

@@ -351,17 +351,11 @@ export default async function CodeBlockPage() {
         <h2 className="text-xl font-semibold tracking-tight">Notes</h2>
         <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
           <li>
-            <strong className="text-foreground">Language icons via SVGL.</strong>{" "}
-            Language icons are fetched from the{" "}
-            <a
-              href="https://svgl.app"
-              className="underline hover:text-foreground"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              SVGL API
-            </a>{" "}
-            at build time and cached for 24 hours.
+            <strong className="text-foreground">Bundled language icons.</strong>{" "}
+            Language icons are bundled directly in the component — no API calls
+            or setup required. Pass a custom{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">icon</code>{" "}
+            prop to override the default icon for any language.
           </li>
           <li>
             <strong className="text-foreground">Dual theme.</strong> By default,
@@ -378,6 +372,20 @@ export default async function CodeBlockPage() {
               theme
             </code>{" "}
             prop to render with any of shiki&apos;s 65 bundled themes instead.
+          </li>
+          <li>
+            <strong className="text-foreground">Icon library.</strong>{" "}
+            Uses{" "}
+            <a
+              href="https://lucide.dev"
+              className="underline hover:text-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Lucide
+            </a>{" "}
+            icons by default. Since this is copy-paste code, you can swap the
+            imports if your project uses a different icon library.
           </li>
         </ul>
       </section>

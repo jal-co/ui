@@ -22,6 +22,25 @@ export default function CronSchedulePage() {
       description="Visual cron expression display with field breakdown, human-readable summary, and optional next-run preview. Designed for dashboards, serverless function docs, and scheduling UIs."
       registryName="cron-schedule"
       sourceFiles={sourceFiles}
+      requirements={
+        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
+          <li>
+            <strong className="text-foreground">Standard 5-field only.</strong>{" "}
+            Supports minute, hour, day-of-month, month, and day-of-week.
+            Does not support seconds, years, or non-standard extensions like{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">L</code>,{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">W</code>,
+            or{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">#</code>.
+          </li>
+          <li>
+            <strong className="text-foreground">Display only.</strong> Next-run
+            times are computed by iterating minute-by-minute, capped at ~1 year
+            of lookahead. Suitable for display purposes — not a production
+            scheduler.
+          </li>
+        </ul>
+      }
       preview={
         <CronSchedule
           expression="0 9 * * 1-5"
@@ -344,24 +363,9 @@ export default function CronSchedulePage() {
             — renders entirely on the server with zero client JS.
           </li>
           <li>
-            <strong className="text-foreground">Standard 5-field only.</strong>{" "}
-            Supports minute, hour, day-of-month, month, and day-of-week.
-            Does not support seconds, years, or non-standard extensions like{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">L</code>,{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">W</code>,
-            or{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">#</code>.
-          </li>
-          <li>
             <strong className="text-foreground">No dependencies.</strong> Cron
             parsing and next-run computation are built-in. No external
             scheduling library required.
-          </li>
-          <li>
-            <strong className="text-foreground">Next-run accuracy.</strong> Runs
-            are computed by iterating minute-by-minute from the reference date,
-            capped at ~1 year of lookahead. This is suitable for display
-            purposes — not a production scheduler.
           </li>
           <li>
             <strong className="text-foreground">Timezone.</strong> Next-run

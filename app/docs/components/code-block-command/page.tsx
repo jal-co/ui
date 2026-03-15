@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { CodeBlockCommand } from "@/registry/code-block-command/code-block-command"
 import { convertNpmCommand } from "@/registry/code-block-command/lib/convert-npm-command"
-import { pmIcons } from "@/lib/pm-icons"
 import { ApiRefTable } from "@/registry/api-ref-table/api-ref-table"
 import { ComponentDocsPage } from "@/components/docs/component-docs-page"
 import { VariantGrid } from "@/components/docs/variant-grid"
@@ -10,16 +9,12 @@ import { CodeLine } from "@/registry/code-line/code-line"
 export const metadata: Metadata = {
   title: "Code Block Command",
   description:
-    "Tabbed CLI command block with package manager switching, SVG icons, copy button, and localStorage persistence.",
+    "Tabbed CLI command block with package manager switching, bundled SVG icons, copy button, and localStorage persistence.",
 }
-
-export const revalidate = 86400
 
 const sourceFiles = [
   "registry/code-block-command/code-block-command.tsx",
-  "registry/code-block-command/icons/package-manager-icons.tsx",
   "registry/code-block-command/lib/convert-npm-command.ts",
-  "registry/code-block-command/lib/package-manager-icons.ts",
 ]
 
 export default function CodeBlockCommandPage() {
@@ -27,13 +22,12 @@ export default function CodeBlockCommandPage() {
   return (
     <ComponentDocsPage
       title="Code Block Command"
-      description="Tabbed CLI command block with package manager switching (pnpm, yarn, npm, bun, shadcn), SVG icons, copy button, and localStorage persistence. Remembers the user's preferred package manager across visits."
+      description="Tabbed CLI command block with package manager switching (pnpm, yarn, npm, bun, shadcn), bundled SVG icons, copy button, and localStorage persistence. Remembers the user's preferred package manager across visits."
       registryName="code-block-command"
       sourceFiles={sourceFiles}
       preview={
         <CodeBlockCommand
           {...convertNpmCommand("npx shadcn@latest add button")}
-          icons={pmIcons}
           show={["shadcn", "pnpm", "npm", "yarn", "bun"]}
         />
       }
@@ -58,7 +52,7 @@ export default function CodeBlockCommandPage() {
               convertNpmCommand
             </code>{" "}
             helper to generate equivalent commands for all managers from a
-            single npm command.
+            single npm command. Icons are bundled — no fetch or setup required.
           </p>
         </>
       }
@@ -77,42 +71,38 @@ export default function CodeBlockCommandPage() {
             items={[
               {
                 label: "shadcn add",
-                code: `<CodeBlockCommand {...convertNpmCommand("npx shadcn@latest add button")} icons={pmIcons} />`,
+                code: `<CodeBlockCommand {...convertNpmCommand("npx shadcn@latest add button")} />`,
                 preview: (
                   <CodeBlockCommand
                     {...convertNpmCommand("npx shadcn@latest add button")}
-                    icons={pmIcons}
                     show={["shadcn", "pnpm", "npm", "yarn", "bun"]}
                   />
                 ),
               },
               {
                 label: "npm install",
-                code: `<CodeBlockCommand {...convertNpmCommand("npm install zod")} icons={pmIcons} />`,
+                code: `<CodeBlockCommand {...convertNpmCommand("npm install zod")} />`,
                 preview: (
                   <CodeBlockCommand
                     {...convertNpmCommand("npm install zod")}
-                    icons={pmIcons}
                   />
                 ),
               },
               {
                 label: "npx create",
-                code: `<CodeBlockCommand {...convertNpmCommand("npx create-next-app@latest")} icons={pmIcons} />`,
+                code: `<CodeBlockCommand {...convertNpmCommand("npx create-next-app@latest")} />`,
                 preview: (
                   <CodeBlockCommand
                     {...convertNpmCommand("npx create-next-app@latest")}
-                    icons={pmIcons}
                   />
                 ),
               },
               {
                 label: "npm run",
-                code: `<CodeBlockCommand {...convertNpmCommand("npm run dev")} icons={pmIcons} />`,
+                code: `<CodeBlockCommand {...convertNpmCommand("npm run dev")} />`,
                 preview: (
                   <CodeBlockCommand
                     {...convertNpmCommand("npm run dev")}
-                    icons={pmIcons}
                   />
                 ),
               },
@@ -130,22 +120,20 @@ export default function CodeBlockCommandPage() {
             items={[
               {
                 label: "Colored (default)",
-                code: `<CodeBlockCommand {...commands} icons={pmIcons} iconStyle="colored" />`,
+                code: `<CodeBlockCommand {...commands} iconStyle="colored" />`,
                 preview: (
                   <CodeBlockCommand
                     {...convertNpmCommand("npm install zod")}
-                    icons={pmIcons}
                     iconStyle="colored"
                   />
                 ),
               },
               {
                 label: "Muted",
-                code: `<CodeBlockCommand {...commands} icons={pmIcons} iconStyle="muted" />`,
+                code: `<CodeBlockCommand {...commands} iconStyle="muted" />`,
                 preview: (
                   <CodeBlockCommand
                     {...convertNpmCommand("npm install zod")}
-                    icons={pmIcons}
                     iconStyle="muted"
                   />
                 ),
@@ -174,22 +162,20 @@ export default function CodeBlockCommandPage() {
             items={[
               {
                 label: "pnpm + npm only",
-                code: `<CodeBlockCommand {...commands} icons={pmIcons} show={["pnpm", "npm"]} />`,
+                code: `<CodeBlockCommand {...commands} show={["pnpm", "npm"]} />`,
                 preview: (
                   <CodeBlockCommand
                     {...convertNpmCommand("npm install zod")}
-                    icons={pmIcons}
                     show={["pnpm", "npm"]}
                   />
                 ),
               },
               {
                 label: "shadcn + bun only",
-                code: `<CodeBlockCommand {...commands} icons={pmIcons} show={["shadcn", "bun"]} />`,
+                code: `<CodeBlockCommand {...commands} show={["shadcn", "bun"]} />`,
                 preview: (
                   <CodeBlockCommand
                     {...convertNpmCommand("npx shadcn@latest add button")}
-                    icons={pmIcons}
                     show={["shadcn", "bun"]}
                   />
                 ),
@@ -237,7 +223,6 @@ export default function CodeBlockCommandPage() {
               preview: (
                 <CodeBlockCommand
                   {...convertNpmCommand("npm install zod")}
-                  icons={pmIcons}
                   colorTheme={{ bg: "#282A36", fg: "#F8F8F2" }}
                 />
               ),
@@ -248,7 +233,6 @@ export default function CodeBlockCommandPage() {
               preview: (
                 <CodeBlockCommand
                   {...convertNpmCommand("npm install zod")}
-                  icons={pmIcons}
                   colorTheme={{ bg: "#2e3440", fg: "#d8dee9" }}
                 />
               ),
@@ -259,7 +243,6 @@ export default function CodeBlockCommandPage() {
               preview: (
                 <CodeBlockCommand
                   {...convertNpmCommand("npx shadcn@latest add button")}
-                  icons={pmIcons}
                   show={["shadcn", "pnpm", "npm"]}
                   colorTheme={{ bg: "#1a1b26", fg: "#a9b1d6" }}
                 />
@@ -302,10 +285,10 @@ export default function CodeBlockCommandPage() {
             },
             {
               name: "icons",
-              type: "Record<string, string>",
+              type: "Record<string, ReactNode>",
               description:
-                "Pre-fetched SVG markup keyed by package manager name. Use fetchPackageManagerIcons() to generate. Defaults to {}.",
-              fullType: "Partial<Record<PackageManager, string>>",
+                "Custom icons keyed by package manager name. Merged over built-in icons. Pass any ReactNode to override.",
+              fullType: "Partial<Record<PackageManager, React.ReactNode>>",
             },
             {
               name: "iconStyle",
@@ -347,23 +330,25 @@ export default function CodeBlockCommandPage() {
             generic npx commands.
           </li>
           <li>
-            <strong className="text-foreground">Icons via SVGL.</strong>{" "}
-            Package manager icons are fetched from the{" "}
+            <strong className="text-foreground">Bundled icons.</strong>{" "}
+            Package manager icons are bundled directly in the component — no
+            API calls or setup required. Use the{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">icons</code>{" "}
+            prop to override any icon with a custom ReactNode.
+          </li>
+          <li>
+            <strong className="text-foreground">Icon library.</strong>{" "}
+            Uses{" "}
             <a
-              href="https://svgl.app"
+              href="https://lucide.dev"
               className="underline hover:text-foreground"
               target="_blank"
               rel="noopener noreferrer"
             >
-              SVGL API
+              Lucide
             </a>{" "}
-            at build time. Use{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">
-              fetchPackageManagerIcons()
-            </code>{" "}
-            in a server component and pass the result as the{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">icons</code>{" "}
-            prop.
+            icons by default. Since this is copy-paste code, you can swap the
+            imports if your project uses a different icon library.
           </li>
         </ul>
       </section>

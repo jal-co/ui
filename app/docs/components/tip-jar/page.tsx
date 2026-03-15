@@ -606,6 +606,20 @@ export default async function TipJarPage() {
             anything. They&apos;re here so the QR codes and explorer links work
             end-to-end.
           </li>
+          <li>
+            <strong className="text-foreground">Icon library.</strong>{" "}
+            Uses{" "}
+            <a
+              href="https://lucide.dev"
+              className="underline hover:text-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Lucide
+            </a>{" "}
+            icons by default. Since this is copy-paste code, you can swap the
+            imports if your project uses a different icon library.
+          </li>
         </ul>
       </section>
     </ComponentDocsPage>

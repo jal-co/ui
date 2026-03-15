@@ -156,6 +156,21 @@ export default async function RequestViewerPage() {
       description="Network request inspector showing headers, response body, and timing waterfall. Designed for dev dashboards, API documentation, and debugging tools."
       registryName="request-viewer"
       sourceFiles={sourceFiles}
+      requirements={
+        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
+          <li>
+            <strong className="text-foreground">
+              No network activity.
+            </strong>{" "}
+            This component does not call{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">
+              fetch
+            </code>
+            , open sockets, or execute any API calls. It renders the data you
+            pass in — nothing more.
+          </li>
+        </ul>
+      }
       preview={<RequestViewer request={apiRequest} />}
       usage={
         <>
@@ -372,17 +387,6 @@ export default async function RequestViewerPage() {
         <h2 className="text-xl font-semibold tracking-tight">Notes</h2>
         <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground">
           <li>
-            <strong className="text-foreground">
-              No network activity.
-            </strong>{" "}
-            This component does not call{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">
-              fetch
-            </code>
-            , open sockets, or execute any API calls. It renders the data you
-            pass in — nothing more.
-          </li>
-          <li>
             <strong className="text-foreground">Client component.</strong> Uses{" "}
             <code className="rounded bg-muted px-1 py-0.5 text-xs">
               &quot;use client&quot;
@@ -397,6 +401,20 @@ export default async function RequestViewerPage() {
           <li>
             <strong className="text-foreground">Status colors.</strong> Status
             badges are color-coded: 2xx green, 3xx blue, 4xx amber, 5xx red.
+          </li>
+          <li>
+            <strong className="text-foreground">Icon library.</strong>{" "}
+            Uses{" "}
+            <a
+              href="https://lucide.dev"
+              className="underline hover:text-foreground"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Lucide
+            </a>{" "}
+            icons by default. Since this is copy-paste code, you can swap the
+            imports if your project uses a different icon library.
           </li>
         </ul>
       </section>
