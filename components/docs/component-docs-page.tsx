@@ -3,7 +3,6 @@ import { AiCopyButton } from "@/registry/ai-copy-button/ai-copy-button"
 import { DependencyBadges } from "@/components/docs/dependency-badges"
 import { ComponentPreview } from "@/components/docs/component-preview"
 import { InstallCommand } from "@/components/docs/install-command"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { TriangleAlert } from "lucide-react"
 
 import { getRegistryItem } from "@/lib/registry"
@@ -105,21 +104,20 @@ export async function ComponentDocsPage({
             Installation
           </h2>
           {installNote}
+
+          {/* Requirements */}
+          {requirements && (
+            <div className="w-full overflow-hidden rounded-md border border-destructive bg-card bg-grid-pattern p-4">
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <TriangleAlert className="size-4 text-destructive" />
+                Requirements
+              </div>
+              <div className="mt-3">{requirements}</div>
+            </div>
+          )}
+
           <InstallCommand name={registryName} />
         </section>
-      )}
-
-      {/* Requirements */}
-      {requirements && (
-        <Card className="gap-3 py-4">
-          <CardHeader className="px-4">
-            <CardTitle className="flex items-center gap-2 text-sm font-medium">
-              <TriangleAlert className="size-4 text-muted-foreground" />
-              Requirements
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="px-4">{requirements}</CardContent>
-        </Card>
       )}
 
       {/* Usage */}

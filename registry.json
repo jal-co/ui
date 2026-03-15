@@ -35,9 +35,6 @@
       "type": "registry:component",
       "title": "API Reference Table",
       "description": "Expandable prop reference table with color-coded types, optional descriptions, and full-type details. Designed for component documentation pages.",
-      "dependencies": [
-        "lucide-react"
-      ],
       "categories": [
         "docs"
       ],
@@ -52,14 +49,10 @@
       "name": "code-block",
       "type": "registry:component",
       "title": "Code Block",
-      "description": "Syntax-highlighted code block with language icon, copy button, and optional scrollable or collapsible overflow. Server component powered by shiki.",
+      "description": "Syntax-highlighted code block with bundled language icon, copy button, and optional scrollable or collapsible overflow. Server component powered by shiki.",
       "dependencies": [
         "shiki",
         "lucide-react"
-      ],
-      "registryDependencies": [
-        "https://svgl.app/r/svgl.json",
-        "https://svgl.app/r/shiki.json"
       ],
       "categories": [
         "docs",
@@ -77,18 +70,6 @@
         {
           "path": "registry/code-block/lib/highlight-code.ts",
           "type": "registry:lib"
-        },
-        {
-          "path": "registry/code-block/lib/svgl.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/code-block/icons/svgl-icon.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/code-block/icons/language-icons.tsx",
-          "type": "registry:component"
         }
       ]
     },
@@ -96,12 +77,9 @@
       "name": "code-block-command",
       "type": "registry:component",
       "title": "Code Block Command",
-      "description": "Tabbed CLI command block with package manager switching (pnpm, yarn, npm, bun, shadcn), SVG icons, copy button, and localStorage persistence.",
+      "description": "Tabbed CLI command block with package manager switching (pnpm, yarn, npm, bun, shadcn), bundled SVG icons, copy button, and localStorage persistence.",
       "dependencies": [
         "lucide-react"
-      ],
-      "registryDependencies": [
-        "https://svgl.app/r/svgl.json"
       ],
       "categories": [
         "docs",
@@ -113,19 +91,7 @@
           "type": "registry:component"
         },
         {
-          "path": "registry/code-block-command/icons/package-manager-icons.tsx",
-          "type": "registry:component"
-        },
-        {
           "path": "registry/code-block-command/lib/convert-npm-command.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/code-block-command/lib/package-manager-icons.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/code-block-command/lib/svgl.ts",
           "type": "registry:lib"
         }
       ]
@@ -174,7 +140,7 @@
       "name": "github-stars-button",
       "type": "registry:component",
       "title": "GitHub Stars Button",
-      "description": "Link button showing a GitHub repo's star count with the octocat icon. Async server component — fetches data at build time with ISR.",
+      "description": "Link button showing a GitHub repo's star count with the octocat icon. Async server component \u2014 fetches data at build time with ISR.",
       "categories": [
         "github",
         "marketing"
@@ -194,7 +160,7 @@
       "name": "github-button-group",
       "type": "registry:component",
       "title": "GitHub Button Group",
-      "description": "Segmented button group displaying multiple GitHub repo metrics with per-segment links. Async server component — fetches data at build time with ISR.",
+      "description": "Segmented button group displaying multiple GitHub repo metrics with per-segment links. Async server component \u2014 fetches data at build time with ISR.",
       "dependencies": [
         "class-variance-authority"
       ],
@@ -346,7 +312,7 @@
       "name": "stepper",
       "type": "registry:component",
       "title": "Stepper",
-      "description": "Numbered step-by-step layout with vertical connector lines, auto-incrementing step numbers, and status indicators. Designed for installation guides, tutorials, onboarding flows, and multi-step documentation. Composable — nest any content inside each step.",
+      "description": "Numbered step-by-step layout with vertical connector lines, auto-incrementing step numbers, and status indicators. Designed for installation guides, tutorials, onboarding flows, and multi-step documentation. Composable \u2014 nest any content inside each step.",
       "categories": [
         "docs",
         "navigation"
@@ -362,7 +328,7 @@
       "name": "producthunt-button",
       "type": "registry:component",
       "title": "Product Hunt Button",
-      "description": "Link button showing a Product Hunt post's upvote count with the PH cat icon. Two layouts: inline button and expanded card. Async server component — fetches data at build time with ISR.",
+      "description": "Link button showing a Product Hunt post's upvote count with the PH cat icon. Two layouts: inline button and expanded card. Async server component \u2014 fetches data at build time with ISR.",
       "dependencies": [
         "class-variance-authority"
       ],
@@ -385,7 +351,7 @@
       "name": "npm-badge",
       "type": "registry:component",
       "title": "npm Badge",
-      "description": "Live npm package badge showing version, weekly downloads, license, and last publish date. Three layouts: inline pill, horizontal row, and expanded card. Async server component — fetches data at build time with ISR.",
+      "description": "Live npm package badge showing version, weekly downloads, license, and last publish date. Three layouts: inline pill, horizontal row, and expanded card. Async server component \u2014 fetches data at build time with ISR.",
       "dependencies": [
         "class-variance-authority"
       ],

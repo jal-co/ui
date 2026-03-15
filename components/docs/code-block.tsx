@@ -2,7 +2,7 @@ import * as React from "react"
 import { CodeBlockCopyButton } from "@/components/docs/code-block-copy-button"
 import { CodeBlockWrapper } from "@/components/docs/code-block-wrapper"
 import { highlightCode } from "@/lib/highlight-code"
-import { LanguageIcon } from "@/components/icons/language-icons"
+import { LanguageIcon } from "@/components/icons/language-icon"
 import { cn } from "@/lib/utils"
 
 interface CodeBlockProps {
