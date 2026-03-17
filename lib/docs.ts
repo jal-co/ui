@@ -56,6 +56,7 @@ export const docsNav: NavGroup[] = [
     items: [
       { title: "AI Copy Button", href: "/docs/components/ai-copy-button" },
       { title: "API Reference Table", href: "/docs/components/api-ref-table" },
+      { title: "File Tree", href: "/docs/components/file-tree", badge: "New", badgeAdded: "2026-03-17" },
       { title: "Stepper", href: "/docs/components/stepper", badge: "New", badgeAdded: "2026-03-12" },
     ],
   },

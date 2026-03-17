@@ -348,6 +348,22 @@
       ]
     },
     {
+      "name": "file-tree",
+      "type": "registry:component",
+      "title": "File Tree",
+      "description": "Collapsible file and folder tree with file-type icons, highlights, and configurable expand state. Designed for project structure docs, README displays, and dev-tool file explorers.",
+      "categories": [
+        "docs",
+        "dev-tools"
+      ],
+      "files": [
+        {
+          "path": "registry/file-tree/file-tree.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "npm-badge",
       "type": "registry:component",
       "title": "npm Badge",
