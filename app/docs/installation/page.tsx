@@ -83,7 +83,7 @@ export default async function InstallationPage() {
           CLI to add any component from the registry:
         </p>
         <CodeLine
-          code="npx shadcn@latest add jalco/github-stars-button"
+          code="npx shadcn@latest add @jalco/github-stars-button"
           language="bash"
         />
         <p className="text-sm text-muted-foreground">This will:</p>
@@ -116,10 +116,10 @@ export default async function InstallationPage() {
         <p className="text-sm text-muted-foreground">
           jalco ui is listed in the official shadcn registry. All components use
           the{" "}
-          <code className="rounded bg-muted px-1 py-0.5 text-xs">jalco</code>{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">@jalco</code>{" "}
           namespace:
         </p>
-        <CodeLine code="npx shadcn@latest add jalco/{component-name}" language="bash" />
+        <CodeLine code="npx shadcn@latest add @jalco/{component-name}" language="bash" />
         <p className="text-sm text-muted-foreground">
           You can also install directly from the registry URL:
         </p>

@@ -12,7 +12,7 @@ interface InstallCommandProps {
  * Icons are bundled in CodeBlockCommand — no setup required.
  */
 export function InstallCommand({ name, className }: InstallCommandProps) {
-  const npmCommand = `npx shadcn@latest add jalco/${name}`
+  const npmCommand = `npx shadcn@latest add @jalco/${name}`
 
   return (
     <CodeBlockCommand
