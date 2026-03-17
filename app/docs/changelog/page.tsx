@@ -66,7 +66,7 @@ function getEntries(): ChangelogEntry[] {
   return entries
 }
 
-function formatDate(iso: string): string {
+function formatDateHeading(iso: string): string {
   return new Date(iso + "T12:00:00Z").toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -91,78 +91,69 @@ export default function ChangelogPage() {
   const grouped = groupByDate(entries)
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <div className="flex flex-col gap-2">
+    <article className="flex flex-col gap-12">
+      <header className="flex flex-col gap-3">
         <h1 className="text-3xl font-bold tracking-tight">Changelog</h1>
-        <p className="text-base text-muted-foreground">
-          New components and updates to jalco ui.
+        <p className="text-lg text-muted-foreground">
+          New components, updates, and improvements to jalco ui.
         </p>
-      </div>
+      </header>
 
-      <div className="mt-12 flex flex-col gap-0">
-        {grouped.map(({ date, entries }, groupIndex) => (
-          <div key={date} className="relative flex gap-6 pb-12 sm:gap-8">
-            {/* Timeline line */}
-            {groupIndex < grouped.length - 1 && (
-              <div className="absolute left-[7px] top-[28px] bottom-0 w-px bg-border sm:left-[79px]" />
-            )}
-
-            {/* Date label */}
-            <div className="hidden w-16 shrink-0 pt-1 text-right sm:block">
+      <div className="flex flex-col gap-16">
+        {grouped.map(({ date, entries }) => (
+          <section key={date} className="flex flex-col gap-6">
+            <div className="flex flex-col gap-1">
               <time
                 dateTime={date}
-                className="text-xs font-medium text-muted-foreground"
+                className="text-2xl font-semibold tracking-tight"
               >
-                {formatDate(date)}
+                {formatDateHeading(date)}
               </time>
+              <p className="text-sm text-muted-foreground">
+                {entries.length} new component{entries.length > 1 ? "s" : ""}
+              </p>
             </div>
 
-            {/* Dot */}
-            <div className="relative mt-2 shrink-0">
-              <div className="size-[15px] rounded-full border-2 border-border bg-background" />
-            </div>
-
-            {/* Content */}
-            <div className="flex min-w-0 flex-1 flex-col gap-6">
-              <time
-                dateTime={date}
-                className="text-xs font-medium text-muted-foreground sm:hidden"
-              >
-                {formatDate(date)}
-              </time>
-
+            <div className="flex flex-col gap-8">
               {entries.map((entry) => (
-                <Link
-                  key={entry.slug}
-                  href={entry.href}
-                  className="group flex flex-col gap-3 rounded-lg border border-border p-4 transition-colors hover:border-foreground/20 hover:bg-accent/50"
-                >
-                  {entry.hasImage && (
-                    <div className="overflow-hidden rounded-md border border-border">
-                      <ChangelogImage slug={entry.slug} title={entry.title} />
-                    </div>
-                  )}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-foreground group-hover:text-foreground">
-                        {entry.title}
-                      </span>
-                      <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+                <div key={entry.slug} className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-3">
+                      <h3 className="text-lg font-medium">{entry.title}</h3>
+                      <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
                         {entry.category}
                       </span>
                     </div>
                     {entry.description && (
-                      <p className="text-[13px] leading-relaxed text-muted-foreground">
+                      <p className="text-muted-foreground leading-relaxed">
                         {entry.description}
                       </p>
                     )}
                   </div>
-                </Link>
+
+                  {entry.hasImage && (
+                    <Link
+                      href={entry.href}
+                      className="group overflow-hidden rounded-lg border border-border transition-colors hover:border-foreground/20"
+                    >
+                      <ChangelogImage slug={entry.slug} title={entry.title} />
+                    </Link>
+                  )}
+
+                  <div>
+                    <Link
+                      href={entry.href}
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:underline"
+                    >
+                      View documentation →
+                    </Link>
+                  </div>
+                </div>
               ))}
             </div>
-          </div>
+          </section>
         ))}
       </div>
-    </div>
+    </article>
   )
 }

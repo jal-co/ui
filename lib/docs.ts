@@ -37,6 +37,7 @@ export const docsNav: NavGroup[] = [
     title: "Getting Started",
     items: [
       { title: "Components", href: "/docs" },
+      { title: "Changelog", href: "/docs/changelog" },
       { title: "Installation", href: "/docs/installation" },
       { title: "Color Themes", href: "/docs/themes" },
       { title: "llms.txt", href: "/llms.txt" },
