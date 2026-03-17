@@ -148,7 +148,7 @@ export function generateInstallationPrompt(): string {
     "## How to install a component",
     "",
     "```bash",
-    "npx shadcn@latest add jalco/{component-name}",
+    "npx shadcn@latest add @jalco/{component-name}",
     "```",
     "",
     "Replace `{component-name}` with the component name from the list below.",
