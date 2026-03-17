@@ -332,6 +332,99 @@ export default function FileTreePage() {
         </div>
       </section>
 
+      {/* Supported file icons */}
+      <section className="flex flex-col gap-4">
+        <h2 className="text-xl font-semibold tracking-tight">
+          Supported File Icons
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          When{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            iconStyle=&quot;colored&quot;
+          </code>{" "}
+          is set, these extensions get a colored badge. All other extensions
+          fall back to a generic file icon.
+        </p>
+        <div className="overflow-x-auto rounded-lg border border-border">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border bg-muted/40 text-left">
+                <th className="px-4 py-2.5 font-medium text-muted-foreground">
+                  Extension
+                </th>
+                <th className="px-4 py-2.5 font-medium text-muted-foreground">
+                  Icon
+                </th>
+                <th className="px-4 py-2.5 font-medium text-muted-foreground">
+                  Category
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {[
+                { exts: [".ts", ".tsx"], color: "#3178c6", labels: ["TS", "TX"], category: "TypeScript" },
+                { exts: [".js", ".jsx"], color: "#f7df1e", labels: ["JS", "JX"], category: "JavaScript" },
+                { exts: [".json"], color: "#a8a8a8", labels: ["{}"], category: "Data" },
+                { exts: [".md", ".mdx"], color: "#519aba", labels: ["M", "MX"], category: "Markdown" },
+                { exts: [".css"], color: "#563d7c", labels: ["#"], category: "Styles" },
+                { exts: [".html"], color: "#e34c26", labels: ["<>"], category: "Markup" },
+                { exts: [".svg"], color: "#ffb13b", labels: ["◇"], category: "Image" },
+                { exts: [".png", ".jpg", ".gif"], color: "#a074c4", labels: ["▪", "▪", "▪"], category: "Image" },
+                { exts: [".yaml", ".yml"], color: "#cb171e", labels: ["Y", "Y"], category: "Config" },
+                { exts: [".toml"], color: "#9c4121", labels: ["T"], category: "Config" },
+                { exts: [".env"], color: "#ecd53f", labels: ["·"], category: "Config" },
+                { exts: [".gitignore"], color: "#f05032", labels: ["G"], category: "Git" },
+                { exts: [".lock"], color: "#a8a8a8", labels: ["🔒"], category: "Lockfile" },
+                { exts: [".sh", ".bash"], color: "#89e051", labels: ["$", "$"], category: "Shell" },
+                { exts: [".py"], color: "#3572a5", labels: ["Py"], category: "Python" },
+                { exts: [".rs"], color: "#dea584", labels: ["Rs"], category: "Rust" },
+                { exts: [".go"], color: "#00add8", labels: ["Go"], category: "Go" },
+              ].map((row) => (
+                <tr key={row.exts.join(",")} className="text-foreground/80">
+                  <td className="px-4 py-2 font-mono text-xs">
+                    {row.exts.join(", ")}
+                  </td>
+                  <td className="px-4 py-2">
+                    <div className="flex items-center gap-1.5">
+                      {row.labels.map((label, i) => (
+                        <span
+                          key={`${label}-${i}`}
+                          className="inline-flex size-5 items-center justify-center rounded-[3px] text-[9px] font-bold leading-none"
+                          style={{
+                            backgroundColor: `${row.color}20`,
+                            color: row.color,
+                          }}
+                        >
+                          {label}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                  <td className="px-4 py-2 text-muted-foreground">
+                    {row.category}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          Dotfiles like{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            .gitignore
+          </code>{" "}
+          and{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            .env
+          </code>{" "}
+          are matched by stripping the leading dot. You can extend the{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            FILE_ICON_MAP
+          </code>{" "}
+          in the source to add more extensions.
+        </p>
+      </section>
+
       {/* API Reference */}
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">API Reference</h2>
