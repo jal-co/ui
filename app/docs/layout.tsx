@@ -7,7 +7,7 @@ import { PrevNextNav } from "@/components/docs/prev-next-nav"
 
 import { JalcoLogo } from "@/components/icons/jalco-logo"
 import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-button"
-import { ProductHuntButton } from "@/registry/producthunt-button/producthunt-button"
+
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
@@ -47,6 +47,12 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
             Components
           </Link>
           <Link
+            href="/docs/changelog"
+            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Changelog
+          </Link>
+          <Link
             href="/docs/installation"
             className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
           >
@@ -55,12 +61,6 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5">
-          <ProductHuntButton
-            slug="jalco-ui"
-            variant="producthunt"
-            size="sm"
-            iconStyle="brand"
-          />
           <GitHubStarsButton
             owner="jal-co"
             repo="ui"

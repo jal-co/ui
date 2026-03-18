@@ -10,6 +10,8 @@ export interface NavItem {
    * Badge auto-hides 14 days after this date. When omitted, badge is permanent.
    */
   badgeAdded?: string
+  /** ISO date string when the component was first added to the registry. Used by the changelog. */
+  dateAdded?: string
 }
 
 /** Number of days a badge stays visible. */
@@ -35,6 +37,7 @@ export const docsNav: NavGroup[] = [
     title: "Getting Started",
     items: [
       { title: "Components", href: "/docs" },
+      { title: "Changelog", href: "/docs/changelog" },
       { title: "Installation", href: "/docs/installation" },
       { title: "Color Themes", href: "/docs/themes" },
       { title: "llms.txt", href: "/llms.txt" },
@@ -43,53 +46,56 @@ export const docsNav: NavGroup[] = [
   {
     title: "Code",
     items: [
-      { title: "Code Block", href: "/docs/components/code-block" },
+      { title: "Code Block", href: "/docs/components/code-block", dateAdded: "2026-03-11" },
       {
         title: "Code Block Command",
         href: "/docs/components/code-block-command",
+        dateAdded: "2026-03-11",
       },
-      { title: "Code Line", href: "/docs/components/code-line" },
+      { title: "Code Line", href: "/docs/components/code-line", dateAdded: "2026-03-11" },
     ],
   },
   {
     title: "Docs",
     items: [
-      { title: "AI Copy Button", href: "/docs/components/ai-copy-button" },
-      { title: "API Reference Table", href: "/docs/components/api-ref-table" },
-      { title: "File Tree", href: "/docs/components/file-tree", badge: "New", badgeAdded: "2026-03-17" },
-      { title: "Stepper", href: "/docs/components/stepper", badge: "New", badgeAdded: "2026-03-12" },
+      { title: "AI Copy Button", href: "/docs/components/ai-copy-button", dateAdded: "2026-03-11" },
+      { title: "API Reference Table", href: "/docs/components/api-ref-table", dateAdded: "2026-03-11" },
+      { title: "File Tree", href: "/docs/components/file-tree", badge: "New", badgeAdded: "2026-03-17", dateAdded: "2026-03-17" },
+      { title: "Stepper", href: "/docs/components/stepper", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
     ],
   },
   {
     title: "Open Source",
     items: [
-      { title: "Activity Graph", href: "/docs/components/activity-graph" },
+      { title: "Activity Graph", href: "/docs/components/activity-graph", dateAdded: "2026-03-11" },
       {
         title: "GitHub Stars Button",
         href: "/docs/components/github-stars-button",
+        dateAdded: "2026-03-10",
       },
       {
         title: "GitHub Button Group",
         href: "/docs/components/github-button-group",
+        dateAdded: "2026-03-11",
       },
-      { title: "npm Badge", href: "/docs/components/npm-badge", badge: "New", badgeAdded: "2026-03-12" },
-      { title: "Product Hunt", href: "/docs/components/producthunt-button", badge: "New", badgeAdded: "2026-03-12" },
+      { title: "npm Badge", href: "/docs/components/npm-badge", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
+      { title: "Product Hunt", href: "/docs/components/producthunt-button", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
     ],
   },
   {
     title: "Dev Tools",
     items: [
-      { title: "Cron Schedule", href: "/docs/components/cron-schedule" },
-      { title: "Env Table", href: "/docs/components/env-table" },
-      { title: "JSON Viewer", href: "/docs/components/json-viewer" },
-      { title: "Log Viewer", href: "/docs/components/log-viewer" },
-      { title: "Request Viewer", href: "/docs/components/request-viewer" },
+      { title: "Cron Schedule", href: "/docs/components/cron-schedule", dateAdded: "2026-03-11" },
+      { title: "Env Table", href: "/docs/components/env-table", dateAdded: "2026-03-11" },
+      { title: "JSON Viewer", href: "/docs/components/json-viewer", dateAdded: "2026-03-11" },
+      { title: "Log Viewer", href: "/docs/components/log-viewer", dateAdded: "2026-03-11" },
+      { title: "Request Viewer", href: "/docs/components/request-viewer", dateAdded: "2026-03-11" },
     ],
   },
   {
     title: "Payments",
     items: [
-      { title: "Crypto + Tip Jar", href: "/docs/components/tip-jar" },
+      { title: "Crypto + Tip Jar", href: "/docs/components/tip-jar", dateAdded: "2026-03-11" },
     ],
   },
 ]

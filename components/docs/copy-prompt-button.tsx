@@ -25,7 +25,7 @@ export function CopyPromptButton({ value }: CopyPromptButtonProps) {
       variant="outline"
       size="sm"
       onClick={handleCopy}
-      className="h-8 gap-1.5 px-2.5 text-xs"
+      className="h-7 gap-1.5 px-2.5 text-xs"
       aria-label={copied ? "Copied prompt" : "Copy AI prompt"}
     >
       {copied ? (
