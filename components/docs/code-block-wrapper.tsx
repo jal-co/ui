@@ -54,7 +54,7 @@ export function CodeBlockWrapper({
         type="button"
         onClick={() => setExpanded(!expanded)}
         className={cn(
-          "flex w-full items-center justify-center gap-1.5 border-t py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground",
+          "flex w-full items-center justify-center gap-1.5 border-t py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/50",
           muted
             ? "border-border/40 bg-muted/10 hover:bg-muted/30"
             : "border-border/60 bg-muted/30 hover:bg-muted/50"

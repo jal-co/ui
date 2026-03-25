@@ -137,7 +137,7 @@ export function ThemeSwitcher() {
           setTheme(next)
           track("theme_changed", { theme: next })
         }}
-        className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground"
+        className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         aria-label={
           theme === "system"
             ? "System theme (click for light)"
@@ -160,7 +160,7 @@ export function ThemeSwitcher() {
           <button
             type="button"
             className={cn(
-              "inline-flex size-8 items-center justify-center rounded-lg border transition-colors",
+              "inline-flex size-8 items-center justify-center rounded-lg border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
               hasCustom
                 ? "border-primary/30 bg-primary/10 text-primary hover:bg-primary/15"
                 : "border-border/60 bg-muted/40 text-muted-foreground hover:text-foreground"
@@ -219,7 +219,7 @@ export function ThemeSwitcher() {
                   type="button"
                   onClick={handleApply}
                   disabled={!customCSS.trim()}
-                  className="inline-flex flex-1 items-center justify-center rounded-lg bg-primary px-3 py-2 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
+                  className="inline-flex flex-1 items-center justify-center rounded-lg bg-primary px-3 py-2 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50"
                 >
                   Apply Theme
                 </button>
@@ -227,7 +227,7 @@ export function ThemeSwitcher() {
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/60 px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/60 px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
                   >
                     <RotateCcw className="size-3" />
                     Reset

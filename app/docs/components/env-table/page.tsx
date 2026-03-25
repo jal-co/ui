@@ -154,7 +154,7 @@ export default function EnvTablePage() {
       }
     >
       {/* Examples */}
-      <section className="flex flex-col gap-8">
+      <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">Examples</h2>
 
         <div className="flex flex-col gap-4">

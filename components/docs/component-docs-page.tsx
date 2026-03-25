@@ -107,9 +107,9 @@ export async function ComponentDocsPage({
 
           {/* Requirements */}
           {requirements && (
-            <div className="w-full overflow-hidden rounded-md border border-destructive bg-card bg-grid-pattern p-4">
+            <div className="w-full overflow-hidden rounded-xl border border-border/60 bg-card p-4">
               <div className="flex items-center gap-2 text-sm font-medium">
-                <TriangleAlert className="size-4 text-destructive" />
+                <TriangleAlert className="size-4 text-muted-foreground" />
                 Requirements
               </div>
               <div className="mt-3">{requirements}</div>

@@ -3,13 +3,14 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { docsNav, getActiveBadge } from "@/lib/docs"
 
 export function Sidebar() {
   const pathname = usePathname()
+  const prefersReducedMotion = useReducedMotion()
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const [canScroll, setCanScroll] = React.useState(false)
 
@@ -69,7 +70,7 @@ export function Sidebar() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "relative flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:text-accent-foreground",
+                      "relative flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
                       item.bundledIn && "ml-3 text-[13px]",
                       isActive
                         ? "font-medium text-accent-foreground"
@@ -80,16 +81,16 @@ export function Sidebar() {
                       <motion.span
                         layoutId="sidebar-active"
                         className="absolute inset-0 rounded-md bg-accent"
-                        transition={{
-                          type: "spring",
-                          stiffness: 500,
-                          damping: 35,
-                        }}
+                        transition={
+                          prefersReducedMotion
+                            ? { duration: 0 }
+                            : { type: "spring", stiffness: 500, damping: 35 }
+                        }
                       />
                     )}
                     <span className="relative z-10">{item.title}</span>
                     {getActiveBadge(item) && (
-                      <span className="relative z-10 rounded-full border border-dashed border-[#ff4f00]/40 px-1.5 py-0.5 text-[10px] font-medium leading-none text-[#ff4f00]">
+                      <span className="relative z-10 rounded-full border border-dashed border-ring/40 px-1.5 py-0.5 text-[10px] font-medium leading-none text-ring">
                         {getActiveBadge(item)}
                       </span>
                     )}
@@ -115,12 +116,12 @@ export function Sidebar() {
           onClick={() => {
             scrollRef.current?.scrollBy({ top: 120, behavior: "smooth" })
           }}
-          className="flex w-full cursor-pointer flex-col items-center gap-0.5 bg-background pb-3 pt-1"
+          className="flex w-full cursor-pointer flex-col items-center gap-0.5 bg-background pb-3 pt-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         >
           <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
             More
           </span>
-          <ChevronDown className="size-3 animate-bounce text-muted-foreground" />
+          <ChevronDown className="size-3 motion-safe:animate-pulse text-muted-foreground" />
         </button>
       </div>
     </div>

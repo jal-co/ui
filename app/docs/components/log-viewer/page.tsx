@@ -130,7 +130,7 @@ export default function LogViewerPage() {
       </section>
 
       {/* Variants */}
-      <section className="flex flex-col gap-8">
+      <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">Variants</h2>
 
         <div className="flex flex-col gap-4">
@@ -240,7 +240,7 @@ export default function LogViewerPage() {
       </section>
 
       {/* Custom colors */}
-      <section className="flex flex-col gap-8">
+      <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">Custom colors</h2>
         <p className="text-sm text-muted-foreground">
           Pass a <code className="rounded bg-muted px-1 py-0.5 text-xs">colorScale</code> to

@@ -33,7 +33,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
 
         <Link
           href="/docs"
-          className="flex items-center gap-2 text-sm font-semibold tracking-tight"
+          className="flex items-center gap-2 rounded-md text-sm font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         >
           <JalcoLogo className="h-5 w-auto" />
           <span className="hidden sm:inline">jal-co/ui</span>
@@ -42,19 +42,19 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         <nav className="ml-4 hidden items-center gap-1 text-sm md:flex">
           <Link
             href="/docs"
-            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
           >
             Components
           </Link>
           <Link
             href="/docs/changelog"
-            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
           >
             Changelog
           </Link>
           <Link
             href="/docs/installation"
-            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
+            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
           >
             Installation
           </Link>
