@@ -15,6 +15,7 @@
  * - overflow?: "default" | "scrollable" | "collapsible"
  * - maxHeight?: max height for scrollable/collapsible modes
  * - muted?: subdued visual treatment
+ * - compact?: hide the header bar, float copy button inside the code area
  * - theme?: shiki theme name for single-theme rendering (e.g. "dracula", "nord")
  *
  * Dependencies: shiki, lucide-react
@@ -94,6 +95,8 @@ interface CodeBlockProps {
   overflow?: "default" | "scrollable" | "collapsible"
   maxHeight?: number
   muted?: boolean
+  /** Hide the header bar. Copy button floats inside the code area. */
+  compact?: boolean
   /** Shiki theme name for single-theme rendering (e.g. "dracula", "nord"). */
   theme?: string
   className?: string
@@ -107,6 +110,7 @@ export async function CodeBlock({
   overflow = "default",
   maxHeight,
   muted = false,
+  compact = false,
   theme,
   className,
 }: CodeBlockProps) {
@@ -137,47 +141,54 @@ export async function CodeBlock({
         className
       )}
     >
-      <div
-        className={cn(
-          "flex items-center justify-between gap-3 border-b px-4 py-3",
-          muted
-            ? "border-border/40 bg-muted/20"
-            : "border-border/60 bg-muted/40"
-        )}
-      >
-        <div className="flex min-w-0 items-center gap-2">
-          {resolvedIcon}
-          {title ? (
-            <p
-              className={cn(
-                "truncate text-sm font-medium",
-                muted ? "text-muted-foreground" : "text-foreground"
-              )}
-            >
-              {title}
-            </p>
-          ) : (
-            <span
-              className={cn(
-                "rounded-md border px-2 py-1 text-[11px] font-medium uppercase tracking-wide",
-                muted
-                  ? "border-border/40 bg-muted/40 text-muted-foreground/70"
-                  : "border-border/60 bg-background text-muted-foreground"
-              )}
-            >
-              {language}
-            </span>
+      {!compact && (
+        <div
+          className={cn(
+            "flex items-center justify-between gap-3 border-b px-4 py-3",
+            muted
+              ? "border-border/40 bg-muted/20"
+              : "border-border/60 bg-muted/40"
           )}
+        >
+          <div className="flex min-w-0 items-center gap-2">
+            {resolvedIcon}
+            {title ? (
+              <p
+                className={cn(
+                  "truncate text-sm font-medium",
+                  muted ? "text-muted-foreground" : "text-foreground"
+                )}
+              >
+                {title}
+              </p>
+            ) : (
+              <span
+                className={cn(
+                  "rounded-md border px-2 py-1 text-[11px] font-medium uppercase tracking-wide",
+                  muted
+                    ? "border-border/40 bg-muted/40 text-muted-foreground/70"
+                    : "border-border/60 bg-background text-muted-foreground"
+                )}
+              >
+                {language}
+              </span>
+            )}
+          </div>
+          <CodeBlockCopyButton value={code} />
         </div>
-        <CodeBlockCopyButton value={code} />
-      </div>
+      )}
       <CodeBlockWrapper overflow={overflow} maxHeight={maxHeight} muted={muted}>
         <div
           className={cn(
-            "overflow-x-auto",
+            "relative overflow-x-auto",
             !muted && !theme && "bg-[var(--shiki-light-bg)] dark:bg-[var(--shiki-dark-bg)]"
           )}
         >
+          {compact && (
+            <div className="absolute right-2 top-2 z-10">
+              <CodeBlockCopyButton value={code} />
+            </div>
+          )}
           <div
             className={cn(
               "code-block [&_code]:font-mono [&_code]:text-[13px] [&_pre]:m-0 [&_pre]:overflow-x-auto [&_pre]:p-4 [&_pre]:sm:p-5",
