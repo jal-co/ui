@@ -137,7 +137,7 @@ export function CodeBlockCommand({
               aria-selected={active === manager}
               onClick={() => handleSelect(manager)}
               className={cn(
-                "flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium transition-colors",
+                "flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
                 active === manager
                   ? "border-b-2 border-foreground text-foreground"
                   : "text-muted-foreground hover:text-foreground"
@@ -151,7 +151,7 @@ export function CodeBlockCommand({
         <button
           type="button"
           onClick={handleCopy}
-          className="flex items-center gap-1.5 px-3 py-2.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+          className="flex items-center gap-1.5 px-3 py-2.5 text-xs text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
           aria-label={copied ? "Copied command" : "Copy command"}
         >
           {copied ? (

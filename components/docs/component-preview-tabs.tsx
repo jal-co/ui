@@ -39,7 +39,7 @@ export function ComponentPreviewTabs({
           aria-selected={active === "preview"}
           onClick={() => setActive("preview")}
           className={cn(
-            "px-4 py-2.5 text-sm font-medium transition-colors",
+            "px-4 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
             active === "preview"
               ? "border-b-2 border-foreground text-foreground"
               : "text-muted-foreground hover:text-foreground"
@@ -53,7 +53,7 @@ export function ComponentPreviewTabs({
           aria-selected={active === "code"}
           onClick={() => setActive("code")}
           className={cn(
-            "px-4 py-2.5 text-sm font-medium transition-colors",
+            "px-4 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
             active === "code"
               ? "border-b-2 border-foreground text-foreground"
               : "text-muted-foreground hover:text-foreground"
@@ -85,7 +85,7 @@ export function ComponentPreviewTabs({
                   aria-selected={activeFile === i}
                   onClick={() => setActiveFile(i)}
                   className={cn(
-                    "rounded-t-md px-3 py-2 font-mono text-xs transition-colors",
+                    "rounded-t-md px-3 py-2 font-mono text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
                     activeFile === i
                       ? "bg-background text-foreground"
                       : "text-muted-foreground hover:text-foreground"

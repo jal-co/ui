@@ -126,7 +126,7 @@ export function VariantGridClient({
                     aria-selected={activeFile === i}
                     onClick={() => setActiveFile(i)}
                     className={cn(
-                      "rounded-t-md px-3 py-2 font-mono text-xs transition-colors",
+                      "rounded-t-md px-3 py-2 font-mono text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
                       activeFile === i
                         ? "bg-background text-foreground"
                         : "text-muted-foreground hover:text-foreground"
@@ -166,7 +166,7 @@ function VariantCell({
   children: React.ReactNode
 }) {
   return (
-    <div className="group relative flex flex-col gap-3 rounded-xl border border-border/60 bg-card p-4 shadow-xs transition-colors hover:border-border">
+    <div className="group relative flex flex-col gap-3 rounded-xl border border-border/60 bg-card p-4 shadow-sm transition-colors hover:border-border">
       <div className="flex items-center justify-between">
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           {label}

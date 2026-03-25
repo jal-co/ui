@@ -4,7 +4,7 @@ import { join } from "node:path"
 import Link from "next/link"
 import { docsNav } from "@/lib/docs"
 import { getRegistryItem } from "@/lib/registry"
-import { ChangelogImage } from "@/components/changelog-image"
+import { ThemeImage } from "@/components/docs/theme-image"
 
 export const metadata: Metadata = {
   title: "Changelog",
@@ -134,16 +134,16 @@ export default function ChangelogPage() {
                   {entry.hasImage && (
                     <Link
                       href={entry.href}
-                      className="group overflow-hidden rounded-lg border border-border transition-colors hover:border-foreground/20"
+                      className="group overflow-hidden rounded-xl border border-border transition-colors hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
                     >
-                      <ChangelogImage slug={entry.slug} title={entry.title} />
+                      <ThemeImage slug={entry.slug} title={entry.title} />
                     </Link>
                   )}
 
                   <div>
                     <Link
                       href={entry.href}
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:underline"
+                      className="inline-flex items-center gap-1.5 rounded-md text-sm font-medium text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
                     >
                       View documentation →
                     </Link>

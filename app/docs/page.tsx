@@ -4,7 +4,7 @@ import { join } from "node:path"
 import Link from "next/link"
 import { docsNav, getActiveBadge } from "@/lib/docs"
 import { getRegistryItem } from "@/lib/registry"
-import { ComponentCardPreviewImage } from "@/components/docs/component-card-preview-image"
+import { ThemeImage } from "@/components/docs/theme-image"
 
 export const metadata: Metadata = {
   title: "Components — jal-co/ui",
@@ -77,11 +77,11 @@ export default function DocsPage() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="group relative flex flex-col overflow-hidden rounded-lg border border-border transition-colors hover:border-foreground/20 hover:bg-accent/50"
+                      className="group relative flex flex-col overflow-hidden rounded-xl border border-border transition-colors hover:border-foreground/20 hover:bg-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
                     >
                       {hasImage && (
                         <div className="relative overflow-hidden border-b border-border">
-                          <ComponentCardPreviewImage
+                          <ThemeImage
                             slug={slug}
                             title={item.title}
                           />
@@ -94,7 +94,7 @@ export default function DocsPage() {
                             {item.title}
                           </span>
                           {badge && (
-                            <span className="rounded-full border border-dashed border-[#ff4f00]/40 px-1.5 py-0.5 text-[10px] font-medium leading-none text-[#ff4f00]">
+                            <span className="rounded-full border border-dashed border-ring/40 px-1.5 py-0.5 text-[10px] font-medium leading-none text-ring">
                               {badge}
                             </span>
                           )}
