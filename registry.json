@@ -385,6 +385,50 @@
           "type": "registry:lib"
         }
       ]
+    },
+    {
+      "name": "diff-viewer",
+      "type": "registry:component",
+      "title": "Diff Viewer",
+      "description": "Code diff viewer with line numbers and add/remove coloring. Supports unified and split layouts.",
+      "dependencies": [
+        "diff",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "categories": [
+        "code",
+        "dev-tools"
+      ],
+      "files": [
+        {
+          "path": "registry/diff-viewer/diff-viewer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/diff-viewer/diff-viewer-client.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:component",
+      "title": "Kbd",
+      "description": "Keyboard shortcut key rendered as a styled keycap. Three visual profiles: flat, raised, and sculpted.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "categories": [
+        "docs"
+      ],
+      "files": [
+        {
+          "path": "registry/kbd/kbd.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

@@ -47,6 +47,7 @@ export const docsNav: NavGroup[] = [
     title: "Code",
     items: [
       { title: "Code Block", href: "/docs/components/code-block", dateAdded: "2026-03-11" },
+      { title: "Diff Viewer", href: "/docs/components/diff-viewer", badge: "New", badgeAdded: "2026-03-24", dateAdded: "2026-03-24" },
       {
         title: "Code Block Command",
         href: "/docs/components/code-block-command",
@@ -59,6 +60,7 @@ export const docsNav: NavGroup[] = [
     title: "Docs",
     items: [
       { title: "AI Copy Button", href: "/docs/components/ai-copy-button", dateAdded: "2026-03-11" },
+      { title: "Kbd", href: "/docs/components/kbd", badge: "New", badgeAdded: "2026-03-24", dateAdded: "2026-03-24" },
       { title: "API Reference Table", href: "/docs/components/api-ref-table", dateAdded: "2026-03-11" },
       { title: "File Tree", href: "/docs/components/file-tree", badge: "New", badgeAdded: "2026-03-17", dateAdded: "2026-03-17" },
       { title: "Stepper", href: "/docs/components/stepper", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
