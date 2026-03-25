@@ -5,6 +5,7 @@ import { ComponentDocsPage } from "@/components/docs/component-docs-page"
 import { VariantGrid } from "@/components/docs/variant-grid"
 import { ProductHuntButtonPlayground } from "./playground"
 import { CodeLine } from "@/registry/code-line/code-line"
+import { Stepper, StepperItem } from "@/registry/stepper/stepper"
 
 export const metadata: Metadata = {
   title: "Product Hunt Button",
@@ -78,7 +79,7 @@ export default async function ProductHuntButtonPage() {
       </section>
 
       {/* Examples */}
-      <section className="flex flex-col gap-8">
+      <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">Examples</h2>
 
         <div className="flex flex-col gap-4">
@@ -431,33 +432,49 @@ export default async function ProductHuntButtonPage() {
           The component fetches live data from the Product Hunt GraphQL API.
           To enable this, you need a developer token.
         </p>
-        <ol className="list-decimal space-y-2 pl-6 text-sm text-muted-foreground">
-          <li>
-            Go to the{" "}
-            <a
-              href="https://www.producthunt.com/v2/oauth/applications"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-4 hover:text-foreground"
-            >
-              Product Hunt API Dashboard
-            </a>
-            .
-          </li>
-          <li>
-            Click <strong className="text-foreground">Add an Application</strong>.
-            Enter any name and redirect URI (e.g. your site URL).
-          </li>
-          <li>
-            After creating the app, scroll down to the{" "}
-            <strong className="text-foreground">Developer Token</strong> section.
-            Copy the token value.
-          </li>
-          <li>
-            Add it to your environment:
-          </li>
-        </ol>
-        <CodeLine code="PRODUCTHUNT_TOKEN=your_developer_token_here" />
+        <Stepper>
+          <StepperItem
+            title="Open the API dashboard"
+            status="completed"
+          >
+            <p className="text-sm text-muted-foreground">
+              Go to the{" "}
+              <a
+                href="https://www.producthunt.com/v2/oauth/applications"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-4 hover:text-foreground"
+              >
+                Product Hunt API Dashboard
+              </a>
+              .
+            </p>
+          </StepperItem>
+          <StepperItem
+            title="Create an application"
+            status="completed"
+          >
+            <p className="text-sm text-muted-foreground">
+              Click <strong className="text-foreground">Add an Application</strong>.
+              Enter any name and redirect URI (e.g. your site URL).
+            </p>
+          </StepperItem>
+          <StepperItem
+            title="Copy the developer token"
+            status="active"
+          >
+            <p className="text-sm text-muted-foreground">
+              After creating the app, scroll down to the{" "}
+              <strong className="text-foreground">Developer Token</strong>{" "}
+              section. Copy the token value.
+            </p>
+          </StepperItem>
+          <StepperItem
+            title="Add to your environment"
+          >
+            <CodeLine code="PRODUCTHUNT_TOKEN=your_developer_token_here" />
+          </StepperItem>
+        </Stepper>
         <p className="text-sm text-muted-foreground">
           The developer token never expires and requires no OAuth flow. No
           API key or secret exchange needed — the token from the dashboard
