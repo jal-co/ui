@@ -86,7 +86,7 @@ function getLanguageIcon(language: string): string | null {
   return languageIcons[title] ?? null
 }
 
-interface CodeBlockProps {
+interface CodeBlockProps extends Omit<React.ComponentProps<"div">, "children"> {
   code: string
   language?: string
   title?: string
@@ -113,6 +113,7 @@ export async function CodeBlock({
   compact = false,
   theme,
   className,
+  ...props
 }: CodeBlockProps) {
   const highlighted = await highlightCode(code, language, theme)
 
@@ -133,6 +134,7 @@ export async function CodeBlock({
 
   return (
     <div
+      data-slot="code-block"
       className={cn(
         "overflow-hidden rounded-xl border shadow-sm",
         muted
@@ -140,6 +142,7 @@ export async function CodeBlock({
           : "border-border/60 bg-card",
         className
       )}
+      {...props}
     >
       {!compact && (
         <div

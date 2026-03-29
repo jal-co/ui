@@ -27,9 +27,7 @@ import { DropdownMenu } from "radix-ui"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
-/* ------------------------------------------------------------------ */
-/*  Brand icons (not available in lucide-react)                       */
-/* ------------------------------------------------------------------ */
+// Brand icons (not available in lucide-react)
 
 type IconProps = React.SVGProps<SVGSVGElement>
 
@@ -75,9 +73,7 @@ function MarkdownIcon({ className, ...props }: IconProps) {
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  Targets                                                           */
-/* ------------------------------------------------------------------ */
+// Targets
 
 type BuiltInTarget =
   | "markdown"
@@ -167,9 +163,7 @@ const defaultTargets: (BuiltInTarget | AiTarget)[] = [
   "gemini",
 ]
 
-/* ------------------------------------------------------------------ */
-/*  Variants                                                          */
-/* ------------------------------------------------------------------ */
+// Variants
 
 const aiCopyButtonVariants = cva(
   "inline-flex items-center shrink-0 whitespace-nowrap font-medium transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
@@ -200,12 +194,11 @@ const aiCopyButtonVariants = cva(
   }
 )
 
-/* ------------------------------------------------------------------ */
-/*  Component                                                         */
-/* ------------------------------------------------------------------ */
+// Component
 
 interface AiCopyButtonProps
-  extends VariantProps<typeof aiCopyButtonVariants> {
+  extends Omit<React.ComponentProps<"div">, "children">,
+    VariantProps<typeof aiCopyButtonVariants> {
   /** The string content to copy or send to AI targets. */
   value: string
   /** Primary button label. Defaults to "Copy". */
@@ -216,7 +209,6 @@ interface AiCopyButtonProps
   brandColors?: boolean
   /** Callback fired after the primary copy action completes. */
   onCopy?: () => void
-  className?: string
 }
 
 function AiCopyButton({
@@ -228,6 +220,7 @@ function AiCopyButton({
   size,
   onCopy,
   className,
+  ...props
 }: AiCopyButtonProps) {
   const [copied, setCopied] = React.useState(false)
   const resolved = resolveTargets(targets)
@@ -283,6 +276,7 @@ function AiCopyButton({
         "rounded-md p-0",
         className
       )}
+      {...props}
     >
       {/* Primary copy button */}
       <button

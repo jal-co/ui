@@ -35,22 +35,18 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-/* ------------------------------------------------------------------ */
-/*  Types                                                             */
-/* ------------------------------------------------------------------ */
+// Types
 
 type StepStatus = "default" | "active" | "completed"
 
-interface StepperProps {
+interface StepperProps extends Omit<React.ComponentProps<"div">, "children"> {
   /** StepperItem elements. */
   children: React.ReactNode
   /** Layout direction. Defaults to "vertical". */
   orientation?: "vertical" | "horizontal"
-  /** Additional CSS classes on the root element. */
-  className?: string
 }
 
-interface StepperItemProps {
+interface StepperItemProps extends Omit<React.ComponentProps<"div">, "title" | "children"> {
   /** Step heading text. */
   title: string
   /** Optional description below the title. */
@@ -63,13 +59,9 @@ interface StepperItemProps {
   icon?: React.ReactNode
   /** Content rendered below the step header (code blocks, text, etc.). */
   children?: React.ReactNode
-  /** Additional CSS classes on the step container. */
-  className?: string
 }
 
-/* ------------------------------------------------------------------ */
-/*  Check icon (inline SVG to avoid external dependencies)            */
-/* ------------------------------------------------------------------ */
+// Check icon (inline SVG to avoid external dependencies)
 
 function CheckIcon({ className }: { className?: string }) {
   return (
@@ -89,9 +81,7 @@ function CheckIcon({ className }: { className?: string }) {
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  StepperItem                                                       */
-/* ------------------------------------------------------------------ */
+// StepperItem
 
 function StepperItem({
   title,
@@ -101,6 +91,7 @@ function StepperItem({
   icon,
   children,
   className,
+  ...props
 }: StepperItemProps) {
   const stepNumber = step ?? 1
 
@@ -109,6 +100,7 @@ function StepperItem({
       data-slot="stepper-item"
       data-status={status}
       className={cn("group/step relative", className)}
+      {...props}
     >
       {/* ---- Vertical layout ---- */}
       <div className="flex gap-3">
@@ -168,9 +160,7 @@ function StepperItem({
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  Stepper (vertical)                                                */
-/* ------------------------------------------------------------------ */
+// Stepper (vertical)
 
 function VerticalStepper({
   children,
@@ -199,9 +189,7 @@ function VerticalStepper({
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  Stepper (horizontal)                                              */
-/* ------------------------------------------------------------------ */
+// Stepper (horizontal)
 
 function HorizontalStepper({
   children,
@@ -295,9 +283,7 @@ function HorizontalStepper({
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  Stepper (root)                                                    */
-/* ------------------------------------------------------------------ */
+// Stepper (root)
 
 function Stepper({
   children,
@@ -314,9 +300,7 @@ function Stepper({
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  Exports                                                           */
-/* ------------------------------------------------------------------ */
+// Exports
 
 export {
   Stepper,

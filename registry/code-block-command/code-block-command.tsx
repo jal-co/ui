@@ -39,7 +39,7 @@ const defaultIcons: Record<PackageManager, string> = {
 
 type IconStyle = "none" | "colored" | "muted"
 
-interface CodeBlockCommandProps {
+interface CodeBlockCommandProps extends Omit<React.ComponentProps<"div">, "children"> {
   pnpm?: string
   yarn?: string
   npm?: string
@@ -97,24 +97,25 @@ export function CodeBlockCommand({
   show,
   colorTheme,
   className,
+  ...props
 }: CodeBlockCommandProps) {
-  const commands: Partial<Record<PackageManager, string>> = {
+  const commands = React.useMemo<Partial<Record<PackageManager, string>>>(() => ({
     ...(pnpm && { pnpm }),
     ...(yarn && { yarn }),
     ...(npm && { npm }),
     ...(bun && { bun }),
     ...(shadcn && { shadcn }),
-  }
+  }), [pnpm, yarn, npm, bun, shadcn])
 
   const available = (show ?? managers).filter((m) => commands[m])
 
-  const [active, setActive] = React.useState<PackageManager>(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(STORAGE_KEY) as PackageManager | null
-      if (stored && commands[stored]) return stored
-    }
-    return available[0] ?? "pnpm"
-  })
+  const [active, setActive] = React.useState<PackageManager>(available[0] ?? "pnpm")
+
+  // Sync with localStorage after hydration to avoid mismatch
+  React.useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY) as PackageManager | null
+    if (stored && commands[stored]) setActive(stored)
+  }, [commands])
 
   const [copied, setCopied] = React.useState(false)
 
@@ -149,10 +150,12 @@ export function CodeBlockCommand({
 
   return (
     <div
+      data-slot="code-block-command"
       className={cn(
         "overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm",
         className
       )}
+      {...props}
     >
       <div className="flex items-center justify-between border-b border-border/60 bg-muted/40">
         <div className="flex" role="tablist" aria-label="Package manager">
@@ -190,6 +193,7 @@ export function CodeBlockCommand({
         </button>
       </div>
       <div
+      data-slot="code-block-command"
         className="overflow-x-auto px-4 py-3"
         style={
           colorTheme

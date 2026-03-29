@@ -31,7 +31,7 @@ export interface ActivityEntry {
   count: number
 }
 
-export interface ActivityGraphProps {
+export interface ActivityGraphProps extends Omit<React.ComponentProps<"div">, "children"> {
   /** Activity data entries. */
   data: ActivityEntry[]
   /**
@@ -163,6 +163,7 @@ export function ActivityGraph({
   blockRadius = 2,
   weeks: weekCount = 52,
   className,
+  ...props
 }: ActivityGraphProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [autoSize, setAutoSize] = React.useState<number | null>(null)
@@ -205,6 +206,8 @@ export function ActivityGraph({
       )}
       role="img"
       aria-label="Activity graph"
+      data-slot="activity-graph"
+      {...props}
     >
       {showGraph && (
         <div

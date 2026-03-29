@@ -183,15 +183,13 @@ function EnvRow({
   )
 }
 
-interface EnvTableProps {
+interface EnvTableProps extends Omit<React.ComponentProps<"div">, "children" | "title"> {
   /** Environment variables to display. */
   variables: EnvVariable[]
   /** Optional heading above the table. */
   title?: string
   /** Start with all values revealed. Defaults to false. */
   defaultRevealed?: boolean
-  /** Additional CSS classes on the root element. */
-  className?: string
 }
 
 function EnvTable({
@@ -199,6 +197,7 @@ function EnvTable({
   title,
   defaultRevealed = false,
   className,
+  ...props
 }: EnvTableProps) {
   const [revealedIndices, setRevealedIndices] = React.useState<Set<number>>(
     () =>
@@ -246,6 +245,7 @@ function EnvTable({
           "flex items-center justify-center rounded-xl border border-border/60 bg-card py-10 text-sm text-muted-foreground shadow-sm",
           className
         )}
+        {...props}
       >
         No environment variables.
       </div>
@@ -259,6 +259,7 @@ function EnvTable({
         "overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm",
         className
       )}
+      {...props}
     >
       {/* Header */}
       <div className="flex items-center justify-between border-b border-border/40 px-3 py-2.5 sm:px-4">

@@ -30,7 +30,7 @@ export interface FileTreeNode {
   children?: FileTreeNode[]
 }
 
-interface FileTreeProps {
+interface FileTreeProps extends Omit<React.ComponentProps<"div">, "children"> {
   tree: FileTreeNode[]
   /** Expand all folders, none, or specific paths (e.g. ["src", "src/components"]). Defaults to true. */
   defaultExpanded?: boolean | string[]
@@ -38,7 +38,6 @@ interface FileTreeProps {
   iconStyle?: "minimal" | "colored"
   /** Array of full paths to highlight (e.g. ["src/index.ts"]). */
   highlight?: string[]
-  className?: string
 }
 
 export function FileTree({
@@ -47,6 +46,7 @@ export function FileTree({
   iconStyle = "minimal",
   highlight,
   className,
+  ...props
 }: FileTreeProps) {
   const highlightSet = React.useMemo(
     () => new Set(highlight ?? []),
@@ -70,14 +70,87 @@ export function FileTree({
     })
   }, [])
 
+  const treeRef = React.useRef<HTMLDivElement>(null)
+
+  const handleKeyDown = React.useCallback(
+    (e: React.KeyboardEvent) => {
+      const container = treeRef.current
+      if (!container) return
+
+      const items = Array.from(
+        container.querySelectorAll<HTMLButtonElement>("[role=treeitem] > button")
+      )
+      const currentIndex = items.findIndex((el) => el === document.activeElement)
+      if (currentIndex === -1) return
+
+      let handled = true
+
+      switch (e.key) {
+        case "ArrowDown": {
+          const next = items[currentIndex + 1]
+          next?.focus()
+          break
+        }
+        case "ArrowUp": {
+          const prev = items[currentIndex - 1]
+          prev?.focus()
+          break
+        }
+        case "ArrowRight": {
+          const current = items[currentIndex]
+          const treeitem = current?.closest("[role=treeitem]")
+          const isExpanded = treeitem?.getAttribute("aria-expanded") === "true"
+          const isFolder = treeitem?.getAttribute("aria-expanded") != null
+          if (isFolder && !isExpanded) {
+            current?.click()
+          } else if (isFolder && isExpanded) {
+            const next = items[currentIndex + 1]
+            next?.focus()
+          }
+          break
+        }
+        case "ArrowLeft": {
+          const current = items[currentIndex]
+          const treeitem = current?.closest("[role=treeitem]")
+          const isExpanded = treeitem?.getAttribute("aria-expanded") === "true"
+          const isFolder = treeitem?.getAttribute("aria-expanded") != null
+          if (isFolder && isExpanded) {
+            current?.click()
+          } else {
+            const prev = items[currentIndex - 1]
+            prev?.focus()
+          }
+          break
+        }
+        case "Home": {
+          items[0]?.focus()
+          break
+        }
+        case "End": {
+          items[items.length - 1]?.focus()
+          break
+        }
+        default:
+          handled = false
+      }
+
+      if (handled) e.preventDefault()
+    },
+    []
+  )
+
   return (
     <div
+      ref={treeRef}
+      data-slot="file-tree"
       className={cn(
         "rounded-lg border border-border bg-card font-mono text-sm",
         className,
       )}
       role="tree"
       aria-label="File tree"
+      onKeyDown={handleKeyDown}
+      {...props}
     >
       <div className="p-3">
         {tree.map((node) => (
@@ -137,7 +210,7 @@ function TreeEntry({
         )}
         style={{ paddingLeft: `${depth * 20 + 6}px` }}
         onClick={isFolder ? () => toggle(path) : undefined}
-        tabIndex={isFolder ? 0 : -1}
+        tabIndex={0}
         aria-label={isFolder ? `${isOpen ? "Collapse" : "Expand"} ${node.name}` : node.name}
       >
         {isFolder ? (

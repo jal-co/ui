@@ -87,9 +87,8 @@ const kbdVariants = cva(
 type KbdVariantProps = VariantProps<typeof kbdVariants>
 
 interface KbdProps
-  extends React.HTMLAttributes<HTMLElement>,
+  extends React.ComponentProps<"kbd">,
     KbdVariantProps {
-  children: React.ReactNode
   /** Named color scheme or custom { bg, text, border } palette. */
   colorScheme?: BuiltInColorScheme | KbdColorScheme
 }
@@ -140,6 +139,7 @@ function Kbd({
 
   return (
     <kbd
+      data-slot="kbd"
       className={cn(kbdVariants({ variant, size }), className)}
       style={{ ...colorStyles(resolved, variant), ...style }}
       {...props}
