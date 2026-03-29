@@ -514,6 +514,23 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "testimonial",
+      "type": "registry:component",
+      "title": "Testimonial",
+      "description": "Customer testimonial display with standalone card, responsive grid, and infinite-scroll marquee layouts.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "marketing"
+      ],
+      "files": [
+        {
+          "path": "registry/testimonial/testimonial.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
