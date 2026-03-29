@@ -120,7 +120,7 @@ For component branches specifically:
 7. Implement the component with accessible structure, restrained styling, and realistic demo content.
 8. Document the component in the same change, including preview, installation, and usage.
 9. Create a card preview file at `components/docs/previews/<registry-name>.tsx` showing the component and its key variants, then run `pnpm previews:generate`.
-10. Add the component to the sidebar nav in `lib/docs.ts` with `badge: "New"` and `badgeAdded` set to today's ISO date (e.g. `"2026-03-12"`).
+10. Add the component to the sidebar nav in `lib/docs.ts` with `dateAdded` set to today's ISO date. The "New" badge is auto-derived from the latest release — no manual `badge` prop needed.
 11. Generate screenshots via `/dev/screenshots` — use "Save All → public/previews/" to write both `<name>-dark.png` and `<name>-light.png`.
 12. Run `pnpm registry:build` and `pnpm build` to verify everything compiles.
 13. Open a PR with the component template and verify every checklist item.
@@ -260,6 +260,56 @@ A dev-only page at `/dev/screenshots` renders every component preview at full si
 - For public component changes, agents MUST check related docs pages, preview/demo files, homepage or showcase examples, usage snippets, and registry metadata.
 - Public variants MUST NOT be added or removed without verifying that labels, examples, and preview coverage still match the shipped component.
 
+## Releases
+
+This project uses **Calendar Versioning (CalVer)** with the format `YYYY.MM.patch` (e.g. `2026.03.0`, `2026.03.1`).
+
+### Batch workflow
+
+Components SHOULD be developed and released in batches, not individually. The typical workflow:
+
+1. Work on a batch branch (`feat/batch-N` or `feat/big-batch-N`).
+2. Build multiple components, docs, previews, and screenshots on the branch.
+3. When the batch is ready, add a release entry to `lib/releases.ts`.
+4. Bump the version in `package.json`.
+5. Merge to `main`, tag with `git tag YYYY.MM.patch`, and create a GitHub Release.
+6. "New" badges update automatically — they show for components in the latest release only.
+
+There is no fixed release schedule. Release when a batch feels complete.
+
+### Release data
+
+All releases are defined in `lib/releases.ts`. Each release has:
+- `version` — CalVer string
+- `date` — ISO date
+- `title` — short name (e.g. "Batch 1", "Code Components")
+- `summary` — 1-3 sentence intro written in Justin's voice
+- `components` — new components with name, title, description, category
+- `improvements` — optional user-facing improvements (NOT internal tooling)
+
+### Release summaries
+
+Release summaries MUST be written in Justin Levine's personal writing voice using the `justin-writing-style` skill. They SHOULD be conversational, specific, and slightly self-aware. They MUST NOT sound like corporate changelogs or generic AI prose.
+
+### What belongs in improvements
+
+The `improvements` array in a release MUST only contain **user-facing changes** — things that affect people installing or using the components.
+
+Examples of user-facing improvements:
+- Bug fixes in shipped components
+- New variants or props added to existing components
+- Accessibility improvements
+- Documentation improvements
+
+Examples of things that MUST NOT appear in release improvements:
+- Screenshot tool changes
+- Build system or CI changes
+- Internal codegen or dev tooling
+- Preview file fixes
+- Dependency updates (unless they affect the public API)
+
+Internal improvements MAY be mentioned in the PR description or commit history, but MUST NOT appear in the public release notes.
+
 ## Commit standards
 
 This repository MUST use [Conventional Commits](https://www.conventionalcommits.org/).
@@ -316,7 +366,7 @@ When opening a component PR on GitHub, the component template MUST be selected f
 
 Every new public component PR MUST pass these before merging:
 - Component source in `registry/<name>/` with registry.json entry
-- Sidebar nav entry in `lib/docs.ts` with `badge: "New"` and `badgeAdded` set to today's date
+- Sidebar nav entry in `lib/docs.ts` with `dateAdded` set to today's date
 - Docs page at `app/docs/components/<name>/page.tsx` with matching description
 - Card preview at `components/docs/previews/<name>.tsx` with key variants
 - `pnpm previews:generate` run

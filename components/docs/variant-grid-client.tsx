@@ -183,7 +183,7 @@ function VariantCell({
       </div>
       <div
         className={cn(
-          "min-h-10 min-w-0 overflow-x-auto",
+          "min-h-10 min-w-0 overflow-clip",
           fullWidth ? "[&>*]:w-full" : "flex items-center"
         )}
       >

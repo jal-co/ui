@@ -429,6 +429,172 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "status-indicator",
+      "type": "registry:component",
+      "title": "Status Indicator",
+      "description": "Operational status badge with colored dot and label for dashboards, status pages, and header bars.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "categories": [
+        "infrastructure"
+      ],
+      "files": [
+        {
+          "path": "registry/status-indicator/status-indicator.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "contributor-grid",
+      "type": "registry:component",
+      "title": "Contributor Grid",
+      "description": "GitHub contributor display with avatar grid and detailed list layouts. Async server component with ISR caching.",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "tooltip"
+      ],
+      "categories": [
+        "open-source"
+      ],
+      "files": [
+        {
+          "path": "registry/contributor-grid/contributor-grid.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/contributor-grid/lib/github.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/contributor-grid/contributor-grid-client.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "commit-graph",
+      "type": "registry:component",
+      "title": "Commit Graph",
+      "description": "Git commit history as a vertical timeline with hashes, messages, author avatars, and branch/tag labels.",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "registryDependencies": [],
+      "categories": [
+        "open-source",
+        "code"
+      ],
+      "files": [
+        {
+          "path": "registry/commit-graph/commit-graph.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "logo-cloud",
+      "type": "registry:component",
+      "title": "Logo Cloud",
+      "description": "\"Trusted by\" logo display with static grid and infinite-scroll marquee layouts. Grayscale by default, color on hover.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "marketing"
+      ],
+      "files": [
+        {
+          "path": "registry/logo-cloud/logo-cloud.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "testimonial",
+      "type": "registry:component",
+      "title": "Testimonial",
+      "description": "Customer testimonial display with standalone card, responsive grid, and infinite-scroll marquee layouts.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "marketing"
+      ],
+      "files": [
+        {
+          "path": "registry/testimonial/testimonial.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "license-badge",
+      "type": "registry:component",
+      "title": "License Badge",
+      "description": "Software license badge with SPDX identifier, category color-coding, and OSI-approved indicator. Three layouts: inline pill, segmented row, and expanded card. Accepts a license string directly or fetches from the GitHub API.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "categories": [
+        "open-source"
+      ],
+      "files": [
+        {
+          "path": "registry/license-badge/license-badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/license-badge/lib/licenses.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "repo-card",
+      "type": "registry:component",
+      "title": "Repo Card",
+      "description": "GitHub repository preview card with description, language dot, star and fork counts, license, and topic tags. Async server component — fetches data at build time with ISR.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "categories": [
+        "github",
+        "open-source"
+      ],
+      "files": [
+        {
+          "path": "registry/repo-card/repo-card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/repo-card/lib/github.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "color-palette",
+      "type": "registry:component",
+      "title": "Color Palette",
+      "description": "Color swatch display with name, hex/hsl/rgb values, and click-to-copy. Grid and horizontal scale strip layouts for design system documentation.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "categories": [
+        "docs",
+        "design-system"
+      ],
+      "files": [
+        {
+          "path": "registry/color-palette/color-palette.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

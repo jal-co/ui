@@ -4,6 +4,7 @@ import { Sidebar } from "@/components/docs/sidebar"
 import { MobileNav } from "@/components/docs/mobile-nav"
 import { ThemeSwitcher } from "@/components/docs/theme-switcher"
 import { PrevNextNav } from "@/components/docs/prev-next-nav"
+import { Button } from "@/registry/ui/button"
 
 import { JalcoLogo } from "@/components/icons/jalco-logo"
 import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-button"
@@ -40,24 +41,15 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         </Link>
 
         <nav className="ml-4 hidden items-center gap-1 text-sm md:flex">
-          <Link
-            href="/docs"
-            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
-          >
-            Components
-          </Link>
-          <Link
-            href="/docs/changelog"
-            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
-          >
-            Changelog
-          </Link>
-          <Link
-            href="/docs/installation"
-            className="rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
-          >
-            Installation
-          </Link>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/docs">Components</Link>
+          </Button>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/docs/changelog">Releases</Link>
+          </Button>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/docs/installation">Installation</Link>
+          </Button>
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5">
