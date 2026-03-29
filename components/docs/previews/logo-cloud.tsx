@@ -1,14 +1,14 @@
 import { LogoCloudMarquee } from "@/registry/logo-cloud/logo-cloud"
 
 const logos = [
-  { src: "/logos/nextjs.svg", alt: "Next.js" },
-  { src: "/logos/react.svg", alt: "React" },
-  { src: "/logos/tailwindcss.svg", alt: "Tailwind CSS" },
-  { src: "/logos/typescript.svg", alt: "TypeScript" },
-  { src: "/logos/vercel.svg", alt: "Vercel" },
-  { src: "/logos/github.svg", alt: "GitHub" },
-  { src: "/logos/linear.svg", alt: "Linear" },
-  { src: "/logos/stripe.svg", alt: "Stripe" },
+  { src: "/logos/nextjs.png", alt: "Next.js" },
+  { src: "/logos/react.png", alt: "React" },
+  { src: "/logos/tailwindcss.png", alt: "Tailwind CSS" },
+  { src: "/logos/typescript.png", alt: "TypeScript" },
+  { src: "/logos/vercel.png", alt: "Vercel" },
+  { src: "/logos/github.png", alt: "GitHub" },
+  { src: "/logos/linear.png", alt: "Linear" },
+  { src: "/logos/stripe.png", alt: "Stripe" },
 ]
 
 export const animated = true
