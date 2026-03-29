@@ -37,7 +37,7 @@ export const releases: Release[] = [
     date: "2026-03-29",
     title: "Batch 1",
     summary:
-      "This one's been a big push — ten new components across marketing, open source, infra, and design system tooling. The screenshot utility also got a full rebuild so I'm not manually adjusting scale sliders for every single component anymore. Marquee loops actually loop now, which is nice.",
+      "Big batch. Eight new components — landing page stuff like testimonials and logo clouds, open source primitives like repo cards and license badges, and a color palette for design system docs. Basically the pieces I kept needing across projects and finally built properly.",
     components: [
       {
         name: "status-indicator",
