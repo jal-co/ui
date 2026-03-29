@@ -83,6 +83,7 @@ export const docsNav: NavGroup[] = [
       { title: "npm Badge", href: "/docs/components/npm-badge", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
       { title: "Product Hunt", href: "/docs/components/producthunt-button", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
       { title: "Contributor Grid", href: "/docs/components/contributor-grid", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
+      { title: "Commit Graph", href: "/docs/components/commit-graph", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
     ],
   },
   {

@@ -477,6 +477,26 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "commit-graph",
+      "type": "registry:component",
+      "title": "Commit Graph",
+      "description": "Git commit history as a vertical timeline with hashes, messages, author avatars, and branch/tag labels.",
+      "dependencies": [
+        "radix-ui"
+      ],
+      "registryDependencies": [],
+      "categories": [
+        "open-source",
+        "code"
+      ],
+      "files": [
+        {
+          "path": "registry/commit-graph/commit-graph.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
