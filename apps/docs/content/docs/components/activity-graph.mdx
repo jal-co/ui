@@ -1,0 +1,28 @@
+---
+title: "Activity Graph"
+description: "GitHub-style activity heatmap that visualizes daily counts as a color-intensity grid."
+---
+
+<ComponentPreview name="activity-graph-preview" />
+
+## Installation
+
+<InstallBlock name="activity-graph" />
+
+## Usage
+
+```tsx
+import { ApiRefTable } from "@/components/activity-graph"
+```
+
+```tsx
+<ApiRefTable />
+```
+
+Async server component — fetches data at build time with ISR caching.
+
+## Notes
+
+- **Async server component.** No client JS required.
+- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
+- See the [source code](https://github.com/jal-co/ui) for the full API.

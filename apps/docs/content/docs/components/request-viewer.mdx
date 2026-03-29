@@ -1,0 +1,28 @@
+---
+title: "Request Viewer"
+description: "Network request inspector showing headers, response body, and timing waterfall."
+---
+
+<ComponentPreview name="request-viewer-preview" />
+
+## Installation
+
+<InstallBlock name="request-viewer" />
+
+## Usage
+
+```tsx
+import { ApiRefTable } from "@/components/request-viewer"
+```
+
+```tsx
+<ApiRefTable />
+```
+
+Async server component — fetches data at build time with ISR caching.
+
+## Notes
+
+- **Async server component.** No client JS required.
+- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
+- See the [source code](https://github.com/jal-co/ui) for the full API.

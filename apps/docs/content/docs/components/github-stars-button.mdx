@@ -1,0 +1,28 @@
+---
+title: "GitHub Stars Button"
+description: "Link button showing a GitHub repo's star count with the octocat icon."
+---
+
+<ComponentPreview name="github-stars-button-preview" />
+
+## Installation
+
+<InstallBlock name="github-stars-button" />
+
+## Usage
+
+```tsx
+import { GitHubStarsButton } from "@/components/github-stars-button"
+```
+
+```tsx
+<GitHubStarsButton />
+```
+
+Async server component — fetches data at build time with ISR caching.
+
+## Notes
+
+- **Async server component.** No client JS required.
+- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
+- See the [source code](https://github.com/jal-co/ui) for the full API.

@@ -1,0 +1,28 @@
+---
+title: "Code Block"
+description: "Syntax-highlighted code block with language icon, copy button, and optional scrollable or collapsible overflow."
+---
+
+<ComponentPreview name="code-block-preview" />
+
+## Installation
+
+<InstallBlock name="code-block" />
+
+## Usage
+
+```tsx
+import { CodeBlock } from "@/components/code-block"
+```
+
+```tsx
+<CodeBlock />
+```
+
+Async server component — fetches data at build time with ISR caching.
+
+## Notes
+
+- **Async server component.** No client JS required.
+- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
+- See the [source code](https://github.com/jal-co/ui) for the full API.

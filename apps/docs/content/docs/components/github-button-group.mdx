@@ -1,0 +1,28 @@
+---
+title: "GitHub Button Group"
+description: "Segmented button group displaying multiple GitHub repo metrics with per-segment links."
+---
+
+<ComponentPreview name="github-button-group-preview" />
+
+## Installation
+
+<InstallBlock name="github-button-group" />
+
+## Usage
+
+```tsx
+import { GitHubButtonGroup } from "@/components/github-button-group"
+```
+
+```tsx
+<GitHubButtonGroup />
+```
+
+Async server component — fetches data at build time with ISR caching.
+
+## Notes
+
+- **Async server component.** No client JS required.
+- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
+- See the [source code](https://github.com/jal-co/ui) for the full API.

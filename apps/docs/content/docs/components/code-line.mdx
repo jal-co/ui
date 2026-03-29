@@ -1,0 +1,28 @@
+---
+title: "Code Line"
+description: "Compact single-line code snippet with syntax highlighting and an inline copy button."
+---
+
+<ComponentPreview name="code-line-preview" />
+
+## Installation
+
+<InstallBlock name="code-line" />
+
+## Usage
+
+```tsx
+import { CodeLine } from "@/components/code-line"
+```
+
+```tsx
+<CodeLine />
+```
+
+Async server component — fetches data at build time with ISR caching.
+
+## Notes
+
+- **Async server component.** No client JS required.
+- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
+- See the [source code](https://github.com/jal-co/ui) for the full API.

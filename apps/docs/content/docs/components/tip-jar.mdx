@@ -1,0 +1,28 @@
+---
+title: "Crypto + Tip Jar"
+description: "Donation and tipping component with QR code, wallet address display, and copy-to-clipboard."
+---
+
+<ComponentPreview name="tip-jar-preview" />
+
+## Installation
+
+<InstallBlock name="tip-jar" />
+
+## Usage
+
+```tsx
+import { ApiRefTable } from "@/components/tip-jar"
+```
+
+```tsx
+<ApiRefTable />
+```
+
+Async server component — fetches data at build time with ISR caching.
+
+## Notes
+
+- **Async server component.** No client JS required.
+- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
+- See the [source code](https://github.com/jal-co/ui) for the full API.

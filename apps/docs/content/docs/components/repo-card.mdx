@@ -1,0 +1,28 @@
+---
+title: "Repo Card"
+description: "GitHub repository preview card with description, language dot, star and fork counts, license, and topic tags."
+---
+
+<ComponentPreview name="repo-card-preview" />
+
+## Installation
+
+<InstallBlock name="repo-card" />
+
+## Usage
+
+```tsx
+import { RepoCard } from "@/components/repo-card"
+```
+
+```tsx
+<RepoCard />
+```
+
+Async server component — fetches data at build time with ISR caching.
+
+## Notes
+
+- **Async server component.** No client JS required.
+- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
+- See the [source code](https://github.com/jal-co/ui) for the full API.

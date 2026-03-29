@@ -1,0 +1,28 @@
+---
+title: "npm Badge"
+description: "Live npm package badge showing version, weekly downloads, license, and last publish date."
+---
+
+<ComponentPreview name="npm-badge-preview" />
+
+## Installation
+
+<InstallBlock name="npm-badge" />
+
+## Usage
+
+```tsx
+import { NpmBadge } from "@/components/npm-badge"
+```
+
+```tsx
+<NpmBadge />
+```
+
+Async server component — fetches data at build time with ISR caching.
+
+## Notes
+
+- **Async server component.** No client JS required.
+- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
+- See the [source code](https://github.com/jal-co/ui) for the full API.

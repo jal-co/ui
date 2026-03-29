@@ -1,0 +1,28 @@
+---
+title: "Product Hunt Button"
+description: "Link button showing a Product Hunt post's upvote count with the PH cat icon."
+---
+
+<ComponentPreview name="producthunt-button-preview" />
+
+## Installation
+
+<InstallBlock name="producthunt-button" />
+
+## Usage
+
+```tsx
+import { ProductHuntButton } from "@/components/producthunt-button"
+```
+
+```tsx
+<ProductHuntButton />
+```
+
+Async server component — fetches data at build time with ISR caching.
+
+## Notes
+
+- **Async server component.** No client JS required.
+- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
+- See the [source code](https://github.com/jal-co/ui) for the full API.
