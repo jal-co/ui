@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /**
  * jalco-ui
  * ContributorGrid, ContributorList
@@ -23,9 +24,9 @@
  * - Optional GITHUB_TOKEN env var for higher rate limits
  */
 
-/* eslint-disable @next/next/no-img-element */
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { ContributorAvatar } from "@/registry/contributor-grid/contributor-grid-client"
 import {
   fetchContributors,
   formatCount,
@@ -60,6 +61,8 @@ interface ContributorGridProps
     Omit<React.ComponentProps<"div">, "children"> {
   /** Avatar size. @default "md" */
   size?: AvatarSize
+  /** Show contribution count in tooltips. @default true */
+  showContributions?: boolean
 }
 
 async function ContributorGrid({
@@ -68,6 +71,7 @@ async function ContributorGrid({
   contributors: contributorsProp,
   max = 30,
   size = "md",
+  showContributions = true,
   className,
   ...props
 }: ContributorGridProps) {
@@ -81,34 +85,20 @@ async function ContributorGrid({
   return (
     <div
       data-slot="contributor-grid"
-      className={cn("flex flex-wrap items-center gap-1.5", className)}
+      className={cn("flex flex-wrap items-center -space-x-2", className)}
       role="list"
       aria-label={`Contributors to ${owner}/${repo}`}
       {...props}
     >
-      {display.map((contributor) => (
-        <a
+      {display.map((contributor, i) => (
+        <ContributorAvatar
           key={contributor.login}
-          href={contributor.profileUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          role="listitem"
-          aria-label={`${contributor.login} — ${contributor.contributions} contributions`}
-          title={`${contributor.login} (${formatCount(contributor.contributions)} contributions)`}
-          className="rounded-full outline-none transition-transform hover:scale-110 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        >
-          <img
-            src={`${contributor.avatarUrl}&s=${avatarConfig.px * 2}`}
-            alt=""
-            width={avatarConfig.px}
-            height={avatarConfig.px}
-            className={cn(
-              "rounded-full border border-border/60 bg-muted",
-              avatarConfig.className
-            )}
-            loading="lazy"
-          />
-        </a>
+          contributor={contributor}
+          imgSize={avatarConfig.px}
+          avatarClassName={avatarConfig.className}
+          showContributions={showContributions}
+          style={{ zIndex: display.length - i }}
+        />
       ))}
       {remaining > 0 && (
         <a
@@ -116,7 +106,7 @@ async function ContributorGrid({
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            "flex items-center justify-center rounded-full border border-border/60 bg-muted text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+            "relative flex items-center justify-center rounded-full border-2 border-background bg-muted text-xs font-medium text-muted-foreground transition-colors hover:z-10 hover:bg-accent hover:text-accent-foreground focus-visible:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
             avatarConfig.className
           )}
           aria-label={`${remaining} more contributors`}

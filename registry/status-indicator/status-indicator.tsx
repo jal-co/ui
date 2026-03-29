@@ -116,11 +116,15 @@ function StatusIndicator({
       )}
       {...props}
     >
-      <span
-        data-slot="status-dot"
-        className={cn("shrink-0 rounded-full", config.dot)}
+     <span
+       data-slot="status-dot"
+        className={cn("relative shrink-0 rounded-full", config.dot)}
         aria-hidden="true"
-      />
+      >
+        <span
+          className={cn("absolute inset-0 rounded-full animate-ping opacity-40", config.dot)}
+        />
+      </span>
       <span className={cn("whitespace-nowrap", config.text)}>
         {displayLabel}
       </span>

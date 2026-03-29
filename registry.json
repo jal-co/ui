@@ -454,8 +454,12 @@
       "type": "registry:component",
       "title": "Contributor Grid",
       "description": "GitHub contributor display with avatar grid and detailed list layouts. Async server component with ISR caching.",
-      "dependencies": [],
-      "registryDependencies": [],
+      "dependencies": [
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "tooltip"
+      ],
       "categories": [
         "open-source"
       ],
@@ -467,6 +471,10 @@
         {
           "path": "registry/contributor-grid/lib/github.ts",
           "type": "registry:lib"
+        },
+        {
+          "path": "registry/contributor-grid/contributor-grid-client.tsx",
+          "type": "registry:component"
         }
       ]
     }
