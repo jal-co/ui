@@ -37,7 +37,7 @@ export const releases: Release[] = [
     date: "2026-03-29",
     title: "Batch 1",
     summary:
-      "Ten new components spanning marketing, open source, infrastructure, and design system tooling. Plus a complete overhaul of the screenshot utility with auto-scaling and missing-file detection.",
+      "This one's been a big push — ten new components across marketing, open source, infra, and design system tooling. The screenshot utility also got a full rebuild so I'm not manually adjusting scale sliders for every single component anymore. Marquee loops actually loop now, which is nice.",
     components: [
       {
         name: "status-indicator",
@@ -124,7 +124,7 @@ export const releases: Release[] = [
     date: "2026-03-24",
     title: "Initial Release",
     summary:
-      "The first public release of jalco ui. Twenty components covering code display, documentation primitives, developer tools, open-source project badges, and more — all installable via the shadcn registry.",
+      "The first real drop. Twenty components I'd been building across a bunch of projects, cleaned up and published through a shadcn-compatible registry. Code blocks, dev tools, GitHub badges, documentation primitives — basically everything I kept re-building from scratch and finally decided to just ship properly.",
     components: [
       {
         name: "code-block",
