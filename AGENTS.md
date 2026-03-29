@@ -260,6 +260,56 @@ A dev-only page at `/dev/screenshots` renders every component preview at full si
 - For public component changes, agents MUST check related docs pages, preview/demo files, homepage or showcase examples, usage snippets, and registry metadata.
 - Public variants MUST NOT be added or removed without verifying that labels, examples, and preview coverage still match the shipped component.
 
+## Releases
+
+This project uses **Calendar Versioning (CalVer)** with the format `YYYY.MM.patch` (e.g. `2026.03.0`, `2026.03.1`).
+
+### Batch workflow
+
+Components SHOULD be developed and released in batches, not individually. The typical workflow:
+
+1. Work on a batch branch (`feat/batch-N` or `feat/big-batch-N`).
+2. Build multiple components, docs, previews, and screenshots on the branch.
+3. When the batch is ready, add a release entry to `lib/releases.ts`.
+4. Bump the version in `package.json`.
+5. Merge to `main`, tag with `git tag YYYY.MM.patch`, and create a GitHub Release.
+6. Clear `badge: "New"` from the previous release's components in `lib/docs.ts`.
+
+There is no fixed release schedule. Release when a batch feels complete.
+
+### Release data
+
+All releases are defined in `lib/releases.ts`. Each release has:
+- `version` — CalVer string
+- `date` — ISO date
+- `title` — short name (e.g. "Batch 1", "Code Components")
+- `summary` — 1-3 sentence intro written in Justin's voice
+- `components` — new components with name, title, description, category
+- `improvements` — optional user-facing improvements (NOT internal tooling)
+
+### Release summaries
+
+Release summaries MUST be written in Justin Levine's personal writing voice using the `justin-writing-style` skill. They SHOULD be conversational, specific, and slightly self-aware. They MUST NOT sound like corporate changelogs or generic AI prose.
+
+### What belongs in improvements
+
+The `improvements` array in a release MUST only contain **user-facing changes** — things that affect people installing or using the components.
+
+Examples of user-facing improvements:
+- Bug fixes in shipped components
+- New variants or props added to existing components
+- Accessibility improvements
+- Documentation improvements
+
+Examples of things that MUST NOT appear in release improvements:
+- Screenshot tool changes
+- Build system or CI changes
+- Internal codegen or dev tooling
+- Preview file fixes
+- Dependency updates (unless they affect the public API)
+
+Internal improvements MAY be mentioned in the PR description or commit history, but MUST NOT appear in the public release notes.
+
 ## Commit standards
 
 This repository MUST use [Conventional Commits](https://www.conventionalcommits.org/).

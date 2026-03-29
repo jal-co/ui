@@ -98,24 +98,9 @@ export const releases: Release[] = [
     ],
     improvements: [
       {
-        title: "Screenshot tool overhaul",
-        description:
-          "Auto-scaling, missing file detection with filter controls, Save Missing button, and html2canvas-pro for oklch() support.",
-      },
-      {
-        title: "Seamless marquee loops",
+        title: "Seamless marquee animations",
         description:
           "Fixed gap mismatches in testimonial and logo-cloud marquees that caused visible jumps at the loop point.",
-      },
-      {
-        title: "Runner-agnostic codegen",
-        description:
-          "Preview import codegen now runs from next.config.ts — works with bun dev, pnpm dev, or any runner.",
-      },
-      {
-        title: "Local preview assets",
-        description:
-          "Downloaded avatars and logos locally to eliminate CORS issues in screenshot capture.",
       },
     ],
   },
