@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useTheme } from "next-themes"
-import { toPng } from "html-to-image"
+import html2canvas from "html2canvas"
 
 const WIDTH = 1280
 const HEIGHT = 640
@@ -151,33 +151,30 @@ export function ScreenshotClient({
     const el = document.getElementById(`preview-${slug}`)
     if (!el) return null
 
-    return toPng(el, {
+    const canvas = await html2canvas(el, {
       width: WIDTH,
       height: HEIGHT,
-      pixelRatio,
-      skipFonts: true,
-      cacheBust: true,
-      includeQueryParams: true,
-      imagePlaceholder:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg==",
-      style: {
-        width: `${WIDTH}px`,
-        height: `${HEIGHT}px`,
-      },
+      scale: pixelRatio,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: null,
+      logging: false,
     })
+
+    return canvas.toDataURL("image/png")
   }
 
   async function recordVideo(slug: string): Promise<Blob | null> {
     const el = document.getElementById(`preview-${slug}`)
     if (!el) return null
 
-    const canvas = document.createElement("canvas")
-    canvas.width = WIDTH * pixelRatio
-    canvas.height = HEIGHT * pixelRatio
-    const ctx = canvas.getContext("2d")
+    const recCanvas = document.createElement("canvas")
+    recCanvas.width = WIDTH * pixelRatio
+    recCanvas.height = HEIGHT * pixelRatio
+    const ctx = recCanvas.getContext("2d")
     if (!ctx) return null
 
-    const stream = canvas.captureStream(30)
+    const stream = recCanvas.captureStream(30)
     const recorder = new MediaRecorder(stream, {
       mimeType: "video/webm;codecs=vp9",
       videoBitsPerSecond: 4_000_000,
@@ -190,31 +187,22 @@ export function ScreenshotClient({
 
     recorder.start()
 
-    const { toCanvas } = await import("html-to-image")
-    const captureOpts = {
-      width: WIDTH,
-      height: HEIGHT,
-      pixelRatio,
-      skipFonts: true,
-      cacheBust: false,
-      includeQueryParams: true,
-      imagePlaceholder:
-        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg==",
-      style: {
-        width: `${WIDTH}px`,
-        height: `${HEIGHT}px`,
-      },
-    }
-
-    // Capture frames into the canvas stream
     const fps = 12
     const frameInterval = 1000 / fps
     const totalFrames = Math.ceil(VIDEO_DURATION / frameInterval)
 
     for (let i = 0; i < totalFrames; i++) {
       try {
-        const frame = await toCanvas(el, captureOpts)
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        const frame = await html2canvas(el, {
+          width: WIDTH,
+          height: HEIGHT,
+          scale: pixelRatio,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null,
+          logging: false,
+        })
+        ctx.clearRect(0, 0, recCanvas.width, recCanvas.height)
         ctx.drawImage(frame, 0, 0)
       } catch {
         // skip frame
