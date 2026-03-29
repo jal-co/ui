@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.30.3",
   "scripts": {
     "dev": "tsx scripts/generate-preview-imports.ts && next dev",
-    "build": "shadcn build && tsx scripts/generate-preview-imports.ts && next build",
+    "build": "shadcn build && tsx scripts/build-registry-index.ts && tsx scripts/generate-preview-imports.ts && next build",
     "start": "next start",
     "lint": "eslint .",
     "registry:build": "shadcn build",

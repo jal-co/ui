@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs"
 import { join } from "node:path"
 import registryData from "@/registry.json"
+import { Index } from "@/registry/__index__"
 
 interface RegistryFile {
   path: string
@@ -17,6 +18,13 @@ interface RegistryItem {
   registryDependencies?: string[]
   categories?: string[]
   files: RegistryFile[]
+}
+
+/**
+ * Get a registry component for rendering in ComponentPreview.
+ */
+export function getRegistryComponent(name: string) {
+  return Index[name]?.component ?? null
 }
 
 /**

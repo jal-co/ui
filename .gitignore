@@ -40,8 +40,10 @@ next-env.d.ts
 skills-lock.json
 bun.lock
 
-# Generated preview imports
+# Generated files
 **/components/docs/__generated__/
+**/registry/__index__.tsx
+**/.source/
 
 # lockfiles (regenerated)
 pnpm-lock.yaml
