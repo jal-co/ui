@@ -120,7 +120,7 @@ For component branches specifically:
 7. Implement the component with accessible structure, restrained styling, and realistic demo content.
 8. Document the component in the same change, including preview, installation, and usage.
 9. Create a card preview file at `components/docs/previews/<registry-name>.tsx` showing the component and its key variants, then run `pnpm previews:generate`.
-10. Add the component to the sidebar nav in `lib/docs.ts` with `badge: "New"` and `badgeAdded` set to today's ISO date (e.g. `"2026-03-12"`).
+10. Add the component to the sidebar nav in `lib/docs.ts` with `dateAdded` set to today's ISO date. The "New" badge is auto-derived from the latest release — no manual `badge` prop needed.
 11. Generate screenshots via `/dev/screenshots` — use "Save All → public/previews/" to write both `<name>-dark.png` and `<name>-light.png`.
 12. Run `pnpm registry:build` and `pnpm build` to verify everything compiles.
 13. Open a PR with the component template and verify every checklist item.
@@ -273,7 +273,7 @@ Components SHOULD be developed and released in batches, not individually. The ty
 3. When the batch is ready, add a release entry to `lib/releases.ts`.
 4. Bump the version in `package.json`.
 5. Merge to `main`, tag with `git tag YYYY.MM.patch`, and create a GitHub Release.
-6. Clear `badge: "New"` from the previous release's components in `lib/docs.ts`.
+6. "New" badges update automatically — they show for components in the latest release only.
 
 There is no fixed release schedule. Release when a batch feels complete.
 
@@ -366,7 +366,7 @@ When opening a component PR on GitHub, the component template MUST be selected f
 
 Every new public component PR MUST pass these before merging:
 - Component source in `registry/<name>/` with registry.json entry
-- Sidebar nav entry in `lib/docs.ts` with `badge: "New"` and `badgeAdded` set to today's date
+- Sidebar nav entry in `lib/docs.ts` with `dateAdded` set to today's date
 - Docs page at `app/docs/components/<name>/page.tsx` with matching description
 - Card preview at `components/docs/previews/<name>.tsx` with key variants
 - `pnpm previews:generate` run

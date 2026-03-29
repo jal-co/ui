@@ -1,30 +1,26 @@
+import { getLatestRelease } from "@/lib/releases"
+
 export interface NavItem {
   title: string
   href: string
   /** Indicates this page documents a bundled export from another registry item. */
   bundledIn?: string
-  /** Optional badge shown next to the title (e.g. "New", "Beta"). */
+  /** Optional badge shown next to the title (e.g. "New", "Beta"). Prefer omitting — badges are now auto-derived from the latest release. */
   badge?: string
-  /**
-   * ISO date string (e.g. "2026-03-12") when the badge was added.
-   * Badge auto-hides 14 days after this date. When omitted, badge is permanent.
-   */
-  badgeAdded?: string
-  /** ISO date string when the component was first added to the registry. Used by the changelog. */
+  /** ISO date string when the component was first added to the registry. */
   dateAdded?: string
 }
 
-/** Number of days a badge stays visible. */
-const BADGE_TTL_DAYS = 14
+/** Component slugs from the latest release — these get the "New" badge. */
+const latestReleaseSlugs = new Set(
+  getLatestRelease().components.map((c) => c.name)
+)
 
-/** Returns the badge text if it should still be shown, or undefined. */
+/** Returns "New" if the component is part of the latest release, or the manual badge if set. */
 export function getActiveBadge(item: NavItem): string | undefined {
-  if (!item.badge) return undefined
-  if (!item.badgeAdded) return item.badge
-
-  const added = new Date(item.badgeAdded)
-  const expires = new Date(added.getTime() + BADGE_TTL_DAYS * 86_400_000)
-  return new Date() < expires ? item.badge : undefined
+  if (item.badge) return item.badge
+  const slug = item.href.split("/").pop() ?? ""
+  return latestReleaseSlugs.has(slug) ? "New" : undefined
 }
 
 export interface NavGroup {
@@ -47,7 +43,7 @@ export const docsNav: NavGroup[] = [
     title: "Code",
     items: [
       { title: "Code Block", href: "/docs/components/code-block", dateAdded: "2026-03-11" },
-      { title: "Diff Viewer", href: "/docs/components/diff-viewer", badge: "New", badgeAdded: "2026-03-24", dateAdded: "2026-03-24" },
+      { title: "Diff Viewer", href: "/docs/components/diff-viewer", dateAdded: "2026-03-24" },
       {
         title: "Code Block Command",
         href: "/docs/components/code-block-command",
@@ -60,11 +56,11 @@ export const docsNav: NavGroup[] = [
     title: "Docs",
     items: [
       { title: "AI Copy Button", href: "/docs/components/ai-copy-button", dateAdded: "2026-03-11" },
-      { title: "Kbd", href: "/docs/components/kbd", badge: "New", badgeAdded: "2026-03-24", dateAdded: "2026-03-24" },
+      { title: "Kbd", href: "/docs/components/kbd", dateAdded: "2026-03-24" },
       { title: "API Reference Table", href: "/docs/components/api-ref-table", dateAdded: "2026-03-11" },
-      { title: "File Tree", href: "/docs/components/file-tree", badge: "New", badgeAdded: "2026-03-17", dateAdded: "2026-03-17" },
-      { title: "Stepper", href: "/docs/components/stepper", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
-      { title: "Color Palette", href: "/docs/components/color-palette", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
+      { title: "File Tree", href: "/docs/components/file-tree", dateAdded: "2026-03-17" },
+      { title: "Stepper", href: "/docs/components/stepper", dateAdded: "2026-03-12" },
+      { title: "Color Palette", href: "/docs/components/color-palette", dateAdded: "2026-03-29" },
     ],
   },
   {
@@ -81,12 +77,12 @@ export const docsNav: NavGroup[] = [
         href: "/docs/components/github-button-group",
         dateAdded: "2026-03-11",
       },
-      { title: "npm Badge", href: "/docs/components/npm-badge", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
-      { title: "Product Hunt", href: "/docs/components/producthunt-button", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
-      { title: "Contributor Grid", href: "/docs/components/contributor-grid", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
-      { title: "Commit Graph", href: "/docs/components/commit-graph", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
-      { title: "License Badge", href: "/docs/components/license-badge", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
-      { title: "Repo Card", href: "/docs/components/repo-card", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
+      { title: "npm Badge", href: "/docs/components/npm-badge", dateAdded: "2026-03-12" },
+      { title: "Product Hunt", href: "/docs/components/producthunt-button", dateAdded: "2026-03-12" },
+      { title: "Contributor Grid", href: "/docs/components/contributor-grid", dateAdded: "2026-03-29" },
+      { title: "Commit Graph", href: "/docs/components/commit-graph", dateAdded: "2026-03-29" },
+      { title: "License Badge", href: "/docs/components/license-badge", dateAdded: "2026-03-29" },
+      { title: "Repo Card", href: "/docs/components/repo-card", dateAdded: "2026-03-29" },
     ],
   },
   {
@@ -102,14 +98,14 @@ export const docsNav: NavGroup[] = [
   {
     title: "Marketing",
     items: [
-      { title: "Logo Cloud", href: "/docs/components/logo-cloud", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
-      { title: "Testimonial", href: "/docs/components/testimonial", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
+      { title: "Logo Cloud", href: "/docs/components/logo-cloud", dateAdded: "2026-03-29" },
+      { title: "Testimonial", href: "/docs/components/testimonial", dateAdded: "2026-03-29" },
     ],
   },
   {
     title: "Infrastructure",
     items: [
-      { title: "Status Indicator", href: "/docs/components/status-indicator", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
+      { title: "Status Indicator", href: "/docs/components/status-indicator", dateAdded: "2026-03-29" },
     ],
   },
   {
