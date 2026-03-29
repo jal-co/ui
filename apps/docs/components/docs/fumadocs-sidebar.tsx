@@ -31,6 +31,13 @@ function isNewComponent(url: string): boolean {
   return latestReleaseSlugs.has(getSlugFromUrl(url))
 }
 
+const staticPages = [
+  { name: "Components", url: "/docs" },
+  { name: "Installation", url: "/docs/installation" },
+  { name: "Color Themes", url: "/docs/themes" },
+  { name: "Releases", url: "/docs/releases" },
+]
+
 interface FumadocsSidebarProps {
   tree: TreeRoot
 }
@@ -74,6 +81,37 @@ export function FumadocsSidebar({ tree }: FumadocsSidebarProps) {
     <div className="relative h-full">
       <div ref={scrollRef} className="h-full overflow-y-auto p-4 pb-14 no-scrollbar">
         <nav className="flex flex-col gap-6">
+          <div className="flex flex-col gap-1">
+            <p className="px-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              Getting Started
+            </p>
+            {staticPages.map((page) => {
+              const isActive = pathname === page.url
+              return (
+                <Link
+                  key={page.url}
+                  href={page.url}
+                  className={cn(
+                    "relative flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
+                    isActive ? "font-medium text-accent-foreground" : "text-muted-foreground"
+                  )}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="sidebar-active"
+                      className="absolute inset-0 rounded-md bg-accent"
+                      transition={
+                        prefersReducedMotion
+                          ? { duration: 0 }
+                          : { type: "spring", stiffness: 500, damping: 35 }
+                      }
+                    />
+                  )}
+                  <span className="relative z-10">{page.name}</span>
+                </Link>
+              )
+            })}
+          </div>
           {tree.children.map((node) => (
             <SidebarNode key={node.$id} node={node} pathname={pathname} prefersReducedMotion={prefersReducedMotion} />
           ))}

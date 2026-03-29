@@ -11,13 +11,9 @@ description: "Software license badge with SPDX identifier, category color-coding
 
 ## Usage
 
-```tsx
-import { LicenseBadge } from "@/components/license-badge"
-```
+<CodeLine code={`import { LicenseBadge } from "@/components/license-badge"`} />
 
-```tsx
-<LicenseBadge license="MIT" />
-```
+<CodeLine code={`<LicenseBadge license="MIT" />`} />
 
 Pass a `license` SPDX identifier directly, or use `owner`/`repo` to fetch the license from the GitHub API. When using the API, this is an async server component with 1-hour ISR caching.
 

@@ -11,13 +11,9 @@ description: "Topological git graph with rail lines showing branch forks, merges
 
 ## Usage
 
-```tsx
-import { CommitGraph } from "@/components/commit-graph"
-```
+<CodeLine code={`import { CommitGraph } from "@/components/commit-graph"`} />
 
-```tsx
-<CommitGraph commits={commits} />
-```
+<CodeLine code={`<CommitGraph commits={commits} />`} />
 
 Client component. Pass commits in topological order (newest first) with `parents` hashes — the graph computes fork and merge topology automatically. Click any commit row for a detail popover.
 

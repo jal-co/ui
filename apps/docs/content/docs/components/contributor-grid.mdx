@@ -11,13 +11,9 @@ description: "GitHub contributor display with avatar grid and detailed list layo
 
 ## Usage
 
-```tsx
-import { ContributorGrid, ContributorList } from "@/components/contributor-grid"
-```
+<CodeLine code={`import { ContributorGrid, ContributorList } from "@/components/contributor-grid"`} />
 
-```tsx
-<ContributorGrid owner="vercel" repo="next.js" />
-```
+<CodeLine code={`<ContributorGrid owner="vercel" repo="next.js" />`} />
 
 Async server component — fetches contributors from the GitHub API at build time. Cached for 1 hour via ISR. Optional `GITHUB_TOKEN` raises the rate limit.
 

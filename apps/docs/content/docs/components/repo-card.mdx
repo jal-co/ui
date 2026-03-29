@@ -11,13 +11,9 @@ description: "GitHub repository preview card with description, language dot, sta
 
 ## Usage
 
-```tsx
-import { RepoCard } from "@/components/repo-card"
-```
+<CodeLine code={`import { RepoCard } from "@/components/repo-card"`} />
 
-```tsx
-<RepoCard owner="shadcn-ui" repo="ui" />
-```
+<CodeLine code={`<RepoCard owner="shadcn-ui" repo="ui" />`} />
 
 Async server component — fetches the GitHub API at build time and caches the result for 1 hour via Next.js ISR. Optional `GITHUB_TOKEN` env var raises the rate limit.
 

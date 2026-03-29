@@ -11,13 +11,9 @@ description: "Color swatch display with name, hex/hsl/rgb values, and click-to-c
 
 ## Usage
 
-```tsx
-import { ColorPalette } from "@/components/color-palette"
-```
+<CodeLine code={`import { ColorPalette } from "@/components/color-palette"`} />
 
-```tsx
-<ColorPalette colors={[{ name: "Primary", value: "#6366f1" }]} />
-```
+<CodeLine code={`<ColorPalette colors={[{ name: "Primary", value: "#6366f1" }]} />`} />
 
 Client component. Click any swatch to copy its color value to the clipboard. Supports hex, rgb(), hsl(), oklch(), and named CSS colors.
 
