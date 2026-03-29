@@ -74,15 +74,17 @@ export function CodeBlockCommand({
 
   const available = (show ?? managers).filter((m) => commands[m])
 
-  const [active, setActive] = React.useState<PackageManager>(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(STORAGE_KEY) as PackageManager | null
-      if (stored && commands[stored]) return stored
-    }
-    return available[0] ?? "pnpm"
-  })
-
+  const [active, setActive] = React.useState<PackageManager>(
+    available[0] ?? "pnpm"
+  )
   const [copied, setCopied] = React.useState(false)
+
+  // Sync from localStorage after mount to avoid hydration mismatch
+  React.useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY) as PackageManager | null
+    if (stored && commands[stored]) setActive(stored)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const isMuted = iconStyle === "muted"
 
   function handleSelect(manager: PackageManager) {
