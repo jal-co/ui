@@ -159,6 +159,11 @@ export function ScreenshotClient({
       width: WIDTH,
       height: HEIGHT,
       pixelRatio,
+      skipFonts: true,
+      cacheBust: true,
+      includeQueryParams: true,
+      imagePlaceholder:
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg==",
       style: {
         width: `${WIDTH}px`,
         height: `${HEIGHT}px`,
@@ -259,7 +264,7 @@ export function ScreenshotClient({
           saved++
         }
       } catch (err) {
-        console.error(`Failed: ${slug} dark png`, err)
+        console.error(`Failed: ${slug} dark png`, err instanceof Error ? err.message : err)
       }
       setProgress((p) => p && { ...p, current: p.current + 1 })
       await new Promise((r) => setTimeout(r, 100))
@@ -280,7 +285,7 @@ export function ScreenshotClient({
           saved++
         }
       } catch (err) {
-        console.error(`Failed: ${slug} dark gif`, err)
+        console.error(`Failed: ${slug} dark gif`, err instanceof Error ? err.message : err)
       }
       setProgress((p) => p && { ...p, current: p.current + 1 })
     }
@@ -301,7 +306,7 @@ export function ScreenshotClient({
           saved++
         }
       } catch (err) {
-        console.error(`Failed: ${slug} light png`, err)
+        console.error(`Failed: ${slug} light png`, err instanceof Error ? err.message : err)
       }
       setProgress((p) => p && { ...p, current: p.current + 1 })
       await new Promise((r) => setTimeout(r, 100))
@@ -322,7 +327,7 @@ export function ScreenshotClient({
           saved++
         }
       } catch (err) {
-        console.error(`Failed: ${slug} light gif`, err)
+        console.error(`Failed: ${slug} light gif`, err instanceof Error ? err.message : err)
       }
       setProgress((p) => p && { ...p, current: p.current + 1 })
     }
@@ -352,7 +357,7 @@ export function ScreenshotClient({
         saved++
       }
     } catch (err) {
-      console.error(`Failed: ${slug} dark png`, err)
+      console.error(`Failed: ${slug} dark png`, err instanceof Error ? err.message : err)
     }
 
     if (isAnim) {
@@ -369,7 +374,7 @@ export function ScreenshotClient({
           saved++
         }
       } catch (err) {
-        console.error(`Failed: ${slug} dark gif`, err)
+        console.error(`Failed: ${slug} dark gif`, err instanceof Error ? err.message : err)
       }
     }
 
@@ -386,7 +391,7 @@ export function ScreenshotClient({
         saved++
       }
     } catch (err) {
-      console.error(`Failed: ${slug} light png`, err)
+      console.error(`Failed: ${slug} light png`, err instanceof Error ? err.message : err)
     }
 
     if (isAnim) {
@@ -403,7 +408,7 @@ export function ScreenshotClient({
           saved++
         }
       } catch (err) {
-        console.error(`Failed: ${slug} light gif`, err)
+        console.error(`Failed: ${slug} light gif`, err instanceof Error ? err.message : err)
       }
     }
 
@@ -463,7 +468,7 @@ export function ScreenshotClient({
           saved++
         }
       } catch (err) {
-        console.error(`Failed: ${slug} dark png`, err)
+        console.error(`Failed: ${slug} dark png`, err instanceof Error ? err.message : err)
       }
       setProgress((p) => p && { ...p, current: p.current + 1 })
       await new Promise((r) => setTimeout(r, 100))
@@ -483,7 +488,7 @@ export function ScreenshotClient({
           saved++
         }
       } catch (err) {
-        console.error(`Failed: ${slug} dark gif`, err)
+        console.error(`Failed: ${slug} dark gif`, err instanceof Error ? err.message : err)
       }
       setProgress((p) => p && { ...p, current: p.current + 1 })
     }
@@ -504,7 +509,7 @@ export function ScreenshotClient({
           saved++
         }
       } catch (err) {
-        console.error(`Failed: ${slug} light png`, err)
+        console.error(`Failed: ${slug} light png`, err instanceof Error ? err.message : err)
       }
       setProgress((p) => p && { ...p, current: p.current + 1 })
       await new Promise((r) => setTimeout(r, 100))
@@ -524,7 +529,7 @@ export function ScreenshotClient({
           saved++
         }
       } catch (err) {
-        console.error(`Failed: ${slug} light gif`, err)
+        console.error(`Failed: ${slug} light gif`, err instanceof Error ? err.message : err)
       }
       setProgress((p) => p && { ...p, current: p.current + 1 })
     }
