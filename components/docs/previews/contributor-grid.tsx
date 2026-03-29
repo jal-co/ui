@@ -1,10 +1,6 @@
 import { ContributorGrid, ContributorList } from "@/registry/contributor-grid/contributor-grid"
 import type { GitHubContributor } from "@/registry/contributor-grid/lib/github"
-
-function avatar(initials: string, hue: number): string {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="hsl(${hue},45%,55%)" rx="40"/><text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" fill="white" font-family="system-ui,sans-serif" font-size="32" font-weight="600">${initials}</text></svg>`
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`
-}
+import { avatar } from "./lib/avatar"
 
 const sampleContributors: GitHubContributor[] = [
   { login: "shadcn", avatarUrl: avatar("SC", 220), profileUrl: "https://github.com/shadcn", contributions: 1243 },

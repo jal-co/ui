@@ -1,9 +1,5 @@
 import { TestimonialMarquee } from "@/registry/testimonial/testimonial"
-
-function avatar(initials: string, hue: number): string {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="hsl(${hue},45%,55%)" rx="40"/><text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" fill="white" font-family="system-ui,sans-serif" font-size="32" font-weight="600">${initials}</text></svg>`
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`
-}
+import { avatar } from "./lib/avatar"
 
 const testimonials = [
   { quote: "This completely transformed our developer onboarding. Setup time went from days to minutes.", author: "Sarah Chen", role: "CTO", company: "Acme Corp", avatarUrl: avatar("SC", 220), rating: 5 },
