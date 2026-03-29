@@ -46,13 +46,12 @@ interface WithPatch {
 
 type DiffInput = WithStrings | WithPatch
 
-type DiffViewerProps = DiffInput & {
+type DiffViewerProps = DiffInput & Omit<React.ComponentProps<"div">, "children"> & {
   layout?: DiffLayout
   /** Shiki language key for syntax highlighting. Plain text when omitted. */
   language?: string
   oldTitle?: string
   newTitle?: string
-  className?: string
 }
 
 function computeLines(input: DiffInput): DiffLine[] {
@@ -289,9 +288,14 @@ export function DiffViewer({
   oldTitle,
   newTitle,
   className,
-  ...input
+  ...allProps
 }: DiffViewerProps) {
-  const lines = computeLines(input as DiffInput)
+  // Separate DiffInput keys from remaining DOM props
+  const { oldCode, newCode, patch, ...props } = allProps as DiffViewerProps & Record<string, unknown>
+  const input: DiffInput = patch !== undefined
+    ? { patch } as WithPatch
+    : { oldCode: oldCode ?? "", newCode: newCode ?? "" } as WithStrings
+  const lines = computeLines(input)
   const numWidth = lineNumberWidth(lines)
 
   const stats = lines.reduce(
@@ -308,10 +312,12 @@ export function DiffViewer({
 
   return (
     <div
+      data-slot="diff-viewer"
       className={cn(
         "relative overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm",
         className
       )}
+      {...props}
     >
       {showHeader && (
         <div className="flex items-center justify-between gap-3 border-b border-border/60 bg-muted/40 px-4 py-2.5">

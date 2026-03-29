@@ -35,9 +35,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-/* ------------------------------------------------------------------ */
-/*  Types                                                             */
-/* ------------------------------------------------------------------ */
+// Types
 
 export type LogLevel = "info" | "warn" | "error" | "debug" | "verbose"
 
@@ -63,9 +61,7 @@ export type LevelColors = {
 /** Partial map of log levels to custom color classes. */
 export type LevelColorScale = Partial<Record<LogLevel, Partial<LevelColors>>>
 
-/* ------------------------------------------------------------------ */
-/*  Default colors                                                    */
-/* ------------------------------------------------------------------ */
+// Default colors
 
 const DEFAULT_LEVEL_COLORS: Record<LogLevel, LevelColors> = {
   error: {
@@ -117,9 +113,7 @@ function resolveLevelColors(
   }
 }
 
-/* ------------------------------------------------------------------ */
-/*  Utilities                                                         */
-/* ------------------------------------------------------------------ */
+// Utilities
 
 function formatTimestamp(ts?: string): string {
   const d = ts ? new Date(ts) : new Date()
@@ -219,9 +213,7 @@ function highlightSearch(text: string, query: string): React.ReactNode {
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  Small Toolbar Button                                              */
-/* ------------------------------------------------------------------ */
+// Small Toolbar Button
 
 function ToolbarButton({
   onClick,
@@ -254,11 +246,9 @@ function ToolbarButton({
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  LogViewerTerminal                                                 */
-/* ------------------------------------------------------------------ */
+// LogViewerTerminal
 
-interface LogViewerTerminalProps {
+interface LogViewerTerminalProps extends Omit<React.ComponentProps<"div">, "children" | "title"> {
   /** Log entries to display. */
   entries: LogEntry[]
   /** Title shown in the toolbar. @default "Logs" */
@@ -275,7 +265,6 @@ interface LogViewerTerminalProps {
   colorScale?: LevelColorScale
   /** Called when the user clicks "Clear". When provided, a clear button appears. */
   onClear?: () => void
-  className?: string
 }
 
 function LogViewerTerminal({
@@ -288,6 +277,7 @@ function LogViewerTerminal({
   colorScale,
   onClear,
   className,
+  ...props
 }: LogViewerTerminalProps) {
   const [paused, setPaused] = React.useState(false)
   const [searchOpen, setSearchOpen] = React.useState(false)
@@ -321,6 +311,7 @@ function LogViewerTerminal({
         "flex flex-col overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm",
         className
       )}
+      {...props}
     >
       {/* Toolbar */}
       <div className="flex items-center gap-2 border-b border-border/40 bg-muted/30 px-3 py-2">
@@ -464,11 +455,9 @@ function LogViewerTerminal({
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  LogViewerMinimal                                                  */
-/* ------------------------------------------------------------------ */
+// LogViewerMinimal
 
-interface LogViewerMinimalProps {
+interface LogViewerMinimalProps extends Omit<React.ComponentProps<"div">, "children"> {
   /** Log entries to display. */
   entries: LogEntry[]
   /** Maximum visible height in pixels. @default 300 */
@@ -479,7 +468,6 @@ interface LogViewerMinimalProps {
   autoScroll?: boolean
   /** Custom colors per log level. Merges with defaults — only override what you need. */
   colorScale?: LevelColorScale
-  className?: string
 }
 
 function LogViewerMinimal({
@@ -489,6 +477,7 @@ function LogViewerMinimal({
   autoScroll = true,
   colorScale,
   className,
+  ...props
 }: LogViewerMinimalProps) {
   const { scrollRef, isAtBottom, handleScroll, scrollToBottom } = useAutoScroll(
     entries,
@@ -502,6 +491,7 @@ function LogViewerMinimal({
         "flex flex-col overflow-hidden rounded-lg border border-border/60 bg-card shadow-sm",
         className
       )}
+      {...props}
     >
       <div
         ref={scrollRef}
@@ -556,11 +546,9 @@ function LogViewerMinimal({
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  LogViewerFilterable                                               */
-/* ------------------------------------------------------------------ */
+// LogViewerFilterable
 
-interface LogViewerFilterableProps {
+interface LogViewerFilterableProps extends Omit<React.ComponentProps<"div">, "children" | "title"> {
   /** Log entries to display. */
   entries: LogEntry[]
   /** Title shown in the header. @default "Logs" */
@@ -577,7 +565,6 @@ interface LogViewerFilterableProps {
   colorScale?: LevelColorScale
   /** Called when the user clicks "Clear". When provided, a clear button appears. */
   onClear?: () => void
-  className?: string
 }
 
 function LogViewerFilterable({
@@ -590,6 +577,7 @@ function LogViewerFilterable({
   colorScale,
   onClear,
   className,
+  ...props
 }: LogViewerFilterableProps) {
   const [activeLevels, setActiveLevels] = React.useState<Set<LogLevel>>(
     () => new Set(levels)
@@ -644,6 +632,7 @@ function LogViewerFilterable({
         "flex flex-col overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm",
         className
       )}
+      {...props}
     >
       {/* Header */}
       <div className="flex items-center gap-2 border-b border-border/40 bg-muted/30 px-3 py-2">
@@ -814,9 +803,7 @@ function LogViewerFilterable({
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  Exports                                                           */
-/* ------------------------------------------------------------------ */
+// Exports
 
 export {
   LogViewerTerminal,

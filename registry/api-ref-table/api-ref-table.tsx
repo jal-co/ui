@@ -25,10 +25,9 @@ interface ApiProp {
   fullType?: string
 }
 
-interface ApiRefTableProps {
+interface ApiRefTableProps extends React.ComponentProps<"div"> {
   title: string
   props: ApiProp[]
-  className?: string
 }
 
 function typeColor(type: string) {
@@ -127,9 +126,9 @@ function ApiRefRow({ prop }: { prop: ApiProp }) {
   )
 }
 
-export function ApiRefTable({ title, props, className }: ApiRefTableProps) {
+export function ApiRefTable({ title, props, className, ...rest }: ApiRefTableProps) {
   return (
-    <div className={cn("overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm", className)}>
+    <div data-slot="api-ref-table" className={cn("overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm", className)} {...rest}>
       <div className="border-b border-border/40 px-4 py-3">
         <h3 className="text-lg font-bold tracking-tight">{title}</h3>
       </div>

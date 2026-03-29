@@ -16,12 +16,11 @@ import * as React from "react"
 import { Check, ChevronDown, Copy } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-interface CodeBlockCopyButtonProps {
+interface CodeBlockCopyButtonProps extends Omit<React.ComponentProps<"button">, "value"> {
   value: string
-  className?: string
 }
 
-export function CodeBlockCopyButton({ value, className }: CodeBlockCopyButtonProps) {
+export function CodeBlockCopyButton({ value, className, ...props }: CodeBlockCopyButtonProps) {
   const [copied, setCopied] = React.useState(false)
 
   async function handleCopy() {
@@ -34,11 +33,13 @@ export function CodeBlockCopyButton({ value, className }: CodeBlockCopyButtonPro
     <button
       type="button"
       onClick={handleCopy}
+      data-slot="code-block-copy-button"
       className={cn(
         "inline-flex h-8 items-center gap-1.5 rounded-md px-2 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
         className
       )}
       aria-label={copied ? "Copied code" : "Copy code"}
+      {...props}
     >
       {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
       {copied ? "Copied" : "Copy"}
@@ -46,13 +47,11 @@ export function CodeBlockCopyButton({ value, className }: CodeBlockCopyButtonPro
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  CodeBlockWrapper                                                  */
-/* ------------------------------------------------------------------ */
+// CodeBlockWrapper
 
 type Overflow = "default" | "scrollable" | "collapsible"
 
-interface CodeBlockWrapperProps {
+interface CodeBlockWrapperProps extends Omit<React.ComponentProps<"div">, "children"> {
   overflow: Overflow
   maxHeight?: number
   muted?: boolean

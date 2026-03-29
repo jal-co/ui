@@ -48,7 +48,7 @@ const qrDimensions: Record<QRSize, number> = {
   lg: 240,
 }
 
-interface TipJarBaseProps {
+interface TipJarBaseProps extends Omit<React.ComponentProps<"div">, "children"> {
   /** Chain or platform identifier. */
   provider: ProviderId
   /** Wallet address (crypto) or username/handle (platform). */
@@ -61,7 +61,6 @@ interface TipJarBaseProps {
   amount?: number
   /** QR code display size. */
   size?: QRSize
-  className?: string
 }
 
 function usePaymentUri(

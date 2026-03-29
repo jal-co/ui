@@ -114,15 +114,19 @@ interface TabButtonProps {
   icon: LucideIcon
   label: string
   count?: number
+  id?: string
+  tabIndex?: number
 }
 
-function TabButton({ active, onClick, icon: Icon, label, count }: TabButtonProps) {
+function TabButton({ active, onClick, icon: Icon, label, count, id, tabIndex }: TabButtonProps) {
   return (
     <button
       type="button"
       role="tab"
       aria-selected={active}
       onClick={onClick}
+      id={id}
+      tabIndex={tabIndex}
       className={cn(
         "inline-flex items-center gap-1.5 border-b-2 px-3 py-2 text-sm font-medium transition-colors",
         active
@@ -337,25 +341,56 @@ function EmptyState({ message }: { message: string }) {
   )
 }
 
-interface RequestViewerProps {
+interface RequestViewerProps extends Omit<React.ComponentProps<"div">, "children"> {
   /** Network request data to display. */
   request: NetworkRequest
   /** Initial active tab. Defaults to "headers". */
   defaultTab?: Tab
-  /** Additional CSS classes on the root element. */
-  className?: string
 }
+
+const TABS: Tab[] = ["headers", "response", "timing"]
 
 function RequestViewer({
   request,
   defaultTab = "headers",
   className,
+  ...props
 }: RequestViewerProps) {
   const [activeTab, setActiveTab] = React.useState<Tab>(defaultTab)
 
   const headerCount =
     (request.requestHeaders?.length ?? 0) + (request.responseHeaders?.length ?? 0)
   const timingCount = request.timing?.length ?? 0
+
+  const handleTabKeyDown = React.useCallback(
+    (e: React.KeyboardEvent) => {
+      let newIndex = TABS.indexOf(activeTab)
+
+      switch (e.key) {
+        case "ArrowLeft":
+          newIndex = newIndex > 0 ? newIndex - 1 : TABS.length - 1
+          break
+        case "ArrowRight":
+          newIndex = newIndex < TABS.length - 1 ? newIndex + 1 : 0
+          break
+        case "Home":
+          newIndex = 0
+          break
+        case "End":
+          newIndex = TABS.length - 1
+          break
+        default:
+          return
+      }
+
+      e.preventDefault()
+      setActiveTab(TABS[newIndex])
+
+      const tabEl = document.getElementById(`request-viewer-tab-${TABS[newIndex]}`)
+      tabEl?.focus()
+    },
+    [activeTab]
+  )
 
   return (
     <div
@@ -364,6 +399,7 @@ function RequestViewer({
         "overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm",
         className
       )}
+      {...props}
     >
       {/* Request summary */}
       <div className="flex flex-wrap items-center gap-3 border-b border-border/40 px-4 py-3">
@@ -400,6 +436,7 @@ function RequestViewer({
         role="tablist"
         aria-label="Request details"
         className="flex border-b border-border/40 bg-muted/20 px-1"
+        onKeyDown={handleTabKeyDown}
       >
         <TabButton
           active={activeTab === "headers"}
@@ -407,12 +444,16 @@ function RequestViewer({
           icon={FileText}
           label="Headers"
           count={headerCount > 0 ? headerCount : undefined}
+          id="request-viewer-tab-headers"
+          tabIndex={activeTab === "headers" ? 0 : -1}
         />
         <TabButton
           active={activeTab === "response"}
           onClick={() => setActiveTab("response")}
           icon={Globe}
           label="Response"
+          id="request-viewer-tab-response"
+          tabIndex={activeTab === "response" ? 0 : -1}
         />
         <TabButton
           active={activeTab === "timing"}
@@ -420,6 +461,8 @@ function RequestViewer({
           icon={Clock}
           label="Timing"
           count={timingCount > 0 ? timingCount : undefined}
+          id="request-viewer-tab-timing"
+          tabIndex={activeTab === "timing" ? 0 : -1}
         />
       </div>
 

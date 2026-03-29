@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils"
 import { highlightCode } from "@/lib/highlight-code"
 import { CodeLineCopyButton } from "@/registry/code-line/code-line-copy-button"
 
-interface CodeLineProps {
+interface CodeLineProps extends Omit<React.ComponentProps<"div">, "children"> {
   /** The code string to display. Should be a single line. */
   code: string
   /** Language for syntax highlighting. */
@@ -32,7 +32,6 @@ interface CodeLineProps {
   hideCopy?: boolean
   /** Shiki theme name for single-theme rendering (e.g. "dracula", "nord"). */
   theme?: string
-  className?: string
 }
 
 async function CodeLine({
@@ -42,6 +41,7 @@ async function CodeLine({
   hideCopy = false,
   theme,
   className,
+  ...props
 }: CodeLineProps) {
   const highlighted = await highlightCode(code.trim(), language, theme)
 
@@ -59,6 +59,7 @@ async function CodeLine({
         className
       )}
       style={themeBg ? { backgroundColor: themeBg } : undefined}
+      {...props}
     >
       {label && (
         <span className="flex shrink-0 items-center self-stretch border-r border-border/60 bg-muted/50 px-3 text-xs font-medium text-muted-foreground">

@@ -219,7 +219,7 @@ function formatNextRun(date: Date): string {
   return `${day}, ${month} ${d} at ${hour}:${m} ${period}`
 }
 
-interface CronScheduleProps {
+interface CronScheduleProps extends Omit<React.ComponentProps<"div">, "children" | "title"> {
   /** Standard 5-field cron expression (e.g. "0 9 * * 1-5"). */
   expression: string
   /** Optional heading label. */
@@ -228,8 +228,6 @@ interface CronScheduleProps {
   showNextRuns?: number
   /** Base date for computing next runs. Defaults to now. */
   referenceDate?: Date
-  /** Additional CSS classes on the root element. */
-  className?: string
 }
 
 function CronSchedule({
@@ -238,6 +236,7 @@ function CronSchedule({
   showNextRuns = 0,
   referenceDate,
   className,
+  ...props
 }: CronScheduleProps) {
   const fields = expression.trim().split(/\s+/)
 
@@ -249,6 +248,7 @@ function CronSchedule({
           "rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive",
           className
         )}
+        {...props}
       >
         Invalid cron expression. Expected 5 fields, got {fields.length}.
       </div>
@@ -268,6 +268,7 @@ function CronSchedule({
         "overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm",
         className
       )}
+      {...props}
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3 border-b border-border/40 px-4 py-3">

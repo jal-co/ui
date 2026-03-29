@@ -507,7 +507,7 @@ function resolveTheme(
   return theme
 }
 
-interface JsonViewerProps {
+interface JsonViewerProps extends Omit<React.ComponentProps<"div">, "children" | "title"> {
   /** Any JSON-serializable value to display. */
   data: JsonValue
   /** Optional heading label. */
@@ -525,8 +525,6 @@ interface JsonViewerProps {
    * or a custom JsonColorTheme object. When omitted, uses Tailwind theme colors.
    */
   colorTheme?: ShikiThemeName | JsonColorTheme
-  /** Additional CSS classes on the root element. */
-  className?: string
 }
 
 function JsonViewer({
@@ -536,6 +534,7 @@ function JsonViewer({
   defaultExpanded = 1,
   colorTheme,
   className,
+  ...props
 }: JsonViewerProps) {
   const resolved = resolveTheme(colorTheme)
 
@@ -610,6 +609,7 @@ function JsonViewer({
           "overflow-hidden rounded-xl border border-border/60 bg-card shadow-sm",
           className
         )}
+        {...props}
       >
         {/* Toolbar */}
         <div className="flex items-center justify-between border-b border-border/40 px-3 py-2 sm:px-4">

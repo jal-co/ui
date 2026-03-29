@@ -194,30 +194,27 @@ interface NpmBadgeBaseProps {
   data?: NpmPackageData
 }
 
-interface NpmBadgeInlineProps extends NpmBadgeBaseProps {
+interface NpmBadgeInlineProps extends NpmBadgeBaseProps, Omit<React.ComponentProps<"a">, "children"> {
   /** @default "inline" */
   layout?: "inline"
   /** Visual style variant. */
   variant?: InlineVariant
   /** Badge size. */
   size?: BadgeSize
-  className?: string
 }
 
-interface NpmBadgeRowProps extends NpmBadgeBaseProps {
+interface NpmBadgeRowProps extends NpmBadgeBaseProps, Omit<React.ComponentProps<"div">, "children"> {
   layout: "row"
   /** Visual style variant. */
   variant?: RowVariant
   /** Badge size. */
   size?: BadgeSize
-  className?: string
 }
 
-interface NpmBadgeCardProps extends NpmBadgeBaseProps {
+interface NpmBadgeCardProps extends NpmBadgeBaseProps, Omit<React.ComponentProps<"a">, "children"> {
   layout: "card"
   variant?: never
   size?: never
-  className?: string
 }
 
 type NpmBadgeProps = NpmBadgeInlineProps | NpmBadgeRowProps | NpmBadgeCardProps
