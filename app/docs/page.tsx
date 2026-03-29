@@ -26,10 +26,10 @@ const availableImages = new Set(
     .filter((f) => f.endsWith("-dark.png"))
     .map((f) => f.replace("-dark.png", ""))
 )
-const availableGifs = new Set(
+const availableVideos = new Set(
   previewFiles
-    .filter((f) => f.endsWith("-dark.gif"))
-    .map((f) => f.replace("-dark.gif", ""))
+    .filter((f) => f.endsWith("-dark.webm"))
+    .map((f) => f.replace("-dark.webm", ""))
 )
 
 function getComponentDescription(href: string): string | null {
@@ -78,7 +78,7 @@ export default function DocsPage() {
                   const badge = getActiveBadge(item)
                   const slug = getSlug(item.href)
                   const hasImage = availableImages.has(slug)
-                  const hasGif = availableGifs.has(slug)
+                  const hasVideo = availableVideos.has(slug)
 
                   return (
                     <Link
@@ -91,7 +91,7 @@ export default function DocsPage() {
                           <ThemeImage
                             slug={slug}
                             title={item.title}
-                            hasGif={hasGif}
+                            hasVideo={hasVideo}
                           />
                         </div>
                       )}

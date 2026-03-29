@@ -7,15 +7,12 @@ import { toPng } from "html-to-image"
 const WIDTH = 1280
 const HEIGHT = 640
 const PADDING = 40
-
-const GIF_FRAME_INTERVAL = 100
-const GIF_DURATION = 5000
-
+const VIDEO_DURATION = 5000
 
 type CaptureStatus = {
   slug: string
   mode: string
-  type: "png" | "gif"
+  type: "png" | "webm"
 } | null
 
 type FilterMode = "all" | "missing" | "exists" | "animated"
@@ -23,7 +20,6 @@ type FilterMode = "all" | "missing" | "exists" | "animated"
 interface ScreenshotClientProps {
   slugs: string[]
   animatedSlugs: string[]
-  /** Filenames already present in public/previews/ (read at page render time). */
   existingFiles: string[]
   children: React.ReactNode
 }
@@ -100,10 +96,10 @@ export function ScreenshotClient({
     [savedFiles]
   )
 
-  const slugHasGif = React.useCallback(
+  const slugHasVideo = React.useCallback(
     (slug: string) =>
-      savedFiles.has(`${slug}-dark.gif`) &&
-      savedFiles.has(`${slug}-light.gif`),
+      savedFiles.has(`${slug}-dark.webm`) &&
+      savedFiles.has(`${slug}-light.webm`),
     [savedFiles]
   )
 
@@ -112,9 +108,9 @@ export function ScreenshotClient({
     [slugs, slugHasScreenshot]
   )
 
-  const missingGifSlugs = React.useMemo(
-    () => animatedSlugs.filter((s) => !slugHasGif(s)),
-    [animatedSlugs, slugHasGif]
+  const missingVideoSlugs = React.useMemo(
+    () => animatedSlugs.filter((s) => !slugHasVideo(s)),
+    [animatedSlugs, slugHasVideo]
   )
 
   React.useEffect(() => {
@@ -171,15 +167,30 @@ export function ScreenshotClient({
     })
   }
 
-  async function captureGifFrames(
-    slug: string
-  ): Promise<HTMLCanvasElement[]> {
-    const { toCanvas } = await import("html-to-image")
+  async function recordVideo(slug: string): Promise<Blob | null> {
     const el = document.getElementById(`preview-${slug}`)
-    if (!el) return []
+    if (!el) return null
 
-    const frames: HTMLCanvasElement[] = []
-    const frameCount = Math.ceil(GIF_DURATION / GIF_FRAME_INTERVAL)
+    const canvas = document.createElement("canvas")
+    canvas.width = WIDTH * pixelRatio
+    canvas.height = HEIGHT * pixelRatio
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return null
+
+    const stream = canvas.captureStream(30)
+    const recorder = new MediaRecorder(stream, {
+      mimeType: "video/webm;codecs=vp9",
+      videoBitsPerSecond: 4_000_000,
+    })
+
+    const chunks: Blob[] = []
+    recorder.ondataavailable = (e) => {
+      if (e.data.size > 0) chunks.push(e.data)
+    }
+
+    recorder.start()
+
+    const { toCanvas } = await import("html-to-image")
     const captureOpts = {
       width: WIDTH,
       height: HEIGHT,
@@ -195,48 +206,38 @@ export function ScreenshotClient({
       },
     }
 
-    for (let i = 0; i < frameCount; i++) {
+    // Capture frames into the canvas stream
+    const fps = 12
+    const frameInterval = 1000 / fps
+    const totalFrames = Math.ceil(VIDEO_DURATION / frameInterval)
+
+    for (let i = 0; i < totalFrames; i++) {
       try {
-        const canvas = await toCanvas(el, captureOpts)
-        frames.push(canvas)
+        const frame = await toCanvas(el, captureOpts)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(frame, 0, 0)
       } catch {
-        // skip failed frame
+        // skip frame
       }
-      // Wait between frames so CSS animation advances
-      await new Promise((r) => setTimeout(r, GIF_FRAME_INTERVAL))
+      await new Promise((r) => setTimeout(r, frameInterval))
     }
 
-    return frames
-  }
+    recorder.stop()
 
-  async function encodeGif(
-    frames: HTMLCanvasElement[]
-  ): Promise<ArrayBuffer> {
-    const { encode } = await import("modern-gif")
-
-    const gifFrames = frames.map((canvas) => {
-      const ctx = canvas.getContext("2d")!
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-      return {
-        data: imageData.data,
-        delay: GIF_FRAME_INTERVAL,
+    return new Promise((resolve) => {
+      recorder.onstop = () => {
+        resolve(new Blob(chunks, { type: "video/webm" }))
       }
-    })
-
-    return encode({
-      width: frames[0].width,
-      height: frames[0].height,
-      frames: gifFrames,
     })
   }
 
-  function arrayBufferToBase64(buffer: ArrayBuffer): string {
-    const bytes = new Uint8Array(buffer)
-    let binary = ""
-    for (let i = 0; i < bytes.byteLength; i++) {
-      binary += String.fromCharCode(bytes[i])
-    }
-    return btoa(binary)
+  function blobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = reject
+      reader.readAsDataURL(blob)
+    })
   }
 
   async function saveToPublic(filename: string, dataUrl: string) {
@@ -249,96 +250,76 @@ export function ScreenshotClient({
     setSavedFiles((prev) => new Set([...prev, filename]))
   }
 
+  async function savePngsForTheme(
+    targetSlugs: string[],
+    mode: string
+  ): Promise<number> {
+    let saved = 0
+    for (const slug of targetSlugs) {
+      setCapturing({ slug, mode, type: "png" })
+      try {
+        const url = await captureFrame(slug)
+        if (url) {
+          await saveToPublic(`${slug}-${mode}.png`, url)
+          saved++
+        }
+      } catch (err) {
+        console.error(
+          `Failed: ${slug} ${mode} png`,
+          err instanceof Error ? err.message : err
+        )
+      }
+      setProgress((p) => p && { ...p, current: p.current + 1 })
+      await new Promise((r) => setTimeout(r, 100))
+    }
+    return saved
+  }
+
+  async function saveVideosForTheme(
+    targetSlugs: string[],
+    mode: string
+  ): Promise<number> {
+    let saved = 0
+    for (const slug of targetSlugs) {
+      setCapturing({ slug, mode, type: "webm" })
+      try {
+        const blob = await recordVideo(slug)
+        if (blob && blob.size > 0) {
+          const dataUrl = await blobToBase64(blob)
+          await saveToPublic(`${slug}-${mode}.webm`, dataUrl)
+          saved++
+        }
+      } catch (err) {
+        console.error(
+          `Failed: ${slug} ${mode} webm`,
+          err instanceof Error ? err.message : err
+        )
+      }
+      setProgress((p) => p && { ...p, current: p.current + 1 })
+    }
+    return saved
+  }
+
+  async function switchThemeAndScale(mode: string) {
+    setTheme(mode)
+    await waitForThemeApplied(mode)
+    await new Promise((r) => setTimeout(r, 300))
+    autoScaleAll(slugs, setComponentScales)
+    await new Promise((r) => setTimeout(r, 300))
+  }
+
   async function saveAllToPublic() {
     originalThemeRef.current = theme
-    let saved = 0
-    const totalOps =
-      slugs.length * 2 + animatedSlugs.length * 2
+    const totalOps = slugs.length * 2 + animatedSlugs.length * 2
     setProgress({ current: 0, total: totalOps })
 
-    // Dark PNGs
-    setTheme("dark")
-    await waitForThemeApplied("dark")
-    await new Promise((r) => setTimeout(r, 300))
-    autoScaleAll(slugs, setComponentScales)
-    await new Promise((r) => setTimeout(r, 300))
+    await switchThemeAndScale("dark")
+    let saved = await savePngsForTheme(slugs, "dark")
+    saved += await saveVideosForTheme(animatedSlugs, "dark")
 
-    for (const slug of slugs) {
-      setCapturing({ slug, mode: "dark", type: "png" })
-      try {
-        const url = await captureFrame(slug)
-        if (url) {
-          await saveToPublic(`${slug}-dark.png`, url)
-          saved++
-        }
-      } catch (err) {
-        console.error(`Failed: ${slug} dark png`, err instanceof Error ? err.message : err)
-      }
-      setProgress((p) => p && { ...p, current: p.current + 1 })
-      await new Promise((r) => setTimeout(r, 100))
-    }
-
-    // Dark GIFs
-    for (const slug of animatedSlugs) {
-      setCapturing({ slug, mode: "dark", type: "gif" })
-      try {
-        const frames = await captureGifFrames(slug)
-        if (frames.length > 0) {
-          const gifBuffer = await encodeGif(frames)
-          const base64 = arrayBufferToBase64(gifBuffer)
-          await saveToPublic(
-            `${slug}-dark.gif`,
-            `data:image/gif;base64,${base64}`
-          )
-          saved++
-        }
-      } catch (err) {
-        console.error(`Failed: ${slug} dark gif`, err instanceof Error ? err.message : err)
-      }
-      setProgress((p) => p && { ...p, current: p.current + 1 })
-    }
-
-    // Light PNGs
-    setTheme("light")
-    await waitForThemeApplied("light")
-    await new Promise((r) => setTimeout(r, 300))
-    autoScaleAll(slugs, setComponentScales)
-    await new Promise((r) => setTimeout(r, 300))
-
-    for (const slug of slugs) {
-      setCapturing({ slug, mode: "light", type: "png" })
-      try {
-        const url = await captureFrame(slug)
-        if (url) {
-          await saveToPublic(`${slug}-light.png`, url)
-          saved++
-        }
-      } catch (err) {
-        console.error(`Failed: ${slug} light png`, err instanceof Error ? err.message : err)
-      }
-      setProgress((p) => p && { ...p, current: p.current + 1 })
-      await new Promise((r) => setTimeout(r, 100))
-    }
-
-    // Light GIFs
-    for (const slug of animatedSlugs) {
-      setCapturing({ slug, mode: "light", type: "gif" })
-      try {
-        const frames = await captureGifFrames(slug)
-        if (frames.length > 0) {
-          const gifBuffer = await encodeGif(frames)
-          const base64 = arrayBufferToBase64(gifBuffer)
-          await saveToPublic(
-            `${slug}-light.gif`,
-            `data:image/gif;base64,${base64}`
-          )
-          saved++
-        }
-      } catch (err) {
-        console.error(`Failed: ${slug} light gif`, err instanceof Error ? err.message : err)
-      }
-      setProgress((p) => p && { ...p, current: p.current + 1 })
-    }
+    await switchThemeAndScale("light")
+    saved += await savePngsForTheme(slugs, "light")
+    saved += await saveVideosForTheme(animatedSlugs, "light")
 
     setTheme(originalThemeRef.current ?? "system")
     setCapturing(null)
@@ -347,78 +328,43 @@ export function ScreenshotClient({
     setTimeout(() => setStatus(null), 6000)
   }
 
+  async function saveMissing() {
+    if (missingSlugs.length === 0 && missingVideoSlugs.length === 0) {
+      setStatus("All screenshots up to date")
+      setTimeout(() => setStatus(null), 3000)
+      return
+    }
+
+    originalThemeRef.current = theme
+    const totalOps = missingSlugs.length * 2 + missingVideoSlugs.length * 2
+    setProgress({ current: 0, total: totalOps })
+
+    await switchThemeAndScale("dark")
+    let saved = await savePngsForTheme(missingSlugs, "dark")
+    saved += await saveVideosForTheme(missingVideoSlugs, "dark")
+
+    await switchThemeAndScale("light")
+    saved += await savePngsForTheme(missingSlugs, "light")
+    saved += await saveVideosForTheme(missingVideoSlugs, "light")
+
+    setTheme(originalThemeRef.current ?? "system")
+    setCapturing(null)
+    setProgress(null)
+    setStatus(`Saved ${saved} missing files to public/previews/`)
+    setTimeout(() => setStatus(null), 6000)
+  }
+
   async function saveOne(slug: string) {
     originalThemeRef.current = theme
-    let saved = 0
     const isAnim = animatedSet.has(slug)
 
-    // Dark
-    setTheme("dark")
-    await waitForThemeApplied("dark")
-    await new Promise((r) => setTimeout(r, 300))
+    await switchThemeAndScale("dark")
+    let saved = await savePngsForTheme([slug], "dark")
+    if (isAnim) saved += await saveVideosForTheme([slug], "dark")
 
-    setCapturing({ slug, mode: "dark", type: "png" })
-    try {
-      const url = await captureFrame(slug)
-      if (url) {
-        await saveToPublic(`${slug}-dark.png`, url)
-        saved++
-      }
-    } catch (err) {
-      console.error(`Failed: ${slug} dark png`, err instanceof Error ? err.message : err)
-    }
-
-    if (isAnim) {
-      setCapturing({ slug, mode: "dark", type: "gif" })
-      try {
-        const frames = await captureGifFrames(slug)
-        if (frames.length > 0) {
-          const gifBuffer = await encodeGif(frames)
-          const base64 = arrayBufferToBase64(gifBuffer)
-          await saveToPublic(
-            `${slug}-dark.gif`,
-            `data:image/gif;base64,${base64}`
-          )
-          saved++
-        }
-      } catch (err) {
-        console.error(`Failed: ${slug} dark gif`, err instanceof Error ? err.message : err)
-      }
-    }
-
-    // Light
-    setTheme("light")
-    await waitForThemeApplied("light")
-    await new Promise((r) => setTimeout(r, 300))
-
-    setCapturing({ slug, mode: "light", type: "png" })
-    try {
-      const url = await captureFrame(slug)
-      if (url) {
-        await saveToPublic(`${slug}-light.png`, url)
-        saved++
-      }
-    } catch (err) {
-      console.error(`Failed: ${slug} light png`, err instanceof Error ? err.message : err)
-    }
-
-    if (isAnim) {
-      setCapturing({ slug, mode: "light", type: "gif" })
-      try {
-        const frames = await captureGifFrames(slug)
-        if (frames.length > 0) {
-          const gifBuffer = await encodeGif(frames)
-          const base64 = arrayBufferToBase64(gifBuffer)
-          await saveToPublic(
-            `${slug}-light.gif`,
-            `data:image/gif;base64,${base64}`
-          )
-          saved++
-        }
-      } catch (err) {
-        console.error(`Failed: ${slug} light gif`, err instanceof Error ? err.message : err)
-      }
-    }
+    await switchThemeAndScale("light")
+    saved += await savePngsForTheme([slug], "light")
+    if (isAnim) saved += await saveVideosForTheme([slug], "light")
 
     setTheme(originalThemeRef.current ?? "system")
     setCapturing(null)
@@ -439,115 +385,11 @@ export function ScreenshotClient({
     }
   }, [filter, slugs, animatedSlugs, missingSlugs, slugHasScreenshot])
 
-  const visibleSlugs =
-    selected === "all" ? filteredSlugs : [selected]
+  const visibleSlugs = selected === "all" ? filteredSlugs : [selected]
 
   const captureLabel = capturing
     ? `${capturing.slug} (${capturing.mode} ${capturing.type})`
     : null
-
-  async function saveMissing() {
-    if (missingSlugs.length === 0 && missingGifSlugs.length === 0) {
-      setStatus("All screenshots up to date")
-      setTimeout(() => setStatus(null), 3000)
-      return
-    }
-
-    originalThemeRef.current = theme
-    let saved = 0
-    const totalOps =
-      missingSlugs.length * 2 +
-      missingGifSlugs.length * 2
-    setProgress({ current: 0, total: totalOps })
-
-    // Dark
-    setTheme("dark")
-    await waitForThemeApplied("dark")
-    await new Promise((r) => setTimeout(r, 300))
-    autoScaleAll(slugs, setComponentScales)
-    await new Promise((r) => setTimeout(r, 300))
-
-    for (const slug of missingSlugs) {
-      setCapturing({ slug, mode: "dark", type: "png" })
-      try {
-        const url = await captureFrame(slug)
-        if (url) {
-          await saveToPublic(`${slug}-dark.png`, url)
-          saved++
-        }
-      } catch (err) {
-        console.error(`Failed: ${slug} dark png`, err instanceof Error ? err.message : err)
-      }
-      setProgress((p) => p && { ...p, current: p.current + 1 })
-      await new Promise((r) => setTimeout(r, 100))
-    }
-
-    for (const slug of missingGifSlugs) {
-      setCapturing({ slug, mode: "dark", type: "gif" })
-      try {
-        const frames = await captureGifFrames(slug)
-        if (frames.length > 0) {
-          const gifBuffer = await encodeGif(frames)
-          const base64 = arrayBufferToBase64(gifBuffer)
-          await saveToPublic(
-            `${slug}-dark.gif`,
-            `data:image/gif;base64,${base64}`
-          )
-          saved++
-        }
-      } catch (err) {
-        console.error(`Failed: ${slug} dark gif`, err instanceof Error ? err.message : err)
-      }
-      setProgress((p) => p && { ...p, current: p.current + 1 })
-    }
-
-    // Light
-    setTheme("light")
-    await waitForThemeApplied("light")
-    await new Promise((r) => setTimeout(r, 300))
-    autoScaleAll(slugs, setComponentScales)
-    await new Promise((r) => setTimeout(r, 300))
-
-    for (const slug of missingSlugs) {
-      setCapturing({ slug, mode: "light", type: "png" })
-      try {
-        const url = await captureFrame(slug)
-        if (url) {
-          await saveToPublic(`${slug}-light.png`, url)
-          saved++
-        }
-      } catch (err) {
-        console.error(`Failed: ${slug} light png`, err instanceof Error ? err.message : err)
-      }
-      setProgress((p) => p && { ...p, current: p.current + 1 })
-      await new Promise((r) => setTimeout(r, 100))
-    }
-
-    for (const slug of missingGifSlugs) {
-      setCapturing({ slug, mode: "light", type: "gif" })
-      try {
-        const frames = await captureGifFrames(slug)
-        if (frames.length > 0) {
-          const gifBuffer = await encodeGif(frames)
-          const base64 = arrayBufferToBase64(gifBuffer)
-          await saveToPublic(
-            `${slug}-light.gif`,
-            `data:image/gif;base64,${base64}`
-          )
-          saved++
-        }
-      } catch (err) {
-        console.error(`Failed: ${slug} light gif`, err instanceof Error ? err.message : err)
-      }
-      setProgress((p) => p && { ...p, current: p.current + 1 })
-    }
-
-    setTheme(originalThemeRef.current ?? "system")
-    setCapturing(null)
-    setProgress(null)
-    setStatus(`Saved ${saved} missing files to public/previews/`)
-    setTimeout(() => setStatus(null), 6000)
-  }
 
   const SCALE_OPTIONS = [
     { value: 0.3, label: "30%" },
@@ -678,7 +520,7 @@ export function ScreenshotClient({
             >
               {captureLabel
                 ? `Saving ${captureLabel}...`
-                : `Save → public/previews/${selected}-*.png${animatedSet.has(selected) ? " + .gif" : ""}`}
+                : `Save → public/previews/${selected}-*${animatedSet.has(selected) ? " (png + webm)" : ""}`}
             </button>
           )}
 
@@ -708,7 +550,7 @@ export function ScreenshotClient({
         <p className="text-xs text-muted-foreground">
           {WIDTH}×{HEIGHT} @ {pixelRatio}x · Auto-scales to fit ·{" "}
           {animatedSlugs.length > 0 &&
-            `${animatedSlugs.length} animated (GIF + PNG) · `}
+            `${animatedSlugs.length} animated (WebM + PNG) · `}
           Saves both light &amp; dark modes
         </p>
       </div>
@@ -729,16 +571,24 @@ export function ScreenshotClient({
               <div className="flex items-center gap-3">
                 <p className="text-sm font-medium flex items-center gap-2">
                   {slugHasScreenshot(slug) ? (
-                    <span className="size-2 rounded-full bg-emerald-500 shrink-0" title="Screenshots exist" />
+                    <span
+                      className="size-2 rounded-full bg-emerald-500 shrink-0"
+                      title="Screenshots exist"
+                    />
                   ) : (
-                    <span className="size-2 rounded-full bg-amber-500 shrink-0" title="Missing screenshots" />
+                    <span
+                      className="size-2 rounded-full bg-amber-500 shrink-0"
+                      title="Missing screenshots"
+                    />
                   )}
                   {slug}
                   {isAnim && (
                     <span className="text-xs text-muted-foreground">
                       🎞️ animated
-                      {!slugHasGif(slug) && (
-                        <span className="ml-1 text-amber-500">no gif</span>
+                      {!slugHasVideo(slug) && (
+                        <span className="ml-1 text-amber-500">
+                          no video
+                        </span>
                       )}
                     </span>
                   )}
@@ -760,9 +610,7 @@ export function ScreenshotClient({
 
                 <button
                   onClick={() => {
-                    const el = document.getElementById(
-                      `preview-${slug}`
-                    )
+                    const el = document.getElementById(`preview-${slug}`)
                     if (el) {
                       setComponentScale(slug, computeAutoScale(el))
                     }
@@ -779,7 +627,7 @@ export function ScreenshotClient({
                 >
                   {capturing?.slug === slug
                     ? `${capturing.mode} ${capturing.type}...`
-                    : `Save${isAnim ? " (PNG + GIF)" : ""}`}
+                    : `Save${isAnim ? " (PNG + WebM)" : ""}`}
                 </button>
               </div>
 

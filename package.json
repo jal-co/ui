@@ -45,7 +45,6 @@
     "html-to-image": "^1.11.13",
     "husky": "^9.1.7",
     "lint-staged": "^16.3.3",
-    "modern-gif": "^2.0.4",
     "tailwindcss": "^4.1.11",
     "tsx": "^4.21.0",
     "typescript": "^5.9.2"

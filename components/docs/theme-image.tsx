@@ -7,16 +7,16 @@ import { useTheme } from "next-themes"
 interface ThemeImageProps {
   slug: string
   title: string
-  /** Whether a GIF version exists for this component. */
-  hasGif?: boolean
+  /** Whether a WebM video exists for this component. */
+  hasVideo?: boolean
 }
 
 /**
  * Preview image that swaps between light and dark variants based on the
- * active theme. When hasGif is true, renders the GIF instead of the static PNG.
- * Uses aspect-ratio for the SSR placeholder to avoid layout shift.
+ * active theme. When hasVideo is true, renders an autoplaying looped video
+ * instead of the static PNG.
  */
-export function ThemeImage({ slug, title, hasGif }: ThemeImageProps) {
+export function ThemeImage({ slug, title, hasVideo }: ThemeImageProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
@@ -27,11 +27,23 @@ export function ThemeImage({ slug, title, hasGif }: ThemeImageProps) {
   }
 
   const mode = resolvedTheme === "light" ? "light" : "dark"
-  const ext = hasGif ? "gif" : "png"
+
+  if (hasVideo) {
+    return (
+      <video
+        src={`/previews/${slug}-${mode}.webm`}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full aspect-[2/1]"
+      />
+    )
+  }
 
   return (
     <Image
-      src={`/previews/${slug}-${mode}.${ext}`}
+      src={`/previews/${slug}-${mode}.png`}
       alt={`${title} preview`}
       width={1280}
       height={640}

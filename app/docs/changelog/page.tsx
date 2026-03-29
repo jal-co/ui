@@ -20,7 +20,7 @@ interface ChangelogEntry {
   category: string
   dateAdded: string
   hasImage: boolean
-  hasGif: boolean
+  hasVideo: boolean
 }
 
 const PREVIEWS_DIR = join(process.cwd(), "public/previews")
@@ -36,10 +36,10 @@ const availableImages = new Set(
     .filter((f) => f.endsWith("-dark.png"))
     .map((f) => f.replace("-dark.png", ""))
 )
-const availableGifs = new Set(
+const availableVideos = new Set(
   previewFiles
-    .filter((f) => f.endsWith("-dark.gif"))
-    .map((f) => f.replace("-dark.gif", ""))
+    .filter((f) => f.endsWith("-dark.webm"))
+    .map((f) => f.replace("-dark.webm", ""))
 )
 
 function getEntries(): ChangelogEntry[] {
@@ -61,7 +61,7 @@ function getEntries(): ChangelogEntry[] {
         category: group.title,
         dateAdded: item.dateAdded,
         hasImage: availableImages.has(slug),
-        hasGif: availableGifs.has(slug),
+        hasVideo: availableVideos.has(slug),
       })
     }
   }
@@ -144,7 +144,7 @@ export default function ChangelogPage() {
                       href={entry.href}
                       className="group overflow-hidden rounded-xl border border-border transition-colors hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
                     >
-                      <ThemeImage slug={entry.slug} title={entry.title} hasGif={entry.hasGif} />
+                      <ThemeImage slug={entry.slug} title={entry.title} hasVideo={entry.hasVideo} />
                     </Link>
                   )}
 

@@ -19,7 +19,7 @@ export async function POST(request: Request) {
   }
 
   const base64 = dataUrl.replace(
-    /^data:image\/(png|gif);base64,/,
+    /^data:[^;]+;base64,/,
     ""
   )
   const buffer = Buffer.from(base64, "base64")
