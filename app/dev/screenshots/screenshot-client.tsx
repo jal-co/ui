@@ -8,8 +8,8 @@ const WIDTH = 1280
 const HEIGHT = 640
 const PADDING = 40
 
-const GIF_FRAME_INTERVAL = 80
-const GIF_DURATION = 4000
+const GIF_FRAME_INTERVAL = 100
+const GIF_DURATION = 5000
 
 
 type CaptureStatus = {
@@ -174,27 +174,35 @@ export function ScreenshotClient({
   async function captureGifFrames(
     slug: string
   ): Promise<HTMLCanvasElement[]> {
+    const { toCanvas } = await import("html-to-image")
+    const el = document.getElementById(`preview-${slug}`)
+    if (!el) return []
+
     const frames: HTMLCanvasElement[] = []
     const frameCount = Math.ceil(GIF_DURATION / GIF_FRAME_INTERVAL)
+    const captureOpts = {
+      width: WIDTH,
+      height: HEIGHT,
+      pixelRatio,
+      skipFonts: true,
+      cacheBust: false,
+      includeQueryParams: true,
+      imagePlaceholder:
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg==",
+      style: {
+        width: `${WIDTH}px`,
+        height: `${HEIGHT}px`,
+      },
+    }
 
     for (let i = 0; i < frameCount; i++) {
-      const dataUrl = await captureFrame(slug)
-      if (dataUrl) {
-        const img = new Image()
-        img.src = dataUrl
-        await new Promise<void>((resolve) => {
-          img.onload = () => resolve()
-        })
-
-        const canvas = document.createElement("canvas")
-        canvas.width = WIDTH * pixelRatio
-        canvas.height = HEIGHT * pixelRatio
-        const ctx = canvas.getContext("2d")
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-          frames.push(canvas)
-        }
+      try {
+        const canvas = await toCanvas(el, captureOpts)
+        frames.push(canvas)
+      } catch {
+        // skip failed frame
       }
+      // Wait between frames so CSS animation advances
       await new Promise((r) => setTimeout(r, GIF_FRAME_INTERVAL))
     }
 

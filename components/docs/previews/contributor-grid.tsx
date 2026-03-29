@@ -1,14 +1,13 @@
 import { ContributorGrid, ContributorList } from "@/registry/contributor-grid/contributor-grid"
 import type { GitHubContributor } from "@/registry/contributor-grid/lib/github"
-import { avatar } from "./lib/avatar"
 
 const sampleContributors: GitHubContributor[] = [
-  { login: "shadcn", avatarUrl: avatar("SC", 220), profileUrl: "https://github.com/shadcn", contributions: 1243 },
-  { login: "haydenbleasel", avatarUrl: avatar("HB", 160), profileUrl: "https://github.com/haydenbleasel", contributions: 847 },
-  { login: "leerob", avatarUrl: avatar("LR", 30), profileUrl: "https://github.com/leerob", contributions: 512 },
-  { login: "shuding", avatarUrl: avatar("SD", 280), profileUrl: "https://github.com/shuding", contributions: 398 },
-  { login: "timneutkens", avatarUrl: avatar("TN", 100), profileUrl: "https://github.com/timneutkens", contributions: 276 },
-  { login: "rauchg", avatarUrl: avatar("GR", 350), profileUrl: "https://github.com/rauchg", contributions: 189 },
+  { login: "shadcn", avatarUrl: "/avatars/shadcn.png", profileUrl: "https://github.com/shadcn", contributions: 1243 },
+  { login: "haydenbleasel", avatarUrl: "/avatars/haydenbleasel.png", profileUrl: "https://github.com/haydenbleasel", contributions: 847 },
+  { login: "leerob", avatarUrl: "/avatars/leerob.png", profileUrl: "https://github.com/leerob", contributions: 512 },
+  { login: "shuding", avatarUrl: "/avatars/shuding.png", profileUrl: "https://github.com/shuding", contributions: 398 },
+  { login: "timneutkens", avatarUrl: "/avatars/timneutkens.png", profileUrl: "https://github.com/timneutkens", contributions: 276 },
+  { login: "rauchg", avatarUrl: "/avatars/rauchg.png", profileUrl: "https://github.com/rauchg", contributions: 189 },
 ]
 
 export default async function ContributorGridPreview() {
