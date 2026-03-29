@@ -429,6 +429,46 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "status-indicator",
+      "type": "registry:component",
+      "title": "Status Indicator",
+      "description": "Operational status badge with colored dot and label for dashboards, status pages, and header bars.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "categories": [
+        "infrastructure"
+      ],
+      "files": [
+        {
+          "path": "registry/status-indicator/status-indicator.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "contributor-grid",
+      "type": "registry:component",
+      "title": "Contributor Grid",
+      "description": "GitHub contributor display with avatar grid and detailed list layouts. Async server component with ISR caching.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "open-source"
+      ],
+      "files": [
+        {
+          "path": "registry/contributor-grid/contributor-grid.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/contributor-grid/lib/github.ts",
+          "type": "registry:lib"
+        }
+      ]
     }
   ]
 }

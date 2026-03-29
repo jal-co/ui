@@ -82,6 +82,7 @@ export const docsNav: NavGroup[] = [
       },
       { title: "npm Badge", href: "/docs/components/npm-badge", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
       { title: "Product Hunt", href: "/docs/components/producthunt-button", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
+      { title: "Contributor Grid", href: "/docs/components/contributor-grid", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
     ],
   },
   {
@@ -92,6 +93,12 @@ export const docsNav: NavGroup[] = [
       { title: "JSON Viewer", href: "/docs/components/json-viewer", dateAdded: "2026-03-11" },
       { title: "Log Viewer", href: "/docs/components/log-viewer", dateAdded: "2026-03-11" },
       { title: "Request Viewer", href: "/docs/components/request-viewer", dateAdded: "2026-03-11" },
+    ],
+  },
+  {
+    title: "Infrastructure",
+    items: [
+      { title: "Status Indicator", href: "/docs/components/status-indicator", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
     ],
   },
   {
