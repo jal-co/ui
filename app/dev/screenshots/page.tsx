@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation"
+import { readdirSync } from "node:fs"
+import { join } from "node:path"
 import {
   previewImports,
   availablePreviews,
@@ -11,10 +13,19 @@ export const metadata = {
   robots: "noindex",
 }
 
+function getExistingFiles(): string[] {
+  try {
+    return readdirSync(join(process.cwd(), "public/previews"))
+  } catch {
+    return []
+  }
+}
+
 export default async function ScreenshotsPage() {
   if (process.env.NODE_ENV !== "development") notFound()
   const slugs = Array.from(availablePreviews).sort()
   const animatedSlugs = Array.from(animatedPreviews).sort()
+  const existingFiles = getExistingFiles()
 
   const previews = await Promise.all(
     slugs.map(async (slug) => {
@@ -27,7 +38,11 @@ export default async function ScreenshotsPage() {
   )
 
   return (
-    <ScreenshotClient slugs={slugs} animatedSlugs={animatedSlugs}>
+    <ScreenshotClient
+      slugs={slugs}
+      animatedSlugs={animatedSlugs}
+      existingFiles={existingFiles}
+    >
       {previews}
     </ScreenshotClient>
   )
