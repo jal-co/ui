@@ -80,9 +80,9 @@ export function FumadocsSidebar({ tree }: FumadocsSidebarProps) {
   return (
     <div className="relative h-full">
       <div ref={scrollRef} className="h-full overflow-y-auto p-4 pb-14 no-scrollbar">
-        <nav className="flex flex-col gap-6">
-          <div className="flex flex-col gap-1">
-            <p className="px-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        <nav className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 pb-2">
+            <p className="px-2 pb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
               Getting Started
             </p>
             {staticPages.map((page) => {
@@ -112,9 +112,15 @@ export function FumadocsSidebar({ tree }: FumadocsSidebarProps) {
               )
             })}
           </div>
-          {tree.children.map((node) => (
-            <SidebarNode key={node.$id} node={node} pathname={pathname} prefersReducedMotion={prefersReducedMotion} />
-          ))}
+          {tree.children.map((node) => {
+            // Flatten the Components folder directly into the sidebar
+            if (node.type === "folder" && node.children) {
+              return node.children.map((child) => (
+                <SidebarNode key={child.$id} node={child} pathname={pathname} prefersReducedMotion={prefersReducedMotion} />
+              ))
+            }
+            return <SidebarNode key={node.$id} node={node} pathname={pathname} prefersReducedMotion={prefersReducedMotion} />
+          })}
         </nav>
       </div>
 
@@ -150,7 +156,7 @@ function SidebarNode({
 }) {
   if (node.type === "separator") {
     return (
-      <p className="px-2 pt-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+      <p className="px-2 pt-5 pb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
         {node.name}
       </p>
     )

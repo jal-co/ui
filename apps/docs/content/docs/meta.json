@@ -1,8 +1,6 @@
 {
   "title": "Docs",
   "pages": [
-    "index",
-    "---",
     "components"
   ]
 }

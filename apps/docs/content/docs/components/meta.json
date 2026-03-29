@@ -1,7 +1,6 @@
 {
   "title": "Components",
   "pages": [
-    "index",
     "---Code",
     "code-block",
     "code-block-command",
