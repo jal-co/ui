@@ -1,10 +1,10 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
-import { Sidebar } from "@/components/docs/sidebar"
+import { FumadocsSidebar } from "@/components/docs/fumadocs-sidebar"
 import { MobileNav } from "@/components/docs/mobile-nav"
 import { ThemeSwitcher } from "@/components/docs/theme-switcher"
-import { PrevNextNav } from "@/components/docs/prev-next-nav"
 import { Button } from "@/registry/ui/button"
+import { source } from "@/lib/source"
 
 import { JalcoLogo } from "@/components/icons/jalco-logo"
 import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-button"
@@ -13,7 +13,7 @@ import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-b
 export default function DocsLayout({ children }: { children: ReactNode }) {
   return (
     <div className="relative min-h-screen">
-      {/* Dot grid background — visible outside the content area */}
+      {/* Dot grid background */}
       <div
         className="pointer-events-none fixed inset-0"
         style={{
@@ -67,14 +67,13 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
       <div className="flex flex-1">
         <aside className="hidden w-64 shrink-0 border-r md:block">
           <div className="sticky top-14 h-[calc(100vh-3.5rem)]">
-            <Sidebar />
+            <FumadocsSidebar tree={source.pageTree} />
           </div>
         </aside>
 
         <main className="min-w-0 flex-1 px-4 py-8 sm:px-8 md:px-12">
           <div className="mx-auto max-w-3xl">
             {children}
-            <PrevNextNav />
           </div>
         </main>
       </div>
