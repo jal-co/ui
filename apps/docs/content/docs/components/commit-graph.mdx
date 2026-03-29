@@ -1,0 +1,68 @@
+---
+title: "Commit Graph"
+description: "Topological git graph with rail lines showing branch forks, merges, and commit ancestry."
+---
+
+<ComponentPreview name="commit-graph-demo" />
+
+## Installation
+
+<InstallBlock name="commit-graph" />
+
+## Usage
+
+```tsx
+import { CommitGraph } from "@/components/commit-graph"
+```
+
+```tsx
+<CommitGraph commits={commits} />
+```
+
+Client component. Pass commits in topological order (newest first) with `parents` hashes — the graph computes fork and merge topology automatically. Click any commit row for a detail popover.
+
+## Examples
+
+### Linear history
+
+A simple linear history with no branches or merges — single rail.
+
+<ComponentPreview name="commit-graph-linear" />
+
+### Branching and merging
+
+Commits with multiple parents create merge points. The graph draws curved rail lines between them.
+
+<ComponentPreview name="commit-graph-demo" />
+
+## API Reference
+
+<ApiRefTable
+  title="CommitGraph"
+  props={[
+    { name: "commits", type: "Commit[]", required: true, description: "Commits in topological order (newest first), each with parent hashes." },
+    { name: "truncateHash", type: "number", description: "Number of hash characters to display. Defaults to 7." },
+    { name: "railWidth", type: "number", description: "Pixel width per rail column. Defaults to 24." },
+    { name: "className", type: "string", description: "Additional CSS classes on the root element." },
+  ]}
+/>
+
+<ApiRefTable
+  title="Commit"
+  props={[
+    { name: "hash", type: "string", required: true, description: "Commit hash (full or abbreviated)." },
+    { name: "message", type: "string", required: true, description: "Commit message (first line)." },
+    { name: "author", type: "{ name: string; avatarUrl?: string }", required: true, description: "Commit author." },
+    { name: "date", type: "string | Date", required: true, description: "Commit timestamp." },
+    { name: "parents", type: "string[]", required: true, description: "Parent commit hashes. Empty for root. Two parents = merge commit." },
+    { name: "refs", type: "string[]", description: "Branch or ref labels." },
+    { name: "tag", type: "string", description: "Tag label (e.g. 'v1.0.0')." },
+  ]}
+/>
+
+## Notes
+
+- **Client component.** Uses Radix Popover for commit detail views.
+- **Topological layout.** The graph computes rail positions from parent hashes automatically.
+- **8-color palette.** Rails cycle through 8 colors, consistent for the same topology.
+- **Composable.** Fetch from GitHub, GitLab, or any git API and map to the Commit interface.
