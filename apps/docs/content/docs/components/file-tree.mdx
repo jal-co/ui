@@ -15,7 +15,65 @@ description: "Collapsible file and folder tree with file-type icons, highlights,
 
 <CodeLine code={`<FileTree />`} />
 
+## API Reference
+
+<ApiRefTable
+          title="FileTree"
+          props={[
+            {
+              name: "tree",
+              type: "FileTreeNode[]",
+              required: true,
+              description:
+                "Array of file/folder entries. Folders have a children array.",
+            },
+            {
+              name: "defaultExpanded",
+              type: 'boolean | string[]',
+              description:
+                'Expand all (true), none (false), or specific paths. Defaults to true.',
+            },
+            {
+              name: "iconStyle",
+              type: '"minimal" | "colored"',
+              description:
+                'Generic file/folder icons or language-specific colored icons. Defaults to "minimal".',
+            },
+            {
+              name: "highlight",
+              type: "string[]",
+              description:
+                'Array of full paths to highlight (e.g. ["src/index.ts"]).',
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="FileTreeNode"
+          props={[
+            {
+              name: "name",
+              type: "string",
+              required: true,
+              description: "File or folder name.",
+            },
+            {
+              name: "children",
+              type: "FileTreeNode[]",
+              description:
+                "Nested entries. Presence of children makes the node a folder.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Client component.** Uses interactive state on the client.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Client component.**  Uses  "use client"   for expand/collapse state. No external dependencies beyond React and Tailwind.
+- **Highlight paths.**  Paths are built by joining node names with  `/`  from the root (e.g.  src/app/page.tsx ). They do not include a leading slash.
+- **Colored icons.**  The colored icon style includes built-in coverage for common file types (TypeScript, JavaScript, JSON, CSS, Markdown, Python, Rust, Go, and more). Unrecognized extensions fall back to the generic file icon.
+- **Accessibility.**  Uses  role="tree" ,  role="treeitem" , and  aria-expanded   for screen reader compatibility.

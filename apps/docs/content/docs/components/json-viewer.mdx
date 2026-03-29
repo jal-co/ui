@@ -15,7 +15,56 @@ description: "Collapsible, syntax-colored JSON tree with path copying, search, a
 
 <CodeLine code={`<JsonViewer />`} />
 
+## API Reference
+
+<ApiRefTable
+          title="JsonViewer"
+          props={[
+            {
+              name: "data",
+              type: "JsonValue",
+              required: true,
+              description: "Any JSON-serializable value to display.",
+              fullType:
+                "string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue }",
+            },
+            {
+              name: "title",
+              type: "string",
+              description: "Heading label shown in the toolbar.",
+            },
+            {
+              name: "rootName",
+              type: "string",
+              description:
+                'Label for the root node. Defaults to "root".',
+            },
+            {
+              name: "defaultExpanded",
+              type: "number | true",
+              description:
+                "Depth to expand by default, or true to expand all. Defaults to 1.",
+            },
+            {
+              name: "colorTheme",
+              type: "ShikiThemeName | JsonColorTheme",
+              description:
+                'Editor color theme. Pass a shiki theme name (e.g. "dracula") or a custom palette object. When omitted, uses Tailwind theme colors.',
+              fullType:
+                'string (any of 65 shiki theme names) | { bg: string; fg: string; key: string; string: string; number: string; boolean: string; null: string; punctuation: string }',
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Client component.** Uses interactive state on the client.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Client component.** Uses  "use client"   for expand/collapse state, search, and clipboard access.
+- **Search behavior.** When a search query is active, the tree auto-expands all nodes and hides branches with no matches. Clear the search to restore the previous collapse state.
+- **Path format.** Copied paths use JavaScript dot notation for valid identifiers and bracket notation for numeric indices or special characters (e.g.  root["special-key"] ).
+- **No dependencies.** Only requires React, Tailwind, lucide-react, and the  `cn`  utility.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

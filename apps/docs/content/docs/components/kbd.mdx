@@ -15,7 +15,78 @@ description: "Keyboard shortcut key rendered as a styled keycap. Three visual pr
 
 <CodeLine code={`<Kbd />`} />
 
-## Notes
+## API Reference
 
-- **Server component.** No client JS required.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+<ApiRefTable
+          title="Kbd"
+          props={[
+            {
+              name: "children",
+              type: "ReactNode",
+              required: true,
+              description: "Key label (e.g. \"⌘\", \"K\", \"Shift\").",
+            },
+            {
+              name: "variant",
+              type: '"flat" | "raised" | "sculpted"',
+              description:
+                "Visual profile. Flat is minimal, raised has subtle depth, sculpted is a pronounced 3D keycap.",
+            },
+            {
+              name: "size",
+              type: '"sm" | "md" | "lg"',
+              description: "Keycap size.",
+            },
+            {
+              name: "colorScheme",
+              type: "string | { bg, text, border }",
+              description:
+                "Named palette (dolch, olivia, botanical, etc.) or custom color object.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="KbdCombo"
+          props={[
+            {
+              name: "keys",
+              type: "string[]",
+              required: true,
+              description:
+                "Array of key labels rendered as a combo (e.g. [\"⌘\", \"Shift\", \"K\"]).",
+            },
+            {
+              name: "separator",
+              type: "ReactNode",
+              description:
+                "Separator between keys (e.g. \"+\"). No separator when omitted.",
+            },
+            {
+              name: "variant",
+              type: '"flat" | "raised" | "sculpted"',
+              description: "Visual profile applied to all keys in the combo.",
+            },
+            {
+              name: "size",
+              type: '"sm" | "md" | "lg"',
+              description: "Size applied to all keys in the combo.",
+            },
+            {
+              name: "colorScheme",
+              type: "string | { bg, text, border }",
+              description:
+                "Named palette or custom color object applied to all keys in the combo.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the combo wrapper.",
+            },
+          ]}
+        />

@@ -17,8 +17,55 @@ description: "Link button showing a GitHub repo's star count with the octocat ic
 
 Async server component — fetches data at build time with ISR caching.
 
+## API Reference
+
+<ApiRefTable
+          title="GitHubStarsButton"
+          props={[
+            {
+              name: "owner",
+              type: "string",
+              required: true,
+              description: "GitHub username or organization.",
+            },
+            {
+              name: "repo",
+              type: "string",
+              required: true,
+              description: "GitHub repository name.",
+            },
+            {
+              name: "variant",
+              type: '"default" | "primary" | "secondary" | "outline" | "ghost" | "subtle"',
+              description: 'Visual style variant. Defaults to "default".',
+            },
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              description: 'Button size. Defaults to "default".',
+            },
+            {
+              name: "stars",
+              type: "number",
+              description:
+                "Pre-fetched star count. Skips the API call when provided.",
+            },
+            {
+              name: "showRepo",
+              type: "boolean",
+              description:
+                "Show the owner/repo label alongside the count. Defaults to false.",
+            },
+            {
+              name: "iconStyle",
+              type: '"currentColor" | "github" | "copilot" | "muted"',
+              description:
+                'Octocat icon color style. Defaults to "currentColor".',
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **ISR caching.** Results cached for 1 hour via  next.revalidate .
+- **Pre-fetched stars.** Pass the  `stars`  prop to skip the API call entirely.

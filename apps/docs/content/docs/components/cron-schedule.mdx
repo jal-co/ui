@@ -15,7 +15,45 @@ description: "Visual cron expression display with field breakdown, human-readabl
 
 <CodeLine code={`<CronSchedule />`} />
 
+## API Reference
+
+<ApiRefTable
+          title="CronSchedule"
+          props={[
+            {
+              name: "expression",
+              type: "string",
+              required: true,
+              description:
+                'Standard 5-field cron expression (e.g. "0 9 * * 1-5").',
+            },
+            {
+              name: "title",
+              type: "string",
+              description: "Heading label shown in the header.",
+            },
+            {
+              name: "showNextRuns",
+              type: "number",
+              description:
+                "Number of upcoming run times to display. Defaults to 0 (hidden).",
+            },
+            {
+              name: "referenceDate",
+              type: "Date",
+              description:
+                "Base date for computing next runs. Defaults to the current date.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Server component.** No client JS required.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Server component.** No  "use client"   — renders entirely on the server with zero client JS.
+- **No dependencies.** Cron parsing and next-run computation are built-in. No external scheduling library required.
+- **Timezone.** Next-run times use the server's local timezone (or the timezone of the provided  referenceDate ). No timezone conversion is applied.

@@ -15,7 +15,71 @@ description: "Tabbed CLI command block with package manager switching, bundled S
 
 <CodeLine code={`<CodeBlockCommand />`} />
 
+## API Reference
+
+<ApiRefTable
+          title="CodeBlockCommand"
+          props={[
+            {
+              name: "pnpm",
+              type: "string",
+              description: "pnpm command string.",
+            },
+            {
+              name: "yarn",
+              type: "string",
+              description: "yarn command string.",
+            },
+            {
+              name: "npm",
+              type: "string",
+              description: "npm command string.",
+            },
+            {
+              name: "bun",
+              type: "string",
+              description: "bun command string.",
+            },
+            {
+              name: "shadcn",
+              type: "string",
+              description: "shadcn CLI command string.",
+            },
+            {
+              name: "icons",
+              type: "Record<string, ReactNode>",
+              description:
+                "Custom icons keyed by package manager name. Merged over built-in icons. Pass any ReactNode to override.",
+              fullType: "Partial<Record<PackageManager, React.ReactNode>>",
+            },
+            {
+              name: "iconStyle",
+              type: '"none" | "colored" | "muted"',
+              description: 'Icon display style. Defaults to "colored".',
+            },
+            {
+              name: "show",
+              type: "PackageManager[]",
+              description:
+                "Which tabs to display, in order. Only managers listed here that also have a command will render. Defaults to all with a command.",
+              fullType: '("pnpm" | "yarn" | "npm" | "bun" | "shadcn")[]',
+            },
+            {
+              name: "colorTheme",
+              type: "{ bg: string; fg: string }",
+              description:
+                "Editor color theme for the code area. Provide bg and fg hex strings to override the default styling.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Client component.** Uses interactive state on the client.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- convertNpmCommand helper.   Pass a single npm/npx command and get all 5 package manager equivalents automatically. Handles shadcn, create, install, run, and generic npx commands.
+- **Bundled icons.**  Package manager icons are bundled directly in the component — no API calls or setup required. Use the  `icons`  prop to override any icon with a custom ReactNode.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

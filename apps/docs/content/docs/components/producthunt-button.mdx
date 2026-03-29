@@ -17,8 +17,67 @@ description: "Link button showing a Product Hunt post's upvote count with the PH
 
 Async server component — fetches data at build time with ISR caching.
 
+## API Reference
+
+<ApiRefTable
+          title="ProductHuntButton"
+          props={[
+            {
+              name: "slug",
+              type: "string",
+              required: true,
+              description: "Product Hunt post slug (e.g. \"notion\").",
+            },
+            {
+              name: "layout",
+              type: '"inline" | "card"',
+              description: 'Layout mode. Defaults to "inline".',
+            },
+            {
+              name: "variant",
+              type: '"default" | "producthunt" | "primary" | "secondary" | "outline" | "ghost" | "subtle"',
+              description: 'Visual style variant (inline layout only). Defaults to "default".',
+            },
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              description: 'Button size (inline layout only). Defaults to "default".',
+            },
+            {
+              name: "upvotes",
+              type: "number",
+              description: "Pre-fetched upvote count. Skips the API call when provided with name.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Pre-fetched product name.",
+            },
+            {
+              name: "tagline",
+              type: "string",
+              description: "Pre-fetched product tagline (shown in card layout).",
+            },
+            {
+              name: "showName",
+              type: "boolean",
+              description: "Show the product name alongside the upvote count. Defaults to false.",
+            },
+            {
+              name: "showTagline",
+              type: "boolean",
+              description: "Show the tagline in card layout. Defaults to true.",
+            },
+            {
+              name: "iconStyle",
+              type: '"currentColor" | "brand" | "muted"',
+              description: 'PH icon color style. Defaults to "currentColor".',
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **No token? No problem.**  Pass  upvotes   and  `name`  props to skip the API call entirely — useful for static sites or when you already have the data.
+- **ISR caching.** Results cached for 1 hour via  next.revalidate .
+- **Graceful fallback.**  Returns nothing when the post doesn't exist or the token is missing — no broken UI.

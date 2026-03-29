@@ -17,8 +17,91 @@ description: "GitHub-style activity heatmap that visualizes daily counts as a co
 
 Async server component — fetches data at build time with ISR caching.
 
+## API Reference
+
+<ApiRefTable
+          title="ActivityGraph"
+          props={[
+            {
+              name: "data",
+              type: "ActivityEntry[]",
+              required: true,
+              description: "Array of date/count entries to visualize.",
+              fullType: "Array<{ date: string; count: number }>",
+            },
+            {
+              name: "colorScale",
+              type: "[string, string, string, string, string]",
+              description:
+                "Five CSS classes for intensity levels 0 through 4. Defaults to a GitHub-style green scale.",
+            },
+            {
+              name: "blockSize",
+              type: "number",
+              description:
+                "Fixed cell size in pixels. When omitted, blocks auto-size to fill the container width.",
+            },
+            {
+              name: "blockRadius",
+              type: "number",
+              description: "Cell border radius in pixels. Defaults to 2.",
+            },
+            {
+              name: "weeks",
+              type: "number",
+              description:
+                "Number of trailing weeks to display. Defaults to 52.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="ActivityEntry"
+          props={[
+            {
+              name: "date",
+              type: "string",
+              required: true,
+              description: "ISO date string (YYYY-MM-DD).",
+            },
+            {
+              name: "count",
+              type: "number",
+              required: true,
+              description: "Activity count for this date.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="fetchGitHubContributions"
+          props={[
+            {
+              name: "username",
+              type: "string",
+              required: true,
+              description: "GitHub username to fetch contributions for.",
+            },
+            {
+              name: "returns",
+              type: "GitHubContributions | null",
+              description:
+                "Object with total count and entries array, or null on failure.",
+              fullType:
+                "{ total: number; entries: ActivityEntry[] } | null",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Client component.** Uses  "use client"   for a ResizeObserver that auto-sizes blocks to fit the container. Hover tooltips use native  title   attributes.
+- **Auto-fit.** By default the block size is computed from the container width so the graph always fits without scrolling. Pass a fixed  blockSize   to opt into horizontal scrolling instead.
+- **ISR caching.** GitHub contribution data is cached for 1 hour via ISR.
+- **Intensity mapping.**  Counts are mapped to four non-zero levels relative to the maximum count in the data. The thresholds are 25%, 50%, 75%, and 100% of the max.
+- **No dependencies.** This component uses only React, Tailwind, and the  `cn`  utility. No charting libraries or external packages.

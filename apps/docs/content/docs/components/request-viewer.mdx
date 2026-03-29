@@ -17,8 +17,78 @@ description: "Network request inspector showing headers, response body, and timi
 
 Async server component — fetches data at build time with ISR caching.
 
+## API Reference
+
+<ApiRefTable
+          title="RequestViewer"
+          props={[
+            {
+              name: "request",
+              type: "NetworkRequest",
+              required: true,
+              description: "The network request data to display.",
+              fullType:
+                "{ method: string; url: string; status: number; statusText?: string; requestHeaders?: HeaderEntry[]; responseHeaders?: HeaderEntry[]; responseBody?: string; contentType?: string; timing?: TimingEntry[]; duration?: number }",
+            },
+            {
+              name: "defaultTab",
+              type: '"headers" | "response" | "timing"',
+              description: 'Initial active tab. Defaults to "headers".',
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="HeaderEntry"
+          props={[
+            {
+              name: "name",
+              type: "string",
+              required: true,
+              description: "Header name (e.g. Content-Type).",
+            },
+            {
+              name: "value",
+              type: "string",
+              required: true,
+              description: "Header value.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="TimingEntry"
+          props={[
+            {
+              name: "label",
+              type: "string",
+              required: true,
+              description:
+                'Phase label (e.g. "DNS Lookup", "TLS Handshake").',
+            },
+            {
+              name: "duration",
+              type: "number",
+              required: true,
+              description: "Duration in milliseconds.",
+            },
+            {
+              name: "colorClass",
+              type: "string",
+              description:
+                "Custom Tailwind background color class for the bar. Falls back to the built-in palette.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Client component.** Uses  "use client"   for tab switching state only.
+- **JSON formatting.**  Response bodies that look like JSON are automatically pretty-printed.
+- **Status colors.** Status badges are color-coded: 2xx green, 3xx blue, 4xx amber, 5xx red.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

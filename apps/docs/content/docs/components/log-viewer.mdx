@@ -15,7 +15,218 @@ description: "Scrollable log output component for displaying streaming logs or C
 
 <CodeLine code={`<LogViewerTerminal />`} />
 
+## API Reference
+
+<ApiRefTable
+          title="LogEntry"
+          props={[
+            {
+              name: "level",
+              type: "LogLevel",
+              required: true,
+              description: "Log severity level.",
+              fullType: '"info" | "warn" | "error" | "debug" | "verbose"',
+            },
+            {
+              name: "message",
+              type: "string",
+              required: true,
+              description: "Log message text.",
+            },
+            {
+              name: "timestamp",
+              type: "string",
+              description:
+                "ISO timestamp string. When omitted, the current time is used for display.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="LogViewerTerminal"
+          props={[
+            {
+              name: "entries",
+              type: "LogEntry[]",
+              required: true,
+              description: "Log entries to display.",
+            },
+            {
+              name: "title",
+              type: "string",
+              description: 'Title shown in the toolbar. Defaults to "Logs".',
+            },
+            {
+              name: "maxHeight",
+              type: "number",
+              description:
+                "Maximum visible height in pixels. Defaults to 400.",
+            },
+            {
+              name: "lineNumbers",
+              type: "boolean",
+              description: "Show line numbers. Defaults to true.",
+            },
+            {
+              name: "timestamps",
+              type: "boolean",
+              description: "Show timestamps. Defaults to true.",
+            },
+            {
+              name: "autoScroll",
+              type: "boolean",
+              description:
+                "Enable auto-scroll to bottom on new entries. Defaults to true.",
+            },
+            {
+              name: "colorScale",
+              type: "LevelColorScale",
+              description:
+                "Custom colors per log level. Merges with defaults — only override what you need.",
+              fullType: "Partial<Record<LogLevel, Partial<{ text: string; dot: string; badge: string }>>>",
+            },
+            {
+              name: "onClear",
+              type: "() => void",
+              description:
+                "Called when the user clicks Clear. When provided, a clear button appears in the toolbar.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="LogViewerMinimal"
+          props={[
+            {
+              name: "entries",
+              type: "LogEntry[]",
+              required: true,
+              description: "Log entries to display.",
+            },
+            {
+              name: "maxHeight",
+              type: "number",
+              description:
+                "Maximum visible height in pixels. Defaults to 300.",
+            },
+            {
+              name: "timestamps",
+              type: "boolean",
+              description: "Show timestamps. Defaults to false.",
+            },
+            {
+              name: "autoScroll",
+              type: "boolean",
+              description:
+                "Enable auto-scroll to bottom on new entries. Defaults to true.",
+            },
+            {
+              name: "colorScale",
+              type: "LevelColorScale",
+              description:
+                "Custom colors per log level. Merges with defaults — only override what you need.",
+              fullType: "Partial<Record<LogLevel, Partial<{ text: string; dot: string; badge: string }>>>",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="LogViewerFilterable"
+          props={[
+            {
+              name: "entries",
+              type: "LogEntry[]",
+              required: true,
+              description: "Log entries to display.",
+            },
+            {
+              name: "title",
+              type: "string",
+              description: 'Title shown in the header. Defaults to "Logs".',
+            },
+            {
+              name: "maxHeight",
+              type: "number",
+              description:
+                "Maximum visible height in pixels. Defaults to 400.",
+            },
+            {
+              name: "timestamps",
+              type: "boolean",
+              description: "Show timestamps. Defaults to true.",
+            },
+            {
+              name: "autoScroll",
+              type: "boolean",
+              description:
+                "Enable auto-scroll to bottom on new entries. Defaults to true.",
+            },
+            {
+              name: "levels",
+              type: "LogLevel[]",
+              description:
+                'Levels shown in the filter bar. Defaults to ["error", "warn", "info", "debug"].',
+              fullType: 'Array<"info" | "warn" | "error" | "debug" | "verbose">',
+            },
+            {
+              name: "colorScale",
+              type: "LevelColorScale",
+              description:
+                "Custom colors per log level. Merges with defaults — only override what you need.",
+              fullType: "Partial<Record<LogLevel, Partial<{ text: string; dot: string; badge: string }>>>",
+            },
+            {
+              name: "onClear",
+              type: "() => void",
+              description:
+                "Called when the user clicks Clear. When provided, a clear button appears.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="LevelColors"
+          props={[
+            {
+              name: "text",
+              type: "string",
+              description: "CSS class for the level label text color.",
+            },
+            {
+              name: "dot",
+              type: "string",
+              description: "CSS class for the colored dot background.",
+            },
+            {
+              name: "badge",
+              type: "string",
+              description: "CSS class for the filter badge when active.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Client component.** Uses interactive state on the client.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Client component.** Uses  "use client"   for scroll tracking, search state, and clipboard access.
+- **Auto-scroll.** New entries scroll into view when the user is at the bottom. Scrolling up pauses auto-scroll and shows a "New logs below" button. The terminal variant also has an explicit pause/resume toggle.
+- **Five log levels.** Each level (error, warn, info, debug, verbose) has distinct colors that work in both light and dark modes.
+- **Export.** The terminal and filterable variants include a download button that exports logs as a plain text file with timestamps and level labels.
+- **Search highlighting.**  Search matches are highlighted inline. In the filterable variant, search and level filters compose — only entries matching both are shown.
+- **Accessibility.** The log container uses  role="log"   and  aria-live="polite"   so screen readers announce new entries. Filter toggles use  role="checkbox"   with  aria-checked .
+- **No dependencies.** Only requires React, Tailwind, lucide-react, and the  `cn`  utility.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

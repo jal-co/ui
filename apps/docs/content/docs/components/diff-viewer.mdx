@@ -15,7 +15,60 @@ description: "Code diff viewer with line numbers and add/remove coloring. Suppor
 
 <CodeLine code={`<DiffViewer />`} />
 
+## API Reference
+
+<ApiRefTable
+          title="DiffViewer"
+          props={[
+            {
+              name: "oldCode",
+              type: "string",
+              description:
+                "Original code string. Used with newCode to compute the diff.",
+            },
+            {
+              name: "newCode",
+              type: "string",
+              description:
+                "Updated code string. Used with oldCode to compute the diff.",
+            },
+            {
+              name: "patch",
+              type: "string",
+              description:
+                "Pre-computed unified diff string. Alternative to oldCode/newCode.",
+            },
+            {
+              name: "layout",
+              type: '"unified" | "split"',
+              description:
+                "Diff display layout. Unified shows a single column, split shows side-by-side.",
+            },
+            {
+              name: "language",
+              type: "string",
+              description:
+                "Shiki language key for syntax highlighting. Plain text when omitted.",
+            },
+            {
+              name: "oldTitle",
+              type: "string",
+              description: "Label for the old file in the header.",
+            },
+            {
+              name: "newTitle",
+              type: "string",
+              description: "Label for the new file in the header.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Server component.** No client JS required.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Two input modes.**  Pass  oldCode   +  newCode   to compute the diff, or pass a  patch   string if you already have one.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

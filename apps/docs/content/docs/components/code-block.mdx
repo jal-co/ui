@@ -17,8 +17,63 @@ description: "Syntax-highlighted code block with language icon, copy button, and
 
 Async server component — fetches data at build time with ISR caching.
 
+## API Reference
+
+<ApiRefTable
+          title="CodeBlock"
+          props={[
+            {
+              name: "code",
+              type: "string",
+              required: true,
+              description: "The code string to highlight and display.",
+            },
+            {
+              name: "language",
+              type: "string",
+              description:
+                'Language for syntax highlighting. Supports all shiki languages. Defaults to "tsx".',
+            },
+            {
+              name: "title",
+              type: "string",
+              description:
+                "Optional title shown in the header. Replaces the language badge.",
+            },
+            {
+              name: "overflow",
+              type: '"default" | "scrollable" | "collapsible"',
+              description:
+                'How to handle long code. Scrollable adds a scroll container, collapsible adds a show more/less toggle. Defaults to "default".',
+            },
+            {
+              name: "maxHeight",
+              type: "number",
+              description:
+                "Max height in pixels for scrollable and collapsible overflow. Defaults to 280.",
+            },
+            {
+              name: "muted",
+              type: "boolean",
+              description:
+                "Render with muted styling — softer borders, backgrounds, and reduced code opacity. Defaults to false.",
+            },
+            {
+              name: "theme",
+              type: "string",
+              description:
+                'Shiki theme name for single-theme rendering (e.g. "dracula", "nord", "catppuccin-mocha"). When omitted, uses dual github-light/github-dark for automatic light/dark mode.',
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Bundled language icons.**  Language icons are bundled directly in the component — no API calls or setup required. Pass a custom  `icon`  prop to override the default icon for any language.
+- **Dual theme.** By default, uses  github-light   /  github-dark   for automatic light/dark mode. Pass the  theme   prop to render with any of shiki's 65 bundled themes instead.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

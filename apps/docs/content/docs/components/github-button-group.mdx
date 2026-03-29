@@ -17,8 +17,54 @@ description: "Segmented button group displaying multiple GitHub repo metrics wit
 
 Async server component — fetches data at build time with ISR caching.
 
+## API Reference
+
+<ApiRefTable
+          title="GitHubButtonGroup"
+          props={[
+            {
+              name: "owner",
+              type: "string",
+              required: true,
+              description: "GitHub username or organization.",
+            },
+            {
+              name: "repo",
+              type: "string",
+              required: true,
+              description: "GitHub repository name.",
+            },
+            {
+              name: "metrics",
+              type: '("stars" | "forks" | "watchers" | "issues")[]',
+              description:
+                'Which metrics to display, in order. Defaults to ["stars", "forks", "watchers"].',
+            },
+            {
+              name: "variant",
+              type: '"default" | "secondary" | "outline" | "ghost" | "subtle"',
+              description: 'Visual style variant. Defaults to "default".',
+            },
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              description: 'Button group size. Defaults to "default".',
+            },
+            {
+              name: "showRepo",
+              type: "boolean",
+              description:
+                "Show the owner/repo label as a leading segment. Defaults to false.",
+            },
+            {
+              name: "iconStyle",
+              type: '"currentColor" | "github" | "copilot" | "muted"',
+              description:
+                'Octocat icon color (visible when showRepo is true). Defaults to "currentColor".',
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- Each metric segment links to the corresponding GitHub page (stargazers, forks, watchers, or issues).

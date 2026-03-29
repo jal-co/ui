@@ -17,8 +17,72 @@ description: "Live npm package badge showing version, weekly downloads, license,
 
 Async server component — fetches data at build time with ISR caching.
 
+## API Reference
+
+<ApiRefTable
+          title="NpmBadge"
+          props={[
+            {
+              name: "package",
+              type: "string",
+              required: true,
+              description:
+                'npm package name (e.g. "react", "@tanstack/react-query").',
+            },
+            {
+              name: "layout",
+              type: '"inline" | "row" | "card"',
+              description:
+                'Display layout. Defaults to "inline".',
+            },
+            {
+              name: "variant",
+              type: '"default" | "primary" | "secondary" | "outline" | "ghost" | "subtle"',
+              description:
+                'Visual style variant (inline/row only). Defaults to "default". The card layout uses a fixed card style.',
+            },
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              description:
+                'Badge size (inline/row only). Defaults to "default".',
+            },
+            {
+              name: "iconStyle",
+              type: '"currentColor" | "npm"',
+              description:
+                'npm icon color. "currentColor" inherits from variant, "npm" uses brand red (#CB3837). Defaults to "currentColor".',
+            },
+            {
+              name: "showDownloads",
+              type: "boolean",
+              description:
+                "Show weekly download count. Defaults to true for row/card, false for inline.",
+            },
+            {
+              name: "showLicense",
+              type: "boolean",
+              description:
+                "Show license badge. Defaults to true for card/row, false for inline.",
+            },
+
+            {
+              name: "showLastPublish",
+              type: "boolean",
+              description:
+                "Show last publish date. Defaults to true for card.",
+            },
+            {
+              name: "data",
+              type: "NpmPackageData",
+              description:
+                "Pre-fetched package data. When provided, skips the npm API calls.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **ISR caching.** Registry and download data are cached for 1 hour via  next.revalidate . No API key required.
+- **Pre-fetched data.** Pass the  `data`  prop to skip the API calls entirely — useful for static builds or when fetching data separately.
+- **Scoped packages.**  Supports scoped names like  @tanstack/react-query .

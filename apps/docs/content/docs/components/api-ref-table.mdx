@@ -15,10 +15,21 @@ description: "Expandable prop reference table with color-coded types for compone
 
 <CodeLine code={`<ApiRefTable />`} />
 
-Async server component — fetches data at build time with ISR caching.
+Server component — no client JS required.
+
+## API Reference
+
+<ApiRefTable
+  title="ApiRefTable"
+  props={[
+    { name: "title", type: "string", required: true, description: "Heading displayed at the top of the table." },
+    { name: "props", type: "ApiProp[]", required: true, description: "Array of prop definitions to display.", fullType: "{ name: string; type: string; required?: boolean; description?: string; fullType?: string }[]" },
+    { name: "className", type: "string", description: "Additional CSS classes applied to the root element." },
+  ]}
+/>
 
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Server component.** No client JS — renders at build time.
+- **Color-coded types.** Primitives, unions, arrays, and custom types are color-coded.
+- **Expandable.** Props with `fullType` show an expand button revealing the full type signature.

@@ -15,7 +15,81 @@ description: "Numbered step-by-step layout with vertical connector lines for ins
 
 <CodeLine code={`<Stepper />`} />
 
+## API Reference
+
+<ApiRefTable
+          title="Stepper"
+          props={[
+            {
+              name: "children",
+              type: "React.ReactNode",
+              required: true,
+              description: "StepperItem elements.",
+            },
+            {
+              name: "orientation",
+              type: '"vertical" | "horizontal"',
+              description:
+                'Layout direction. Defaults to "vertical".',
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="StepperItem"
+          props={[
+            {
+              name: "title",
+              type: "string",
+              required: true,
+              description: "Step heading text.",
+            },
+            {
+              name: "description",
+              type: "string",
+              description: "Optional subtext below the title.",
+            },
+            {
+              name: "step",
+              type: "number",
+              description:
+                "Override the auto-incremented step number.",
+            },
+            {
+              name: "status",
+              type: '"default" | "active" | "completed"',
+              description:
+                'Visual status of this step. Defaults to "default".',
+            },
+            {
+              name: "icon",
+              type: "React.ReactNode",
+              description:
+                "Custom icon to replace the step number or checkmark.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode",
+              description:
+                "Content rendered below the step header (code blocks, text, etc.).",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the step container.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Server component.** No client JS required.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Server component.** No  "use client"   — renders entirely on the server with zero client JS.
+- **Auto-numbering.** Steps are numbered automatically based on their order. Use the  `step`  prop to override.
+- **No dependencies.** Uses only React and Tailwind CSS — no external packages required.
+- **Composable.** Nest any content inside StepperItem — code blocks, images, forms, lists, or other components.
+- **Horizontal mode.** The horizontal orientation shows step circles with connector lines and only renders content for the active step. Ideal for checkout flows and wizards.

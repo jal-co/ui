@@ -15,7 +15,72 @@ description: "Read-only environment variable table with masked values, click-to-
 
 <CodeLine code={`<EnvTable />`} />
 
+## API Reference
+
+<ApiRefTable
+          title="EnvTable"
+          props={[
+            {
+              name: "variables",
+              type: "EnvVariable[]",
+              required: true,
+              description: "Environment variables to display.",
+            },
+            {
+              name: "title",
+              type: "string",
+              description:
+                "Heading text shown in the table toolbar.",
+            },
+            {
+              name: "defaultRevealed",
+              type: "boolean",
+              description:
+                "Start with all values visible. Defaults to false.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="EnvVariable"
+          props={[
+            {
+              name: "key",
+              type: "string",
+              required: true,
+              description: "Variable name (e.g. DATABASE_URL).",
+            },
+            {
+              name: "value",
+              type: "string",
+              required: true,
+              description: "Variable value. Masked by default.",
+            },
+            {
+              name: "environment",
+              type: "Environment",
+              description:
+                'Target environment. Renders as a color-coded badge. Built-in colors for "production", "preview", and "development". Custom strings use a neutral badge.',
+              fullType:
+                '"production" | "preview" | "development" | (string & {})',
+            },
+            {
+              name: "description",
+              type: "string",
+              description:
+                "Optional description shown below the key name.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Client component.** Uses interactive state on the client.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Client component.** Uses  "use client"   for reveal toggle state and clipboard access.
+- **Copy .env.** The toolbar "Copy .env" button copies all variables in  KEY=value   format, ready to paste into a  .env   file.
+- **Duplicate keys.** The component handles duplicate keys gracefully — common when showing the same variable across multiple environments.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

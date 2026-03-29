@@ -17,8 +17,50 @@ description: "Compact single-line code snippet with syntax highlighting and an i
 
 Async server component — fetches data at build time with ISR caching.
 
+## API Reference
+
+<ApiRefTable
+          title="CodeLine"
+          props={[
+            {
+              name: "code",
+              type: "string",
+              required: true,
+              description: "The code string to display. Should be a single line.",
+            },
+            {
+              name: "language",
+              type: "string",
+              description:
+                'Language for syntax highlighting. Supports all shiki languages. Defaults to "tsx".',
+            },
+            {
+              name: "label",
+              type: "string",
+              description:
+                "Optional leading label displayed before the code.",
+            },
+            {
+              name: "hideCopy",
+              type: "boolean",
+              description:
+                "Hide the copy-to-clipboard button. Defaults to false.",
+            },
+            {
+              name: "theme",
+              type: "string",
+              description:
+                'Shiki theme name for single-theme rendering (e.g. "dracula", "nord"). When omitted, uses dual github-light/github-dark.',
+            },
+            {
+              name: "className",
+              type: "string",
+              description:
+                "Additional CSS classes applied to the root element.",
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

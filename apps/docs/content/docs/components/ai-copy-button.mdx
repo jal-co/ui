@@ -17,8 +17,103 @@ description: "Split button with a primary copy action and a dropdown of AI desti
 
 Async server component — fetches data at build time with ISR caching.
 
+## API Reference
+
+<ApiRefTable
+          title="AiCopyButton"
+          props={[
+            {
+              name: "value",
+              type: "string",
+              required: true,
+              description: "The content to copy or send to AI targets.",
+            },
+            {
+              name: "label",
+              type: "string",
+              description: 'Primary button label. Defaults to "Copy".',
+            },
+            {
+              name: "targets",
+              type: "(BuiltInTarget | AiTarget)[]",
+              description:
+                'AI targets to show in the dropdown. Accepts built-in keys ("markdown", "v0", "chatgpt", "claude", "gemini") or custom target objects. Defaults to all built-in targets.',
+            },
+            {
+              name: "brandColors",
+              type: "boolean",
+              description:
+                "Render dropdown icons in their official brand colors instead of the default muted style. Defaults to false.",
+            },
+            {
+              name: "variant",
+              type: '"default" | "secondary" | "outline" | "ghost" | "primary"',
+              description: 'Visual style variant. Defaults to "default".',
+            },
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              description: 'Button size. Defaults to "default".',
+            },
+            {
+              name: "onCopy",
+              type: "() => void",
+              description:
+                "Optional callback fired after the primary copy action completes.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="AiTarget (custom target)"
+          props={[
+            {
+              name: "id",
+              type: "string",
+              required: true,
+              description: "Unique key for the target.",
+            },
+            {
+              name: "label",
+              type: "string",
+              required: true,
+              description: "Display label in the dropdown.",
+            },
+            {
+              name: "icon",
+              type: "React.ReactNode",
+              required: true,
+              description: "Icon element rendered before the label.",
+            },
+            {
+              name: "brandColorClass",
+              type: "string",
+              description:
+                "Tailwind color class applied to this target's icon when brandColors is enabled.",
+            },
+            {
+              name: "action",
+              type: '"copy" | "url" | ((value: string) => void)',
+              description:
+                'How to handle selection. "copy" copies the value, "url" opens getUrl in a new tab, or pass a custom function. Defaults to "copy".',
+            },
+            {
+              name: "getUrl",
+              type: "(value: string) => string",
+              description:
+                'URL builder for action: "url". Receives the value string.',
+            },
+          ]}
+        />
+
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Client component.** Uses the Clipboard API and Radix DropdownMenu for keyboard navigation, focus management, and screen reader support.
+- **Built-in targets.** Five built-in targets are included: Markdown, v0, ChatGPT, Claude, and Gemini. Pass a subset to show only what you need.
+- **Custom targets.** Add your own targets with a custom  AiTarget   object — bring your own icon and action.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.
