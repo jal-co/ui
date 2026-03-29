@@ -1,0 +1,10 @@
+{
+  "title": "Docs",
+  "pages": [
+    "index",
+    "installation",
+    "releases",
+    "---",
+    "components"
+  ]
+}

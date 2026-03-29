@@ -2,9 +2,9 @@ import type { NextConfig } from "next"
 import { existsSync, statSync, readdirSync } from "node:fs"
 import { execSync } from "node:child_process"
 import { join } from "node:path"
+import { createMDX } from "fumadocs-mdx/next"
 
 // Run preview codegen if the output is missing or any preview file is newer.
-// Fires once per process regardless of runner (bun dev, pnpm dev, next dev).
 const OUTPUT = join(
   process.cwd(),
   "components/docs/__generated__/preview-imports.ts"
@@ -36,4 +36,6 @@ if (needsCodegen()) {
 
 const nextConfig: NextConfig = {}
 
-export default nextConfig
+const withMDX = createMDX()
+
+export default withMDX(nextConfig)
