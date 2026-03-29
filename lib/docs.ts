@@ -64,6 +64,7 @@ export const docsNav: NavGroup[] = [
       { title: "API Reference Table", href: "/docs/components/api-ref-table", dateAdded: "2026-03-11" },
       { title: "File Tree", href: "/docs/components/file-tree", badge: "New", badgeAdded: "2026-03-17", dateAdded: "2026-03-17" },
       { title: "Stepper", href: "/docs/components/stepper", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
+      { title: "Color Palette", href: "/docs/components/color-palette", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
     ],
   },
   {
@@ -84,6 +85,8 @@ export const docsNav: NavGroup[] = [
       { title: "Product Hunt", href: "/docs/components/producthunt-button", badge: "New", badgeAdded: "2026-03-12", dateAdded: "2026-03-12" },
       { title: "Contributor Grid", href: "/docs/components/contributor-grid", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
       { title: "Commit Graph", href: "/docs/components/commit-graph", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
+      { title: "License Badge", href: "/docs/components/license-badge", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
+      { title: "Repo Card", href: "/docs/components/repo-card", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
     ],
   },
   {

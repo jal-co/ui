@@ -531,6 +531,70 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "license-badge",
+      "type": "registry:component",
+      "title": "License Badge",
+      "description": "Software license badge with SPDX identifier, category color-coding, and OSI-approved indicator. Three layouts: inline pill, segmented row, and expanded card. Accepts a license string directly or fetches from the GitHub API.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "categories": [
+        "open-source"
+      ],
+      "files": [
+        {
+          "path": "registry/license-badge/license-badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/license-badge/lib/licenses.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "repo-card",
+      "type": "registry:component",
+      "title": "Repo Card",
+      "description": "GitHub repository preview card with description, language dot, star and fork counts, license, and topic tags. Async server component — fetches data at build time with ISR.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "categories": [
+        "github",
+        "open-source"
+      ],
+      "files": [
+        {
+          "path": "registry/repo-card/repo-card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/repo-card/lib/github.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "color-palette",
+      "type": "registry:component",
+      "title": "Color Palette",
+      "description": "Color swatch display with name, hex/hsl/rgb values, and click-to-copy. Grid and horizontal scale strip layouts for design system documentation.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "categories": [
+        "docs",
+        "design-system"
+      ],
+      "files": [
+        {
+          "path": "registry/color-palette/color-palette.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
