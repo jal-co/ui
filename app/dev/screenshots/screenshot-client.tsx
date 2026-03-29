@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useTheme } from "next-themes"
-import html2canvas from "html2canvas"
+import html2canvas from "html2canvas-pro"
 
 const WIDTH = 1280
 const HEIGHT = 640
