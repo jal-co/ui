@@ -63,7 +63,7 @@ export default async function Page(props: {
         )}
       </div>
 
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-8">
         <MDX components={getMDXComponents()} />
       </div>
     </div>
