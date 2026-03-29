@@ -16,6 +16,7 @@ Use this skill when working on jalco ui registry infrastructure, registry items,
 ## Required reading before changes
 
 Before implementing registry work, the agent MUST read:
+- `.pi/skills/components-build/SKILL.md` — the engineering standard every registry item must meet
 - `AGENTS.md`
 - `registry.json`
 - `package.json`
@@ -177,7 +178,7 @@ If jalco ui is submitted to the shadcn open-source registry index later:
 
 ## jal-co/ui standards for registry work
 
-Every registry item MUST be:
+Every registry item MUST conform to the `components-build` engineering standard and be:
 - installable
 - readable
 - accessible

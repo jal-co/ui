@@ -43,7 +43,8 @@ Goals:
 - Registry items MUST be installable, readable, and easy to adapt.
 - Public registry code and docs-facing source files MUST follow the comment and file header rules in `.pi/references/docs-component-format-spec.md`.
 - When building or refactoring public jalco ui components, agents MUST use `.pi/skills/jalco-component-builder/SKILL.md` as the primary workflow skill.
-- Agents SHOULD treat `shadcn-ui`, `.pi/skills/tailwind-design-system/SKILL.md`, `.pi/skills/vercel-composition-patterns/SKILL.md`, `.pi/skills/vercel-react-best-practices/SKILL.md`, and `component-engineering` as supporting references during component work.
+- The `components-build` skill (`.pi/skills/components-build/SKILL.md`) is the canonical standard for component engineering — composition, accessibility, typing, styling, state, polymorphism, asChild, and data attributes. Agents MUST treat it as authoritative for all component architecture decisions.
+- Agents SHOULD treat `shadcn-ui`, `.pi/skills/tailwind-design-system/SKILL.md`, `.pi/skills/vercel-composition-patterns/SKILL.md`, and `.pi/skills/vercel-react-best-practices/SKILL.md` as supporting references during component work.
 - When building or maintaining registry infrastructure or items, agents MUST consult `.pi/skills/jalco-shadcn-registry/SKILL.md`.
 - When creating or revising component documentation, agents MUST consult `.pi/skills/jalco-writing-component-docs/SKILL.md`.
 - The Vercel React best-practices skill SHOULD be used for performance, rendering, data fetching, and Next.js architecture decisions.

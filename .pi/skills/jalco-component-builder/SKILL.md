@@ -25,6 +25,22 @@ This skill guides the sequence of decisions before implementation, while treatin
 
 <context>
 
+## Engineering foundation
+
+The `components-build` skill (`.pi/skills/components-build/SKILL.md`) is the canonical standard for how components are engineered. Every jalco ui component MUST conform to it.
+
+Before implementing any component, the agent MUST be prepared to consult `components-build` and its reference files for:
+- **Composition** — compound components vs single, naming conventions, Context sharing
+- **Accessibility** — keyboard maps, ARIA, focus traps, contrast, semantic HTML
+- **Types** — extending HTML attributes, single-element wrapping, exported prop types
+- **Styling** — cn utility, CVA, class ordering, design tokens
+- **State** — controlled/uncontrolled, useControllableState
+- **Polymorphism** — `as` prop vs `asChild` + Slot, when to use each
+- **Data attributes** — data-state for visual states, data-slot for component identification
+- **Taxonomy** — classifying the artifact (primitive, component, block, pattern, utility)
+
+The `components-build` skill defines *what a well-built component looks like*. This skill defines *the jalco ui workflow for getting there*.
+
 ## Required reading before changes
 
 Before implementing a public component, the agent MUST read:
@@ -42,11 +58,10 @@ The agent MUST also inspect:
 ## Supporting references
 
 Use these as references during implementation, not as separate workflow owners:
-- `shadcn-ui` for baseline shadcn component ergonomics, accessibility patterns, and common primitive composition
+- `shadcn-ui` for baseline shadcn component ergonomics and common primitive composition
 - `.pi/skills/tailwind-design-system/SKILL.md` for semantic tokens, Tailwind v4 patterns, and variant consistency
 - `.pi/skills/vercel-composition-patterns/SKILL.md` for variant discipline, composition, and avoiding boolean-prop-heavy APIs
 - `.pi/skills/vercel-react-best-practices/SKILL.md` for React and Next.js implementation quality
-- `component-engineering` as a reference for semantics, accessibility, and prop/API discipline when needed
 
 ## Core goal
 
@@ -59,6 +74,7 @@ jalco ui components MUST NOT merely be valid. They MUST:
 - prefer one strong layout idea over decorative layering
 - be easy to scan, copy, and modify
 - ship with aligned docs, preview, and registry metadata when public
+- conform to the components.build standard for composition, accessibility, typing, styling, and data attributes
 
 </context>
 
@@ -74,7 +90,7 @@ Use the `question` or `questionnaire` tool to clarify what should be built when 
 
 Key questions to answer:
 - What problem does this component solve?
-- Is this a primitive, composed component, or a block?
+- Is this a primitive, composed component, or a block? (Use `components-build` taxonomy)
 - Is it meant for the public registry, docs site only, or both?
 - What should the default state optimize for?
 - What surrounding UI context should the preview suggest?
@@ -90,12 +106,15 @@ Use concise, Socratic questioning. Narrow the problem. SHOULD NOT ask endless op
 
 Before writing code, the agent MUST be able to state:
 1. the core use case in one sentence
-2. the primary visual idea
-3. the minimum public API
-4. the justified variants, if any
-5. whether it should be one file or multi-file
-6. whether any dependency is required
-7. what the default preview should demonstrate
+2. the artifact type (from `components-build` taxonomy)
+3. the primary visual idea
+4. the minimum public API
+5. the justified variants, if any
+6. whether it should be one file or multi-file
+7. whether any dependency is required
+8. what the default preview should demonstrate
+9. whether compound composition is needed (Root/Trigger/Content pattern)
+10. the keyboard map, if interactive
 
 If those decisions are fuzzy, the agent MUST NOT start coding yet.
 
@@ -175,14 +194,26 @@ Before adding one, evaluate:
 
 Default to no new dependency. Add one only when the benefit is clear.
 
-### 7. Implement with jalco ui conventions
+### 7. Implement with the components.build standard
 
-Implementation MUST:
+Implementation MUST conform to the `components-build` engineering standard:
+- Extend native HTML attributes for every component (`React.ComponentProps<"element">`)
+- Export prop types as `<Name>Props`
+- Spread props last so consumers can override
+- Use `cn` for class merging with base → variant → conditional → className ordering
+- Use `data-slot` on every exported sub-component
+- Use `data-state` for visual states instead of className props
+- Use `asChild` + Slot for interactive triggers that compose with consumer elements
+- Support both controlled and uncontrolled modes for stateful components
+- Implement keyboard maps for interactive elements
+- Use semantic HTML and proper ARIA
+
+Implementation MUST also follow jalco ui conventions:
 - match existing naming and styling conventions
 - use semantic tokens and repo utility patterns
 - avoid boolean-prop-heavy APIs
 - favor readable component code over architectural indirection
-- preserve accessibility and copy-paste ergonomics
+- preserve copy-paste ergonomics
 
 For public entry files:
 - SHOULD use the Jalco-style compact file header when appropriate
@@ -258,6 +289,20 @@ Before shipping a public component, verify:
 11. A card preview file exists at `components/docs/previews/<registry-name>.tsx`.
 12. The sidebar nav entry exists in `lib/docs.ts`.
 
+## Engineering standard checklist
+
+Before shipping, verify against `components-build`:
+1. Props extend native HTML attributes for the wrapped element.
+2. Prop types are exported as `<Name>Props`.
+3. Props are spread last.
+4. `data-slot` is present on every exported sub-component.
+5. `data-state` is used for visual states (not className props).
+6. `cn` is used with correct class ordering.
+7. Interactive elements have keyboard maps.
+8. ARIA roles, states, and properties are correct.
+9. Focus is trapped and restored where applicable.
+10. Custom prop names don't conflict with HTML attributes.
+
 </quality-checklist>
 
 <guidelines>
@@ -289,6 +334,7 @@ MUST NOT:
 - add dependencies without a clear payoff
 - ship public components without aligned docs
 - treat preview coverage as separate from design quality
+- ignore the components.build standard for composition, accessibility, or typing
 
 </constraints>
 
@@ -298,18 +344,19 @@ MUST NOT:
 
 1. Create a feature branch: `feat/<component-name>`.
 2. Clarify the request.
-3. Inspect related repo patterns.
-4. Define use case, API, variants, file structure, and dependency needs.
-5. Implement the component with a one-file bias.
-6. Create or update previews and demos with realistic content.
-7. Create a catalog card preview at `components/docs/previews/<registry-name>.tsx` with key variants.
-8. Add the sidebar nav entry in `lib/docs.ts` with `badge: "New"` and `badgeAdded` set to today's ISO date.
-9. Update docs and registry metadata when public.
-10. Run `pnpm previews:generate` to update the import map.
-11. Generate screenshots via `/dev/screenshots` — save both dark and light PNGs to `public/previews/`.
-12. Run `pnpm registry:build` and `pnpm build` to verify.
-13. Open a PR using the component template (`.github/PULL_REQUEST_TEMPLATE/component.md`).
-14. Attach dark and light screenshots to the PR body.
-15. Review against the quality, file-boundary, and dependency checklists.
+3. Classify the artifact using `components-build` taxonomy.
+4. Inspect related repo patterns.
+5. Define use case, API, variants, file structure, and dependency needs.
+6. Implement the component conforming to the `components-build` standard.
+7. Create or update previews and demos with realistic content.
+8. Create a catalog card preview at `components/docs/previews/<registry-name>.tsx` with key variants.
+9. Add the sidebar nav entry in `lib/docs.ts` with `badge: "New"` and `badgeAdded` set to today's ISO date.
+10. Update docs and registry metadata when public.
+11. Run `pnpm previews:generate` to update the import map.
+12. Generate screenshots via `/dev/screenshots` — save both dark and light PNGs to `public/previews/`.
+13. Run `pnpm registry:build` and `pnpm build` to verify.
+14. Open a PR using the component template (`.github/PULL_REQUEST_TEMPLATE/component.md`).
+15. Attach dark and light screenshots to the PR body.
+16. Review against quality, file-boundary, dependency, and engineering standard checklists.
 
 </workflow>
