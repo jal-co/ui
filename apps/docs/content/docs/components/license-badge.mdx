@@ -3,7 +3,7 @@ title: "License Badge"
 description: "Software license badge with SPDX identifier, category color-coding, and OSI-approved indicator."
 ---
 
-<ComponentPreview name="license-badge-preview" />
+<ComponentPreview name="license-badge-demo" />
 
 ## Installation
 
@@ -16,13 +16,46 @@ import { LicenseBadge } from "@/components/license-badge"
 ```
 
 ```tsx
-<LicenseBadge />
+<LicenseBadge license="MIT" />
 ```
 
-Async server component — fetches data at build time with ISR caching.
+Pass a `license` SPDX identifier directly, or use `owner`/`repo` to fetch the license from the GitHub API. When using the API, this is an async server component with 1-hour ISR caching.
+
+## Examples
+
+### Layouts
+
+Three layouts: inline pill (default), segmented row, and expanded card.
+
+<ComponentPreview name="license-badge-demo" />
+
+### License categories
+
+Licenses are automatically categorized and color-coded by type.
+
+<ComponentPreview name="license-badge-categories" />
+
+## API Reference
+
+<ApiRefTable
+  title="LicenseBadge"
+  props={[
+    { name: "license", type: "string", description: 'SPDX license identifier (e.g. "MIT", "Apache-2.0"). Skips the GitHub API when provided.' },
+    { name: "owner", type: "string", description: "GitHub username or organization. Used with repo to fetch from GitHub." },
+    { name: "repo", type: "string", description: "GitHub repository name." },
+    { name: "layout", type: '"inline" | "row" | "card"', description: 'Display layout. Defaults to "inline".' },
+    { name: "variant", type: '"default" | "primary" | "secondary" | "outline" | "ghost" | "subtle"', description: 'Visual style (inline/row only). Defaults to "default".' },
+    { name: "size", type: '"sm" | "default" | "lg"', description: 'Badge size (inline/row only). Defaults to "default".' },
+    { name: "showCategory", type: "boolean", description: "Show license category tag. Defaults to false for inline, true for row/card." },
+    { name: "showOsi", type: "boolean", description: "Show OSI-approved indicator. Defaults to true." },
+    { name: "showDescription", type: "boolean", description: "Show license description. Defaults to true for card." },
+    { name: "href", type: "string", description: "URL to link to. Auto-detected from SPDX or GitHub." },
+  ]}
+/>
 
 ## Notes
 
-- **Async server component.** No client JS required.
-- **ISR caching.** Data is cached for 1 hour via `next.revalidate`.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Dual input.** Pass a `license` string for static rendering, or `owner`/`repo` to fetch from GitHub.
+- **ISR caching.** GitHub API data cached for 1 hour. Optional `GITHUB_TOKEN` raises the rate limit.
+- **SPDX resolution.** Handles case-insensitive matching, `-only` and `-or-later` suffixes.
+- **Category colors.** Green for permissive, amber for copyleft, sky for weak copyleft, violet for public domain, rose for proprietary.

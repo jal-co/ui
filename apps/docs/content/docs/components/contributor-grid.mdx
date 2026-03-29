@@ -3,7 +3,7 @@ title: "Contributor Grid"
 description: "GitHub contributor display with avatar grid and detailed list layouts. Async server component with ISR caching."
 ---
 
-<ComponentPreview name="contributor-grid-preview" />
+<ComponentPreview name="contributor-grid-demo" />
 
 ## Installation
 
@@ -12,14 +12,49 @@ description: "GitHub contributor display with avatar grid and detailed list layo
 ## Usage
 
 ```tsx
-import { ApiRefTable } from "@/components/contributor-grid"
+import { ContributorGrid, ContributorList } from "@/components/contributor-grid"
 ```
 
 ```tsx
-<ApiRefTable />
+<ContributorGrid owner="vercel" repo="next.js" />
 ```
+
+Async server component — fetches contributors from the GitHub API at build time. Cached for 1 hour via ISR. Optional `GITHUB_TOKEN` raises the rate limit.
+
+## Examples
+
+### Avatar grid
+
+Overlapping avatar circles with tooltip names and contribution counts.
+
+<ComponentPreview name="contributor-grid-demo" />
+
+## API Reference
+
+<ApiRefTable
+  title="ContributorGrid"
+  props={[
+    { name: "owner", type: "string", required: true, description: "GitHub username or organization." },
+    { name: "repo", type: "string", required: true, description: "GitHub repository name." },
+    { name: "max", type: "number", description: "Maximum contributors to display. Defaults to 30." },
+    { name: "showContributions", type: "boolean", description: "Show contribution count in tooltip. Defaults to true." },
+    { name: "contributors", type: "GitHubContributor[]", description: "Pre-fetched contributors. Skips the API call." },
+  ]}
+/>
+
+<ApiRefTable
+  title="ContributorList"
+  props={[
+    { name: "owner", type: "string", required: true, description: "GitHub username or organization." },
+    { name: "repo", type: "string", required: true, description: "GitHub repository name." },
+    { name: "title", type: "string", description: "Heading above the list." },
+    { name: "max", type: "number", description: "Maximum contributors. Defaults to 30." },
+    { name: "contributors", type: "GitHubContributor[]", description: "Pre-fetched contributors." },
+  ]}
+/>
 
 ## Notes
 
-- **Server component.** No client JS required.
-- See the [source code](https://github.com/jal-co/ui) for the full API.
+- **Async server component.** No client JS for the grid. List layout uses Radix Tooltip.
+- **ISR caching.** Contributor data cached for 1 hour. No API key required.
+- **Pre-fetched data.** Pass the `contributors` prop to skip the API call.

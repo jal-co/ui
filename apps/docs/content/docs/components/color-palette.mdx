@@ -1,0 +1,57 @@
+---
+title: "Color Palette"
+description: "Color swatch display with name, hex/hsl/rgb values, and click-to-copy for design system documentation."
+---
+
+<ComponentPreview name="color-palette-demo" />
+
+## Installation
+
+<InstallBlock name="color-palette" />
+
+## Usage
+
+```tsx
+import { ColorPalette } from "@/components/color-palette"
+```
+
+```tsx
+<ColorPalette colors={[{ name: "Primary", value: "#6366f1" }]} />
+```
+
+Client component. Click any swatch to copy its color value to the clipboard. Supports hex, rgb(), hsl(), oklch(), and named CSS colors.
+
+## Examples
+
+### Grid
+
+Responsive grid of swatches with name and value labels.
+
+<ComponentPreview name="color-palette-demo" />
+
+### Scale strip
+
+Horizontal strip showing a single hue across its full range — ideal for Tailwind-style color scales.
+
+<ComponentPreview name="color-palette-scale" />
+
+## API Reference
+
+<ApiRefTable
+  title="ColorPalette"
+  props={[
+    { name: "colors", type: "ColorEntry[]", required: true, description: "Array of color entries with name, value, and optional description." },
+    { name: "layout", type: '"grid" | "scale"', description: 'Display layout. Defaults to "grid".' },
+    { name: "columns", type: "number", description: "Number of grid columns (grid layout only). Defaults to 4." },
+    { name: "format", type: '"hex" | "hsl" | "rgb" | "oklch"', description: 'Color value display format. Defaults to "hex".' },
+    { name: "showName", type: "boolean", description: "Show color name label. Defaults to true." },
+    { name: "showValue", type: "boolean", description: "Show color value string. Defaults to true." },
+  ]}
+/>
+
+## Notes
+
+- **Click to copy.** Click any swatch to copy its color value to the clipboard.
+- **Adaptive contrast.** Copy icons switch between light and dark based on the swatch background.
+- **Any CSS color.** Supports hex, rgb(), hsl(), oklch(), and named CSS colors.
+- **Icon library.** Uses [Lucide](https://lucide.dev) icons by default.
