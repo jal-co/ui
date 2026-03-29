@@ -7,14 +7,8 @@ import html2canvas from "html2canvas-pro"
 const WIDTH = 1280
 const HEIGHT = 640
 const PADDING = 40
-const VIDEO_DURATION = 5000
 
-type CaptureStatus = {
-  slug: string
-  mode: string
-  type: "png" | "webm"
-} | null
-
+type CaptureStatus = { slug: string; mode: string } | null
 type FilterMode = "all" | "missing" | "exists" | "animated"
 
 interface ScreenshotClientProps {
@@ -52,9 +46,7 @@ function autoScaleAll(
   const newScales: Record<string, number> = {}
   for (const slug of slugs) {
     const el = document.getElementById(`preview-${slug}`)
-    if (el) {
-      newScales[slug] = computeAutoScale(el)
-    }
+    if (el) newScales[slug] = computeAutoScale(el)
   }
   setScales((prev) => ({ ...prev, ...newScales }))
 }
@@ -108,11 +100,6 @@ export function ScreenshotClient({
     [slugs, slugHasScreenshot]
   )
 
-  const missingVideoSlugs = React.useMemo(
-    () => animatedSlugs.filter((s) => !slugHasVideo(s)),
-    [animatedSlugs, slugHasVideo]
-  )
-
   React.useEffect(() => {
     if (autoScaled) return
     const timer = setTimeout(() => {
@@ -164,70 +151,6 @@ export function ScreenshotClient({
     return canvas.toDataURL("image/png")
   }
 
-  async function recordVideo(slug: string): Promise<Blob | null> {
-    const el = document.getElementById(`preview-${slug}`)
-    if (!el) return null
-
-    const recCanvas = document.createElement("canvas")
-    recCanvas.width = WIDTH * pixelRatio
-    recCanvas.height = HEIGHT * pixelRatio
-    const ctx = recCanvas.getContext("2d")
-    if (!ctx) return null
-
-    const stream = recCanvas.captureStream(30)
-    const recorder = new MediaRecorder(stream, {
-      mimeType: "video/webm;codecs=vp9",
-      videoBitsPerSecond: 4_000_000,
-    })
-
-    const chunks: Blob[] = []
-    recorder.ondataavailable = (e) => {
-      if (e.data.size > 0) chunks.push(e.data)
-    }
-
-    recorder.start()
-
-    const fps = 12
-    const frameInterval = 1000 / fps
-    const totalFrames = Math.ceil(VIDEO_DURATION / frameInterval)
-
-    for (let i = 0; i < totalFrames; i++) {
-      try {
-        const frame = await html2canvas(el, {
-          width: WIDTH,
-          height: HEIGHT,
-          scale: pixelRatio,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: null,
-          logging: false,
-        })
-        ctx.clearRect(0, 0, recCanvas.width, recCanvas.height)
-        ctx.drawImage(frame, 0, 0)
-      } catch {
-        // skip frame
-      }
-      await new Promise((r) => setTimeout(r, frameInterval))
-    }
-
-    recorder.stop()
-
-    return new Promise((resolve) => {
-      recorder.onstop = () => {
-        resolve(new Blob(chunks, { type: "video/webm" }))
-      }
-    })
-  }
-
-  function blobToBase64(blob: Blob): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onload = () => resolve(reader.result as string)
-      reader.onerror = reject
-      reader.readAsDataURL(blob)
-    })
-  }
-
   async function saveToPublic(filename: string, dataUrl: string) {
     const res = await fetch("/dev/screenshots/save", {
       method: "POST",
@@ -238,13 +161,21 @@ export function ScreenshotClient({
     setSavedFiles((prev) => new Set([...prev, filename]))
   }
 
+  async function switchThemeAndScale(mode: string) {
+    setTheme(mode)
+    await waitForThemeApplied(mode)
+    await new Promise((r) => setTimeout(r, 300))
+    autoScaleAll(slugs, setComponentScales)
+    await new Promise((r) => setTimeout(r, 300))
+  }
+
   async function savePngsForTheme(
     targetSlugs: string[],
     mode: string
   ): Promise<number> {
     let saved = 0
     for (const slug of targetSlugs) {
-      setCapturing({ slug, mode, type: "png" })
+      setCapturing({ slug, mode })
       try {
         const url = await captureFrame(slug)
         if (url) {
@@ -263,51 +194,15 @@ export function ScreenshotClient({
     return saved
   }
 
-  async function saveVideosForTheme(
-    targetSlugs: string[],
-    mode: string
-  ): Promise<number> {
-    let saved = 0
-    for (const slug of targetSlugs) {
-      setCapturing({ slug, mode, type: "webm" })
-      try {
-        const blob = await recordVideo(slug)
-        if (blob && blob.size > 0) {
-          const dataUrl = await blobToBase64(blob)
-          await saveToPublic(`${slug}-${mode}.webm`, dataUrl)
-          saved++
-        }
-      } catch (err) {
-        console.error(
-          `Failed: ${slug} ${mode} webm`,
-          err instanceof Error ? err.message : err
-        )
-      }
-      setProgress((p) => p && { ...p, current: p.current + 1 })
-    }
-    return saved
-  }
-
-  async function switchThemeAndScale(mode: string) {
-    setTheme(mode)
-    await waitForThemeApplied(mode)
-    await new Promise((r) => setTimeout(r, 300))
-    autoScaleAll(slugs, setComponentScales)
-    await new Promise((r) => setTimeout(r, 300))
-  }
-
   async function saveAllToPublic() {
     originalThemeRef.current = theme
-    const totalOps = slugs.length * 2 + animatedSlugs.length * 2
-    setProgress({ current: 0, total: totalOps })
+    setProgress({ current: 0, total: slugs.length * 2 })
 
     await switchThemeAndScale("dark")
     let saved = await savePngsForTheme(slugs, "dark")
-    saved += await saveVideosForTheme(animatedSlugs, "dark")
 
     await switchThemeAndScale("light")
     saved += await savePngsForTheme(slugs, "light")
-    saved += await saveVideosForTheme(animatedSlugs, "light")
 
     setTheme(originalThemeRef.current ?? "system")
     setCapturing(null)
@@ -317,23 +212,20 @@ export function ScreenshotClient({
   }
 
   async function saveMissing() {
-    if (missingSlugs.length === 0 && missingVideoSlugs.length === 0) {
+    if (missingSlugs.length === 0) {
       setStatus("All screenshots up to date")
       setTimeout(() => setStatus(null), 3000)
       return
     }
 
     originalThemeRef.current = theme
-    const totalOps = missingSlugs.length * 2 + missingVideoSlugs.length * 2
-    setProgress({ current: 0, total: totalOps })
+    setProgress({ current: 0, total: missingSlugs.length * 2 })
 
     await switchThemeAndScale("dark")
     let saved = await savePngsForTheme(missingSlugs, "dark")
-    saved += await saveVideosForTheme(missingVideoSlugs, "dark")
 
     await switchThemeAndScale("light")
     saved += await savePngsForTheme(missingSlugs, "light")
-    saved += await saveVideosForTheme(missingVideoSlugs, "light")
 
     setTheme(originalThemeRef.current ?? "system")
     setCapturing(null)
@@ -344,15 +236,12 @@ export function ScreenshotClient({
 
   async function saveOne(slug: string) {
     originalThemeRef.current = theme
-    const isAnim = animatedSet.has(slug)
 
     await switchThemeAndScale("dark")
     let saved = await savePngsForTheme([slug], "dark")
-    if (isAnim) saved += await saveVideosForTheme([slug], "dark")
 
     await switchThemeAndScale("light")
     saved += await savePngsForTheme([slug], "light")
-    if (isAnim) saved += await saveVideosForTheme([slug], "light")
 
     setTheme(originalThemeRef.current ?? "system")
     setCapturing(null)
@@ -376,7 +265,7 @@ export function ScreenshotClient({
   const visibleSlugs = selected === "all" ? filteredSlugs : [selected]
 
   const captureLabel = capturing
-    ? `${capturing.slug} (${capturing.mode} ${capturing.type})`
+    ? `${capturing.slug} (${capturing.mode})`
     : null
 
   const SCALE_OPTIONS = [
@@ -403,12 +292,11 @@ export function ScreenshotClient({
             Screenshot Previews
           </h1>
 
-          {missingSlugs.length > 0 && (
+          {missingSlugs.length > 0 ? (
             <span className="inline-flex items-center rounded-full bg-amber-500/15 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:text-amber-400">
               {missingSlugs.length} missing
             </span>
-          )}
-          {missingSlugs.length === 0 && (
+          ) : (
             <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:text-emerald-400">
               All captured
             </span>
@@ -448,15 +336,11 @@ export function ScreenshotClient({
             className="rounded-md border border-border bg-card px-3 py-1.5 text-sm"
           >
             <option value="all">Show: All ({slugs.length})</option>
-            <option value="missing">
-              Show: Missing ({missingSlugs.length})
-            </option>
+            <option value="missing">Show: Missing ({missingSlugs.length})</option>
             <option value="exists">
               Show: Has screenshots ({slugs.length - missingSlugs.length})
             </option>
-            <option value="animated">
-              Show: Animated ({animatedSlugs.length})
-            </option>
+            <option value="animated">Show: Animated ({animatedSlugs.length})</option>
           </select>
 
           <select
@@ -508,7 +392,7 @@ export function ScreenshotClient({
             >
               {captureLabel
                 ? `Saving ${captureLabel}...`
-                : `Save → public/previews/${selected}-*${animatedSet.has(selected) ? " (png + webm)" : ""}`}
+                : `Save → public/previews/${selected}-*.png`}
             </button>
           )}
 
@@ -538,7 +422,7 @@ export function ScreenshotClient({
         <p className="text-xs text-muted-foreground">
           {WIDTH}×{HEIGHT} @ {pixelRatio}x · Auto-scales to fit ·{" "}
           {animatedSlugs.length > 0 &&
-            `${animatedSlugs.length} animated (WebM + PNG) · `}
+            `${animatedSlugs.length} animated (video coming soon) · `}
           Saves both light &amp; dark modes
         </p>
       </div>
@@ -559,24 +443,16 @@ export function ScreenshotClient({
               <div className="flex items-center gap-3">
                 <p className="text-sm font-medium flex items-center gap-2">
                   {slugHasScreenshot(slug) ? (
-                    <span
-                      className="size-2 rounded-full bg-emerald-500 shrink-0"
-                      title="Screenshots exist"
-                    />
+                    <span className="size-2 rounded-full bg-emerald-500 shrink-0" title="Screenshots exist" />
                   ) : (
-                    <span
-                      className="size-2 rounded-full bg-amber-500 shrink-0"
-                      title="Missing screenshots"
-                    />
+                    <span className="size-2 rounded-full bg-amber-500 shrink-0" title="Missing screenshots" />
                   )}
                   {slug}
                   {isAnim && (
                     <span className="text-xs text-muted-foreground">
                       🎞️ animated
                       {!slugHasVideo(slug) && (
-                        <span className="ml-1 text-amber-500">
-                          no video
-                        </span>
+                        <span className="ml-1 text-amber-500">no video</span>
                       )}
                     </span>
                   )}
@@ -599,9 +475,7 @@ export function ScreenshotClient({
                 <button
                   onClick={() => {
                     const el = document.getElementById(`preview-${slug}`)
-                    if (el) {
-                      setComponentScale(slug, computeAutoScale(el))
-                    }
+                    if (el) setComponentScale(slug, computeAutoScale(el))
                   }}
                   className="rounded border border-border px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 >
@@ -614,8 +488,8 @@ export function ScreenshotClient({
                   className="rounded border border-border px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:opacity-50"
                 >
                   {capturing?.slug === slug
-                    ? `${capturing.mode} ${capturing.type}...`
-                    : `Save${isAnim ? " (PNG + WebM)" : ""}`}
+                    ? `${capturing.mode}...`
+                    : "Save"}
                 </button>
               </div>
 
