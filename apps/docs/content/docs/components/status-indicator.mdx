@@ -1,0 +1,80 @@
+---
+title: Status Indicator
+description: Operational status badge with colored dot and label for dashboards, status pages, and header bars.
+---
+
+<ComponentPreview name="status-indicator-demo" />
+
+## Installation
+
+<InstallBlock name="status-indicator" />
+
+## Usage
+
+```tsx
+import { StatusIndicator } from "@/components/status-indicator"
+```
+
+```tsx
+<StatusIndicator status="operational" />
+```
+
+Server component — no client JS required. The label is auto-generated from the status value. Pass a custom `label` to override.
+
+## Examples
+
+### All statuses
+
+Seven built-in statuses with semantic coloring.
+
+<ComponentPreview name="status-indicator-all" />
+
+### Sizes
+
+<ComponentPreview name="status-indicator-sizes" />
+
+### Custom labels
+
+<ComponentPreview name="status-indicator-labels" />
+
+### Status page row
+
+Compose with other elements for a status page layout.
+
+<ComponentPreview name="status-indicator-composed" />
+
+## API Reference
+
+<ApiRefTable
+  title="StatusIndicator"
+  props={[
+    {
+      name: "status",
+      type: '"operational" | "degraded" | "partial-outage" | "major-outage" | "maintenance" | "incident" | "unknown"',
+      required: true,
+      description: "Current operational status.",
+    },
+    {
+      name: "label",
+      type: "string",
+      description: 'Custom label text. Auto-generated from status when omitted (e.g. "operational" → "Operational").',
+    },
+    {
+      name: "size",
+      type: '"sm" | "md" | "lg"',
+      description: 'Badge size. Defaults to "md".',
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Additional CSS classes on the root element.",
+    },
+  ]}
+/>
+
+## Notes
+
+- **Server component.** No `"use client"` — renders entirely on the server with zero client JS.
+- **No dependencies.** Uses only React, Tailwind CSS, and CVA.
+- **`role="status"`** is applied to the root element for screen reader announcements.
+- **Composable.** Use alongside other elements for status page rows, dashboard headers, or navbar indicators.
