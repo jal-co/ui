@@ -12,18 +12,24 @@ export const metadata: Metadata = {
     "Browse all jalco ui components. Polished, composable building blocks for React and Next.js.",
 }
 
-// Check which preview images exist at build time
+// Check which preview images/gifs exist at build time
 const PREVIEWS_DIR = join(process.cwd(), "public/previews")
+const previewFiles = (() => {
+  try {
+    return readdirSync(PREVIEWS_DIR)
+  } catch {
+    return []
+  }
+})()
 const availableImages = new Set(
-  (() => {
-    try {
-      return readdirSync(PREVIEWS_DIR)
-        .filter((f) => f.endsWith("-dark.png"))
-        .map((f) => f.replace("-dark.png", ""))
-    } catch {
-      return []
-    }
-  })()
+  previewFiles
+    .filter((f) => f.endsWith("-dark.png"))
+    .map((f) => f.replace("-dark.png", ""))
+)
+const availableGifs = new Set(
+  previewFiles
+    .filter((f) => f.endsWith("-dark.gif"))
+    .map((f) => f.replace("-dark.gif", ""))
 )
 
 function getComponentDescription(href: string): string | null {
@@ -72,6 +78,7 @@ export default function DocsPage() {
                   const badge = getActiveBadge(item)
                   const slug = getSlug(item.href)
                   const hasImage = availableImages.has(slug)
+                  const hasGif = availableGifs.has(slug)
 
                   return (
                     <Link
@@ -84,6 +91,7 @@ export default function DocsPage() {
                           <ThemeImage
                             slug={slug}
                             title={item.title}
+                            hasGif={hasGif}
                           />
                         </div>
                       )}

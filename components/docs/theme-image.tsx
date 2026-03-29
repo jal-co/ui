@@ -7,14 +7,16 @@ import { useTheme } from "next-themes"
 interface ThemeImageProps {
   slug: string
   title: string
+  /** Whether a GIF version exists for this component. */
+  hasGif?: boolean
 }
 
 /**
  * Preview image that swaps between light and dark variants based on the
- * active theme. Uses aspect-ratio for the SSR placeholder to avoid layout
- * shift once the client hydrates.
+ * active theme. When hasGif is true, renders the GIF instead of the static PNG.
+ * Uses aspect-ratio for the SSR placeholder to avoid layout shift.
  */
-export function ThemeImage({ slug, title }: ThemeImageProps) {
+export function ThemeImage({ slug, title, hasGif }: ThemeImageProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
@@ -25,10 +27,11 @@ export function ThemeImage({ slug, title }: ThemeImageProps) {
   }
 
   const mode = resolvedTheme === "light" ? "light" : "dark"
+  const ext = hasGif ? "gif" : "png"
 
   return (
     <Image
-      src={`/previews/${slug}-${mode}.png`}
+      src={`/previews/${slug}-${mode}.${ext}`}
       alt={`${title} preview`}
       width={1280}
       height={640}

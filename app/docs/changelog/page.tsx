@@ -20,19 +20,26 @@ interface ChangelogEntry {
   category: string
   dateAdded: string
   hasImage: boolean
+  hasGif: boolean
 }
 
 const PREVIEWS_DIR = join(process.cwd(), "public/previews")
+const previewFiles = (() => {
+  try {
+    return readdirSync(PREVIEWS_DIR)
+  } catch {
+    return []
+  }
+})()
 const availableImages = new Set(
-  (() => {
-    try {
-      return readdirSync(PREVIEWS_DIR)
-        .filter((f) => f.endsWith("-dark.png"))
-        .map((f) => f.replace("-dark.png", ""))
-    } catch {
-      return []
-    }
-  })(),
+  previewFiles
+    .filter((f) => f.endsWith("-dark.png"))
+    .map((f) => f.replace("-dark.png", ""))
+)
+const availableGifs = new Set(
+  previewFiles
+    .filter((f) => f.endsWith("-dark.gif"))
+    .map((f) => f.replace("-dark.gif", ""))
 )
 
 function getEntries(): ChangelogEntry[] {
@@ -54,6 +61,7 @@ function getEntries(): ChangelogEntry[] {
         category: group.title,
         dateAdded: item.dateAdded,
         hasImage: availableImages.has(slug),
+        hasGif: availableGifs.has(slug),
       })
     }
   }
@@ -136,7 +144,7 @@ export default function ChangelogPage() {
                       href={entry.href}
                       className="group overflow-hidden rounded-xl border border-border transition-colors hover:border-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
                     >
-                      <ThemeImage slug={entry.slug} title={entry.title} />
+                      <ThemeImage slug={entry.slug} title={entry.title} hasGif={entry.hasGif} />
                     </Link>
                   )}
 

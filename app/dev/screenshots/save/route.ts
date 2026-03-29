@@ -12,11 +12,16 @@ export async function POST(request: Request) {
   const { filename, dataUrl } = await request.json()
 
   if (!filename || !dataUrl) {
-    return NextResponse.json({ error: "Missing filename or dataUrl" }, { status: 400 })
+    return NextResponse.json(
+      { error: "Missing filename or dataUrl" },
+      { status: 400 }
+    )
   }
 
-  // Strip the data URL prefix
-  const base64 = dataUrl.replace(/^data:image\/png;base64,/, "")
+  const base64 = dataUrl.replace(
+    /^data:image\/(png|gif);base64,/,
+    ""
+  )
   const buffer = Buffer.from(base64, "base64")
 
   mkdirSync(PREVIEWS_DIR, { recursive: true })

@@ -7,6 +7,8 @@ const testimonials = [
   { quote: "Copy-paste components that actually look good out of the box. No fighting with styles.", author: "Taylor Kim", role: "Designer", company: "Umbrella" },
 ]
 
+export const animated = true
+
 export default async function TestimonialPreview() {
   return <TestimonialMarquee testimonials={testimonials} duration={25} />
 }

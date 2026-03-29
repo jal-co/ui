@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import {
   previewImports,
   availablePreviews,
+  animatedPreviews,
 } from "@/components/docs/__generated__/preview-imports"
 import { ScreenshotClient } from "./screenshot-client"
 
@@ -13,6 +14,7 @@ export const metadata = {
 export default async function ScreenshotsPage() {
   if (process.env.NODE_ENV !== "development") notFound()
   const slugs = Array.from(availablePreviews).sort()
+  const animatedSlugs = Array.from(animatedPreviews).sort()
 
   const previews = await Promise.all(
     slugs.map(async (slug) => {
@@ -25,7 +27,7 @@ export default async function ScreenshotsPage() {
   )
 
   return (
-    <ScreenshotClient slugs={slugs}>
+    <ScreenshotClient slugs={slugs} animatedSlugs={animatedSlugs}>
       {previews}
     </ScreenshotClient>
   )

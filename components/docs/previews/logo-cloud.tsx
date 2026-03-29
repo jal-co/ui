@@ -11,6 +11,8 @@ const logos = [
   { src: "https://svgl.app/library/stripe.svg", alt: "Stripe" },
 ]
 
+export const animated = true
+
 export default async function LogoCloudPreview() {
   return <LogoCloudMarquee logos={logos} duration={20} />
 }
