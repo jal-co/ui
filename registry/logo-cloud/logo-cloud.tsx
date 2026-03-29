@@ -136,11 +136,12 @@ function LogoCloudMarquee({
         {[0, 1].map((copy) => (
           <div
             key={copy}
-            className="flex shrink-0 items-center gap-8 sm:gap-12"
+            className="flex shrink-0 items-center"
             style={{
               animation: `marquee-scroll ${speed ? 30 / speed : duration}s linear infinite`,
               animationDirection: direction === "right" ? "reverse" : "normal",
               animationPlayState: "var(--marquee-play, running)" as React.CSSProperties["animationPlayState"],
+              gap: "2rem",
               paddingRight: "2rem",
             }}
             aria-hidden={copy === 1 ? "true" : undefined}

@@ -219,11 +219,12 @@ function TestimonialMarquee({
         {[0, 1].map((copy) => (
           <div
             key={copy}
-            className="flex shrink-0 items-stretch gap-4"
+            className="flex shrink-0 items-stretch"
             style={{
               animation: `testimonial-scroll ${resolvedDuration}s linear infinite`,
               animationDirection: direction === "right" ? "reverse" : "normal",
               animationPlayState: "var(--marquee-play, running)" as React.CSSProperties["animationPlayState"],
+              gap: "1rem",
               paddingRight: "1rem",
             }}
             aria-hidden={copy === 1 ? "true" : undefined}

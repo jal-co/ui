@@ -1,13 +1,18 @@
 import { ContributorGrid, ContributorList } from "@/registry/contributor-grid/contributor-grid"
 import type { GitHubContributor } from "@/registry/contributor-grid/lib/github"
 
+function avatar(initials: string, hue: number): string {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="hsl(${hue},45%,55%)" rx="40"/><text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" fill="white" font-family="system-ui,sans-serif" font-size="32" font-weight="600">${initials}</text></svg>`
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`
+}
+
 const sampleContributors: GitHubContributor[] = [
-  { login: "shadcn", avatarUrl: "https://github.com/shadcn.png?", profileUrl: "https://github.com/shadcn", contributions: 1243 },
-  { login: "haydenbleasel", avatarUrl: "https://github.com/haydenbleasel.png?", profileUrl: "https://github.com/haydenbleasel", contributions: 847 },
-  { login: "leerob", avatarUrl: "https://github.com/leerob.png?", profileUrl: "https://github.com/leerob", contributions: 512 },
-  { login: "shuding", avatarUrl: "https://github.com/shuding.png?", profileUrl: "https://github.com/shuding", contributions: 398 },
-  { login: "timneutkens", avatarUrl: "https://github.com/timneutkens.png?", profileUrl: "https://github.com/timneutkens", contributions: 276 },
-  { login: "rauchg", avatarUrl: "https://github.com/rauchg.png?", profileUrl: "https://github.com/rauchg", contributions: 189 },
+  { login: "shadcn", avatarUrl: avatar("SC", 220), profileUrl: "https://github.com/shadcn", contributions: 1243 },
+  { login: "haydenbleasel", avatarUrl: avatar("HB", 160), profileUrl: "https://github.com/haydenbleasel", contributions: 847 },
+  { login: "leerob", avatarUrl: avatar("LR", 30), profileUrl: "https://github.com/leerob", contributions: 512 },
+  { login: "shuding", avatarUrl: avatar("SD", 280), profileUrl: "https://github.com/shuding", contributions: 398 },
+  { login: "timneutkens", avatarUrl: avatar("TN", 100), profileUrl: "https://github.com/timneutkens", contributions: 276 },
+  { login: "rauchg", avatarUrl: avatar("GR", 350), profileUrl: "https://github.com/rauchg", contributions: 189 },
 ]
 
 export default async function ContributorGridPreview() {
