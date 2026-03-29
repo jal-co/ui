@@ -97,6 +97,12 @@ export const docsNav: NavGroup[] = [
     ],
   },
   {
+    title: "Marketing",
+    items: [
+      { title: "Logo Cloud", href: "/docs/components/logo-cloud", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },
+    ],
+  },
+  {
     title: "Infrastructure",
     items: [
       { title: "Status Indicator", href: "/docs/components/status-indicator", badge: "New", badgeAdded: "2026-03-29", dateAdded: "2026-03-29" },

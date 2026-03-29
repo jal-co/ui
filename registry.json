@@ -497,6 +497,23 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "logo-cloud",
+      "type": "registry:component",
+      "title": "Logo Cloud",
+      "description": "\"Trusted by\" logo display with static grid and infinite-scroll marquee layouts. Grayscale by default, color on hover.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "categories": [
+        "marketing"
+      ],
+      "files": [
+        {
+          "path": "registry/logo-cloud/logo-cloud.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
