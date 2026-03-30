@@ -31,7 +31,7 @@ export default async function Page(props: {
   }`
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-12 py-10 px-4 md:px-6 max-w-3xl mx-auto">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between gap-4">
           <h1 className="text-3xl font-bold tracking-tight">
