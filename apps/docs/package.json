@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "registry:build": "shadcn build",
     "previews:generate": "tsx scripts/generate-preview-imports.ts",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsx scripts/build-registry-index.ts && tsc --noEmit",
     "prepare": "husky"
   },
   "dependencies": {
