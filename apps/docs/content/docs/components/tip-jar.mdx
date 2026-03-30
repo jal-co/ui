@@ -3,6 +3,20 @@ title: "Crypto + Tip Jar"
 description: "Donation and tipping component with QR code, wallet address display, and copy-to-clipboard."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import {
+  TipJarCard,
+  TipJarTabs,
+  TipJarList,
+  TipJarCompact,
+  TipJarInline,
+  TipJarQR,
+} from "@/registry/tip-jar/tip-jar"
+
+export const ETH_ADDRESS = "0x585c3Ad932471B24c733A557ad8FA64A2BacF508"
+export const BTC_ADDRESS = "3Js3LsTiEt15nYzsEGpgnbNKDcGndefEw9"
+export const SOL_ADDRESS = "HiGZkNDuhMrGi2YAmJFNrqaq9C1dPP1Eoqs8nRq4k2Kc"
+
 <ComponentPreview name="tip-jar-preview" />
 
 ## Installation
@@ -15,7 +29,55 @@ description: "Donation and tipping component with QR code, wallet address displa
 
 <CodeLine code={`<TipJarCard />`} />
 
-Async server component — fetches data at build time with ISR caching.
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Wallet list</h3>
+    <p className="text-sm text-muted-foreground">
+      Use <code className="rounded bg-muted px-1 py-0.5 text-xs">TipJarList</code> for a stacked set of wallet rows with copy buttons.
+    </p>
+    <VariantGrid
+      registryName="tip-jar"
+      files={["registry/tip-jar/tip-jar.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Multiple wallets",
+          code: `<TipJarList wallets={[ { provider: "ethereum", address: "..." }, { provider: "paypal", address: "..." } ]} />`,
+          preview: <TipJarList wallets={[{ provider: "ethereum", address: ETH_ADDRESS }, { provider: "bitcoin", address: BTC_ADDRESS }, { provider: "paypal", address: "jalco" }]} />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Crypto chains</h3>
+    <VariantGrid
+      registryName="tip-jar"
+      files={["registry/tip-jar/tip-jar.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Ethereum",
+          code: `<TipJarCard provider="ethereum" address="0x..." />`,
+          preview: <TipJarCard provider="ethereum" address={ETH_ADDRESS} />,
+        },
+        {
+          label: "Solana",
+          code: `<TipJarCard provider="solana" address="HiGZ..." />`,
+          preview: <TipJarCard provider="solana" address={SOL_ADDRESS} />,
+        },
+        {
+          label: "Bitcoin",
+          code: `<TipJarCard provider="bitcoin" address="3Js3..." />`,
+          preview: <TipJarCard provider="bitcoin" address={BTC_ADDRESS} />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 

@@ -3,6 +3,9 @@ title: "npm Badge"
 description: "Live npm package badge showing version, weekly downloads, license, and last publish date."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { NpmBadge } from "@/registry/npm-badge/npm-badge"
+
 <ComponentPreview name="npm-badge-preview" />
 
 ## Installation
@@ -13,9 +16,80 @@ description: "Live npm package badge showing version, weekly downloads, license,
 
 <CodeLine code={`import { NpmBadge } from "@/components/npm-badge"`} />
 
-<CodeLine code={`<NpmBadge />`} />
+<CodeLine code={`<NpmBadge package="react" />`} />
 
-Async server component — fetches data at build time with ISR caching.
+## Layouts
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Inline</h3>
+    <p className="text-sm text-muted-foreground">
+      Compact pill showing the npm icon and version. The default layout.
+    </p>
+    <VariantGrid
+      registryName="npm-badge"
+      files={["registry/npm-badge/npm-badge.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Default",
+          code: `<NpmBadge package="react" />`,
+          preview: <NpmBadge package="react" />,
+        },
+        {
+          label: "With downloads",
+          code: `<NpmBadge package="react" showDownloads />`,
+          preview: <NpmBadge package="react" showDownloads />,
+        },
+        {
+          label: "npm icon",
+          code: `<NpmBadge package="next" iconStyle="npm" />`,
+          preview: <NpmBadge package="next" iconStyle="npm" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Row</h3>
+    <p className="text-sm text-muted-foreground">
+      Segmented horizontal strip showing package name, version, downloads, and license.
+    </p>
+    <VariantGrid
+      registryName="npm-badge"
+      files={["registry/npm-badge/npm-badge.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Row layout",
+          code: `<NpmBadge package="react" layout="row" />`,
+          preview: <div className="flex justify-center"><NpmBadge package="react" layout="row" /></div>,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Card</h3>
+    <p className="text-sm text-muted-foreground">
+      Feature card showing package details, readme summary, and publish info.
+    </p>
+    <VariantGrid
+      registryName="npm-badge"
+      files={["registry/npm-badge/npm-badge.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Card layout",
+          code: `<NpmBadge package="react" layout="card" />`,
+          preview: <div className="flex justify-center"><NpmBadge package="react" layout="card" className="w-full max-w-sm" /></div>,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 

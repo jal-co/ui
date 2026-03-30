@@ -3,6 +3,9 @@ title: "GitHub Button Group"
 description: "Segmented button group displaying multiple GitHub repo metrics with per-segment links."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { GitHubButtonGroup } from "@/registry/github-button-group/github-button-group"
+
 <ComponentPreview name="github-button-group-preview" />
 
 ## Installation
@@ -13,9 +16,56 @@ description: "Segmented button group displaying multiple GitHub repo metrics wit
 
 <CodeLine code={`import { GitHubButtonGroup } from "@/components/github-button-group"`} />
 
-<CodeLine code={`<GitHubButtonGroup />`} />
+<CodeLine code={`<GitHubButtonGroup owner="shadcn-ui" repo="ui" />`} />
 
-Async server component — fetches data at build time with ISR caching.
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Variants</h3>
+    <VariantGrid
+      registryName="github-button-group"
+      files={["registry/github-button-group/github-button-group.tsx"]}
+      columns={1}
+      items={[
+        {
+          label: "Default",
+          code: `<GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="default" />`,
+          preview: <GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="default" />,
+        },
+        {
+          label: "Secondary",
+          code: `<GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="secondary" />`,
+          preview: <GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="secondary" />,
+        },
+        {
+          label: "Outline",
+          code: `<GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="outline" />`,
+          preview: <GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="outline" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Metric visibility</h3>
+    <p className="text-sm text-muted-foreground">
+      Toggle specific metrics using boolean props. Icons and tooltips update automatically.
+    </p>
+    <VariantGrid
+      registryName="github-button-group"
+      files={["registry/github-button-group/github-button-group.tsx"]}
+      columns={1}
+      items={[
+        {
+          label: "Stars and forks only",
+          code: `<GitHubButtonGroup owner="shadcn-ui" repo="ui" showWatchers={false} showIssues={false} />`,
+          preview: <GitHubButtonGroup owner="shadcn-ui" repo="ui" showWatchers={false} showIssues={false} />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 

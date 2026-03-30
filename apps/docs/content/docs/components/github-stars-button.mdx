@@ -3,6 +3,9 @@ title: "GitHub Stars Button"
 description: "Link button showing a GitHub repo's star count with the octocat icon."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-button"
+
 <ComponentPreview name="github-stars-button-preview" />
 
 ## Installation
@@ -13,9 +16,42 @@ description: "Link button showing a GitHub repo's star count with the octocat ic
 
 <CodeLine code={`import { GitHubStarsButton } from "@/components/github-stars-button"`} />
 
-<CodeLine code={`<GitHubStarsButton />`} />
+<CodeLine code={`<GitHubStarsButton owner="shadcn-ui" repo="ui" />`} />
 
-Async server component — fetches data at build time with ISR caching.
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Variants</h3>
+    <VariantGrid
+      registryName="github-stars-button"
+      files={["registry/github-stars-button/github-stars-button.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Default",
+          code: `<GitHubStarsButton owner="shadcn-ui" repo="ui" variant="default" />`,
+          preview: <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="default" />,
+        },
+        {
+          label: "Primary",
+          code: `<GitHubStarsButton owner="shadcn-ui" repo="ui" variant="primary" />`,
+          preview: <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="primary" />,
+        },
+        {
+          label: "Secondary",
+          code: `<GitHubStarsButton owner="shadcn-ui" repo="ui" variant="secondary" />`,
+          preview: <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="secondary" />,
+        },
+        {
+          label: "Outline",
+          code: `<GitHubStarsButton owner="shadcn-ui" repo="ui" variant="outline" />`,
+          preview: <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="outline" />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 

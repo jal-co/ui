@@ -3,6 +3,13 @@ title: "Product Hunt Button"
 description: "Link button showing a Product Hunt post's upvote count with the PH cat icon."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { ProductHuntButton } from "@/registry/producthunt-button/producthunt-button"
+
+export const SAMPLE_UPVOTES = 12843
+export const SAMPLE_NAME = "Notion"
+export const SAMPLE_SLUG = "notion"
+
 <ComponentPreview name="producthunt-button-preview" />
 
 ## Installation
@@ -13,9 +20,42 @@ description: "Link button showing a Product Hunt post's upvote count with the PH
 
 <CodeLine code={`import { ProductHuntButton } from "@/components/producthunt-button"`} />
 
-<CodeLine code={`<ProductHuntButton />`} />
+<CodeLine code={`<ProductHuntButton slug="my-product" />`} />
 
-Async server component — fetches data at build time with ISR caching.
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Variants</h3>
+    <VariantGrid
+      registryName="producthunt-button"
+      files={["registry/producthunt-button/producthunt-button.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Default",
+          code: `<ProductHuntButton slug="notion" upvotes={12843} name="Notion" variant="default" />`,
+          preview: <ProductHuntButton slug={SAMPLE_SLUG} upvotes={SAMPLE_UPVOTES} name={SAMPLE_NAME} variant="default" />,
+        },
+        {
+          label: "Secondary",
+          code: `<ProductHuntButton slug="notion" upvotes={12843} name="Notion" variant="secondary" />`,
+          preview: <ProductHuntButton slug={SAMPLE_SLUG} upvotes={SAMPLE_UPVOTES} name={SAMPLE_NAME} variant="secondary" />,
+        },
+        {
+          label: "Outline",
+          code: `<ProductHuntButton slug="notion" upvotes={12843} name="Notion" variant="outline" />`,
+          preview: <ProductHuntButton slug={SAMPLE_SLUG} upvotes={SAMPLE_UPVOTES} name={SAMPLE_NAME} variant="outline" />,
+        },
+        {
+          label: "Ghost",
+          code: `<ProductHuntButton slug="notion" upvotes={12843} name="Notion" variant="ghost" />`,
+          preview: <ProductHuntButton slug={SAMPLE_SLUG} upvotes={SAMPLE_UPVOTES} name={SAMPLE_NAME} variant="ghost" />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 
