@@ -17,6 +17,7 @@
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/typography": "^0.5.19",
+    "@takumi-rs/image-response": "^0.73.1",
     "@types/mdx": "^2.0.13",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

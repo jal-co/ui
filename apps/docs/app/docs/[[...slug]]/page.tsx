@@ -32,7 +32,7 @@ export default async function Page(props: {
   }`
 
   return (
-    <div className="flex w-full items-start gap-14 py-10 px-6 md:px-10">
+    <div className="mx-auto flex w-full items-start gap-14 py-10 px-6 md:px-10">
       <div className="min-w-0 flex-1">
         <div className="flex flex-col gap-12 w-full">
           <div className="flex flex-col gap-2">
@@ -113,5 +113,12 @@ export async function generateMetadata(props: {
   return {
     title: page.data.title,
     description: page.data.description,
+    openGraph: {
+      images: {
+        url: `/docs/${params.slug.join("/")}/og`,
+        width: 1200,
+        height: 630,
+      },
+    },
   }
 }
