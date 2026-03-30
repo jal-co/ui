@@ -9,10 +9,10 @@ import { generateComponentPrompt } from "@/lib/prompts"
 import { getRegistryItem } from "@/lib/registry"
 
 export default async function Page(props: {
-  params: Promise<{ slug?: string[] }>
+  params: Promise<{ slug: string[] }>
 }) {
   const params = await props.params
-  const slug = params.slug ?? []
+  const slug = params.slug
   const page = source.getPage(slug)
   if (!page) notFound()
 
@@ -101,14 +101,17 @@ export default async function Page(props: {
 }
 
 export function generateStaticParams() {
-  return source.generateParams()
+  // Filter out the root page — it's handled by the dedicated /docs/page.tsx
+  return source.generateParams().filter(
+    (p: { slug: string[] }) => p.slug.length > 0
+  )
 }
 
 export async function generateMetadata(props: {
-  params: Promise<{ slug?: string[] }>
+  params: Promise<{ slug: string[] }>
 }): Promise<Metadata> {
   const params = await props.params
-  const slug = params.slug ?? []
+  const slug = params.slug
   const page = source.getPage(slug)
   if (!page) notFound()
 

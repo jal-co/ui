@@ -45,9 +45,6 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
             <Link href="/docs">Components</Link>
           </Button>
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/docs/releases">Releases</Link>
-          </Button>
-          <Button variant="ghost" size="sm" asChild>
             <Link href="/docs/installation">Installation</Link>
           </Button>
         </nav>
