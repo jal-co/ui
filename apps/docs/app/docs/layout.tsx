@@ -28,7 +28,7 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
             "linear-gradient(to right, black, transparent 30%, transparent 70%, black)",
         }}
       />
-      <div className="relative mx-auto flex min-h-screen max-w-6xl flex-col border-x border-dashed border-border bg-background">
+      <div className="relative mx-auto flex min-h-screen max-w-[1600px] flex-col border-x border-dashed border-border bg-background">
       <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <MobileNav />
 
@@ -71,8 +71,8 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
           </div>
         </aside>
 
-        <main className="min-w-0 flex-1 px-4 py-8 sm:px-8 md:px-12">
-          <div className="mx-auto max-w-3xl">
+        <main className="min-w-0 flex-1 px-4 py-8 sm:px-8">
+          <div className="mx-auto w-full">
             {children}
           </div>
         </main>
