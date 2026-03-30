@@ -3,6 +3,9 @@ title: "Kbd"
 description: "Keyboard shortcut key rendered as a styled keycap. Three visual profiles: flat, raised, and sculpted."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { Kbd, KbdCombo, builtInSchemes } from "@/registry/kbd/kbd"
+
 <ComponentPreview name="kbd-preview" />
 
 ## Installation
@@ -14,6 +17,118 @@ description: "Keyboard shortcut key rendered as a styled keycap. Three visual pr
 <CodeLine code={`import { Kbd } from "@/components/kbd"`} />
 
 <CodeLine code={`<Kbd />`} />
+
+## Variants
+
+<VariantGrid
+  registryName="kbd"
+  files={["registry/kbd/kbd.tsx"]}
+  columns={1}
+  items={[
+    {
+      label: "Flat",
+      preview: (
+        <div className="flex items-center gap-3">
+          <Kbd variant="flat">Esc</Kbd>
+          <KbdCombo keys={["⌘", "C"]} variant="flat" />
+          <KbdCombo keys={["Ctrl", "Shift", "P"]} variant="flat" />
+        </div>
+      ),
+      code: `<Kbd variant="flat">Esc</Kbd>`,
+    },
+    {
+      label: "Raised",
+      preview: (
+        <div className="flex items-center gap-3">
+          <Kbd variant="raised">Esc</Kbd>
+          <KbdCombo keys={["⌘", "C"]} variant="raised" />
+          <KbdCombo keys={["Ctrl", "Shift", "P"]} variant="raised" />
+        </div>
+      ),
+      code: `<Kbd variant="raised">Esc</Kbd>`,
+    },
+    {
+      label: "Sculpted",
+      preview: (
+        <div className="flex items-center gap-3">
+          <Kbd variant="sculpted">Esc</Kbd>
+          <KbdCombo keys={["⌘", "C"]} variant="sculpted" />
+          <KbdCombo keys={["Ctrl", "Shift", "P"]} variant="sculpted" />
+        </div>
+      ),
+      code: `<Kbd variant="sculpted">Esc</Kbd>`,
+    },
+  ]}
+/>
+
+## Sizes
+
+<VariantGrid
+  registryName="kbd"
+  files={["registry/kbd/kbd.tsx"]}
+  columns={3}
+  items={[
+    {
+      label: "Small",
+      preview: <div className="flex items-center gap-2"><KbdCombo keys={["⌘", "K"]} size="sm" /><span className="text-xs text-muted-foreground">Open command palette</span></div>,
+      code: `<Kbd size="sm">⌘</Kbd>`,
+    },
+    {
+      label: "Medium",
+      preview: <div className="flex items-center gap-2"><KbdCombo keys={["⌘", "K"]} size="md" /><span className="text-sm text-muted-foreground">Open command palette</span></div>,
+      code: `<Kbd size="md">⌘</Kbd>`,
+    },
+    {
+      label: "Large",
+      preview: <div className="flex items-center gap-2"><KbdCombo keys={["⌘", "K"]} size="lg" /><span className="text-sm text-muted-foreground">Open command palette</span></div>,
+      code: `<Kbd size="lg">⌘</Kbd>`,
+    },
+  ]}
+/>
+
+## Examples
+
+<VariantGrid
+  registryName="kbd"
+  files={["registry/kbd/kbd.tsx"]}
+  columns={3}
+  items={[
+    {
+      label: "With separator",
+      preview: <KbdCombo keys={["Ctrl", "Alt", "Del"]} separator="+" variant="raised" />,
+      code: `<KbdCombo keys={["Ctrl", "Alt", "Del"]} separator="+" />`,
+    },
+    {
+      label: "Arrow keys",
+      preview: <div className="flex items-center gap-1"><Kbd variant="sculpted">←</Kbd><Kbd variant="sculpted">↑</Kbd><Kbd variant="sculpted">↓</Kbd><Kbd variant="sculpted">→</Kbd></div>,
+      code: `<Kbd variant="sculpted">←</Kbd>`,
+    },
+    {
+      label: "Inline with text",
+      preview: <p className="text-sm text-muted-foreground">Press <KbdCombo keys={["⌘", "K"]} size="sm" variant="raised" /> to open the command palette</p>,
+      code: `<p>Press <KbdCombo keys={["⌘", "K"]} size="sm" /> to open the command palette</p>`,
+    },
+  ]}
+/>
+
+## Color Schemes
+
+<div className="flex flex-col gap-4">
+  <p className="text-sm text-muted-foreground">
+    Built-in color palettes inspired by popular keycap sets. Pass a name string or a custom <code className="rounded bg-muted px-1 py-0.5 text-xs">{"{ bg, text, border }"}</code> object.
+  </p>
+  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+    {Object.keys(builtInSchemes).map((name) => (
+      <div key={name} className="flex flex-col items-center gap-2 rounded-xl border border-border/60 bg-card p-4">
+        <div className="flex items-center gap-1">
+          <Kbd variant="sculpted" colorScheme={name}>⌘</Kbd>
+          <Kbd variant="sculpted" colorScheme={name}>K</Kbd>
+        </div>
+        <span className="text-[11px] font-medium text-muted-foreground">{name}</span>
+      </div>
+    ))}
+  </div>
+</div>
 
 ## API Reference
 

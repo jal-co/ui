@@ -3,6 +3,11 @@ title: "Stepper"
 description: "Numbered step-by-step layout with vertical connector lines for installation guides, tutorials, and onboarding flows."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { Stepper, StepperItem } from "@/registry/stepper/stepper"
+import { CodeBlock } from "@/registry/code-block/code-block"
+import { User, CreditCard, ShieldCheck } from "lucide-react"
+
 <ComponentPreview name="stepper-preview" />
 
 ## Installation
@@ -14,6 +19,127 @@ description: "Numbered step-by-step layout with vertical connector lines for ins
 <CodeLine code={`import { Stepper } from "@/components/stepper"`} />
 
 <CodeLine code={`<Stepper />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Status indicators</h3>
+    <p className="text-sm text-muted-foreground">
+      Use the <code className="rounded bg-muted px-1 py-0.5 text-xs">status</code> prop to indicate progress.
+      Completed steps show a checkmark, active steps are highlighted, and default steps are muted.
+    </p>
+    <VariantGrid
+      registryName="stepper"
+      files={["registry/stepper/stepper.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "All statuses",
+          code: `<Stepper>\n  <StepperItem title="Account created" status="completed" />\n  <StepperItem title="Configure workspace" status="active" />\n  <StepperItem title="Invite your team" />\n</Stepper>`,
+          preview: (
+            <Stepper>
+              <StepperItem title="Account created" description="Your account has been set up successfully." status="completed" />
+              <StepperItem title="Configure workspace" description="Set up your workspace preferences and integrations." status="active" />
+              <StepperItem title="Invite your team" description="Add team members and assign roles." />
+            </Stepper>
+          ),
+        },
+        {
+          label: "All completed",
+          code: `<Stepper>\n  <StepperItem title="Order placed" status="completed" />\n  <StepperItem title="Payment confirmed" status="completed" />\n  <StepperItem title="Shipped" status="completed" />\n</Stepper>`,
+          preview: (
+            <Stepper>
+              <StepperItem title="Order placed" description="Your order #4821 has been received." status="completed" />
+              <StepperItem title="Payment confirmed" description="We've charged your card ending in 4242." status="completed" />
+              <StepperItem title="Shipped" description="Tracking number: 1Z999AA10123456784" status="completed" />
+            </Stepper>
+          ),
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">With rich content</h3>
+    <VariantGrid
+      registryName="stepper"
+      files={["registry/stepper/stepper.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Installation guide",
+          code: `<Stepper>\n  <StepperItem title="Install the package" status="completed">...</StepperItem>\n  <StepperItem title="Add your API key" status="active">...</StepperItem>\n  <StepperItem title="Make your first request">...</StepperItem>\n</Stepper>`,
+          preview: (
+            <Stepper>
+              <StepperItem title="Install the package" description="Add the SDK to your project." status="completed">
+                <CodeLine code="npm install @acme/sdk" language="bash" />
+              </StepperItem>
+              <StepperItem title="Add your API key" description="Create a .env.local file and add your key." status="active">
+                <CodeLine code="ACME_API_KEY=sk_live_abc123def456" language="bash" />
+              </StepperItem>
+              <StepperItem title="Make your first request" description="Import the client and fetch data.">
+                <CodeBlock
+                  code={`import { Acme } from "@acme/sdk"\n\nconst client = new Acme()\nconst users = await client.users.list()\nconsole.log(users)`}
+                  language="ts"
+                />
+              </StepperItem>
+            </Stepper>
+          ),
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Horizontal orientation</h3>
+    <VariantGrid
+      registryName="stepper"
+      files={["registry/stepper/stepper.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Horizontal stepper",
+          code: `<Stepper orientation="horizontal">\n  <StepperItem title="Details" status="completed" />\n  <StepperItem title="Payment" status="active" description="Enter payment info." />\n  <StepperItem title="Review" />\n  <StepperItem title="Confirm" />\n</Stepper>`,
+          preview: (
+            <Stepper orientation="horizontal">
+              <StepperItem title="Details" status="completed" />
+              <StepperItem title="Payment" status="active" description="Enter your payment information to continue." />
+              <StepperItem title="Review" />
+              <StepperItem title="Confirm" />
+            </Stepper>
+          ),
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Custom icons</h3>
+    <VariantGrid
+      registryName="stepper"
+      files={["registry/stepper/stepper.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Lucide icons",
+          code: `<Stepper>\n  <StepperItem title="Create account" icon={<User className="size-4" />} status="completed" />\n  <StepperItem title="Add payment method" icon={<CreditCard className="size-4" />} status="active" />\n  <StepperItem title="Verify identity" icon={<ShieldCheck className="size-4" />} />\n</Stepper>`,
+          preview: (
+            <Stepper>
+              <StepperItem title="Create account" description="Sign up with your email and set a password." icon={<User className="size-4" />} status="completed" />
+              <StepperItem title="Add payment method" description="Enter a credit card or connect a bank account." icon={<CreditCard className="size-4" />} status="active" />
+              <StepperItem title="Verify identity" description="Upload a photo ID to complete verification." icon={<ShieldCheck className="size-4" />} />
+            </Stepper>
+          ),
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 
