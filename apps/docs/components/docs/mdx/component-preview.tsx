@@ -1,8 +1,6 @@
 import * as React from "react"
 import { Index } from "@/registry/__index__"
 import { ComponentPreview as BasePreview } from "@/components/docs/component-preview"
-import { getRegistryItem } from "@/lib/registry"
-
 interface ComponentPreviewProps {
   /** Registry item or example name (e.g. "status-indicator-demo"). */
   name: string

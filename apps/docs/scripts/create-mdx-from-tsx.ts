@@ -38,8 +38,8 @@ for (const name of names) {
   const desc = (descM?.[1] ?? "").replace(/"/g, '\\"')
 
   // Extract the first import line to determine the main component import path
-  const mainImportM = src.match(/import.*from\s+"@\/registry\/([^"]+)"/)
-  const importPath = mainImportM?.[1]?.replace(/\/[^/]+$/, "") ?? name
+  // const mainImportM = src.match(/import.*from\s+"@\/registry\/([^"]+)"/)
+  // const importPath = mainImportM?.[1]?.replace(/\/[^/]+$/, "") ?? name
 
   // Extract component names from imports
   const componentImports = [...src.matchAll(/import\s*{([^}]+)}\s*from\s*"@\/registry\//g)]
@@ -47,20 +47,20 @@ for (const name of names) {
   const mainComponent = componentImports[0] ?? name.split("-").map(w => w[0].toUpperCase() + w.slice(1)).join("")
 
   // Check for sourceFiles
-  const sourceFilesM = src.match(/const sourceFiles\s*=\s*(\[[\s\S]*?\])/)
-  const sourceFiles = sourceFilesM?.[1] ?? `["registry/${name}/${name}.tsx"]`
+  // const sourceFilesM = src.match(/const sourceFiles\s*=\s*(\[[\s\S]*?\])/)
+  // const sourceFiles = sourceFilesM?.[1] ?? `["registry/${name}/${name}.tsx"]`
 
   // Check for async
   const isAsync = /async function/.test(src)
 
   // Check for revalidate
-  const revalM = src.match(/export const revalidate\s*=\s*(\d+)/)
+  // const revalM = src.match(/export const revalidate\s*=\s*(\d+)/)
 
   // Check for requirements section
-  const hasRequirements = src.includes("requirements={")
+  // const hasRequirements = src.includes("requirements={")
 
   // Extract notes section content (simplified)
-  const notesM = src.match(/<h2[^>]*>Notes<\/h2>\s*<ul[^>]*>([\s\S]*?)<\/ul>/s)
+  // const notesM = src.match(/<h2[^>]*>Notes<\/h2>\s*<ul[^>]*>([\s\S]*?)<\/ul>/s)
 
   // Build MDX
   let mdx = `---\ntitle: "${title}"\ndescription: "${desc}"\n---\n\n`
