@@ -32,12 +32,12 @@ export default async function Page(props: {
   }`
 
   return (
-    <div className="mx-auto flex w-full max-w-[1440px] items-start gap-10 py-10 px-4 md:px-6">
+    <div className="mx-auto flex w-full items-start gap-14 py-10 px-6 md:px-10">
       <div className="min-w-0 flex-1">
-        <div className="flex flex-col gap-12 max-w-[1000px]">
+        <div className="flex flex-col gap-12">
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-4">
-              <h1 className="text-3xl font-bold tracking-tight">
+              <h1 className="text-4xl font-bold tracking-tight">
                 {page.data.title}
               </h1>
               {isComponentPage && (
@@ -54,7 +54,7 @@ export default async function Page(props: {
               )}
             </div>
             {page.data.description && (
-              <p className="text-base text-muted-foreground">
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">
                 {page.data.description}
               </p>
             )}
@@ -66,7 +66,7 @@ export default async function Page(props: {
             )}
           </div>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-10">
             <MDX components={getMDXComponents()} />
           </div>
         </div>
