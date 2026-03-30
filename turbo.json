@@ -16,6 +16,9 @@
     },
     "check-types": {
       "dependsOn": ["^check-types"]
+    },
+    "previews:generate": {
+      "cache": false
     }
   }
 }
