@@ -1,0 +1,183 @@
+---
+title: "AI Copy Button"
+description: "Split button with a primary copy action and a dropdown of AI destinations."
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { AiCopyButton } from "@/registry/ai-copy-button/ai-copy-button"
+
+export const sampleContent = "# Getting Started\n\nInstall the registry component."
+
+<ComponentPreview name="ai-copy-button-preview" />
+
+## Installation
+
+<InstallBlock name="ai-copy-button" />
+
+## Usage
+
+<CodeLine code={`import { AiCopyButton } from "@/components/ai-copy-button"`} />
+
+<CodeLine code={`<AiCopyButton />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Variants</h3>
+    <VariantGrid
+      registryName="ai-copy-button"
+      files={["registry/ai-copy-button/ai-copy-button.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Default",
+          code: `<AiCopyButton value={content} variant="default" />`,
+          preview: <AiCopyButton value={sampleContent} variant="default" />,
+        },
+        {
+          label: "Secondary",
+          code: `<AiCopyButton value={content} variant="secondary" />`,
+          preview: <AiCopyButton value={sampleContent} variant="secondary" />,
+        },
+        {
+          label: "Outline",
+          code: `<AiCopyButton value={content} variant="outline" />`,
+          preview: <AiCopyButton value={sampleContent} variant="outline" />,
+        },
+        {
+          label: "Ghost",
+          code: `<AiCopyButton value={content} variant="ghost" />`,
+          preview: <AiCopyButton value={sampleContent} variant="ghost" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Sizes</h3>
+    <VariantGrid
+      registryName="ai-copy-button"
+      files={["registry/ai-copy-button/ai-copy-button.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Small",
+          code: `<AiCopyButton value={content} size="sm" />`,
+          preview: <AiCopyButton value={sampleContent} size="sm" />,
+        },
+        {
+          label: "Default",
+          code: `<AiCopyButton value={content} size="default" />`,
+          preview: <AiCopyButton value={sampleContent} size="default" />,
+        },
+        {
+          label: "Large",
+          code: `<AiCopyButton value={content} size="lg" />`,
+          preview: <AiCopyButton value={sampleContent} size="lg" />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+          title="AiCopyButton"
+          props={[
+            {
+              name: "value",
+              type: "string",
+              required: true,
+              description: "The content to copy or send to AI targets.",
+            },
+            {
+              name: "label",
+              type: "string",
+              description: 'Primary button label. Defaults to "Copy".',
+            },
+            {
+              name: "targets",
+              type: "(BuiltInTarget | AiTarget)[]",
+              description:
+                'AI targets to show in the dropdown. Accepts built-in keys ("markdown", "v0", "chatgpt", "claude", "gemini") or custom target objects. Defaults to all built-in targets.',
+            },
+            {
+              name: "brandColors",
+              type: "boolean",
+              description:
+                "Render dropdown icons in their official brand colors instead of the default muted style. Defaults to false.",
+            },
+            {
+              name: "variant",
+              type: '"default" | "secondary" | "outline" | "ghost" | "primary"',
+              description: 'Visual style variant. Defaults to "default".',
+            },
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              description: 'Button size. Defaults to "default".',
+            },
+            {
+              name: "onCopy",
+              type: "() => void",
+              description:
+                "Optional callback fired after the primary copy action completes.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="AiTarget (custom target)"
+          props={[
+            {
+              name: "id",
+              type: "string",
+              required: true,
+              description: "Unique key for the target.",
+            },
+            {
+              name: "label",
+              type: "string",
+              required: true,
+              description: "Display label in the dropdown.",
+            },
+            {
+              name: "icon",
+              type: "React.ReactNode",
+              required: true,
+              description: "Icon element rendered before the label.",
+            },
+            {
+              name: "brandColorClass",
+              type: "string",
+              description:
+                "Tailwind color class applied to this target's icon when brandColors is enabled.",
+            },
+            {
+              name: "action",
+              type: '"copy" | "url" | ((value: string) => void)',
+              description:
+                'How to handle selection. "copy" copies the value, "url" opens getUrl in a new tab, or pass a custom function. Defaults to "copy".',
+            },
+            {
+              name: "getUrl",
+              type: "(value: string) => string",
+              description:
+                'URL builder for action: "url". Receives the value string.',
+            },
+          ]}
+        />
+
+## Notes
+
+- **Client component.** Uses the Clipboard API and Radix DropdownMenu for keyboard navigation, focus management, and screen reader support.
+- **Built-in targets.** Five built-in targets are included: Markdown, v0, ChatGPT, Claude, and Gemini. Pass a subset to show only what you need.
+- **Custom targets.** Add your own targets with a custom  AiTarget   object — bring your own icon and action.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

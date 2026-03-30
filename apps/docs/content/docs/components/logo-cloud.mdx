@@ -1,0 +1,60 @@
+---
+title: "Logo Cloud"
+description: "Trusted-by logo display with static grid and infinite-scroll marquee layouts."
+---
+
+<ComponentPreview name="logo-cloud-demo" />
+
+## Installation
+
+<InstallBlock name="logo-cloud" />
+
+## Usage
+
+<CodeLine code={`import { LogoCloud, LogoCloudMarquee } from "@/components/logo-cloud"`} />
+
+<CodeLine code={`<LogoCloudMarquee logos={logos} title="Trusted by" />`} />
+
+Client component. Pass an array of `{ src, alt, href? }` objects. Logos render grayscale by default and colorize on hover.
+
+## Examples
+
+### Static grid
+
+<ComponentPreview name="logo-cloud-static" />
+
+### Marquee
+
+<ComponentPreview name="logo-cloud-demo" />
+
+## API Reference
+
+<ApiRefTable
+  title="LogoCloud"
+  props={[
+    { name: "logos", type: "Logo[]", description: "Logo data for data-driven rendering." },
+    { name: "children", type: "ReactNode", description: "Custom logo elements. Overrides logos prop." },
+    { name: "grayscale", type: "boolean", description: "Apply grayscale with color on hover. Defaults to true." },
+    { name: "title", type: "string", description: "Title text above the logos." },
+  ]}
+/>
+
+<ApiRefTable
+  title="LogoCloudMarquee"
+  props={[
+    { name: "logos", type: "Logo[]", description: "Logo data for data-driven rendering." },
+    { name: "children", type: "ReactNode", description: "Custom logo elements. Overrides logos prop." },
+    { name: "grayscale", type: "boolean", description: "Apply grayscale with color on hover. Defaults to true." },
+    { name: "title", type: "string", description: "Title text above the marquee." },
+    { name: "duration", type: "number", description: "Animation duration in seconds. Defaults to 30." },
+    { name: "speed", type: "number", description: "Speed multiplier. Overrides duration." },
+    { name: "pauseOnHover", type: "boolean", description: "Pause on hover. Defaults to true." },
+    { name: "direction", type: '"left" | "right"', description: 'Scroll direction. Defaults to "left".' },
+  ]}
+/>
+
+## Notes
+
+- **Client component.** Marquee uses CSS animation with pause-on-hover.
+- **No dependencies.** Pure CSS animation — no motion libraries.
+- **Grayscale by default.** Logos render at 60% opacity in grayscale and colorize on hover.

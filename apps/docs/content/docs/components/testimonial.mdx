@@ -1,0 +1,69 @@
+---
+title: "Testimonial"
+description: "Customer testimonial display with standalone card, responsive grid, and infinite-scroll marquee layouts."
+---
+
+<ComponentPreview name="testimonial-demo" />
+
+## Installation
+
+<InstallBlock name="testimonial" />
+
+## Usage
+
+<CodeLine code={`import { TestimonialCard, TestimonialGrid, TestimonialMarquee } from "@/components/testimonial"`} />
+
+<CodeLine code={`<TestimonialMarquee testimonials={testimonials} />`} />
+
+Client component. Only `quote` and `author` are required. Add `role`, `company`, `avatarUrl`, or `rating` as needed.
+
+## Examples
+
+### Single card
+
+<ComponentPreview name="testimonial-card" />
+
+### Grid layout
+
+<ComponentPreview name="testimonial-grid" />
+
+### Marquee
+
+<ComponentPreview name="testimonial-demo" />
+
+## API Reference
+
+<ApiRefTable
+  title="TestimonialCard"
+  props={[
+    { name: "testimonial", type: "Testimonial", required: true, description: "Testimonial data object." },
+    { name: "className", type: "string", description: "Additional CSS classes." },
+  ]}
+/>
+
+<ApiRefTable
+  title="TestimonialGrid"
+  props={[
+    { name: "testimonials", type: "Testimonial[]", required: true, description: "Array of testimonials." },
+    { name: "columns", type: "1 | 2 | 3", description: "Grid columns. Defaults to 2." },
+    { name: "title", type: "string", description: "Title text above the grid." },
+  ]}
+/>
+
+<ApiRefTable
+  title="TestimonialMarquee"
+  props={[
+    { name: "testimonials", type: "Testimonial[]", required: true, description: "Array of testimonials." },
+    { name: "title", type: "string", description: "Title text above the marquee." },
+    { name: "duration", type: "number", description: "Animation duration in seconds. Defaults to 40." },
+    { name: "speed", type: "number", description: "Speed multiplier. 2 = twice as fast. Overrides duration." },
+    { name: "pauseOnHover", type: "boolean", description: "Pause on hover. Defaults to true." },
+    { name: "direction", type: '"left" | "right"', description: 'Scroll direction. Defaults to "left".' },
+  ]}
+/>
+
+## Notes
+
+- **Client component.** The marquee uses CSS animation with pause-on-hover via CSS variables.
+- **No dependencies.** Pure CSS animation — no motion libraries.
+- **Semantic HTML.** Cards use `<blockquote>` with a `<footer>` for proper citation markup.

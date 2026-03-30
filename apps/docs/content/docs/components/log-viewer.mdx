@@ -1,0 +1,309 @@
+---
+title: "Log Viewer"
+description: "Scrollable log output component for displaying streaming logs or CLI-style output in web apps."
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import {
+  LogViewerTerminal,
+  LogViewerMinimal,
+  LogViewerFilterable,
+} from "@/registry/log-viewer/log-viewer"
+import {
+  generateSampleLogs,
+} from "@/registry/log-viewer/lib/sample-logs"
+
+export const sampleData = generateSampleLogs(40, 42)
+export const smallSample = generateSampleLogs(12, 99)
+
+<ComponentPreview name="log-viewer-preview" />
+
+## Installation
+
+<InstallBlock name="log-viewer" />
+
+## Usage
+
+<CodeLine code={`import { LogViewerTerminal } from "@/components/log-viewer"`} />
+
+<CodeLine code={`<LogViewerTerminal />`} />
+
+## Variants
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Terminal</h3>
+    <p className="text-sm text-muted-foreground">
+      Full CLI-style interface with toolbar, line numbers, timestamps, search, copy, export, and pause/resume.
+    </p>
+    <VariantGrid
+      registryName="log-viewer"
+      files={["registry/log-viewer/log-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Terminal viewer",
+          code: `<LogViewerTerminal entries={logs} title="Application Logs" />`,
+          preview: <LogViewerTerminal entries={sampleData} title="Application Logs" maxHeight={300} />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Filterable</h3>
+    <p className="text-sm text-muted-foreground">
+      Includes log-level toggle filters in the toolbar to quickly show/hide specific severities.
+    </p>
+    <VariantGrid
+      registryName="log-viewer"
+      files={["registry/log-viewer/log-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Filterable viewer",
+          code: `<LogViewerFilterable entries={logs} title="Filterable Logs" />`,
+          preview: <LogViewerFilterable entries={sampleData} title="Filterable Logs" maxHeight={300} />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Minimal</h3>
+    <p className="text-sm text-muted-foreground">
+      Lightweight, read-only variant without toolbars or controls. Just a scrollable log area.
+    </p>
+    <VariantGrid
+      registryName="log-viewer"
+      files={["registry/log-viewer/log-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Minimal viewer",
+          code: `<LogViewerMinimal entries={logs} />`,
+          preview: <LogViewerMinimal entries={smallSample} maxHeight={200} />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+          title="LogEntry"
+          props={[
+            {
+              name: "level",
+              type: "LogLevel",
+              required: true,
+              description: "Log severity level.",
+              fullType: '"info" | "warn" | "error" | "debug" | "verbose"',
+            },
+            {
+              name: "message",
+              type: "string",
+              required: true,
+              description: "Log message text.",
+            },
+            {
+              name: "timestamp",
+              type: "string",
+              description:
+                "ISO timestamp string. When omitted, the current time is used for display.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="LogViewerTerminal"
+          props={[
+            {
+              name: "entries",
+              type: "LogEntry[]",
+              required: true,
+              description: "Log entries to display.",
+            },
+            {
+              name: "title",
+              type: "string",
+              description: 'Title shown in the toolbar. Defaults to "Logs".',
+            },
+            {
+              name: "maxHeight",
+              type: "number",
+              description:
+                "Maximum visible height in pixels. Defaults to 400.",
+            },
+            {
+              name: "lineNumbers",
+              type: "boolean",
+              description: "Show line numbers. Defaults to true.",
+            },
+            {
+              name: "timestamps",
+              type: "boolean",
+              description: "Show timestamps. Defaults to true.",
+            },
+            {
+              name: "autoScroll",
+              type: "boolean",
+              description:
+                "Enable auto-scroll to bottom on new entries. Defaults to true.",
+            },
+            {
+              name: "colorScale",
+              type: "LevelColorScale",
+              description:
+                "Custom colors per log level. Merges with defaults — only override what you need.",
+              fullType: "Partial<Record<LogLevel, Partial<{ text: string; dot: string; badge: string }>>>",
+            },
+            {
+              name: "onClear",
+              type: "() => void",
+              description:
+                "Called when the user clicks Clear. When provided, a clear button appears in the toolbar.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="LogViewerMinimal"
+          props={[
+            {
+              name: "entries",
+              type: "LogEntry[]",
+              required: true,
+              description: "Log entries to display.",
+            },
+            {
+              name: "maxHeight",
+              type: "number",
+              description:
+                "Maximum visible height in pixels. Defaults to 300.",
+            },
+            {
+              name: "timestamps",
+              type: "boolean",
+              description: "Show timestamps. Defaults to false.",
+            },
+            {
+              name: "autoScroll",
+              type: "boolean",
+              description:
+                "Enable auto-scroll to bottom on new entries. Defaults to true.",
+            },
+            {
+              name: "colorScale",
+              type: "LevelColorScale",
+              description:
+                "Custom colors per log level. Merges with defaults — only override what you need.",
+              fullType: "Partial<Record<LogLevel, Partial<{ text: string; dot: string; badge: string }>>>",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="LogViewerFilterable"
+          props={[
+            {
+              name: "entries",
+              type: "LogEntry[]",
+              required: true,
+              description: "Log entries to display.",
+            },
+            {
+              name: "title",
+              type: "string",
+              description: 'Title shown in the header. Defaults to "Logs".',
+            },
+            {
+              name: "maxHeight",
+              type: "number",
+              description:
+                "Maximum visible height in pixels. Defaults to 400.",
+            },
+            {
+              name: "timestamps",
+              type: "boolean",
+              description: "Show timestamps. Defaults to true.",
+            },
+            {
+              name: "autoScroll",
+              type: "boolean",
+              description:
+                "Enable auto-scroll to bottom on new entries. Defaults to true.",
+            },
+            {
+              name: "levels",
+              type: "LogLevel[]",
+              description:
+                'Levels shown in the filter bar. Defaults to ["error", "warn", "info", "debug"].',
+              fullType: 'Array<"info" | "warn" | "error" | "debug" | "verbose">',
+            },
+            {
+              name: "colorScale",
+              type: "LevelColorScale",
+              description:
+                "Custom colors per log level. Merges with defaults — only override what you need.",
+              fullType: "Partial<Record<LogLevel, Partial<{ text: string; dot: string; badge: string }>>>",
+            },
+            {
+              name: "onClear",
+              type: "() => void",
+              description:
+                "Called when the user clicks Clear. When provided, a clear button appears.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="LevelColors"
+          props={[
+            {
+              name: "text",
+              type: "string",
+              description: "CSS class for the level label text color.",
+            },
+            {
+              name: "dot",
+              type: "string",
+              description: "CSS class for the colored dot background.",
+            },
+            {
+              name: "badge",
+              type: "string",
+              description: "CSS class for the filter badge when active.",
+            },
+          ]}
+        />
+
+## Notes
+
+- **Client component.** Uses  "use client"   for scroll tracking, search state, and clipboard access.
+- **Auto-scroll.** New entries scroll into view when the user is at the bottom. Scrolling up pauses auto-scroll and shows a "New logs below" button. The terminal variant also has an explicit pause/resume toggle.
+- **Five log levels.** Each level (error, warn, info, debug, verbose) has distinct colors that work in both light and dark modes.
+- **Export.** The terminal and filterable variants include a download button that exports logs as a plain text file with timestamps and level labels.
+- **Search highlighting.**  Search matches are highlighted inline. In the filterable variant, search and level filters compose — only entries matching both are shown.
+- **Accessibility.** The log container uses  role="log"   and  aria-live="polite"   so screen readers announce new entries. Filter toggles use  role="checkbox"   with  aria-checked .
+- **No dependencies.** Only requires React, Tailwind, lucide-react, and the  `cn`  utility.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

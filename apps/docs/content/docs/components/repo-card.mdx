@@ -1,0 +1,49 @@
+---
+title: "Repo Card"
+description: "GitHub repository preview card with description, language dot, star and fork counts, license, and topic tags."
+---
+
+<ComponentPreview name="repo-card-demo" />
+
+## Installation
+
+<InstallBlock name="repo-card" />
+
+## Usage
+
+<CodeLine code={`import { RepoCard } from "@/components/repo-card"`} />
+
+<CodeLine code={`<RepoCard owner="shadcn-ui" repo="ui" />`} />
+
+Async server component — fetches the GitHub API at build time and caches the result for 1 hour via Next.js ISR. Optional `GITHUB_TOKEN` env var raises the rate limit.
+
+## Examples
+
+### Grid layout
+
+<ComponentPreview name="repo-card-grid" />
+
+## API Reference
+
+<ApiRefTable
+  title="RepoCard"
+  props={[
+    { name: "owner", type: "string", required: true, description: "GitHub username or organization." },
+    { name: "repo", type: "string", required: true, description: "GitHub repository name." },
+    { name: "variant", type: '"default" | "outline" | "ghost" | "muted"', description: 'Visual style variant. Defaults to "default".' },
+    { name: "size", type: '"sm" | "default" | "lg"', description: 'Card size. Defaults to "default".' },
+    { name: "showLanguage", type: "boolean", description: "Show primary language with colored dot. Defaults to true." },
+    { name: "showTopics", type: "boolean", description: "Show topic tags. Defaults to true." },
+    { name: "showLicense", type: "boolean", description: "Show license identifier. Defaults to true." },
+    { name: "showUpdated", type: "boolean", description: "Show last updated date. Defaults to true." },
+    { name: "maxTopics", type: "number", description: "Maximum topic tags to display. Defaults to 4." },
+    { name: "data", type: "GitHubRepoData", description: "Pre-fetched data. Skips the API call when provided." },
+  ]}
+/>
+
+## Notes
+
+- **ISR caching.** Repository data cached for 1 hour. No API key required.
+- **Pre-fetched data.** Pass the `data` prop to skip the API call.
+- **Language colors.** 30+ language colors built in. Unknown languages use gray.
+- **Status badges.** Archived repos show an amber badge. Forks show a fork badge.

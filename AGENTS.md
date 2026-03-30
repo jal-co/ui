@@ -243,6 +243,11 @@ A dev-only page at `/dev/screenshots` renders every component preview at full si
 ### Writing component docs
 
 - `.pi/references/docs-component-format-spec.md` MUST be followed as the canonical docs format guide for public component and block pages.
+- Public docs pages now live in the Fumadocs MDX source under `apps/docs/content/docs/**`. Agents MUST treat MDX as the default docs surface and MUST NOT reintroduce per-component TSX route pages unless explicitly requested.
+- For registry-backed component pages, agents MUST preserve the current docs shell behavior: tabbed Preview/Code rendering, AI copy actions, copy prompt actions, dependency badges, and install blocks.
+- When migrating or revising component docs, agents MUST restore showcase depth — not just structure. That means meaningful `Variants`, `Sizes`, `Examples`, `Configurations`, or other labeled sections whenever the old page or shipped component warrants them.
+- If a pre-migration docs page had multiple demos or variant sections, the migrated MDX page MUST keep equivalent coverage before the work is considered done.
+- Examples and demos for MDX pages SHOULD live in reusable files under `apps/docs/registry/<name>/examples/` when that materially improves readability, reuse, or MDX ergonomics.
 - Component doc descriptions MUST start with a concise one-sentence summary of what the component does.
 - Descriptions MUST NOT start with "A", "An", or "A React component for...".
 - Descriptions MUST NOT contain implementation details, subjective adjectives, or unnecessary jargon.
@@ -259,6 +264,7 @@ A dev-only page at `/dev/screenshots` renders every component preview at full si
 - When changing a public component's API, variants, states, or installation surface, all affected docs MUST be updated in the same change.
 - For public component changes, agents MUST check related docs pages, preview/demo files, homepage or showcase examples, usage snippets, and registry metadata.
 - Public variants MUST NOT be added or removed without verifying that labels, examples, and preview coverage still match the shipped component.
+- Sidebar/navigation changes in the docs app MUST use the Fumadocs page tree and `meta.json` conventions first. Agents MUST prefer fixing Fumadocs metadata/configuration over replacing the navigation system with custom hardcoded data.
 
 ## Releases
 

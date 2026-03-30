@@ -1,0 +1,120 @@
+---
+title: "GitHub Button Group"
+description: "Segmented button group displaying multiple GitHub repo metrics with per-segment links."
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { GitHubButtonGroup } from "@/registry/github-button-group/github-button-group"
+
+<ComponentPreview name="github-button-group-preview" />
+
+## Installation
+
+<InstallBlock name="github-button-group" />
+
+## Usage
+
+<CodeLine code={`import { GitHubButtonGroup } from "@/components/github-button-group"`} />
+
+<CodeLine code={`<GitHubButtonGroup owner="shadcn-ui" repo="ui" />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Variants</h3>
+    <VariantGrid
+      registryName="github-button-group"
+      files={["registry/github-button-group/github-button-group.tsx"]}
+      columns={1}
+      items={[
+        {
+          label: "Default",
+          code: `<GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="default" />`,
+          preview: <GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="default" />,
+        },
+        {
+          label: "Secondary",
+          code: `<GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="secondary" />`,
+          preview: <GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="secondary" />,
+        },
+        {
+          label: "Outline",
+          code: `<GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="outline" />`,
+          preview: <GitHubButtonGroup owner="shadcn-ui" repo="ui" variant="outline" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Metric visibility</h3>
+    <p className="text-sm text-muted-foreground">
+      Toggle specific metrics using boolean props. Icons and tooltips update automatically.
+    </p>
+    <VariantGrid
+      registryName="github-button-group"
+      files={["registry/github-button-group/github-button-group.tsx"]}
+      columns={1}
+      items={[
+        {
+          label: "Stars and forks only",
+          code: `<GitHubButtonGroup owner="shadcn-ui" repo="ui" showWatchers={false} showIssues={false} />`,
+          preview: <GitHubButtonGroup owner="shadcn-ui" repo="ui" showWatchers={false} showIssues={false} />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+          title="GitHubButtonGroup"
+          props={[
+            {
+              name: "owner",
+              type: "string",
+              required: true,
+              description: "GitHub username or organization.",
+            },
+            {
+              name: "repo",
+              type: "string",
+              required: true,
+              description: "GitHub repository name.",
+            },
+            {
+              name: "metrics",
+              type: '("stars" | "forks" | "watchers" | "issues")[]',
+              description:
+                'Which metrics to display, in order. Defaults to ["stars", "forks", "watchers"].',
+            },
+            {
+              name: "variant",
+              type: '"default" | "secondary" | "outline" | "ghost" | "subtle"',
+              description: 'Visual style variant. Defaults to "default".',
+            },
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              description: 'Button group size. Defaults to "default".',
+            },
+            {
+              name: "showRepo",
+              type: "boolean",
+              description:
+                "Show the owner/repo label as a leading segment. Defaults to false.",
+            },
+            {
+              name: "iconStyle",
+              type: '"currentColor" | "github" | "copilot" | "muted"',
+              description:
+                'Octocat icon color (visible when showRepo is true). Defaults to "currentColor".',
+            },
+          ]}
+        />
+
+## Notes
+
+- Each metric segment links to the corresponding GitHub page (stargazers, forks, watchers, or issues).

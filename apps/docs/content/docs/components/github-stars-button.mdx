@@ -1,0 +1,107 @@
+---
+title: "GitHub Stars Button"
+description: "Link button showing a GitHub repo's star count with the octocat icon."
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-button"
+
+<ComponentPreview name="github-stars-button-preview" />
+
+## Installation
+
+<InstallBlock name="github-stars-button" />
+
+## Usage
+
+<CodeLine code={`import { GitHubStarsButton } from "@/components/github-stars-button"`} />
+
+<CodeLine code={`<GitHubStarsButton owner="shadcn-ui" repo="ui" />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Variants</h3>
+    <VariantGrid
+      registryName="github-stars-button"
+      files={["registry/github-stars-button/github-stars-button.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Default",
+          code: `<GitHubStarsButton owner="shadcn-ui" repo="ui" variant="default" />`,
+          preview: <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="default" />,
+        },
+        {
+          label: "Primary",
+          code: `<GitHubStarsButton owner="shadcn-ui" repo="ui" variant="primary" />`,
+          preview: <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="primary" />,
+        },
+        {
+          label: "Secondary",
+          code: `<GitHubStarsButton owner="shadcn-ui" repo="ui" variant="secondary" />`,
+          preview: <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="secondary" />,
+        },
+        {
+          label: "Outline",
+          code: `<GitHubStarsButton owner="shadcn-ui" repo="ui" variant="outline" />`,
+          preview: <GitHubStarsButton owner="shadcn-ui" repo="ui" variant="outline" />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+          title="GitHubStarsButton"
+          props={[
+            {
+              name: "owner",
+              type: "string",
+              required: true,
+              description: "GitHub username or organization.",
+            },
+            {
+              name: "repo",
+              type: "string",
+              required: true,
+              description: "GitHub repository name.",
+            },
+            {
+              name: "variant",
+              type: '"default" | "primary" | "secondary" | "outline" | "ghost" | "subtle"',
+              description: 'Visual style variant. Defaults to "default".',
+            },
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              description: 'Button size. Defaults to "default".',
+            },
+            {
+              name: "stars",
+              type: "number",
+              description:
+                "Pre-fetched star count. Skips the API call when provided.",
+            },
+            {
+              name: "showRepo",
+              type: "boolean",
+              description:
+                "Show the owner/repo label alongside the count. Defaults to false.",
+            },
+            {
+              name: "iconStyle",
+              type: '"currentColor" | "github" | "copilot" | "muted"',
+              description:
+                'Octocat icon color style. Defaults to "currentColor".',
+            },
+          ]}
+        />
+
+## Notes
+
+- **ISR caching.** Results cached for 1 hour via  next.revalidate .
+- **Pre-fetched stars.** Pass the  `stars`  prop to skip the API call entirely.

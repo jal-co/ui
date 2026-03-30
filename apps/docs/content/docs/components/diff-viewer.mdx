@@ -1,0 +1,105 @@
+---
+title: "Diff Viewer"
+description: "Code diff viewer with line numbers and add/remove coloring. Supports unified and split layouts."
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { DiffViewer } from "@/registry/diff-viewer/diff-viewer"
+
+export const oldCode = `import { useState } from "react"\n\nfunction Counter() {\n  const [count, setCount] = useState(0)\n\n  return (\n    <button onClick={() => setCount(count + 1)}>\n      Count: {count}\n    </button>\n  )\n}`
+export const newCode = `import { useState, useCallback } from "react"\n\nfunction Counter({ initial = 0 }) {\n  const [count, setCount] = useState(initial)\n\n  const increment = useCallback(() => {\n    setCount((prev) => prev + 1)\n  }, [])\n\n  return (\n    <button onClick={increment}>\n      Count: {count}\n    </button>\n  )\n}`
+
+<ComponentPreview name="diff-viewer-preview" />
+
+## Installation
+
+<InstallBlock name="diff-viewer" />
+
+## Usage
+
+<CodeLine code={`import { DiffViewer } from "@/components/diff-viewer"`} />
+
+<CodeLine code={`<DiffViewer oldCode={before} newCode={after} />`} />
+
+## Layouts
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <VariantGrid
+      registryName="diff-viewer"
+      files={["registry/diff-viewer/diff-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Unified (default)",
+          code: `<DiffViewer oldCode={oldCode} newCode={newCode} layout="unified" />`,
+          preview: <DiffViewer oldCode={oldCode} newCode={newCode} layout="unified" oldTitle="counter.tsx" newTitle="counter.tsx" />,
+        },
+        {
+          label: "Split",
+          code: `<DiffViewer oldCode={oldCode} newCode={newCode} layout="split" />`,
+          preview: <DiffViewer oldCode={oldCode} newCode={newCode} layout="split" oldTitle="before.tsx" newTitle="after.tsx" />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+          title="DiffViewer"
+          props={[
+            {
+              name: "oldCode",
+              type: "string",
+              description:
+                "Original code string. Used with newCode to compute the diff.",
+            },
+            {
+              name: "newCode",
+              type: "string",
+              description:
+                "Updated code string. Used with oldCode to compute the diff.",
+            },
+            {
+              name: "patch",
+              type: "string",
+              description:
+                "Pre-computed unified diff string. Alternative to oldCode/newCode.",
+            },
+            {
+              name: "layout",
+              type: '"unified" | "split"',
+              description:
+                "Diff display layout. Unified shows a single column, split shows side-by-side.",
+            },
+            {
+              name: "language",
+              type: "string",
+              description:
+                "Shiki language key for syntax highlighting. Plain text when omitted.",
+            },
+            {
+              name: "oldTitle",
+              type: "string",
+              description: "Label for the old file in the header.",
+            },
+            {
+              name: "newTitle",
+              type: "string",
+              description: "Label for the new file in the header.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+## Notes
+
+- **Two input modes.**  Pass  oldCode   +  newCode   to compute the diff, or pass a  patch   string if you already have one.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

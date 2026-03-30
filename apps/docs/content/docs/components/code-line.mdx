@@ -1,0 +1,93 @@
+---
+title: "Code Line"
+description: "Compact single-line code snippet with syntax highlighting and an inline copy button."
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { CodeLine } from "@/registry/code-line/code-line"
+
+<ComponentPreview name="code-line-preview" />
+
+## Installation
+
+<InstallBlock name="code-line" />
+
+## Usage
+
+<CodeLine code={`import { CodeLine } from "@/components/code-line"`} />
+
+<CodeLine code={`<CodeLine code={\`import { Button } from "@/components/ui/button"\`} />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Languages</h3>
+    <VariantGrid
+      registryName="code-line"
+      files={["registry/code-line/code-line.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "TypeScript",
+          code: `<CodeLine code="const schema = z.object({ ... })" language="ts" />`,
+          preview: <CodeLine code={`const schema = z.object({ email: z.string().email() })`} language="ts" />,
+        },
+        {
+          label: "Shell",
+          code: `<CodeLine code="npx shadcn@latest add button" language="bash" />`,
+          preview: <CodeLine code={`npx shadcn@latest add button`} language="bash" />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+          title="CodeLine"
+          props={[
+            {
+              name: "code",
+              type: "string",
+              required: true,
+              description: "The code string to display. Should be a single line.",
+            },
+            {
+              name: "language",
+              type: "string",
+              description:
+                'Language for syntax highlighting. Supports all shiki languages. Defaults to "tsx".',
+            },
+            {
+              name: "label",
+              type: "string",
+              description:
+                "Optional leading label displayed before the code.",
+            },
+            {
+              name: "hideCopy",
+              type: "boolean",
+              description:
+                "Hide the copy-to-clipboard button. Defaults to false.",
+            },
+            {
+              name: "theme",
+              type: "string",
+              description:
+                'Shiki theme name for single-theme rendering (e.g. "dracula", "nord"). When omitted, uses dual github-light/github-dark.',
+            },
+            {
+              name: "className",
+              type: "string",
+              description:
+                "Additional CSS classes applied to the root element.",
+            },
+          ]}
+        />
+
+## Notes
+
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

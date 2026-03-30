@@ -1,0 +1,134 @@
+---
+title: Status Indicator
+description: Operational status badge with colored dot and label for dashboards, status pages, and header bars.
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { StatusIndicator } from "@/registry/status-indicator/status-indicator"
+
+<ComponentPreview name="status-indicator-preview" />
+
+## Installation
+
+<InstallBlock name="status-indicator" />
+
+## Usage
+
+<CodeLine code={`import { StatusIndicator } from "@/components/status-indicator"`} />
+
+<CodeLine code={`<StatusIndicator status="operational" />`} />
+
+## Examples
+
+<div className="flex flex-col gap-8">
+  <div>
+    <h3 className="mb-4 text-base font-medium">All Statuses</h3>
+    <VariantGrid
+      registryName="status-indicator"
+      files={["registry/status-indicator/status-indicator.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Core states",
+          code: `<div className="flex gap-2">\n  <StatusIndicator status="operational" />\n  <StatusIndicator status="degraded" />\n  <StatusIndicator status="major-outage" />\n  <StatusIndicator status="maintenance" />\n</div>`,
+          preview: (
+            <div className="flex flex-wrap gap-2">
+              <StatusIndicator status="operational" />
+              <StatusIndicator status="degraded" />
+              <StatusIndicator status="major-outage" />
+              <StatusIndicator status="maintenance" />
+            </div>
+          ),
+        },
+      ]}
+    />
+  </div>
+
+  <div>
+    <h3 className="mb-4 text-base font-medium">Sizes</h3>
+    <VariantGrid
+      registryName="status-indicator"
+      files={["registry/status-indicator/status-indicator.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Small",
+          code: `<StatusIndicator size="sm" status="operational" />`,
+          preview: <StatusIndicator size="sm" status="operational" />,
+        },
+        {
+          label: "Medium",
+          code: `<StatusIndicator size="md" status="operational" />`,
+          preview: <StatusIndicator size="md" status="operational" />,
+        },
+        {
+          label: "Large",
+          code: `<StatusIndicator size="lg" status="operational" />`,
+          preview: <StatusIndicator size="lg" status="operational" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div>
+    <h3 className="mb-4 text-base font-medium">Custom Labels</h3>
+    <VariantGrid
+      registryName="status-indicator"
+      files={["registry/status-indicator/status-indicator.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Custom text",
+          code: `<StatusIndicator status="operational" label="All systems go" />`,
+          preview: <StatusIndicator status="operational" label="All systems go" />,
+        },
+        {
+          label: "Dot only",
+          code: `<StatusIndicator status="operational" showLabel={false} />`,
+          preview: <StatusIndicator status="operational" showLabel={false} />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+  title="StatusIndicator"
+  props={[
+    {
+      name: "status",
+      type: '"operational" | "degraded" | "major-outage" | "maintenance"',
+      required: true,
+      description: "The current operational status.",
+    },
+    {
+      name: "label",
+      type: "string",
+      description: "Override the auto-generated label text.",
+    },
+    {
+      name: "size",
+      type: '"sm" | "md" | "lg"',
+      description: "Indicator and label size. Defaults to \"md\".",
+    },
+    {
+      name: "showLabel",
+      type: "boolean",
+      description: "Whether to display the status text. Defaults to true.",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Additional CSS classes on the root element.",
+    },
+  ]}
+/>
+
+## Notes
+
+- **Server component.** No client-side JavaScript required for rendering.
+- **Auto-labeling.** Status values are automatically title-cased for display (e.g. "major-outage" becomes "Major Outage").
+- **Accessibility.** Uses `role="status"` to ensure screen readers announce status changes appropriately.

@@ -1,0 +1,198 @@
+---
+title: "File Tree"
+description: "Collapsible file and folder tree with file-type icons, highlights, and configurable expand state."
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { FileTree } from "@/registry/file-tree/file-tree"
+
+export const nextjsTree = [
+  {
+    name: "src",
+    children: [
+      {
+        name: "app",
+        children: [
+          { name: "layout.tsx" },
+          { name: "page.tsx" },
+          { name: "api", children: [{ name: "route.ts" }] },
+        ],
+      },
+      { name: "components", children: [{ name: "header.tsx" }, { name: "footer.tsx" }] },
+      { name: "lib", children: [{ name: "utils.ts" }] },
+    ],
+  },
+  { name: "package.json" },
+  { name: "tsconfig.json" },
+  { name: "next.config.ts" },
+  { name: ".env.local" },
+]
+
+export const smallTree = [
+  {
+    name: "src",
+    children: [
+      { name: "index.ts" },
+      { name: "config.ts" },
+      { name: "utils", children: [{ name: "helpers.ts" }, { name: "format.ts" }] },
+    ],
+  },
+  { name: "package.json" },
+  { name: "README.md" },
+]
+
+<ComponentPreview name="file-tree-preview" />
+
+## Installation
+
+<InstallBlock name="file-tree" />
+
+## Usage
+
+<CodeLine code={`import { FileTree } from "@/components/file-tree"`} />
+
+<CodeLine code={`<FileTree />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Icon styles</h3>
+    <VariantGrid
+      registryName="file-tree"
+      files={["registry/file-tree/file-tree.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Minimal (default)",
+          code: `<FileTree tree={tree} iconStyle="minimal" />`,
+          preview: <FileTree tree={smallTree} iconStyle="minimal" />,
+        },
+        {
+          label: "Colored",
+          code: `<FileTree tree={tree} iconStyle="colored" />`,
+          preview: <FileTree tree={smallTree} iconStyle="colored" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Highlighted files</h3>
+    <VariantGrid
+      registryName="file-tree"
+      files={["registry/file-tree/file-tree.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Single file highlighted",
+          code: `<FileTree tree={tree} iconStyle="colored" highlight={["src/app/page.tsx"]} />`,
+          preview: (
+            <div className="max-w-sm">
+              <FileTree tree={nextjsTree} iconStyle="colored" highlight={["src/app/page.tsx"]} />
+            </div>
+          ),
+        },
+        {
+          label: "Multiple files highlighted",
+          code: `<FileTree tree={tree} highlight={["src/components/header.tsx", "src/lib/utils.ts", ".env.local"]} />`,
+          preview: (
+            <div className="max-w-sm">
+              <FileTree tree={nextjsTree} iconStyle="colored" highlight={["src/components/header.tsx", "src/lib/utils.ts", ".env.local"]} />
+            </div>
+          ),
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Expand state</h3>
+    <VariantGrid
+      registryName="file-tree"
+      files={["registry/file-tree/file-tree.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "All expanded (default)",
+          code: `<FileTree tree={tree} defaultExpanded={true} />`,
+          preview: <FileTree tree={smallTree} defaultExpanded={true} />,
+        },
+        {
+          label: "All collapsed",
+          code: `<FileTree tree={tree} defaultExpanded={false} />`,
+          preview: <FileTree tree={smallTree} defaultExpanded={false} />,
+        },
+        {
+          label: "Specific paths expanded",
+          code: `<FileTree tree={tree} defaultExpanded={["src", "src/utils"]} />`,
+          preview: <FileTree tree={smallTree} defaultExpanded={["src", "src/utils"]} />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+          title="FileTree"
+          props={[
+            {
+              name: "tree",
+              type: "FileTreeNode[]",
+              required: true,
+              description:
+                "Array of file/folder entries. Folders have a children array.",
+            },
+            {
+              name: "defaultExpanded",
+              type: 'boolean | string[]',
+              description:
+                'Expand all (true), none (false), or specific paths. Defaults to true.',
+            },
+            {
+              name: "iconStyle",
+              type: '"minimal" | "colored"',
+              description:
+                'Generic file/folder icons or language-specific colored icons. Defaults to "minimal".',
+            },
+            {
+              name: "highlight",
+              type: "string[]",
+              description:
+                'Array of full paths to highlight (e.g. ["src/index.ts"]).',
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="FileTreeNode"
+          props={[
+            {
+              name: "name",
+              type: "string",
+              required: true,
+              description: "File or folder name.",
+            },
+            {
+              name: "children",
+              type: "FileTreeNode[]",
+              description:
+                "Nested entries. Presence of children makes the node a folder.",
+            },
+          ]}
+        />
+
+## Notes
+
+- **Client component.**  Uses  "use client"   for expand/collapse state. No external dependencies beyond React and Tailwind.
+- **Highlight paths.**  Paths are built by joining node names with  `/`  from the root (e.g.  src/app/page.tsx ). They do not include a leading slash.
+- **Colored icons.**  The colored icon style includes built-in coverage for common file types (TypeScript, JavaScript, JSON, CSS, Markdown, Python, Rust, Go, and more). Unrecognized extensions fall back to the generic file icon.
+- **Accessibility.**  Uses  role="tree" ,  role="treeitem" , and  aria-expanded   for screen reader compatibility.

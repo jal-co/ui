@@ -1,0 +1,126 @@
+---
+title: "Code Block"
+description: "Syntax-highlighted code block with language icon, copy button, and optional scrollable or collapsible overflow."
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { CodeBlock } from "@/registry/code-block/code-block"
+
+export const tsExample = `import { z } from "zod"\n\nconst userSchema = z.object({\n  name: z.string().min(2),\n  email: z.string().email(),\n  age: z.number().int().positive(),\n})\n\ntype User = z.infer<typeof userSchema>`
+export const cssExample = `@import "tailwindcss";\n\n@theme {\n  --color-primary: oklch(0.7 0.15 200);\n  --color-secondary: oklch(0.6 0.12 280);\n  --radius-lg: 0.75rem;\n}`
+
+<ComponentPreview name="code-block-preview" />
+
+## Installation
+
+<InstallBlock name="code-block" />
+
+## Usage
+
+<CodeLine code={`import { CodeBlock } from "@/components/code-block"`} />
+
+<CodeLine code={`<CodeBlock />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Languages</h3>
+    <VariantGrid
+      registryName="code-block"
+      files={["registry/code-block/code-block.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "TypeScript",
+          code: `<CodeBlock code={tsCode} language="ts" />`,
+          preview: <CodeBlock code={tsExample} language="ts" />,
+        },
+        {
+          label: "CSS (Tailwind v4)",
+          code: `<CodeBlock code={cssCode} language="css" />`,
+          preview: <CodeBlock code={cssExample} language="css" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Variants</h3>
+    <VariantGrid
+      registryName="code-block"
+      files={["registry/code-block/code-block.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Compact (no header)",
+          code: `<CodeBlock code={code} language="ts" compact />`,
+          preview: <CodeBlock code={tsExample} language="ts" compact />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+          title="CodeBlock"
+          props={[
+            {
+              name: "code",
+              type: "string",
+              required: true,
+              description: "The code string to highlight and display.",
+            },
+            {
+              name: "language",
+              type: "string",
+              description:
+                'Language for syntax highlighting. Supports all shiki languages. Defaults to "tsx".',
+            },
+            {
+              name: "title",
+              type: "string",
+              description:
+                "Optional title shown in the header. Replaces the language badge.",
+            },
+            {
+              name: "overflow",
+              type: '"default" | "scrollable" | "collapsible"',
+              description:
+                'How to handle long code. Scrollable adds a scroll container, collapsible adds a show more/less toggle. Defaults to "default".',
+            },
+            {
+              name: "maxHeight",
+              type: "number",
+              description:
+                "Max height in pixels for scrollable and collapsible overflow. Defaults to 280.",
+            },
+            {
+              name: "muted",
+              type: "boolean",
+              description:
+                "Render with muted styling — softer borders, backgrounds, and reduced code opacity. Defaults to false.",
+            },
+            {
+              name: "theme",
+              type: "string",
+              description:
+                'Shiki theme name for single-theme rendering (e.g. "dracula", "nord", "catppuccin-mocha"). When omitted, uses dual github-light/github-dark for automatic light/dark mode.',
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+## Notes
+
+- **Bundled language icons.**  Language icons are bundled directly in the component — no API calls or setup required. Pass a custom  `icon`  prop to override the default icon for any language.
+- **Dual theme.** By default, uses  github-light   /  github-dark   for automatic light/dark mode. Pass the  theme   prop to render with any of shiki's 65 bundled themes instead.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

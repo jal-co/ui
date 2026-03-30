@@ -1,0 +1,180 @@
+---
+title: "Request Viewer"
+description: "Network request inspector showing headers, response body, and timing waterfall."
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import {
+  RequestViewer,
+} from "@/registry/request-viewer/request-viewer"
+
+export const apiRequest = {
+  method: "GET",
+  url: "https://api.github.com/repos/vercel/next.js",
+  status: 200,
+  statusText: "OK",
+  duration: 247,
+  contentType: "application/json; charset=utf-8",
+  requestHeaders: [
+    { name: "Accept", value: "application/vnd.github.v3+json" },
+    { name: "Authorization", value: "Bearer ghp_****••••••••" },
+    { name: "User-Agent", value: "jalco-dashboard/1.0" },
+    { name: "Cache-Control", value: "no-cache" },
+  ],
+  responseHeaders: [
+    { name: "Content-Type", value: "application/json; charset=utf-8" },
+    { name: "X-RateLimit-Limit", value: "5000" },
+    { name: "X-RateLimit-Remaining", value: "4987" },
+    { name: "X-GitHub-Request-Id", value: "C4F2:3A1E:1B4F2A8:2D5E1C0:65A1B2C3" },
+    { name: "ETag", value: '"abc123def456"' },
+    { name: "Cache-Control", value: "private, max-age=60, s-maxage=60" },
+  ],
+  responseBody: JSON.stringify({ id: 70107786, name: "next.js", full_name: "vercel/next.js", stargazers_count: 128450, language: "JavaScript", default_branch: "canary", topics: ["nextjs", "react", "framework", "ssr", "web"]}, null, 2),
+  timing: [
+    { label: "DNS Lookup", duration: 12 },
+    { label: "TCP Connect", duration: 24 },
+    { label: "TLS Handshake", duration: 38 },
+    { label: "Request Sent", duration: 1.2 },
+    { label: "Waiting (TTFB)", duration: 142 },
+    { label: "Content Download", duration: 29.8 },
+  ],
+}
+
+export const postRequest = {
+  method: "POST",
+  url: "https://api.example.com/v1/users",
+  status: 201,
+  statusText: "Created",
+  duration: 312,
+  contentType: "application/json",
+  requestHeaders: [{ name: "Content-Type", value: "application/json" }, { name: "Authorization", value: "Bearer eyJhbGci••••" }, { name: "X-Request-ID", value: "req_8f3a2b1c" }],
+  responseHeaders: [{ name: "Content-Type", value: "application/json" }, { name: "Location", value: "/v1/users/usr_7k2m9p" }, { name: "X-Request-ID", value: "req_8f3a2b1c" }],
+  responseBody: JSON.stringify({ id: "usr_7k2m9p", email: "jamie@example.com", name: "Jamie Chen", created_at: "2026-03-10T23:42:00Z" }, null, 2),
+  timing: [{ label: "DNS Lookup", duration: 4 }, { label: "TCP Connect", duration: 18 }, { label: "TLS Handshake", duration: 32 }, { label: "Request Sent", duration: 2.4 }, { label: "Waiting (TTFB)", duration: 218 }, { label: "Content Download", duration: 37.6 }],
+}
+
+<ComponentPreview name="request-viewer-preview" />
+
+## Installation
+
+<InstallBlock name="request-viewer" />
+
+## Usage
+
+<CodeLine code={`import { RequestViewer } from "@/components/request-viewer"`} />
+
+<CodeLine code={`<RequestViewer />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Standard Request</h3>
+    <VariantGrid
+      registryName="request-viewer"
+      files={["registry/request-viewer/request-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "GET request",
+          code: `<RequestViewer request={apiRequest} title="GET Repository" />`,
+          preview: <RequestViewer request={apiRequest} title="GET Repository" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Status colors</h3>
+    <VariantGrid
+      registryName="request-viewer"
+      files={["registry/request-viewer/request-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "POST request (201 Created)",
+          code: `<RequestViewer request={postRequest} title="POST Create User" />`,
+          preview: <RequestViewer request={postRequest} title="POST Create User" />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+          title="RequestViewer"
+          props={[
+            {
+              name: "request",
+              type: "NetworkRequest",
+              required: true,
+              description: "The network request data to display.",
+              fullType:
+                "{ method: string; url: string; status: number; statusText?: string; requestHeaders?: HeaderEntry[]; responseHeaders?: HeaderEntry[]; responseBody?: string; contentType?: string; timing?: TimingEntry[]; duration?: number }",
+            },
+            {
+              name: "defaultTab",
+              type: '"headers" | "response" | "timing"',
+              description: 'Initial active tab. Defaults to "headers".',
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="HeaderEntry"
+          props={[
+            {
+              name: "name",
+              type: "string",
+              required: true,
+              description: "Header name (e.g. Content-Type).",
+            },
+            {
+              name: "value",
+              type: "string",
+              required: true,
+              description: "Header value.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="TimingEntry"
+          props={[
+            {
+              name: "label",
+              type: "string",
+              required: true,
+              description:
+                'Phase label (e.g. "DNS Lookup", "TLS Handshake").',
+            },
+            {
+              name: "duration",
+              type: "number",
+              required: true,
+              description: "Duration in milliseconds.",
+            },
+            {
+              name: "colorClass",
+              type: "string",
+              description:
+                "Custom Tailwind background color class for the bar. Falls back to the built-in palette.",
+            },
+          ]}
+        />
+
+## Notes
+
+- **Client component.** Uses  "use client"   for tab switching state only.
+- **JSON formatting.**  Response bodies that look like JSON are automatically pretty-printed.
+- **Status colors.** Status badges are color-coded: 2xx green, 3xx blue, 4xx amber, 5xx red.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.

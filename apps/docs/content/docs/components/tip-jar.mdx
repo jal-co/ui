@@ -1,0 +1,223 @@
+---
+title: "Crypto + Tip Jar"
+description: "Donation and tipping component with QR code, wallet address display, and copy-to-clipboard."
+---
+
+import { VariantGrid } from "@/components/docs/variant-grid"
+import {
+  TipJarCard,
+  TipJarTabs,
+  TipJarList,
+  TipJarCompact,
+  TipJarInline,
+  TipJarQR,
+} from "@/registry/tip-jar/tip-jar"
+
+export const ETH_ADDRESS = "0x585c3Ad932471B24c733A557ad8FA64A2BacF508"
+export const BTC_ADDRESS = "3Js3LsTiEt15nYzsEGpgnbNKDcGndefEw9"
+export const SOL_ADDRESS = "HiGZkNDuhMrGi2YAmJFNrqaq9C1dPP1Eoqs8nRq4k2Kc"
+
+<ComponentPreview name="tip-jar-preview" />
+
+## Installation
+
+<InstallBlock name="tip-jar" />
+
+## Usage
+
+<CodeLine code={`import { TipJarCard } from "@/components/tip-jar"`} />
+
+<CodeLine code={`<TipJarCard />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Wallet list</h3>
+    <p className="text-sm text-muted-foreground">
+      Use <code className="rounded bg-muted px-1 py-0.5 text-xs">TipJarList</code> for a stacked set of wallet rows with copy buttons.
+    </p>
+    <VariantGrid
+      registryName="tip-jar"
+      files={["registry/tip-jar/tip-jar.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Multiple wallets",
+          code: `<TipJarList wallets={[ { provider: "ethereum", address: "..." }, { provider: "paypal", address: "..." } ]} />`,
+          preview: <TipJarList wallets={[{ provider: "ethereum", address: ETH_ADDRESS }, { provider: "bitcoin", address: BTC_ADDRESS }, { provider: "paypal", address: "jalco" }]} />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Crypto chains</h3>
+    <VariantGrid
+      registryName="tip-jar"
+      files={["registry/tip-jar/tip-jar.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Ethereum",
+          code: `<TipJarCard provider="ethereum" address="0x..." />`,
+          preview: <TipJarCard provider="ethereum" address={ETH_ADDRESS} />,
+        },
+        {
+          label: "Solana",
+          code: `<TipJarCard provider="solana" address="HiGZ..." />`,
+          preview: <TipJarCard provider="solana" address={SOL_ADDRESS} />,
+        },
+        {
+          label: "Bitcoin",
+          code: `<TipJarCard provider="bitcoin" address="3Js3..." />`,
+          preview: <TipJarCard provider="bitcoin" address={BTC_ADDRESS} />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+          title="Shared props"
+          props={[
+            {
+              name: "provider",
+              type: "ProviderId",
+              required: true,
+              description:
+                'Chain or platform identifier. Crypto: "ethereum", "bitcoin", "solana", "polygon", "base", "arbitrum", "optimism", "avalanche", "bnb", "litecoin". Platforms: "paypal", "kofi", "patreon".',
+              fullType:
+                '"ethereum" | "bitcoin" | "solana" | "polygon" | "base" | "arbitrum" | "optimism" | "avalanche" | "bnb" | "litecoin" | "paypal" | "kofi" | "patreon"',
+            },
+            {
+              name: "address",
+              type: "string",
+              required: true,
+              description:
+                "Wallet address (crypto) or username/handle (platform).",
+            },
+            {
+              name: "token",
+              type: "string",
+              description:
+                'Optional token symbol shown as a badge. Crypto only (e.g. "USDC").',
+            },
+            {
+              name: "label",
+              type: "string",
+              description: "Support message or description.",
+            },
+            {
+              name: "amount",
+              type: "number",
+              description:
+                "Fixed payment amount encoded in the QR URI. Crypto only.",
+            },
+            {
+              name: "size",
+              type: '"sm" | "md" | "lg"',
+              description:
+                "QR code display size. Defaults vary by variant.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Additional CSS classes on the root element.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="TipJarTabs"
+          props={[
+            {
+              name: "wallets",
+              type: "WalletEntry[]",
+              required: true,
+              description: "Array of wallet/platform entries to tab between.",
+              fullType:
+                "{ provider: ProviderId; address: string; token?: string; amount?: number }[]",
+            },
+            {
+              name: "title",
+              type: "string",
+              description: 'Title shown at the top. Defaults to "Support".',
+            },
+            {
+              name: "label",
+              type: "string",
+              description: "Description shown below the title.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="TipJarList"
+          props={[
+            {
+              name: "wallets",
+              type: "WalletEntry[]",
+              required: true,
+              description: "Array of wallet/platform entries to display as rows.",
+              fullType:
+                "{ provider: ProviderId; address: string; token?: string; amount?: number }[]",
+            },
+            {
+              name: "title",
+              type: "string",
+              description: "Title shown at the top of the card.",
+            },
+            {
+              name: "label",
+              type: "string",
+              description: "Description shown below the title.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="TipJarCard"
+          props={[
+            {
+              name: "title",
+              type: "string",
+              description: 'Title shown at the top. Defaults to "Support".',
+            },
+            {
+              name: "presets",
+              type: "number[]",
+              description:
+                "Quick-select amount buttons. Crypto only. Each preset updates the QR code URI.",
+            },
+          ]}
+        />
+
+<ApiRefTable
+          title="TipJarQR"
+          props={[
+            {
+              name: "caption",
+              type: "string",
+              description: "Caption text shown below the QR code.",
+            },
+            {
+              name: "showBadge",
+              type: "boolean",
+              description:
+                "Show the provider badge above the QR code. Defaults to false.",
+            },
+          ]}
+        />
+
+## Notes
+
+- **Client component.** Uses the Clipboard API and interactive state (tab switching, preset selection).
+- **QR generation.** Powered by  `uqr`  — a zero-dependency, tree-shakable SVG QR code library.
+- Crypto vs. platform behavior.   For crypto providers, the QR encodes a payment URI and the copy button copies the wallet address. For platforms, the QR encodes the donation URL and the copy button copies the URL.
+- **Extensible providers.**  Add new chains or platforms by extending the  providers   map in  lib/chains.ts .
+- **Live addresses.**  The addresses and handles in the demos above are real — they belong to the maintainer. No one should ever feel any obligation to send anything. They're here so the QR codes and explorer links work end-to-end.
+- **Icon library.**  Uses  Lucide   icons by default. Since this is copy-paste code, you can swap the imports if your project uses a different icon library.
