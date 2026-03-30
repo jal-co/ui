@@ -3,6 +3,19 @@ title: "Log Viewer"
 description: "Scrollable log output component for displaying streaming logs or CLI-style output in web apps."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import {
+  LogViewerTerminal,
+  LogViewerMinimal,
+  LogViewerFilterable,
+} from "@/registry/log-viewer/log-viewer"
+import {
+  generateSampleLogs,
+} from "@/registry/log-viewer/lib/sample-logs"
+
+export const sampleData = generateSampleLogs(40, 42)
+export const smallSample = generateSampleLogs(12, 99)
+
 <ComponentPreview name="log-viewer-preview" />
 
 ## Installation
@@ -14,6 +27,70 @@ description: "Scrollable log output component for displaying streaming logs or C
 <CodeLine code={`import { LogViewerTerminal } from "@/components/log-viewer"`} />
 
 <CodeLine code={`<LogViewerTerminal />`} />
+
+## Variants
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Terminal</h3>
+    <p className="text-sm text-muted-foreground">
+      Full CLI-style interface with toolbar, line numbers, timestamps, search, copy, export, and pause/resume.
+    </p>
+    <VariantGrid
+      registryName="log-viewer"
+      files={["registry/log-viewer/log-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Terminal viewer",
+          code: `<LogViewerTerminal entries={logs} title="Application Logs" />`,
+          preview: <LogViewerTerminal entries={sampleData} title="Application Logs" maxHeight={300} />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Filterable</h3>
+    <p className="text-sm text-muted-foreground">
+      Includes log-level toggle filters in the toolbar to quickly show/hide specific severities.
+    </p>
+    <VariantGrid
+      registryName="log-viewer"
+      files={["registry/log-viewer/log-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Filterable viewer",
+          code: `<LogViewerFilterable entries={logs} title="Filterable Logs" />`,
+          preview: <LogViewerFilterable entries={sampleData} title="Filterable Logs" maxHeight={300} />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Minimal</h3>
+    <p className="text-sm text-muted-foreground">
+      Lightweight, read-only variant without toolbars or controls. Just a scrollable log area.
+    </p>
+    <VariantGrid
+      registryName="log-viewer"
+      files={["registry/log-viewer/log-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Minimal viewer",
+          code: `<LogViewerMinimal entries={logs} />`,
+          preview: <LogViewerMinimal entries={smallSample} maxHeight={200} />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 

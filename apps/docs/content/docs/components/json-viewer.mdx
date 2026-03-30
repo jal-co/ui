@@ -3,6 +3,56 @@ title: "JSON Viewer"
 description: "Collapsible, syntax-colored JSON tree with path copying, search, and expand/collapse controls."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { JsonViewer } from "@/registry/json-viewer/json-viewer"
+
+export const apiResponse = {
+  id: "usr_7k2m9p",
+  email: "jamie@example.com",
+  name: "Jamie Chen",
+  role: "admin",
+  verified: true,
+  created_at: "2026-03-10T23:42:00Z",
+  metadata: {
+    login_count: 142,
+    last_ip: "203.0.113.42",
+    preferences: {
+      theme: "dark",
+      notifications: true,
+      locale: "en-US",
+    },
+  },
+  teams: [
+    { id: "team_01", name: "Engineering", role: "lead" },
+    { id: "team_02", name: "Platform", role: "member" },
+  ],
+}
+
+export const packageJson = {
+  name: "@acme/dashboard",
+  version: "2.4.1",
+  private: true,
+  scripts: {
+    dev: "next dev",
+    build: "next build",
+    start: "next start",
+    lint: "next lint",
+    test: "vitest",
+  },
+  dependencies: {
+    next: "15.5.9",
+    react: "19.1.0",
+    "react-dom": "19.1.0",
+    "tailwind-merge": "^3.3.1",
+    "lucide-react": "^0.487.0",
+  },
+  devDependencies: {
+    typescript: "^5.9.2",
+    tailwindcss: "^4.1.11",
+    vitest: "^3.1.0",
+  },
+}
+
 <ComponentPreview name="json-viewer-preview" />
 
 ## Installation
@@ -13,7 +63,52 @@ description: "Collapsible, syntax-colored JSON tree with path copying, search, a
 
 <CodeLine code={`import { JsonViewer } from "@/components/json-viewer"`} />
 
-<CodeLine code={`<JsonViewer />`} />
+<CodeLine code={`<JsonViewer data={myObject} title="Response" />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Auto-expanded nodes</h3>
+    <p className="text-sm text-muted-foreground">
+      Use the <code className="rounded bg-muted px-1 py-0.5 text-xs">defaultExpanded</code> prop to control the initial expand state. Pass a boolean to expand/collapse all, or a number for the maximum depth to expand.
+    </p>
+    <VariantGrid
+      registryName="json-viewer"
+      files={["registry/json-viewer/json-viewer.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Expand depth 2",
+          code: `<JsonViewer data={data} defaultExpanded={2} />`,
+          preview: <div className="max-h-[300px] overflow-auto"><JsonViewer data={apiResponse} defaultExpanded={2} title="API Response" /></div>,
+        },
+        {
+          label: "Fully collapsed",
+          code: `<JsonViewer data={data} defaultExpanded={false} />`,
+          preview: <div className="max-h-[300px] overflow-auto"><JsonViewer data={apiResponse} defaultExpanded={false} title="API Response" /></div>,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Configurations</h3>
+    <VariantGrid
+      registryName="json-viewer"
+      files={["registry/json-viewer/json-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Package manifest",
+          code: `<JsonViewer data={packageJson} title="package.json" rootName="project" />`,
+          preview: <JsonViewer data={packageJson} title="package.json" rootName="project" defaultExpanded={1} />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 
