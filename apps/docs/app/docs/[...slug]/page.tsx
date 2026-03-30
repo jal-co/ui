@@ -7,7 +7,6 @@ import { CopyPromptButton } from "@/components/docs/copy-prompt-button"
 import { DependencyBadges } from "@/components/docs/dependency-badges"
 import { generateComponentPrompt } from "@/lib/prompts"
 import { getRegistryItem } from "@/lib/registry"
-import { InlineTOC } from "fumadocs-ui/components/inline-toc"
 
 export default async function Page(props: {
   params: Promise<{ slug: string[] }>
@@ -33,47 +32,69 @@ export default async function Page(props: {
   }`
 
   return (
-    <div className="flex flex-col gap-12 py-10 px-4 md:px-6 max-w-3xl mx-auto">
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between gap-4">
-          <h1 className="text-3xl font-bold tracking-tight">
-            {page.data.title}
-          </h1>
-          {isComponentPage && (
-            <div className="flex items-center gap-1.5">
-              {aiPrompt && <CopyPromptButton value={aiPrompt} />}
-              <AiCopyButton
-                value={pageSummary}
-                size="sm"
-                variant="outline"
-                brandColors
-                label="Copy Page"
-              />
+    <div className="mx-auto flex w-full max-w-6xl items-start gap-10 py-10 px-4 md:px-6">
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between gap-4">
+              <h1 className="text-3xl font-bold tracking-tight">
+                {page.data.title}
+              </h1>
+              {isComponentPage && (
+                <div className="flex items-center gap-1.5">
+                  {aiPrompt && <CopyPromptButton value={aiPrompt} />}
+                  <AiCopyButton
+                    value={pageSummary}
+                    size="sm"
+                    variant="outline"
+                    brandColors
+                    label="Copy Page"
+                  />
+                </div>
+              )}
             </div>
-          )}
+            {page.data.description && (
+              <p className="text-base text-muted-foreground">
+                {page.data.description}
+              </p>
+            )}
+            {registryItem && (
+              <DependencyBadges
+                dependencies={registryItem.dependencies}
+                registryDependencies={registryItem.registryDependencies}
+              />
+            )}
+          </div>
+
+          <div className="flex flex-col gap-8">
+            <MDX components={getMDXComponents()} />
+          </div>
         </div>
-        {page.data.description && (
-          <p className="text-base text-muted-foreground">
-            {page.data.description}
-          </p>
-        )}
-        {registryItem && (
-          <DependencyBadges
-            dependencies={registryItem.dependencies}
-            registryDependencies={registryItem.registryDependencies}
-          />
-        )}
       </div>
 
       {toc && toc.length > 0 && (
-        <div className="not-prose">
-          <InlineTOC items={toc} />
-        </div>
+        <aside className="sticky top-24 hidden w-64 shrink-0 lg:block">
+          <div className="flex flex-col gap-4">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              On This Page
+            </p>
+            <div className="flex flex-col gap-2 border-l border-border/40 pl-4">
+              {toc.map((item) => (
+                <a
+                  key={item.url}
+                  href={item.url}
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground line-clamp-2"
+                  style={{
+                    paddingLeft: (item.depth - 2) * 12,
+                  }}
+                >
+                  {item.title}
+                </a>
+              ))}
+            </div>
+          </div>
+        </aside>
       )}
-
-      <div className="flex flex-col gap-8">
-        <MDX components={getMDXComponents()} />
-      </div>
     </div>
   )
 }
