@@ -32,9 +32,9 @@ export default async function Page(props: {
   }`
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl items-start gap-10 py-10 px-4 md:px-6">
+    <div className="mx-auto flex w-full max-w-[1440px] items-start gap-10 py-10 px-4 md:px-6">
       <div className="min-w-0 flex-1">
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12 max-w-[1000px]">
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-4">
               <h1 className="text-3xl font-bold tracking-tight">
@@ -73,7 +73,7 @@ export default async function Page(props: {
       </div>
 
       {toc && toc.length > 0 && (
-        <aside className="sticky top-24 hidden w-64 shrink-0 lg:block">
+        <aside className="sticky top-24 hidden w-64 shrink-0 xl:block">
           <div className="flex flex-col gap-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               On This Page
