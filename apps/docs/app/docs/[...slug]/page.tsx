@@ -7,6 +7,7 @@ import { CopyPromptButton } from "@/components/docs/copy-prompt-button"
 import { DependencyBadges } from "@/components/docs/dependency-badges"
 import { generateComponentPrompt } from "@/lib/prompts"
 import { getRegistryItem } from "@/lib/registry"
+import { InlineTOC } from "fumadocs-ui/components/inline-toc"
 
 export default async function Page(props: {
   params: Promise<{ slug: string[] }>
@@ -16,6 +17,7 @@ export default async function Page(props: {
   if (!page) notFound()
 
   const MDX = page.data.body
+  const toc = page.data.toc
 
   // Detect component pages to show AI buttons and badges
   const isComponentPage =
@@ -62,6 +64,12 @@ export default async function Page(props: {
           />
         )}
       </div>
+
+      {toc && toc.length > 0 && (
+        <div className="not-prose">
+          <InlineTOC items={toc} />
+        </div>
+      )}
 
       <div className="flex flex-col gap-8">
         <MDX components={getMDXComponents()} />
