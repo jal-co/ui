@@ -3,6 +3,9 @@ title: "Cron Schedule"
 description: "Visual cron expression display with field breakdown, human-readable summary, and next-run preview."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { CronSchedule } from "@/registry/cron-schedule/cron-schedule"
+
 <ComponentPreview name="cron-schedule-preview" />
 
 ## Installation
@@ -13,7 +16,53 @@ description: "Visual cron expression display with field breakdown, human-readabl
 
 <CodeLine code={`import { CronSchedule } from "@/components/cron-schedule"`} />
 
-<CodeLine code={`<CronSchedule />`} />
+<CodeLine code={`<CronSchedule expression="0 9 * * 1-5" title="Daily Standup" />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Common schedules</h3>
+    <VariantGrid
+      registryName="cron-schedule"
+      files={["registry/cron-schedule/cron-schedule.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Every 15 minutes",
+          code: `<CronSchedule expression="*/15 * * * *" title="Health Check" />`,
+          preview: <CronSchedule expression="*/15 * * * *" title="Health Check" />,
+        },
+        {
+          label: "Weekdays at 9 AM",
+          code: `<CronSchedule expression="0 9 * * 1-5" title="Daily Standup" />`,
+          preview: <CronSchedule expression="0 9 * * 1-5" title="Daily Standup" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Next runs</h3>
+    <p className="text-sm text-muted-foreground">
+      Show upcoming execution times based on the cron expression.
+    </p>
+    <VariantGrid
+      registryName="cron-schedule"
+      files={["registry/cron-schedule/cron-schedule.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Next 3 runs",
+          code: `<CronSchedule expression="0 0 1 * *" showNextRuns={3} />`,
+          preview: <CronSchedule expression="0 0 1 * *" title="Monthly Report" showNextRuns={3} />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 

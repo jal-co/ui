@@ -3,6 +3,11 @@ title: "AI Copy Button"
 description: "Split button with a primary copy action and a dropdown of AI destinations."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { AiCopyButton } from "@/registry/ai-copy-button/ai-copy-button"
+
+export const sampleContent = "# Getting Started\n\nInstall the registry component."
+
 <ComponentPreview name="ai-copy-button-preview" />
 
 ## Installation
@@ -15,7 +20,66 @@ description: "Split button with a primary copy action and a dropdown of AI desti
 
 <CodeLine code={`<AiCopyButton />`} />
 
-Async server component — fetches data at build time with ISR caching.
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Variants</h3>
+    <VariantGrid
+      registryName="ai-copy-button"
+      files={["registry/ai-copy-button/ai-copy-button.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Default",
+          code: `<AiCopyButton value={content} variant="default" />`,
+          preview: <AiCopyButton value={sampleContent} variant="default" />,
+        },
+        {
+          label: "Secondary",
+          code: `<AiCopyButton value={content} variant="secondary" />`,
+          preview: <AiCopyButton value={sampleContent} variant="secondary" />,
+        },
+        {
+          label: "Outline",
+          code: `<AiCopyButton value={content} variant="outline" />`,
+          preview: <AiCopyButton value={sampleContent} variant="outline" />,
+        },
+        {
+          label: "Ghost",
+          code: `<AiCopyButton value={content} variant="ghost" />`,
+          preview: <AiCopyButton value={sampleContent} variant="ghost" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Sizes</h3>
+    <VariantGrid
+      registryName="ai-copy-button"
+      files={["registry/ai-copy-button/ai-copy-button.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Small",
+          code: `<AiCopyButton value={content} size="sm" />`,
+          preview: <AiCopyButton value={sampleContent} size="sm" />,
+        },
+        {
+          label: "Default",
+          code: `<AiCopyButton value={content} size="default" />`,
+          preview: <AiCopyButton value={sampleContent} size="default" />,
+        },
+        {
+          label: "Large",
+          code: `<AiCopyButton value={content} size="lg" />`,
+          preview: <AiCopyButton value={sampleContent} size="lg" />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 

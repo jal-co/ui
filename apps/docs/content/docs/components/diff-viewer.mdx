@@ -3,6 +3,12 @@ title: "Diff Viewer"
 description: "Code diff viewer with line numbers and add/remove coloring. Supports unified and split layouts."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { DiffViewer } from "@/registry/diff-viewer/diff-viewer"
+
+export const oldCode = `import { useState } from "react"\n\nfunction Counter() {\n  const [count, setCount] = useState(0)\n\n  return (\n    <button onClick={() => setCount(count + 1)}>\n      Count: {count}\n    </button>\n  )\n}`
+export const newCode = `import { useState, useCallback } from "react"\n\nfunction Counter({ initial = 0 }) {\n  const [count, setCount] = useState(initial)\n\n  const increment = useCallback(() => {\n    setCount((prev) => prev + 1)\n  }, [])\n\n  return (\n    <button onClick={increment}>\n      Count: {count}\n    </button>\n  )\n}`
+
 <ComponentPreview name="diff-viewer-preview" />
 
 ## Installation
@@ -13,7 +19,32 @@ description: "Code diff viewer with line numbers and add/remove coloring. Suppor
 
 <CodeLine code={`import { DiffViewer } from "@/components/diff-viewer"`} />
 
-<CodeLine code={`<DiffViewer />`} />
+<CodeLine code={`<DiffViewer oldCode={before} newCode={after} />`} />
+
+## Layouts
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <VariantGrid
+      registryName="diff-viewer"
+      files={["registry/diff-viewer/diff-viewer.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Unified (default)",
+          code: `<DiffViewer oldCode={oldCode} newCode={newCode} layout="unified" />`,
+          preview: <DiffViewer oldCode={oldCode} newCode={newCode} layout="unified" oldTitle="counter.tsx" newTitle="counter.tsx" />,
+        },
+        {
+          label: "Split",
+          code: `<DiffViewer oldCode={oldCode} newCode={newCode} layout="split" />`,
+          preview: <DiffViewer oldCode={oldCode} newCode={newCode} layout="split" oldTitle="before.tsx" newTitle="after.tsx" />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 
