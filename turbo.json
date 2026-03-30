@@ -19,6 +19,9 @@
     },
     "previews:generate": {
       "cache": false
+    },
+    "registry:build": {
+      "cache": false
     }
   }
 }

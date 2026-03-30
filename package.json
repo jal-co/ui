@@ -7,7 +7,8 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
-    "previews:generate": "turbo run previews:generate"
+    "previews:generate": "turbo run previews:generate",
+    "registry:build": "turbo run registry:build"
   },
   "devDependencies": {
     "turbo": "^2.5.4"
