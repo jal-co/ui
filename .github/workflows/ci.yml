@@ -33,7 +33,7 @@ jobs:
         run: pnpm previews:generate
 
       - name: Type check
-        run: pnpm exec tsc --noEmit
+        run: pnpm check-types
 
       - name: Registry build
         run: pnpm registry:build
