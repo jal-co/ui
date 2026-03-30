@@ -4,9 +4,9 @@ description: "Collapsible file and folder tree with file-type icons, highlights,
 ---
 
 import { VariantGrid } from "@/components/docs/variant-grid"
-import { FileTree, type FileTreeNode } from "@/registry/file-tree/file-tree"
+import { FileTree } from "@/registry/file-tree/file-tree"
 
-const nextjsTree: FileTreeNode[] = [
+export const nextjsTree = [
   {
     name: "src",
     children: [
@@ -28,7 +28,7 @@ const nextjsTree: FileTreeNode[] = [
   { name: ".env.local" },
 ]
 
-const smallTree: FileTreeNode[] = [
+export const smallTree = [
   {
     name: "src",
     children: [
