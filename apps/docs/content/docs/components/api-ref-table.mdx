@@ -3,6 +3,9 @@ title: "API Reference Table"
 description: "Expandable prop reference table with color-coded types for component documentation."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { ApiRefTable } from "@/registry/api-ref-table/api-ref-table"
+
 <ComponentPreview name="api-ref-table-preview" />
 
 ## Installation
@@ -13,9 +16,49 @@ description: "Expandable prop reference table with color-coded types for compone
 
 <CodeLine code={`import { ApiRefTable } from "@/components/api-ref-table"`} />
 
-<CodeLine code={`<ApiRefTable />`} />
+<CodeLine code={`<ApiRefTable title="MyComponent" props={[{ name: "size", type: '"sm" | "lg"' }]} />`} />
 
-Server component — no client JS required.
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Prop types</h3>
+    <VariantGrid
+      registryName="api-ref-table"
+      files={["registry/api-ref-table/api-ref-table.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Required Props",
+          code: `<ApiRefTable title="Props" props={[{ name: "id", type: "string", required: true }]} />`,
+          preview: (
+            <ApiRefTable
+              title="Props"
+              props={[
+                { name: "id", type: "string", required: true, description: "Unique identifier." },
+                { name: "label", type: "string", required: true },
+              ]}
+            />
+          ),
+        },
+        {
+          label: "Mixed Types",
+          code: `<ApiRefTable title="Props" props={[{ name: "count", type: "number" }, { name: "visible", type: "boolean" }]} />`,
+          preview: (
+            <ApiRefTable
+              title="Props"
+              props={[
+                { name: "count", type: "number", description: "Numerical count." },
+                { name: "visible", type: "boolean", description: "Visibility toggle." },
+              ]}
+            />
+          ),
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 
