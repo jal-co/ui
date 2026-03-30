@@ -119,9 +119,10 @@ export default function RootLayout({
       <head />
       <body className="antialiased">
         <Script
-          defer
+          id="umami-analytics"
           src="https://cloud.umami.is/script.js"
           data-website-id="1577ed14-ed62-48d4-a679-1e96a0f4ae54"
+          strategy="afterInteractive"
         />
         <script
           type="application/ld+json"

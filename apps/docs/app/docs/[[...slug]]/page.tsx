@@ -9,10 +9,11 @@ import { generateComponentPrompt } from "@/lib/prompts"
 import { getRegistryItem } from "@/lib/registry"
 
 export default async function Page(props: {
-  params: Promise<{ slug: string[] }>
+  params: Promise<{ slug?: string[] }>
 }) {
   const params = await props.params
-  const page = source.getPage(params.slug)
+  const slug = params.slug ?? []
+  const page = source.getPage(slug)
   if (!page) notFound()
 
   const MDX = page.data.body
@@ -20,8 +21,8 @@ export default async function Page(props: {
 
   // Detect component pages to show AI buttons and badges
   const isComponentPage =
-    params.slug.length >= 2 && params.slug[0] === "components"
-  const componentSlug = isComponentPage ? params.slug[params.slug.length - 1] : null
+    slug.length >= 2 && slug[0] === "components"
+  const componentSlug = isComponentPage ? slug[slug.length - 1] : null
   const registryItem = componentSlug ? getRegistryItem(componentSlug) : null
   const aiPrompt = componentSlug ? generateComponentPrompt(componentSlug) : null
 
@@ -37,7 +38,7 @@ export default async function Page(props: {
         <div className="flex flex-col gap-12 w-full">
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-4">
-              <h1 className="text-4xl font-bold tracking-tight">
+              <h1 className="text-4xl font-bold tracking-tight text-foreground">
                 {page.data.title}
               </h1>
               {isComponentPage && (
@@ -104,21 +105,15 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(props: {
-  params: Promise<{ slug: string[] }>
+  params: Promise<{ slug?: string[] }>
 }): Promise<Metadata> {
   const params = await props.params
-  const page = source.getPage(params.slug)
+  const slug = params.slug ?? []
+  const page = source.getPage(slug)
   if (!page) notFound()
 
   return {
     title: page.data.title,
     description: page.data.description,
-    openGraph: {
-      images: {
-        url: `/docs/${params.slug.join("/")}/og`,
-        width: 1200,
-        height: 630,
-      },
-    },
   }
 }
