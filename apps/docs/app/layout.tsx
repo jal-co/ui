@@ -72,6 +72,8 @@ export const metadata: Metadata = {
   },
 }
 
+import Script from "next/script"
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -114,14 +116,13 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn(sora.variable, publicSans.variable, firaCode.variable, "font-geist", "font-geist-mono", geist.variable, geistMono.variable)}
     >
-      <head>
-        <script
+      <head />
+      <body className="antialiased">
+        <Script
           defer
           src="https://cloud.umami.is/script.js"
           data-website-id="1577ed14-ed62-48d4-a679-1e96a0f4ae54"
         />
-      </head>
-      <body className="antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
