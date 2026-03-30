@@ -3,7 +3,19 @@ title: "Activity Graph"
 description: "GitHub-style activity heatmap that visualizes daily counts as a color-intensity grid."
 ---
 
-<ComponentPreview name="activity-graph-preview" />
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { ActivityGraph } from "@/registry/activity-graph/activity-graph"
+
+export const sampleData = [
+  { date: "2026-03-01", count: 2 },
+  { date: "2026-03-02", count: 5 },
+  { date: "2026-03-03", count: 12 },
+  { date: "2026-03-04", count: 0 },
+  { date: "2026-03-05", count: 8 },
+  { date: "2026-03-06", count: 4 },
+]
+
+<ComponentPreview name="activity-graph-simple" />
 
 ## Installation
 
@@ -13,9 +25,28 @@ description: "GitHub-style activity heatmap that visualizes daily counts as a co
 
 <CodeLine code={`import { ActivityGraph } from "@/components/activity-graph"`} />
 
-<CodeLine code={`<ActivityGraph />`} />
+<CodeLine code={`<ActivityGraph data={[{ date: "2026-03-11", count: 5 }, ...]} />`} />
 
-Async server component — fetches data at build time with ISR caching.
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Custom color scale</h3>
+    <VariantGrid
+      registryName="activity-graph"
+      files={["registry/activity-graph/activity-graph.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Blue scale",
+          code: `<ActivityGraph data={data} colorScale={["bg-muted", "bg-blue-100", "bg-blue-300", "bg-blue-500", "bg-blue-700"]} />`,
+          preview: <ActivityGraph data={sampleData} weeks={12} colorScale={["bg-muted", "bg-blue-200", "bg-blue-400", "bg-blue-600", "bg-blue-800"]} />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 
