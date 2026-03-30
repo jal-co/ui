@@ -3,6 +3,12 @@ title: "Code Block"
 description: "Syntax-highlighted code block with language icon, copy button, and optional scrollable or collapsible overflow."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { CodeBlock } from "@/registry/code-block/code-block"
+
+export const tsExample = `import { z } from "zod"\n\nconst userSchema = z.object({\n  name: z.string().min(2),\n  email: z.string().email(),\n  age: z.number().int().positive(),\n})\n\ntype User = z.infer<typeof userSchema>`
+export const cssExample = `@import "tailwindcss";\n\n@theme {\n  --color-primary: oklch(0.7 0.15 200);\n  --color-secondary: oklch(0.6 0.12 280);\n  --radius-lg: 0.75rem;\n}`
+
 <ComponentPreview name="code-block-preview" />
 
 ## Installation
@@ -15,7 +21,48 @@ description: "Syntax-highlighted code block with language icon, copy button, and
 
 <CodeLine code={`<CodeBlock />`} />
 
-Async server component — fetches data at build time with ISR caching.
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Languages</h3>
+    <VariantGrid
+      registryName="code-block"
+      files={["registry/code-block/code-block.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "TypeScript",
+          code: `<CodeBlock code={tsCode} language="ts" />`,
+          preview: <CodeBlock code={tsExample} language="ts" />,
+        },
+        {
+          label: "CSS (Tailwind v4)",
+          code: `<CodeBlock code={cssCode} language="css" />`,
+          preview: <CodeBlock code={cssExample} language="css" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Variants</h3>
+    <VariantGrid
+      registryName="code-block"
+      files={["registry/code-block/code-block.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Compact (no header)",
+          code: `<CodeBlock code={code} language="ts" compact />`,
+          preview: <CodeBlock code={tsExample} language="ts" compact />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 

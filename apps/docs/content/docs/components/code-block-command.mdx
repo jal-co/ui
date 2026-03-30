@@ -3,6 +3,10 @@ title: "Code Block Command"
 description: "Tabbed CLI command block with package manager switching, bundled SVG icons, copy button, and localStorage persistence."
 ---
 
+import { VariantGrid } from "@/components/docs/variant-grid"
+import { CodeBlockCommand } from "@/registry/code-block-command/code-block-command"
+import { convertNpmCommand } from "@/registry/code-block-command/lib/convert-npm-command"
+
 <ComponentPreview name="code-block-command-preview" />
 
 ## Installation
@@ -13,7 +17,58 @@ description: "Tabbed CLI command block with package manager switching, bundled S
 
 <CodeLine code={`import { CodeBlockCommand } from "@/components/code-block-command"`} />
 
-<CodeLine code={`<CodeBlockCommand />`} />
+<CodeLine code={`<CodeBlockCommand {...convertNpmCommand("npm install zod")} />`} />
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Command types</h3>
+    <VariantGrid
+      registryName="code-block-command"
+      files={["registry/code-block-command/code-block-command.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "shadcn add",
+          code: `<CodeBlockCommand {...convertNpmCommand("npx shadcn@latest add button")} />`,
+          preview: <CodeBlockCommand {...convertNpmCommand("npx shadcn@latest add button")} show={["shadcn", "pnpm", "npm", "yarn", "bun"]} />,
+        },
+        {
+          label: "npm install",
+          code: `<CodeBlockCommand {...convertNpmCommand("npm install zod")} />`,
+          preview: <CodeBlockCommand {...convertNpmCommand("npm install zod")} />,
+        },
+        {
+          label: "npx create",
+          code: `<CodeBlockCommand {...convertNpmCommand("npx create-next-app@latest")} />`,
+          preview: <CodeBlockCommand {...convertNpmCommand("npx create-next-app@latest")} />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Manual commands</h3>
+    <p className="text-sm text-muted-foreground">
+      Provide commands manually if the automatic conversion isn&apos;t suitable.
+    </p>
+    <VariantGrid
+      registryName="code-block-command"
+      files={["registry/code-block-command/code-block-command.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Custom mapping",
+          code: `<CodeBlockCommand pnpm="pnpm dev" npm="npm run dev" yarn="yarn dev" bun="bun dev" />`,
+          preview: <CodeBlockCommand pnpm="pnpm dev" npm="npm run dev" yarn="yarn dev" bun="bun dev" />,
+        },
+      ]}
+    />
+  </div>
+</div>
 
 ## API Reference
 
