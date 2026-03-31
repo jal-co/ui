@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
+import { Heart } from "lucide-react"
 import { FumadocsSidebar } from "@/components/docs/fumadocs-sidebar"
 import { MobileNav } from "@/components/docs/mobile-nav"
 import { ThemeSwitcher } from "@/components/docs/theme-switcher"
@@ -8,6 +9,7 @@ import { source } from "@/lib/source"
 
 import { JalcoLogo } from "@/components/icons/jalco-logo"
 import { GitHubStarsButton } from "@/registry/github-stars-button/github-stars-button"
+import { SiteFooter } from "@/components/docs/footer"
 
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
@@ -50,6 +52,12 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5">
+          <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
+            <Link href="/sponsor">
+              <Heart className="size-3.5" />
+              Sponsor
+            </Link>
+          </Button>
           <GitHubStarsButton
             owner="jal-co"
             repo="ui"
@@ -74,6 +82,8 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
           </div>
         </main>
       </div>
+
+      <SiteFooter />
     </div>
     </div>
   )
