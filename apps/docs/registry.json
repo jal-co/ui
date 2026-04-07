@@ -637,6 +637,28 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "balanced-text",
+      "type": "registry:component",
+      "title": "Balanced Text",
+      "description": "Text wrapper that uses Pretext to balance line widths so all lines are roughly equal length. Deterministic and cross-browser consistent.",
+      "dependencies": [
+        "@chenglou/pretext"
+      ],
+      "registryDependencies": [
+        "pretext"
+      ],
+      "categories": [
+        "typography",
+        "pretext"
+      ],
+      "files": [
+        {
+          "path": "registry/balanced-text/balanced-text.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

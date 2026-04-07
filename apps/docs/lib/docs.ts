@@ -117,6 +117,7 @@ export const docsNav: NavGroup[] = [
   {
     title: "Pretext",
     items: [
+      { title: "Balanced Text", href: "/docs/components/balanced-text", dateAdded: "2026-04-07" },
       { title: "Chat Bubble", href: "/docs/components/chat-bubble", dateAdded: "2026-04-07" },
     ],
   },
