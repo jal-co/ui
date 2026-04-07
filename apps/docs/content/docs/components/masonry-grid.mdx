@@ -1,0 +1,53 @@
+---
+title: "Masonry Grid"
+description: "Text-aware masonry layout where card heights are predicted by Pretext without DOM measurement. Zero layout shift."
+---
+
+<ComponentPreview name="masonry-grid-demo" />
+
+## Installation
+
+<InstallBlock name="masonry-grid" />
+
+## Usage
+
+<CodeLine code={`import { MasonryGrid } from "@/components/masonry-grid"`} />
+
+<CodeLine code={`<MasonryGrid items={items} columns={3} />`} />
+
+Client component. Each card's text height is computed by Pretext using pure arithmetic. Cards are absolutely positioned into columns — no DOM measurement, no layout shift.
+
+## Examples
+
+### Three columns
+
+<ComponentPreview name="masonry-grid-demo" />
+
+## API Reference
+
+<ApiRefTable
+  title="MasonryGrid"
+  props={[
+    { name: "items", type: "MasonryItem[]", required: true, description: "Array of items to display." },
+    { name: "columns", type: "2 | 3 | 4", description: "Number of columns. Defaults to 3." },
+    { name: "gap", type: "number", description: "Gap between cards in pixels. Defaults to 12." },
+    { name: "font", type: "string", description: "CSS font shorthand for text measurement. Must match rendered font." },
+    { name: "lineHeight", type: "number", description: "Body text line height in pixels. Defaults to 20." },
+    { name: "cardPadding", type: "number", description: "Card padding in pixels. Defaults to 16." },
+  ]}
+/>
+
+<ApiRefTable
+  title="MasonryItem"
+  props={[
+    { name: "text", type: "string", required: true, description: "Text content of the card." },
+    { name: "title", type: "string", description: "Optional title above the text." },
+  ]}
+/>
+
+## Notes
+
+- **Pretext-powered.** Uses [@chenglou/pretext](https://github.com/chenglou/pretext) for pure-arithmetic height prediction.
+- **Zero layout shift.** Cards are positioned using computed heights, not DOM measurements. No reflow, no CLS.
+- **Responsive.** Uses `ResizeObserver` to recalculate positions when the container width changes.
+- **Font matching.** The `font` and `lineHeight` props must match the CSS styling of the card body text.

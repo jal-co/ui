@@ -682,6 +682,26 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "masonry-grid",
+      "type": "registry:component",
+      "title": "Masonry Grid",
+      "description": "Text-aware masonry layout where card heights are predicted by Pretext without DOM measurement. Zero layout shift.",
+      "dependencies": [
+        "@chenglou/pretext"
+      ],
+      "registryDependencies": [],
+      "categories": [
+        "layout",
+        "pretext"
+      ],
+      "files": [
+        {
+          "path": "registry/masonry-grid/masonry-grid.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

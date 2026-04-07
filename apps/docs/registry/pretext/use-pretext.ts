@@ -14,21 +14,25 @@
 "use client"
 
 import * as React from "react"
-import {
-  prepare,
-  layout,
-  prepareWithSegments,
-  layoutWithLines,
-  walkLineRanges,
-  type PreparedText,
-  type PreparedTextWithSegments,
-  type LayoutResult,
-  type LayoutLinesResult,
-  type PrepareOptions,
+import type {
+  PreparedText,
+  PreparedTextWithSegments,
+  LayoutResult,
+  LayoutLinesResult,
+  PrepareOptions,
 } from "@chenglou/pretext"
 
-// Re-export core types for consumer convenience
 export type { PreparedText, PreparedTextWithSegments, LayoutResult, LayoutLinesResult, PrepareOptions }
+
+const isBrowser = typeof window !== "undefined"
+
+function getPretext() {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  return require("@chenglou/pretext") as typeof import("@chenglou/pretext")
+}
+
+const EMPTY_LAYOUT: LayoutResult = { lineCount: 0, height: 0 }
+const EMPTY_LINES: LayoutLinesResult = { lineCount: 0, height: 0, lines: [] }
 
 /**
  * Prepare text for Pretext measurement. Runs `prepare()` once and caches
@@ -40,14 +44,14 @@ export function usePretext(
   text: string,
   font: string,
   options?: PrepareOptions,
-): PreparedText {
+): PreparedText | null {
   const whiteSpace = options?.whiteSpace ?? "normal"
 
-  return React.useMemo(
-    () => prepare(text, font, options),
+  return React.useMemo(() => {
+    if (!isBrowser) return null
+    return getPretext().prepare(text, font, options)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [text, font, whiteSpace],
-  )
+  }, [text, font, whiteSpace])
 }
 
 /**
@@ -58,14 +62,14 @@ export function usePretextWithSegments(
   text: string,
   font: string,
   options?: PrepareOptions,
-): PreparedTextWithSegments {
+): PreparedTextWithSegments | null {
   const whiteSpace = options?.whiteSpace ?? "normal"
 
-  return React.useMemo(
-    () => prepareWithSegments(text, font, options),
+  return React.useMemo(() => {
+    if (!isBrowser) return null
+    return getPretext().prepareWithSegments(text, font, options)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [text, font, whiteSpace],
-  )
+  }, [text, font, whiteSpace])
 }
 
 /**
@@ -75,14 +79,14 @@ export function usePretextWithSegments(
  * Re-runs on every `maxWidth` or `lineHeight` change (~0.0002ms).
  */
 export function usePretextLayout(
-  prepared: PreparedText,
+  prepared: PreparedText | null,
   maxWidth: number,
   lineHeight: number,
 ): LayoutResult {
-  return React.useMemo(
-    () => layout(prepared, maxWidth, lineHeight),
-    [prepared, maxWidth, lineHeight],
-  )
+  return React.useMemo(() => {
+    if (!prepared) return EMPTY_LAYOUT
+    return getPretext().layout(prepared, maxWidth, lineHeight)
+  }, [prepared, maxWidth, lineHeight])
 }
 
 /**
@@ -91,14 +95,14 @@ export function usePretextLayout(
  * for custom rendering.
  */
 export function usePretextLines(
-  prepared: PreparedTextWithSegments,
+  prepared: PreparedTextWithSegments | null,
   maxWidth: number,
   lineHeight: number,
 ): LayoutLinesResult {
-  return React.useMemo(
-    () => layoutWithLines(prepared, maxWidth, lineHeight),
-    [prepared, maxWidth, lineHeight],
-  )
+  return React.useMemo(() => {
+    if (!prepared) return EMPTY_LINES
+    return getPretext().layoutWithLines(prepared, maxWidth, lineHeight)
+  }, [prepared, maxWidth, lineHeight])
 }
 
 /**
@@ -108,11 +112,13 @@ export function usePretextLines(
  * Returns the shrinkwrapped width in pixels.
  */
 export function useShrinkwrap(
-  prepared: PreparedTextWithSegments,
+  prepared: PreparedTextWithSegments | null,
   maxWidth: number,
 ): number {
   return React.useMemo(() => {
-    if (maxWidth <= 0) return 0
+    if (!prepared || maxWidth <= 0) return 0
+
+    const { walkLineRanges } = getPretext()
 
     let baseLineCount = 0
     walkLineRanges(prepared, maxWidth, () => { baseLineCount++ })
@@ -150,11 +156,13 @@ export function useShrinkwrap(
  * cross-browser. This works on any length and is deterministic.
  */
 export function useBalancedWidth(
-  prepared: PreparedTextWithSegments,
+  prepared: PreparedTextWithSegments | null,
   maxWidth: number,
 ): number {
   return React.useMemo(() => {
-    if (maxWidth <= 0) return 0
+    if (!prepared || maxWidth <= 0) return 0
+
+    const { walkLineRanges } = getPretext()
 
     let baseLineCount = 0
     walkLineRanges(prepared, maxWidth, () => { baseLineCount++ })

@@ -37,8 +37,10 @@
     "---Payments---",
     "tip-jar",
     "---Pretext---",
+    "pretext",
     "balanced-text",
     "chat-bubble",
+    "masonry-grid",
     "text-highlight"
   ]
 }

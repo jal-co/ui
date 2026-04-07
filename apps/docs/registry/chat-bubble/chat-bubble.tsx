@@ -70,7 +70,7 @@ function ChatBubble({
   const prepared = usePretextWithSegments(text, font)
   const shrinkwrappedWidth = useShrinkwrap(prepared, textMaxWidth)
 
-  const bubbleWidth = shrinkwrap
+  const bubbleWidth = shrinkwrap && shrinkwrappedWidth > 0
     ? Math.min(maxWidth, shrinkwrappedWidth + BUBBLE_PADDING_X)
     : undefined
 

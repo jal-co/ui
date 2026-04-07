@@ -54,7 +54,7 @@ function BalancedText({
     <Tag
       data-slot="balanced-text"
       className={cn(className)}
-      style={{ maxWidth: balancedWidth, ...style }}
+      style={{ maxWidth: balancedWidth || maxWidth, ...style }}
       {...props}
     >
       {text}
