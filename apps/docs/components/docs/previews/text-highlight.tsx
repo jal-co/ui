@@ -1,6 +1,3 @@
-"use client"
-
-import * as React from "react"
 import { TextHighlight } from "@/registry/text-highlight/text-highlight"
 
 const text = "Pretext measures text without the DOM using pure arithmetic. It handles CJK, Arabic, and emoji correctly."
@@ -10,16 +7,11 @@ const ranges = [
   { start: 74, end: 102, color: "oklch(0.75 0.12 280)" },
 ]
 
-export default function TextHighlightPreview() {
-  const [mounted, setMounted] = React.useState(false)
-  React.useEffect(() => { setMounted(true) }, [])
-  if (!mounted) return null
-
+export default async function TextHighlightPreview() {
   return (
     <TextHighlight
       text={text}
       ranges={ranges}
-      maxWidth={340}
       className="text-sm text-foreground"
     />
   )

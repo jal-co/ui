@@ -1,6 +1,3 @@
-"use client"
-
-import * as React from "react"
 import { TextHighlight, type HighlightRange } from "@/registry/text-highlight/text-highlight"
 
 const passage =
@@ -16,15 +13,10 @@ const ranges: HighlightRange[] = [
 ]
 
 export default function TextHighlightDemo() {
-  const [mounted, setMounted] = React.useState(false)
-  React.useEffect(() => { setMounted(true) }, [])
-  if (!mounted) return <div className="h-[200px]" />
-
   return (
     <TextHighlight
       text={passage}
       ranges={ranges}
-      maxWidth={520}
       className="text-base text-foreground"
     />
   )

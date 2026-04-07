@@ -665,16 +665,11 @@
       "type": "registry:component",
       "title": "Pretext Text Highlight",
       "description": "Paragraph text with highlighted ranges that wrap correctly across line breaks using Pretext-measured character positions.",
-      "dependencies": [
-        "@chenglou/pretext"
-      ],
-      "registryDependencies": [
-        "pretext"
-      ],
+      "dependencies": [],
+      "registryDependencies": [],
       "categories": [
         "docs",
-        "ai",
-        "pretext"
+        "ai"
       ],
       "files": [
         {

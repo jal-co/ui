@@ -15,7 +15,7 @@ description: "Paragraph text with highlighted ranges that wrap correctly across 
 
 <CodeLine code={`<TextHighlight text={passage} ranges={[{ start: 0, end: 7, color: "oklch(0.8 0.15 85)" }]} />`} />
 
-Client component. Pretext measures exact character positions per line so highlights wrap correctly across line breaks without DOM measurement.
+Server-compatible. Renders inline `<mark>` elements that wrap correctly across line breaks.
 
 ## Examples
 
@@ -30,9 +30,6 @@ Client component. Pretext measures exact character positions per line so highlig
   props={[
     { name: "text", type: "string", required: true, description: "The text to render with highlights." },
     { name: "ranges", type: "HighlightRange[]", required: true, description: "Ranges to highlight. Each has start, end, optional color and label." },
-    { name: "font", type: "string", description: "CSS font shorthand for measurement. Must match rendered font." },
-    { name: "lineHeight", type: "number", description: "Line height in pixels. Must match rendered line-height. Defaults to 24." },
-    { name: "maxWidth", type: "number", description: "Maximum text width in pixels. Defaults to 520." },
   ]}
 />
 
@@ -48,6 +45,6 @@ Client component. Pretext measures exact character positions per line so highlig
 
 ## Notes
 
-- **Pretext-powered.** Uses [@chenglou/pretext](https://github.com/chenglou/pretext) for pure-arithmetic text measurement.
-- **Line-aware highlights.** Ranges that span multiple lines render separate highlight backgrounds per line — no clipping or overflow issues.
-- **Font matching.** The `font` and `lineHeight` props must match the CSS styling of the rendered text for accurate positioning.
+- **Inline marks.** Uses native `<mark>` elements — highlights wrap correctly across line breaks with no JS measurement needed.
+- **Server-compatible.** No client-only dependencies. Works in RSC and SSR.
+- **Labels.** Optional badge labels are positioned absolutely above the first character of the highlighted range.
