@@ -659,6 +659,29 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "text-highlight",
+      "type": "registry:component",
+      "title": "Text Highlight",
+      "description": "Paragraph text with highlighted ranges that wrap correctly across line breaks using Pretext-measured character positions.",
+      "dependencies": [
+        "@chenglou/pretext"
+      ],
+      "registryDependencies": [
+        "pretext"
+      ],
+      "categories": [
+        "docs",
+        "ai",
+        "pretext"
+      ],
+      "files": [
+        {
+          "path": "registry/text-highlight/text-highlight.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

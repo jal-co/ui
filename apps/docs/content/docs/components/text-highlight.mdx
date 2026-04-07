@@ -1,0 +1,53 @@
+---
+title: "Text Highlight"
+description: "Paragraph text with highlighted ranges that wrap correctly across line breaks using Pretext-measured character positions."
+---
+
+<ComponentPreview name="text-highlight-demo" />
+
+## Installation
+
+<InstallBlock name="text-highlight" />
+
+## Usage
+
+<CodeLine code={`import { TextHighlight } from "@/components/text-highlight"`} />
+
+<CodeLine code={`<TextHighlight text={passage} ranges={[{ start: 0, end: 7, color: "oklch(0.8 0.15 85)" }]} />`} />
+
+Client component. Pretext measures exact character positions per line so highlights wrap correctly across line breaks without DOM measurement.
+
+## Examples
+
+### Multiple highlights with labels
+
+<ComponentPreview name="text-highlight-demo" />
+
+## API Reference
+
+<ApiRefTable
+  title="TextHighlight"
+  props={[
+    { name: "text", type: "string", required: true, description: "The text to render with highlights." },
+    { name: "ranges", type: "HighlightRange[]", required: true, description: "Ranges to highlight. Each has start, end, optional color and label." },
+    { name: "font", type: "string", description: "CSS font shorthand for measurement. Must match rendered font." },
+    { name: "lineHeight", type: "number", description: "Line height in pixels. Must match rendered line-height. Defaults to 24." },
+    { name: "maxWidth", type: "number", description: "Maximum text width in pixels. Defaults to 520." },
+  ]}
+/>
+
+<ApiRefTable
+  title="HighlightRange"
+  props={[
+    { name: "start", type: "number", required: true, description: "Start character index (inclusive)." },
+    { name: "end", type: "number", required: true, description: "End character index (exclusive)." },
+    { name: "color", type: "string", description: "Highlight color. Any CSS color value. Defaults to warm yellow." },
+    { name: "label", type: "string", description: "Small badge label shown above the first line of the highlight." },
+  ]}
+/>
+
+## Notes
+
+- **Pretext-powered.** Uses [@chenglou/pretext](https://github.com/chenglou/pretext) for pure-arithmetic text measurement.
+- **Line-aware highlights.** Ranges that span multiple lines render separate highlight backgrounds per line — no clipping or overflow issues.
+- **Font matching.** The `font` and `lineHeight` props must match the CSS styling of the rendered text for accurate positioning.
