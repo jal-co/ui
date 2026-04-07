@@ -1,0 +1,60 @@
+---
+title: "Pretext Chat Bubble"
+description: "Message bubble with Pretext shrinkwrap that finds the tightest width for the same line count, eliminating dead space CSS fit-content leaves behind."
+---
+
+<ComponentPreview name="chat-bubble-demo" />
+
+## Installation
+
+<InstallBlock name="chat-bubble" />
+
+## Usage
+
+<CodeLine code={`import { ChatBubble, ChatThread } from "@/components/chat-bubble"`} />
+
+<CodeLine code={`<ChatThread messages={messages} />`} />
+
+Client component. Each bubble uses Pretext to binary-search the tightest width that produces the same line count as `fit-content`, then sets that as the bubble width. Zero DOM reflow.
+
+## Examples
+
+### Shrinkwrap comparison
+
+Side-by-side showing CSS `fit-content` (dead space on short last lines) vs Pretext shrinkwrap (pixel-tight).
+
+<ComponentPreview name="chat-bubble-comparison" />
+
+### Single bubble
+
+<ComponentPreview name="chat-bubble-demo" />
+
+## API Reference
+
+<ApiRefTable
+  title="ChatBubble"
+  props={[
+    { name: "text", type: "string", required: true, description: "Message text content." },
+    { name: "sent", type: "boolean", description: "Sent by current user. Defaults to false." },
+    { name: "timestamp", type: "string", description: "Timestamp label below the bubble." },
+    { name: "shrinkwrap", type: "boolean", description: "Enable Pretext shrinkwrap. Defaults to true." },
+    { name: "maxWidth", type: "number", description: "Maximum bubble width in pixels. Defaults to 280." },
+    { name: "font", type: "string", description: "CSS font shorthand for measurement. Must match rendered font." },
+  ]}
+/>
+
+<ApiRefTable
+  title="ChatThread"
+  props={[
+    { name: "messages", type: "ChatMessage[]", required: true, description: "Array of messages to display." },
+    { name: "shrinkwrap", type: "boolean", description: "Enable Pretext shrinkwrap on all bubbles. Defaults to true." },
+    { name: "maxWidth", type: "number", description: "Maximum bubble width in pixels. Defaults to 280." },
+    { name: "font", type: "string", description: "CSS font shorthand for measurement. Must match rendered font." },
+  ]}
+/>
+
+## Notes
+
+- **Pretext-powered.** Uses [@chenglou/pretext](https://github.com/chenglou/pretext) for pure-arithmetic text measurement — no DOM reflow.
+- **Font matching.** The `font` prop must match the CSS font of the rendered bubble text. Defaults to `15px ui-sans-serif, system-ui, sans-serif`.
+- **CJK and emoji.** Pretext handles CJK, Arabic, mixed bidi, grapheme clusters, and emoji correctly.

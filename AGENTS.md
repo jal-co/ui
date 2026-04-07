@@ -283,6 +283,20 @@ Components SHOULD be developed and released in batches, not individually. The ty
 
 There is no fixed release schedule. Release when a batch feels complete.
 
+### Tags and GitHub Releases
+
+- Release entries in `apps/docs/lib/releases.ts` and the docs site are the canonical source for jalco ui release metadata.
+- Git tags and GitHub Releases SHOULD be created after the release PR is merged to `main`.
+- Historical docs-site release entries MAY exist without matching git tags or GitHub Releases.
+- The project starts clean with real git/GitHub releases at `2026.04.0`.
+- Agents MUST NOT assume older release entries in `releases.ts` have matching tags unless verified.
+- When creating a new real release, agents SHOULD:
+  1. merge the PR to `main`
+  2. pull latest `main`
+  3. create tag `YYYY.MM.patch`
+  4. push the tag
+  5. create the GitHub Release for that tag
+
 ### Release data
 
 All releases are defined in `lib/releases.ts`. Each release has:

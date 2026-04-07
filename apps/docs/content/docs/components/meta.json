@@ -35,6 +35,11 @@
     "---Infrastructure---",
     "status-indicator",
     "---Payments---",
-    "tip-jar"
+    "tip-jar",
+    "---Pretext---",
+    "pretext",
+    "balanced-text",
+    "chat-bubble",
+    "masonry-grid"
   ]
 }

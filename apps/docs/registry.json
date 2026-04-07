@@ -4,6 +4,26 @@
   "homepage": "https://ui.justinlevine.me",
   "items": [
     {
+      "name": "pretext",
+      "type": "registry:lib",
+      "title": "Pretext Hooks",
+      "description": "React hooks for DOM-free text measurement using @chenglou/pretext. Provides prepare/layout lifecycle, shrinkwrap search, and balanced-width computation.",
+      "dependencies": [
+        "@chenglou/pretext"
+      ],
+      "registryDependencies": [],
+      "categories": [
+        "layout",
+        "typography"
+      ],
+      "files": [
+        {
+          "path": "registry/pretext/use-pretext.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "code-line",
       "type": "registry:component",
       "title": "Code Line",
@@ -558,7 +578,7 @@
       "name": "repo-card",
       "type": "registry:component",
       "title": "Repo Card",
-      "description": "GitHub repository preview card with description, language dot, star and fork counts, license, and topic tags. Async server component — fetches data at build time with ISR.",
+      "description": "GitHub repository preview card with description, language dot, star and fork counts, license, and topic tags. Async server component \u2014 fetches data at build time with ISR.",
       "dependencies": [
         "class-variance-authority"
       ],
@@ -592,6 +612,70 @@
       "files": [
         {
           "path": "registry/color-palette/color-palette.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chat-bubble",
+      "type": "registry:component",
+      "title": "Pretext Chat Bubble",
+      "description": "Message bubble with Pretext shrinkwrap that finds the tightest width for the same line count, eliminating dead space CSS fit-content leaves behind.",
+      "dependencies": [
+        "@chenglou/pretext"
+      ],
+      "registryDependencies": [
+        "pretext"
+      ],
+      "categories": [
+        "communication",
+        "pretext"
+      ],
+      "files": [
+        {
+          "path": "registry/chat-bubble/chat-bubble.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "balanced-text",
+      "type": "registry:component",
+      "title": "Pretext Balanced Text",
+      "description": "Text wrapper that uses Pretext to balance line widths so all lines are roughly equal length. Deterministic and cross-browser consistent.",
+      "dependencies": [
+        "@chenglou/pretext"
+      ],
+      "registryDependencies": [
+        "pretext"
+      ],
+      "categories": [
+        "typography",
+        "pretext"
+      ],
+      "files": [
+        {
+          "path": "registry/balanced-text/balanced-text.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "masonry-grid",
+      "type": "registry:component",
+      "title": "Pretext Masonry Grid",
+      "description": "Text-aware masonry layout where card heights are predicted by Pretext without DOM measurement. Zero layout shift.",
+      "dependencies": [
+        "@chenglou/pretext"
+      ],
+      "registryDependencies": [],
+      "categories": [
+        "layout",
+        "pretext"
+      ],
+      "files": [
+        {
+          "path": "registry/masonry-grid/masonry-grid.tsx",
           "type": "registry:component"
         }
       ]

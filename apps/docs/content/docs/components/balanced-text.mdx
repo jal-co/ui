@@ -1,0 +1,42 @@
+---
+title: "Pretext Balanced Text"
+description: "Text wrapper that uses Pretext to balance line widths so all lines are roughly equal length. Deterministic and cross-browser consistent."
+---
+
+<ComponentPreview name="balanced-text-demo" />
+
+## Installation
+
+<InstallBlock name="balanced-text" />
+
+## Usage
+
+<CodeLine code={`import { BalancedText } from "@/components/balanced-text"`} />
+
+<CodeLine code={`<BalancedText text="Your heading or paragraph text" as="h2" maxWidth={400} />`} />
+
+Client component. The `font` prop must match the CSS font of the rendered text. Pretext uses Canvas-based measurement — no DOM reflow.
+
+## Examples
+
+### Heading vs body
+
+<ComponentPreview name="balanced-text-demo" />
+
+## API Reference
+
+<ApiRefTable
+  title="BalancedText"
+  props={[
+    { name: "text", type: "string", required: true, description: "The text string to balance." },
+    { name: "font", type: "string", description: "CSS font shorthand for measurement. Must match rendered font. Defaults to '16px ui-sans-serif, system-ui, sans-serif'." },
+    { name: "maxWidth", type: "number", description: "Maximum width in pixels. Defaults to 600." },
+    { name: "as", type: '"p" | "h1" | "h2" | "h3" | "h4" | "span" | "div"', description: "HTML element to render. Defaults to 'p'." },
+  ]}
+/>
+
+## Notes
+
+- **Pretext-powered.** Uses [@chenglou/pretext](https://github.com/chenglou/pretext) for pure-arithmetic text measurement.
+- **Better than CSS `text-wrap: balance`.** CSS balance only works up to ~6 lines, is inconsistent cross-browser, and can't be controlled. This works on any length and is deterministic.
+- **Font matching.** The `font` prop must match the CSS font shorthand of the rendered text. Include weight and size (e.g. `'700 24px Inter'`).

@@ -1,0 +1,78 @@
+---
+title: "Pretext Hooks"
+description: "React hooks for DOM-free text measurement — prepare/layout lifecycle, shrinkwrap search, and balanced-width computation powered by @chenglou/pretext."
+---
+
+<ComponentPreview name="pretext-demo" />
+
+## Installation
+
+<InstallBlock name="pretext" />
+
+## Usage
+
+<CodeLine code={`import { usePretext, usePretextLayout, useShrinkwrap, useBalancedWidth } from "@/lib/use-pretext"`} />
+
+<CodeLine code={`const prepared = usePretextWithSegments(text, "16px Inter")\nconst shrinkwrapped = useShrinkwrap(prepared, maxWidth)`} />
+
+Client-only. Pretext uses Canvas for one-time text measurement, then all subsequent layout calls are pure arithmetic (~0.0002ms per call). The hooks manage the prepare/layout lifecycle so you don't need to call the Pretext API directly.
+
+## Hooks
+
+### `usePretext(text, font, options?)`
+
+Prepares text for measurement. Returns an opaque handle — pass it to `usePretextLayout`. Re-prepares only when `text` or `font` changes.
+
+### `usePretextWithSegments(text, font, options?)`
+
+Same as `usePretext` but returns a richer handle with segment data. Required for `usePretextLines`, `useShrinkwrap`, and `useBalancedWidth`.
+
+### `usePretextLayout(prepared, maxWidth, lineHeight)`
+
+Returns `{ lineCount, height }` for the given width. Pure arithmetic — runs on every resize at ~0.0002ms.
+
+### `usePretextLines(prepared, maxWidth, lineHeight)`
+
+Returns full line data including text content, width, and cursors per line. Use when you need to render lines manually or position highlights.
+
+### `useShrinkwrap(prepared, maxWidth)`
+
+Binary-searches for the tightest width that produces the same line count as `maxWidth`. Returns the shrinkwrapped width in pixels. This is what `ChatBubble` uses internally.
+
+### `useBalancedWidth(prepared, maxWidth)`
+
+Finds the narrowest width that keeps the same line count — making all lines roughly equal length. This is what `BalancedText` uses internally.
+
+## API Reference
+
+<ApiRefTable
+  title="usePretext"
+  props={[
+    { name: "text", type: "string", required: true, description: "Text to prepare for measurement." },
+    { name: "font", type: "string", required: true, description: "CSS font shorthand (e.g. '16px Inter', '700 24px Helvetica')." },
+    { name: "options", type: "PrepareOptions", description: "Optional. { whiteSpace?: 'normal' | 'pre-wrap' }." },
+  ]}
+/>
+
+<ApiRefTable
+  title="useShrinkwrap"
+  props={[
+    { name: "prepared", type: "PreparedTextWithSegments", required: true, description: "Handle from usePretextWithSegments." },
+    { name: "maxWidth", type: "number", required: true, description: "Maximum width to shrinkwrap from." },
+  ]}
+/>
+
+<ApiRefTable
+  title="useBalancedWidth"
+  props={[
+    { name: "prepared", type: "PreparedTextWithSegments", required: true, description: "Handle from usePretextWithSegments." },
+    { name: "maxWidth", type: "number", required: true, description: "Maximum width to balance within." },
+  ]}
+/>
+
+## Notes
+
+- **Powered by Pretext.** These hooks wrap [@chenglou/pretext](https://github.com/chenglou/pretext) by Cheng Lou — a 41k-star library for pure-JS text measurement.
+- **Client-only.** Pretext requires Canvas (browser or OffscreenCanvas). These hooks cannot run during SSR.
+- **Font matching.** The `font` string must match the CSS font shorthand of the rendered text. Include weight and size (e.g. `'700 24px Inter'`). Using `system-ui` is unsafe on macOS — use named fonts.
+- **Caching.** `usePretext` and `usePretextWithSegments` memoize the prepared handle. The layout hooks re-run on every width change but are pure arithmetic (~0.0002ms).
