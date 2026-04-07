@@ -14,6 +14,9 @@ importers:
 
   apps/docs:
     dependencies:
+      '@chenglou/pretext':
+        specifier: ^0.0.4
+        version: 0.0.4
       '@orama/orama':
         specifier: ^3.1.18
         version: 3.1.18
@@ -296,6 +299,9 @@ packages:
 
   '@bundled-es-modules/tough-cookie@0.1.6':
     resolution: {integrity: sha512-dvMHbL464C0zI+Yqxbz6kZ5TOEp7GLW+pry/RWndAR8MJQAXZ2rPmIs8tziTZjeIyhSNZgZbCePtfSbdWqStJw==}
+
+  '@chenglou/pretext@0.0.4':
+    resolution: {integrity: sha512-FnPAFMid1/p1j2V2gRPUVBarGUIb2PhkkC9YNnTOfPtTDgHKh8siO8PP9pCxpFfYlcodWPJpE1UbSHGQqt8pQQ==}
 
   '@dotenvx/dotenvx@1.49.0':
     resolution: {integrity: sha512-M1cyP6YstFQCjih54SAxCqHLMMi8QqV8tenpgGE48RTXWD7vfMYJiw/6xcCDpS2h28AcLpTsFCZA863Ge9yxzA==}
@@ -5144,6 +5150,8 @@ snapshots:
     dependencies:
       '@types/tough-cookie': 4.0.5
       tough-cookie: 4.1.4
+
+  '@chenglou/pretext@0.0.4': {}
 
   '@dotenvx/dotenvx@1.49.0':
     dependencies:
