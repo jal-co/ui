@@ -619,7 +619,7 @@
     {
       "name": "chat-bubble",
       "type": "registry:component",
-      "title": "Chat Bubble",
+      "title": "Pretext Chat Bubble",
       "description": "Message bubble with Pretext shrinkwrap that finds the tightest width for the same line count, eliminating dead space CSS fit-content leaves behind.",
       "dependencies": [
         "@chenglou/pretext"
@@ -641,7 +641,7 @@
     {
       "name": "balanced-text",
       "type": "registry:component",
-      "title": "Balanced Text",
+      "title": "Pretext Balanced Text",
       "description": "Text wrapper that uses Pretext to balance line widths so all lines are roughly equal length. Deterministic and cross-browser consistent.",
       "dependencies": [
         "@chenglou/pretext"
@@ -663,7 +663,7 @@
     {
       "name": "text-highlight",
       "type": "registry:component",
-      "title": "Text Highlight",
+      "title": "Pretext Text Highlight",
       "description": "Paragraph text with highlighted ranges that wrap correctly across line breaks using Pretext-measured character positions.",
       "dependencies": [
         "@chenglou/pretext"
@@ -686,7 +686,7 @@
     {
       "name": "masonry-grid",
       "type": "registry:component",
-      "title": "Masonry Grid",
+      "title": "Pretext Masonry Grid",
       "description": "Text-aware masonry layout where card heights are predicted by Pretext without DOM measurement. Zero layout shift.",
       "dependencies": [
         "@chenglou/pretext"
@@ -699,6 +699,28 @@
       "files": [
         {
           "path": "registry/masonry-grid/masonry-grid.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "pretext-testimonial",
+      "type": "registry:component",
+      "title": "Pretext Testimonial Masonry",
+      "description": "Testimonial masonry layout where card heights are predicted by Pretext. Cards flow into columns with zero layout shift.",
+      "dependencies": [
+        "@chenglou/pretext"
+      ],
+      "registryDependencies": [
+        "testimonial"
+      ],
+      "categories": [
+        "marketing",
+        "pretext"
+      ],
+      "files": [
+        {
+          "path": "registry/pretext-testimonial/pretext-testimonial.tsx",
           "type": "registry:component"
         }
       ]

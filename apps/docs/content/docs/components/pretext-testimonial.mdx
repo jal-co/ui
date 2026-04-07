@@ -1,0 +1,47 @@
+---
+title: "Pretext Testimonial Masonry"
+description: "Testimonial masonry layout where card heights are predicted by Pretext. Cards flow into columns with zero layout shift."
+---
+
+<ComponentPreview name="pretext-testimonial-demo" />
+
+## Installation
+
+<InstallBlock name="pretext-testimonial" />
+
+Requires the `testimonial` component — installed automatically as a registry dependency.
+
+## Usage
+
+<CodeLine code={`import { PretextTestimonialMasonry } from "@/components/pretext-testimonial"`} />
+
+<CodeLine code={`<PretextTestimonialMasonry testimonials={testimonials} columns={3} />`} />
+
+Client component. Pretext predicts each testimonial card's height using pure arithmetic, then positions cards into columns without DOM measurement.
+
+## Examples
+
+### Three-column masonry
+
+<ComponentPreview name="pretext-testimonial-demo" />
+
+## API Reference
+
+<ApiRefTable
+  title="PretextTestimonialMasonry"
+  props={[
+    { name: "testimonials", type: "Testimonial[]", required: true, description: "Array of testimonials to display." },
+    { name: "columns", type: "2 | 3 | 4", description: "Number of columns. Defaults to 3." },
+    { name: "gap", type: "number", description: "Gap between cards in pixels. Defaults to 16." },
+    { name: "title", type: "string", description: "Title text above the grid." },
+    { name: "font", type: "string", description: "CSS font shorthand for quote measurement. Must match rendered font." },
+    { name: "lineHeight", type: "number", description: "Quote text line height in pixels. Defaults to 22.75." },
+  ]}
+/>
+
+## Notes
+
+- **Pretext-powered.** Uses [@chenglou/pretext](https://github.com/chenglou/pretext) for pure-arithmetic height prediction.
+- **Wraps TestimonialCard.** Uses the same card component from the `testimonial` registry item — consistent styling.
+- **Zero layout shift.** Cards are absolutely positioned using predicted heights. No reflow, no CLS.
+- **Font matching.** The `font` and `lineHeight` props must match the CSS styling of the quote text inside TestimonialCard.
