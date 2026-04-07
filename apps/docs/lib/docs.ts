@@ -121,8 +121,6 @@ export const docsNav: NavGroup[] = [
       { title: "Pretext Balanced Text", href: "/docs/components/balanced-text", dateAdded: "2026-04-07" },
       { title: "Pretext Chat Bubble", href: "/docs/components/chat-bubble", dateAdded: "2026-04-07" },
       { title: "Pretext Masonry Grid", href: "/docs/components/masonry-grid", dateAdded: "2026-04-07" },
-      { title: "Pretext Testimonial Masonry", href: "/docs/components/pretext-testimonial", dateAdded: "2026-04-07" },
-      { title: "Pretext Text Highlight", href: "/docs/components/text-highlight", dateAdded: "2026-04-07" },
     ],
   },
 ]

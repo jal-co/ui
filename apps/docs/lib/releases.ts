@@ -33,6 +33,50 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "2026.04.0",
+    date: "2026-04-07",
+    title: "Pretext",
+    summary:
+      "This one was me falling down a rabbit hole with Cheng Lou's Pretext library and deciding it was too interesting not to build around. I genuinely think Pretext is kind of revolutionary — it makes a bunch of text-layout problems feel solvable in a way the DOM never really has. So now jalco-ui has a small text-layout mini-batch: hooks for DOM-free text measurement, shrinkwrapped chat bubbles, balanced text, and a masonry grid that predicts heights without poking the DOM. Extremely niche in the best way.",
+    components: [
+      {
+        name: "pretext",
+        title: "Pretext Hooks",
+        description:
+          "React hooks for DOM-free text measurement — prepare/layout lifecycle, shrinkwrap search, and balanced-width computation powered by @chenglou/pretext.",
+        category: "Pretext",
+      },
+      {
+        name: "chat-bubble",
+        title: "Pretext Chat Bubble",
+        description:
+          "Message bubble with Pretext shrinkwrap that finds the tightest width for the same line count, eliminating dead space CSS fit-content leaves behind.",
+        category: "Pretext",
+      },
+      {
+        name: "balanced-text",
+        title: "Pretext Balanced Text",
+        description:
+          "Text wrapper that uses Pretext to balance line widths so all lines are roughly equal length. Deterministic and cross-browser consistent.",
+        category: "Pretext",
+      },
+      {
+        name: "masonry-grid",
+        title: "Pretext Masonry Grid",
+        description:
+          "Text-aware masonry layout where card heights are predicted by Pretext without DOM measurement. Zero layout shift.",
+        category: "Pretext",
+      },
+    ],
+    improvements: [
+      {
+        title: "Cleaner dependency badges",
+        description:
+          "Internal registry lib dependencies like the shared pretext utility are now hidden from docs-page dependency badges, so only the dependencies users actually care about show up.",
+      },
+    ],
+  },
+  {
     version: "2026.03.1",
     date: "2026-03-29",
     title: "Batch 1",

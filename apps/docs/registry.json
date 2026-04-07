@@ -661,24 +661,6 @@
       ]
     },
     {
-      "name": "text-highlight",
-      "type": "registry:component",
-      "title": "Pretext Text Highlight",
-      "description": "Paragraph text with highlighted ranges that wrap correctly across line breaks using Pretext-measured character positions.",
-      "dependencies": [],
-      "registryDependencies": [],
-      "categories": [
-        "docs",
-        "ai"
-      ],
-      "files": [
-        {
-          "path": "registry/text-highlight/text-highlight.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "masonry-grid",
       "type": "registry:component",
       "title": "Pretext Masonry Grid",
@@ -694,28 +676,6 @@
       "files": [
         {
           "path": "registry/masonry-grid/masonry-grid.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "pretext-testimonial",
-      "type": "registry:component",
-      "title": "Pretext Testimonial Masonry",
-      "description": "Testimonial masonry layout where card heights are predicted by Pretext. Cards flow into columns with zero layout shift.",
-      "dependencies": [
-        "@chenglou/pretext"
-      ],
-      "registryDependencies": [
-        "testimonial"
-      ],
-      "categories": [
-        "marketing",
-        "pretext"
-      ],
-      "files": [
-        {
-          "path": "registry/pretext-testimonial/pretext-testimonial.tsx",
           "type": "registry:component"
         }
       ]
