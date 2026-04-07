@@ -10,6 +10,12 @@ interface DependencyBadgesProps {
 }
 
 /**
+ * Internal registry:lib items that should not appear as badges.
+ * These are installed automatically as transitive dependencies.
+ */
+const HIDDEN_REGISTRY_DEPS = new Set(["pretext"])
+
+/**
  * Maps npm dependency names to their bundled icon key.
  * Extend as new dependencies are added to registry items.
  */
@@ -137,7 +143,7 @@ export function DependencyBadges({
   return (
     <div className={cn("flex flex-wrap gap-1.5", className)}>
       {registryDependencies
-        .filter((dep) => !dep.startsWith("http"))
+        .filter((dep) => !dep.startsWith("http") && !HIDDEN_REGISTRY_DEPS.has(dep))
         .map((dep) => {
           const parsed = parseRegistryDep(dep)
           return (
