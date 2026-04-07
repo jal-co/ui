@@ -41,14 +41,12 @@ export function usePretext(
   font: string,
   options?: PrepareOptions,
 ): PreparedText {
-  const optionsKey = options
-    ? `${options.whiteSpace ?? "normal"}:${options.wordBreak ?? "normal"}`
-    : "normal:normal"
+  const whiteSpace = options?.whiteSpace ?? "normal"
 
   return React.useMemo(
     () => prepare(text, font, options),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [text, font, optionsKey],
+    [text, font, whiteSpace],
   )
 }
 
@@ -61,14 +59,12 @@ export function usePretextWithSegments(
   font: string,
   options?: PrepareOptions,
 ): PreparedTextWithSegments {
-  const optionsKey = options
-    ? `${options.whiteSpace ?? "normal"}:${options.wordBreak ?? "normal"}`
-    : "normal:normal"
+  const whiteSpace = options?.whiteSpace ?? "normal"
 
   return React.useMemo(
     () => prepareWithSegments(text, font, options),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [text, font, optionsKey],
+    [text, font, whiteSpace],
   )
 }
 

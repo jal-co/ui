@@ -615,6 +615,28 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "chat-bubble",
+      "type": "registry:component",
+      "title": "Chat Bubble",
+      "description": "Message bubble with Pretext shrinkwrap that finds the tightest width for the same line count, eliminating dead space CSS fit-content leaves behind.",
+      "dependencies": [
+        "@chenglou/pretext"
+      ],
+      "registryDependencies": [
+        "pretext"
+      ],
+      "categories": [
+        "communication",
+        "pretext"
+      ],
+      "files": [
+        {
+          "path": "registry/chat-bubble/chat-bubble.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

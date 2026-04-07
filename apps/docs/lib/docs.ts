@@ -114,4 +114,10 @@ export const docsNav: NavGroup[] = [
       { title: "Crypto + Tip Jar", href: "/docs/components/tip-jar", dateAdded: "2026-03-11" },
     ],
   },
+  {
+    title: "Pretext",
+    items: [
+      { title: "Chat Bubble", href: "/docs/components/chat-bubble", dateAdded: "2026-04-07" },
+    ],
+  },
 ]
