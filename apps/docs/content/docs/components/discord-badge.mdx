@@ -1,6 +1,6 @@
 ---
 title: "Discord Badge"
-description: "Live Discord server badge showing member count with the Discord icon."
+description: "Live Discord server badge showing server name and online count with the Discord icon."
 ---
 
 import { DiscordBadge } from "@/registry/discord-badge/discord-badge"
@@ -17,7 +17,7 @@ import { DiscordBadge } from "@/registry/discord-badge/discord-badge"
 
 <CodeLine code={`<DiscordBadge serverId="your-server-id" />`} />
 
-Async server component — fetches member count from the Discord widget API at build time, cached 1 hour via ISR.
+Async server component — fetches server info from the Discord widget API at build time, cached 1 hour via ISR.
 
 ## Layouts
 
@@ -25,7 +25,7 @@ Async server component — fetches member count from the Discord widget API at b
   <div className="flex flex-col gap-4">
     <h3 className="text-base font-medium">Inline</h3>
     <p className="text-sm text-muted-foreground">
-      Compact pill showing the Discord icon and member count. The default layout.
+      Compact pill showing the Discord icon and server name. The default layout.
     </p>
     <VariantGrid
       registryName="discord-badge"
@@ -54,7 +54,7 @@ Async server component — fetches member count from the Discord widget API at b
   <div className="flex flex-col gap-4">
     <h3 className="text-base font-medium">Card</h3>
     <p className="text-sm text-muted-foreground">
-      Feature card showing server name, member count, and online indicator.
+      Feature card showing server name and online count.
     </p>
     <VariantGrid
       registryName="discord-badge"

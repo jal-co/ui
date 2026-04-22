@@ -710,7 +710,7 @@
       "name": "discord-badge",
       "type": "registry:component",
       "title": "Discord Badge",
-      "description": "Live Discord server badge showing member count with the Discord icon. Two layouts: inline pill and expanded card. Async server component — fetches data at build time with ISR via the public widget API.",
+      "description": "Live Discord server badge showing server name and online count with the Discord icon. Two layouts: inline pill and expanded card. Async server component — fetches data at build time with ISR via the public widget API.",
       "dependencies": [
         "class-variance-authority"
       ],
@@ -733,7 +733,7 @@
       "name": "download-sparkline",
       "type": "registry:component",
       "title": "Download Sparkline",
-      "description": "Tiny inline SVG sparkline showing npm download trends over time. Three chart types: line, area, and bar. Pure SVG, zero charting dependencies. Async server component — fetches data at build time with ISR.",
+      "description": "Tiny inline SVG sparkline showing npm download trends over time. Three chart types, trend indicator, date range, and average baseline. Pure SVG, zero charting dependencies. Async server component — fetches data at build time with ISR.",
       "categories": [
         "open-source",
         "code"

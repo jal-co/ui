@@ -4,7 +4,7 @@
  * by Justin Levine
  * ui.justinlevine.me
  *
- * Live Discord server badge showing member count with the Discord icon.
+ * Live Discord server badge showing server name and online count with the Discord icon.
  * Two layouts: inline pill and expanded card. Async server component —
  * fetches data at build time with ISR via the public widget API.
  *

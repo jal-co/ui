@@ -57,14 +57,14 @@ export const releases: Release[] = [
         name: "discord-badge",
         title: "Discord Badge",
         description:
-          "Live Discord server badge showing member count via the public widget API. Includes a blurple variant.",
+          "Live Discord server badge showing server name and online count via the public widget API. Includes a blurple variant.",
         category: "Ecosystem",
       },
       {
         name: "download-sparkline",
         title: "Download Sparkline",
         description:
-          "Tiny inline SVG sparkline showing npm download trends. Three chart types, zero charting dependencies.",
+          "Tiny inline SVG sparkline showing npm download trends. Three chart types, trend indicator, average baseline, and date range labels. Zero charting dependencies.",
         category: "Ecosystem",
       },
     ],
