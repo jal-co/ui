@@ -18,10 +18,12 @@
  * - weeks?: number of weeks to display (default 52)
  * - className?: additional CSS classes
  *
+ * Dependencies: radix-ui (Tooltip)
  * Inspiration: GitHub contribution graph
  */
 
 import * as React from "react"
+import { Tooltip } from "radix-ui"
 import { cn } from "@/lib/utils"
 
 export interface ActivityEntry {
@@ -262,19 +264,38 @@ export function ActivityGraph({
                   {week.map((day, di) => {
                     const intensity = getIntensity(day.count, maxCount)
                     return (
-                      <div
-                        key={di}
-                        className={cn(
-                          "transition-colors",
-                          colorScale[intensity]
-                        )}
-                        style={{
-                          width: blockSize,
-                          height: blockSize,
-                          borderRadius: blockRadius,
-                        }}
-                        title={`${formatDate(day.date)}: ${day.count} contribution${day.count === 1 ? "" : "s"}`}
-                      />
+                      <Tooltip.Provider key={di} delayDuration={100}>
+                        <Tooltip.Root>
+                          <Tooltip.Trigger asChild>
+                            <div
+                              className={cn(
+                                "transition-colors",
+                                colorScale[intensity]
+                              )}
+                              style={{
+                                width: blockSize,
+                                height: blockSize,
+                                borderRadius: blockRadius,
+                              }}
+                            />
+                          </Tooltip.Trigger>
+                          <Tooltip.Portal>
+                            <Tooltip.Content
+                              side="top"
+                              sideOffset={4}
+                              className="z-50 rounded-md border border-border bg-popover px-2.5 py-1.5 text-xs text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95"
+                            >
+                              <p className="font-medium">
+                                {day.count} contribution{day.count === 1 ? "" : "s"}
+                              </p>
+                              <p className="text-muted-foreground">
+                                {formatDate(day.date)}
+                              </p>
+                              <Tooltip.Arrow className="fill-popover" />
+                            </Tooltip.Content>
+                          </Tooltip.Portal>
+                        </Tooltip.Root>
+                      </Tooltip.Provider>
                     )
                   })}
                 </div>

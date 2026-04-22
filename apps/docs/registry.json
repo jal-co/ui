@@ -207,6 +207,9 @@
       "categories": [
         "github"
       ],
+      "dependencies": [
+        "radix-ui"
+      ],
       "files": [
         {
           "path": "registry/activity-graph/activity-graph.tsx",

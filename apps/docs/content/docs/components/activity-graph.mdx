@@ -131,8 +131,8 @@ export const sampleData = [
 
 ## Notes
 
-- **Client component.** Uses  "use client"   for a ResizeObserver that auto-sizes blocks to fit the container. Hover tooltips use native  title   attributes.
+- **Client component.** Uses  "use client"   for a ResizeObserver that auto-sizes blocks to fit the container. Hover tooltips use Radix Tooltip for styled popover-style date and count display.
 - **Auto-fit.** By default the block size is computed from the container width so the graph always fits without scrolling. Pass a fixed  blockSize   to opt into horizontal scrolling instead.
-- **ISR caching.** GitHub contribution data is cached for 1 hour via ISR.
+- **ISR caching.** The fetch helper uses the [github-contributions-api](https://github.com/grubersjoe/github-contributions-api) which caches upstream for 1 hour, plus ISR caching locally.
 - **Intensity mapping.**  Counts are mapped to four non-zero levels relative to the maximum count in the data. The thresholds are 25%, 50%, 75%, and 100% of the max.
-- **No dependencies.** This component uses only React, Tailwind, and the  `cn`  utility. No charting libraries or external packages.
+- **Dependencies.**  `radix-ui`  for styled hover tooltips on each cell. No charting libraries or external packages.
