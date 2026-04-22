@@ -22,10 +22,10 @@ const weekly = generateSampleData(7, 8_000, 200)
 export default async function Preview() {
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="flex flex-wrap items-center justify-center gap-6">
-        <DownloadSparkline package="react" data={trendingUp} showLabel color="var(--color-foreground)" />
-        <DownloadSparkline package="next" data={steady} variant="area" showLabel color="var(--color-foreground)" />
-        <DownloadSparkline package="zod" data={weekly} variant="bar" showLabel color="var(--color-foreground)" />
+      <div className="flex flex-wrap items-center justify-center gap-8">
+        <DownloadSparkline package="react" data={trendingUp} showLabel showTrend color="var(--color-foreground)" />
+        <DownloadSparkline package="next" data={steady} variant="area" showLabel showTrend showBaseline color="var(--color-foreground)" />
+        <DownloadSparkline package="zod" data={weekly} variant="bar" showLabel showDateRange color="var(--color-foreground)" />
       </div>
     </div>
   )

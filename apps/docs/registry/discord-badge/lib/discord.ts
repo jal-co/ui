@@ -4,7 +4,11 @@
  * by Justin Levine
  * ui.justinlevine.me
  *
- * Discord widget API client for fetching server metadata (member count, online count, name).
+ * Discord widget API client for fetching server metadata (online count, name).
+ *
+ * The public widget API only exposes online/presence count, not total member
+ * count. Total members requires a bot token. Pass `memberCount` manually via
+ * the `data` prop if you have it from another source.
  */
 
 export interface DiscordServerData {
@@ -14,10 +18,10 @@ export interface DiscordServerData {
   name: string
   /** Instant invite URL (if widget is enabled). */
   instantInvite: string | null
-  /** Approximate total member count. */
-  memberCount: number
-  /** Number of members currently online. */
+  /** Number of members currently online (from widget API). */
   onlineCount: number
+  /** Total member count. Only available if provided manually — the widget API does not expose this. */
+  memberCount?: number
 }
 
 /**
@@ -46,7 +50,6 @@ export async function fetchDiscordServer(
       id: data.id,
       name: data.name,
       instantInvite: data.instant_invite ?? null,
-      memberCount: data.presence_count ?? 0,
       onlineCount: data.presence_count ?? 0,
     }
   } catch {

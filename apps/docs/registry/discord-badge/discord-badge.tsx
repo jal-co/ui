@@ -175,21 +175,27 @@ function InlineLayout({
     <Comp
       {...linkProps}
       data-slot="discord-badge"
-      aria-label={`${server.name} on Discord — ${formatMemberCount(server.onlineCount)} online`}
+      aria-label={`${server.name} on Discord${showOnline ? ` — ${formatMemberCount(server.onlineCount)} online` : ""}`}
       className={cn(inlineVariants({ variant, size, className }))}
     >
       <DiscordIcon
         iconStyle={variant === "discord" ? "currentColor" : iconStyle}
         className="shrink-0"
       />
-      <span className="tabular-nums">
-        {formatMemberCount(server.onlineCount)}
-      </span>
+      <span>{server.name}</span>
       {showOnline && (
-        <span className="flex items-center gap-1">
-          <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" />
-          <span className="text-[0.8em] opacity-70">online</span>
-        </span>
+        <>
+          <span
+            className="h-3.5 w-px shrink-0 bg-current opacity-20"
+            aria-hidden="true"
+          />
+          <span className="flex items-center gap-1">
+            <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" />
+            <span className="tabular-nums text-[0.8em] opacity-70">
+              {formatMemberCount(server.onlineCount)} online
+            </span>
+          </span>
+        </>
       )}
     </Comp>
   )
@@ -232,9 +238,15 @@ function CardLayout({
 
       <div className="flex items-center gap-3 text-xs text-muted-foreground">
         <span className="inline-flex items-center gap-1 tabular-nums">
-          <UsersIcon className="size-3 shrink-0 opacity-50" />
-          {formatMemberCount(server.onlineCount)} members
+          <span className="size-1.5 rounded-full bg-emerald-500" />
+          {formatMemberCount(server.onlineCount)} online
         </span>
+        {server.memberCount != null && (
+          <span className="inline-flex items-center gap-1 tabular-nums">
+            <UsersIcon className="size-3 shrink-0 opacity-50" />
+            {formatMemberCount(server.memberCount)} members
+          </span>
+        )}
       </div>
     </>
   )

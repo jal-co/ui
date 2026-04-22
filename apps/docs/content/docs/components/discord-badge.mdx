@@ -35,17 +35,17 @@ Async server component — fetches member count from the Discord widget API at b
         {
           label: "Default",
           code: `<DiscordBadge serverId="..." />`,
-          preview: <DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: null, memberCount: 12450, onlineCount: 3200 }} />,
+          preview: <DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: null, onlineCount: 3200 }} />,
         },
         {
           label: "Discord variant",
           code: `<DiscordBadge serverId="..." variant="discord" />`,
-          preview: <DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: null, memberCount: 12450, onlineCount: 3200 }} variant="discord" />,
+          preview: <DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: null, onlineCount: 3200 }} variant="discord" />,
         },
         {
           label: "With online",
           code: `<DiscordBadge serverId="..." showOnline />`,
-          preview: <DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: null, memberCount: 12450, onlineCount: 3200 }} showOnline />,
+          preview: <DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: null, onlineCount: 3200 }} showOnline />,
         },
       ]}
     />
@@ -65,7 +65,7 @@ Async server component — fetches member count from the Discord widget API at b
         {
           label: "Card layout",
           code: `<DiscordBadge serverId="..." layout="card" />`,
-          preview: <div className="flex justify-center"><DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: "https://discord.gg/tailwindcss", memberCount: 12450, onlineCount: 3200 }} layout="card" className="w-full max-w-sm" /></div>,
+          preview: <div className="flex justify-center"><DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: "https://discord.gg/tailwindcss", onlineCount: 3200, memberCount: 12450 }} layout="card" className="w-full max-w-sm" /></div>,
         },
       ]}
     />
@@ -124,5 +124,6 @@ Async server component — fetches member count from the Discord widget API at b
 ## Notes
 
 - **Widget required.** The target Discord server must have the widget enabled in Server Settings → Widget. If the widget is disabled, the badge returns `null`.
+- **Online count only.** The public widget API only exposes online/presence count, not total members. Total member count requires a bot token — pass it manually via `data.memberCount` if you have it from another source.
 - **ISR caching.** Server data is cached for 1 hour via `next.revalidate`. No API key or bot token required.
 - **Pre-fetched data.** Pass the `data` prop to skip the API call — useful for static builds or when fetching data separately.

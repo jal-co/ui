@@ -5,8 +5,8 @@ const sampleServer: DiscordServerData = {
   id: "123456789",
   name: "Tailwind CSS",
   instantInvite: "https://discord.gg/tailwindcss",
-  memberCount: 12_450,
   onlineCount: 3_200,
+  memberCount: 12_450,
 }
 
 export default async function Preview() {
@@ -16,7 +16,7 @@ export default async function Preview() {
         <DiscordBadge serverId="0" data={sampleServer} variant="default" />
         <DiscordBadge serverId="0" data={sampleServer} variant="discord" />
         <DiscordBadge serverId="0" data={sampleServer} variant="outline" />
-        <DiscordBadge serverId="0" data={sampleServer} variant="subtle" showOnline />
+        <DiscordBadge serverId="0" data={sampleServer} variant="outline" showOnline />
       </div>
       <DiscordBadge
         serverId="0"
