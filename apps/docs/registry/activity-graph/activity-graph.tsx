@@ -20,6 +20,7 @@
  *
  * Dependencies: radix-ui (Tooltip)
  * Inspiration: GitHub contribution graph
+ * Data fetching powered by github-contributions-api by @grubersjoe
  */
 
 import * as React from "react"

@@ -4,10 +4,10 @@
  * by Justin Levine
  * ui.justinlevine.me
  *
- * Fetches GitHub contribution data via the github-contributions-api.
- * No API key or authentication required.
+ * Fetches GitHub contribution data via the github-contributions-api
+ * by Jonathan Gruber (@grubersjoe). No API key or authentication required.
  *
- * @see https://github.com/grubersjoe/github-contributions-api
+ * Attribution: https://github.com/grubersjoe/github-contributions-api
  */
 
 import type { ActivityEntry } from "@/registry/activity-graph/activity-graph"
