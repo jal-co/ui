@@ -6,14 +6,32 @@ description: "GitHub-style activity heatmap that visualizes daily counts as a co
 import { VariantGrid } from "@/components/docs/variant-grid"
 import { ActivityGraph } from "@/registry/activity-graph/activity-graph"
 
-export const sampleData = [
-  { date: "2026-03-01", count: 2 },
-  { date: "2026-03-02", count: 5 },
-  { date: "2026-03-03", count: 12 },
-  { date: "2026-03-04", count: 0 },
-  { date: "2026-03-05", count: 8 },
-  { date: "2026-03-06", count: 4 },
-]
+export function seededRandom(seed) {
+  let s = seed
+  return () => {
+    s = (s * 16807 + 0) % 2147483647
+    return s / 2147483647
+  }
+}
+
+export function generateSampleData(days = 84, seed = 42) {
+  const rand = seededRandom(seed)
+  const entries = []
+  const today = new Date("2026-04-22")
+  for (let i = days; i >= 0; i--) {
+    const d = new Date(today)
+    d.setDate(today.getDate() - i)
+    if (rand() < 0.55) {
+      entries.push({
+        date: d.toISOString().slice(0, 10),
+        count: Math.floor(rand() * 12) + 1,
+      })
+    }
+  }
+  return entries
+}
+
+export const sampleData = generateSampleData()
 
 <ComponentPreview name="activity-graph-simple" />
 
@@ -41,7 +59,7 @@ export const sampleData = [
         {
           label: "Blue scale",
           code: `<ActivityGraph data={data} colorScale={["bg-muted", "bg-blue-100", "bg-blue-300", "bg-blue-500", "bg-blue-700"]} />`,
-          preview: <ActivityGraph data={sampleData} weeks={12} colorScale={["bg-muted", "bg-blue-200", "bg-blue-400", "bg-blue-600", "bg-blue-800"]} />,
+          preview: <ActivityGraph data={sampleData} colorScale={["bg-muted", "bg-blue-200", "bg-blue-400", "bg-blue-600", "bg-blue-800"]} />,
         },
       ]}
     />
@@ -131,8 +149,9 @@ export const sampleData = [
 
 ## Notes
 
-- **Client component.** Uses  "use client"   for a ResizeObserver that auto-sizes blocks to fit the container. Hover tooltips use native  title   attributes.
+- **Client component.** Uses  "use client"   for a ResizeObserver that auto-sizes blocks to fit the container. Hover tooltips use Radix Tooltip for styled popover-style date and count display.
 - **Auto-fit.** By default the block size is computed from the container width so the graph always fits without scrolling. Pass a fixed  blockSize   to opt into horizontal scrolling instead.
-- **ISR caching.** GitHub contribution data is cached for 1 hour via ISR.
+- **ISR caching.** The fetch helper uses the [github-contributions-api](https://github.com/grubersjoe/github-contributions-api) which caches upstream for 1 hour, plus ISR caching locally.
 - **Intensity mapping.**  Counts are mapped to four non-zero levels relative to the maximum count in the data. The thresholds are 25%, 50%, 75%, and 100% of the max.
-- **No dependencies.** This component uses only React, Tailwind, and the  `cn`  utility. No charting libraries or external packages.
+- **Dependencies.**  `radix-ui`  for styled hover tooltips on each cell. No charting libraries or external packages.
+- **Attribution.** The fetch helper uses the [github-contributions-api](https://github.com/grubersjoe/github-contributions-api) by [@grubersjoe](https://github.com/grubersjoe).
