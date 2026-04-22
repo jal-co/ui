@@ -682,6 +682,92 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "release-badge",
+      "type": "registry:component",
+      "title": "Release Badge",
+      "description": "Live GitHub release badge showing latest tag, publish date, and pre-release indicator. Three layouts: inline pill, horizontal row, and expanded card. Async server component — fetches data at build time with ISR.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "categories": [
+        "github",
+        "open-source"
+      ],
+      "files": [
+        {
+          "path": "registry/release-badge/release-badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/release-badge/lib/github.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "discord-badge",
+      "type": "registry:component",
+      "title": "Discord Badge",
+      "description": "Live Discord server badge showing member count with the Discord icon. Two layouts: inline pill and expanded card. Async server component — fetches data at build time with ISR via the public widget API.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "categories": [
+        "community",
+        "open-source"
+      ],
+      "files": [
+        {
+          "path": "registry/discord-badge/discord-badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/discord-badge/lib/discord.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "download-sparkline",
+      "type": "registry:component",
+      "title": "Download Sparkline",
+      "description": "Tiny inline SVG sparkline showing npm download trends over time. Three chart types: line, area, and bar. Pure SVG, zero charting dependencies. Async server component — fetches data at build time with ISR.",
+      "categories": [
+        "open-source",
+        "code"
+      ],
+      "files": [
+        {
+          "path": "registry/download-sparkline/download-sparkline.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/download-sparkline/lib/npm.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "ci-badge",
+      "type": "registry:component",
+      "title": "CI Badge",
+      "description": "GitHub Actions CI status badge showing passing, failing, pending, or cancelled state with colored status dot and optional duration. Two layouts: inline pill and expanded card. Async server component — fetches data at build time with ISR.",
+      "categories": [
+        "github",
+        "open-source"
+      ],
+      "files": [
+        {
+          "path": "registry/ci-badge/ci-badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/ci-badge/lib/github.ts",
+          "type": "registry:lib"
+        }
+      ]
     }
   ]
 }

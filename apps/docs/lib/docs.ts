@@ -83,6 +83,10 @@ export const docsNav: NavGroup[] = [
       { title: "Commit Graph", href: "/docs/components/commit-graph", dateAdded: "2026-03-29" },
       { title: "License Badge", href: "/docs/components/license-badge", dateAdded: "2026-03-29" },
       { title: "Repo Card", href: "/docs/components/repo-card", dateAdded: "2026-03-29" },
+      { title: "Release Badge", href: "/docs/components/release-badge", dateAdded: "2026-04-22" },
+      { title: "CI Badge", href: "/docs/components/ci-badge", dateAdded: "2026-04-22" },
+      { title: "Discord Badge", href: "/docs/components/discord-badge", dateAdded: "2026-04-22" },
+      { title: "Download Sparkline", href: "/docs/components/download-sparkline", dateAdded: "2026-04-22" },
     ],
   },
   {

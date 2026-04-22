@@ -1,0 +1,154 @@
+---
+title: "Release Badge"
+description: "Live GitHub release badge showing latest tag, publish date, and pre-release indicator."
+---
+
+import { ReleaseBadge } from "@/registry/release-badge/release-badge"
+
+<ComponentPreview name="release-badge-preview" />
+
+## Installation
+
+<InstallBlock name="release-badge" />
+
+## Usage
+
+<CodeLine code={`import { ReleaseBadge } from "@/components/release-badge"`} />
+
+<CodeLine code={`<ReleaseBadge owner="vercel" repo="next.js" />`} />
+
+Async server component — fetches the latest GitHub release at build time, cached 1 hour via ISR.
+
+## Layouts
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Inline</h3>
+    <p className="text-sm text-muted-foreground">
+      Compact pill showing the tag icon and version. The default layout.
+    </p>
+    <VariantGrid
+      registryName="release-badge"
+      files={["registry/release-badge/release-badge.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Default",
+          code: `<ReleaseBadge owner="vercel" repo="next.js" />`,
+          preview: <ReleaseBadge owner="vercel" repo="next.js" />,
+        },
+        {
+          label: "With date",
+          code: `<ReleaseBadge owner="vercel" repo="next.js" showDate />`,
+          preview: <ReleaseBadge owner="vercel" repo="next.js" showDate />,
+        },
+        {
+          label: "Outline",
+          code: `<ReleaseBadge owner="vercel" repo="next.js" variant="outline" />`,
+          preview: <ReleaseBadge owner="vercel" repo="next.js" variant="outline" />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Row</h3>
+    <p className="text-sm text-muted-foreground">
+      Segmented horizontal strip showing tag, release name, and publish date.
+    </p>
+    <VariantGrid
+      registryName="release-badge"
+      files={["registry/release-badge/release-badge.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Row layout",
+          code: `<ReleaseBadge owner="vercel" repo="next.js" layout="row" />`,
+          preview: <div className="flex justify-center"><ReleaseBadge owner="vercel" repo="next.js" layout="row" /></div>,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Card</h3>
+    <p className="text-sm text-muted-foreground">
+      Feature card showing release tag, name, publish date, and asset count.
+    </p>
+    <VariantGrid
+      registryName="release-badge"
+      files={["registry/release-badge/release-badge.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Card layout",
+          code: `<ReleaseBadge owner="vercel" repo="next.js" layout="card" />`,
+          preview: <div className="flex justify-center"><ReleaseBadge owner="vercel" repo="next.js" layout="card" className="w-full max-w-sm" /></div>,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+  title="ReleaseBadge"
+  props={[
+    {
+      name: "owner",
+      type: "string",
+      required: true,
+      description: 'GitHub username or organization (e.g. "vercel").',
+    },
+    {
+      name: "repo",
+      type: "string",
+      required: true,
+      description: 'GitHub repository name (e.g. "next.js").',
+    },
+    {
+      name: "layout",
+      type: '"inline" | "row" | "card"',
+      description: 'Display layout. Defaults to "inline".',
+    },
+    {
+      name: "variant",
+      type: '"default" | "primary" | "secondary" | "outline" | "ghost" | "subtle"',
+      description: 'Visual style variant (inline/row only). Defaults to "default".',
+    },
+    {
+      name: "size",
+      type: '"sm" | "default" | "lg"',
+      description: 'Badge size (inline/row only). Defaults to "default".',
+    },
+    {
+      name: "showDate",
+      type: "boolean",
+      description: "Show publish date. Defaults to false for inline, true for row/card.",
+    },
+    {
+      name: "showPreRelease",
+      type: "boolean",
+      description: "Show pre-release indicator. Defaults to true.",
+    },
+    {
+      name: "showAssets",
+      type: "boolean",
+      description: "Show download asset count (card only). Defaults to true.",
+    },
+    {
+      name: "data",
+      type: "GitHubReleaseData",
+      description: "Pre-fetched release data. When provided, skips the GitHub API call.",
+    },
+  ]}
+/>
+
+## Notes
+
+- **ISR caching.** Release data is cached for 1 hour via `next.revalidate`. Set `GITHUB_TOKEN` to raise the rate limit from 60 → 5,000 req/hr.
+- **Pre-fetched data.** Pass the `data` prop to skip the API call — useful for static builds or when fetching data separately.
+- **Pre-release indicator.** When the latest release is marked as a pre-release on GitHub, an amber "pre" badge appears automatically.
