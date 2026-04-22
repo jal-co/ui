@@ -33,6 +33,50 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "2026.04.1",
+    date: "2026-04-22",
+    title: "Open Source Batch",
+    summary:
+      "Leaning harder into the open-source lane. Four new components that round out the GitHub and ecosystem coverage: a release badge that pulls your latest tag, a CI status badge for GitHub Actions, a Discord server widget, and a zero-dep SVG sparkline that shows npm download trends inline. Also split the sidebar into GitHub and Ecosystem sections because 13 items in one list was getting unwieldy.",
+    components: [
+      {
+        name: "release-badge",
+        title: "Release Badge",
+        description:
+          "Live GitHub release badge showing latest tag, publish date, and pre-release indicator. Three layouts.",
+        category: "GitHub",
+      },
+      {
+        name: "ci-badge",
+        title: "CI Badge",
+        description:
+          "GitHub Actions CI status badge with colored status dots for passing, failing, pending, and cancelled states.",
+        category: "GitHub",
+      },
+      {
+        name: "discord-badge",
+        title: "Discord Badge",
+        description:
+          "Live Discord server badge showing member count via the public widget API. Includes a blurple variant.",
+        category: "Ecosystem",
+      },
+      {
+        name: "download-sparkline",
+        title: "Download Sparkline",
+        description:
+          "Tiny inline SVG sparkline showing npm download trends. Three chart types, zero charting dependencies.",
+        category: "Ecosystem",
+      },
+    ],
+    improvements: [
+      {
+        title: "Sidebar reorganization",
+        description:
+          "Split the Open Source section into GitHub (repo-specific components) and Ecosystem (npm, Discord, licensing, platforms) for easier navigation.",
+      },
+    ],
+  },
+  {
     version: "2026.04.0",
     date: "2026-04-07",
     title: "Pretext",
