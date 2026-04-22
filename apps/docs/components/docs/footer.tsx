@@ -97,9 +97,8 @@ export function SiteFooter() {
             <DiscordBadge
               serverId="1316199667142496307"
               inviteUrl="https://discord.gg/3nAbsSK9jE"
-              variant="ghost"
+              variant="discord"
               size="sm"
-              showOnline
             />
             <a
               href="https://github.com/jal-co/ui"
