@@ -22,30 +22,28 @@ interface Stargazer {
 }
 
 async function getStargazers(): Promise<Stargazer[]> {
-  try {
-    const pages: Stargazer[] = []
-    let page = 1
-    // Fetch up to 5 pages (500 stargazers) to be safe
-    while (page <= 5) {
-      const res = await fetch(
-        `https://api.github.com/repos/jal-co/ui/stargazers?per_page=100&page=${page}`,
-        {
-          headers: { Accept: "application/vnd.github.v3+json" },
-          next: { revalidate: 3600 },
-        }
-      )
-      if (!res.ok) break
-      const data: Stargazer[] = await res.json()
-      if (data.length === 0) break
-      pages.push(...data)
-      if (data.length < 100) break
-      page++
-    }
-    // Filter out the org account
-    return pages.filter((s) => s.login !== "jal-co")
-  } catch {
-    return []
+  const pages: Stargazer[] = []
+  let page = 1
+  // Fetch up to 5 pages (500 stargazers) to be safe
+  while (page <= 5) {
+    const res = await fetch(
+      `https://api.github.com/repos/jal-co/ui/stargazers?per_page=100&page=${page}`,
+      {
+        headers: { Accept: "application/vnd.github.v3+json" },
+        // Revalidate every hour, but keep serving stale data on error
+        // so the section never disappears from a transient failure.
+        next: { revalidate: 3600, tags: ["stargazers"] },
+      }
+    )
+    if (!res.ok) break
+    const data: Stargazer[] = await res.json()
+    if (data.length === 0) break
+    pages.push(...data)
+    if (data.length < 100) break
+    page++
   }
+  // Filter out the org account
+  return pages.filter((s) => s.login !== "jal-co")
 }
 
 const tiers = [
