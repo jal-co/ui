@@ -1,0 +1,129 @@
+---
+title: "Discord Badge"
+description: "Live Discord server badge showing server name and online count with the Discord icon."
+---
+
+import { DiscordBadge } from "@/registry/discord-badge/discord-badge"
+
+<ComponentPreview name="discord-badge-preview" />
+
+## Installation
+
+<InstallBlock name="discord-badge" />
+
+## Usage
+
+<CodeLine code={`import { DiscordBadge } from "@/components/discord-badge"`} />
+
+<CodeLine code={`<DiscordBadge serverId="your-server-id" />`} />
+
+Async server component — fetches server info from the Discord widget API at build time, cached 1 hour via ISR.
+
+## Layouts
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Inline</h3>
+    <p className="text-sm text-muted-foreground">
+      Compact pill showing the Discord icon and server name. The default layout.
+    </p>
+    <VariantGrid
+      registryName="discord-badge"
+      files={["registry/discord-badge/discord-badge.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Default",
+          code: `<DiscordBadge serverId="..." />`,
+          preview: <DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: null, onlineCount: 3200 }} />,
+        },
+        {
+          label: "Discord variant",
+          code: `<DiscordBadge serverId="..." variant="discord" />`,
+          preview: <DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: null, onlineCount: 3200 }} variant="discord" />,
+        },
+        {
+          label: "With online",
+          code: `<DiscordBadge serverId="..." showOnline />`,
+          preview: <DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: null, onlineCount: 3200 }} showOnline />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Card</h3>
+    <p className="text-sm text-muted-foreground">
+      Feature card showing server name and online count.
+    </p>
+    <VariantGrid
+      registryName="discord-badge"
+      files={["registry/discord-badge/discord-badge.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Card layout",
+          code: `<DiscordBadge serverId="..." layout="card" />`,
+          preview: <div className="flex justify-center"><DiscordBadge serverId="0" data={{ id: "0", name: "Tailwind CSS", instantInvite: "https://discord.gg/tailwindcss", onlineCount: 3200, memberCount: 12450 }} layout="card" className="w-full max-w-sm" /></div>,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+  title="DiscordBadge"
+  props={[
+    {
+      name: "serverId",
+      type: "string",
+      required: true,
+      description: "Discord server/guild ID.",
+    },
+    {
+      name: "layout",
+      type: '"inline" | "card"',
+      description: 'Display layout. Defaults to "inline".',
+    },
+    {
+      name: "variant",
+      type: '"default" | "primary" | "secondary" | "outline" | "ghost" | "subtle" | "discord"',
+      description: 'Visual style variant (inline only). Defaults to "default". The "discord" variant uses Discord blurple.',
+    },
+    {
+      name: "size",
+      type: '"sm" | "default" | "lg"',
+      description: 'Badge size (inline only). Defaults to "default".',
+    },
+    {
+      name: "iconStyle",
+      type: '"currentColor" | "discord"',
+      description: 'Discord icon color. "currentColor" inherits from variant, "discord" uses blurple (#5865F2). Defaults to "currentColor".',
+    },
+    {
+      name: "inviteUrl",
+      type: "string",
+      description: "Override the invite link. By default uses the widget's instant invite URL.",
+    },
+    {
+      name: "showOnline",
+      type: "boolean",
+      description: "Show online member count. Defaults to true for card, false for inline.",
+    },
+    {
+      name: "data",
+      type: "DiscordServerData",
+      description: "Pre-fetched server data. When provided, skips the Discord API call.",
+    },
+  ]}
+/>
+
+## Notes
+
+- **Widget required.** The target Discord server must have the widget enabled in Server Settings → Widget. If the widget is disabled, the badge returns `null`.
+- **Online count only.** The public widget API only exposes online/presence count, not total members. Total member count requires a bot token — pass it manually via `data.memberCount` if you have it from another source.
+- **ISR caching.** Server data is cached for 1 hour via `next.revalidate`. No API key or bot token required.
+- **Pre-fetched data.** Pass the `data` prop to skip the API call — useful for static builds or when fetching data separately.

@@ -1,0 +1,159 @@
+---
+title: "CI Badge"
+description: "GitHub Actions CI status badge showing passing, failing, pending, or cancelled state."
+---
+
+import { CIBadge } from "@/registry/ci-badge/ci-badge"
+
+<ComponentPreview name="ci-badge-preview" />
+
+## Installation
+
+<InstallBlock name="ci-badge" />
+
+## Usage
+
+<CodeLine code={`import { CIBadge } from "@/components/ci-badge"`} />
+
+<CodeLine code={`<CIBadge owner="vercel" repo="next.js" />`} />
+
+Async server component — fetches the latest workflow run from the GitHub Actions API at build time, cached 10 minutes via ISR.
+
+## Layouts
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Inline</h3>
+    <p className="text-sm text-muted-foreground">
+      Compact pill with status dot and label. The default layout.
+    </p>
+    <VariantGrid
+      registryName="ci-badge"
+      files={["registry/ci-badge/ci-badge.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Passing",
+          code: `<CIBadge owner="vercel" repo="next.js" />`,
+          preview: <CIBadge owner="vercel" repo="next.js" data={{ workflowName: "CI", status: "success", url: "#", branch: "main", startedAt: new Date().toISOString(), durationSeconds: 142 }} />,
+        },
+        {
+          label: "Failing",
+          code: `<CIBadge owner="vercel" repo="next.js" />`,
+          preview: <CIBadge owner="vercel" repo="next.js" data={{ workflowName: "CI", status: "failure", url: "#", branch: "main", startedAt: new Date().toISOString(), durationSeconds: 38 }} />,
+        },
+        {
+          label: "Pending",
+          code: `<CIBadge owner="vercel" repo="next.js" />`,
+          preview: <CIBadge owner="vercel" repo="next.js" data={{ workflowName: "CI", status: "pending", url: "#", branch: "main", startedAt: new Date().toISOString(), durationSeconds: null }} />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">With details</h3>
+    <p className="text-sm text-muted-foreground">
+      Show workflow name, branch, and duration alongside the status.
+    </p>
+    <VariantGrid
+      registryName="ci-badge"
+      files={["registry/ci-badge/ci-badge.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Full details",
+          code: `<CIBadge owner="vercel" repo="next.js" showWorkflow showBranch showDuration />`,
+          preview: <div className="flex justify-center"><CIBadge owner="vercel" repo="next.js" data={{ workflowName: "CI", status: "success", url: "#", branch: "main", startedAt: new Date().toISOString(), durationSeconds: 142 }} showWorkflow showBranch showDuration /></div>,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Card</h3>
+    <p className="text-sm text-muted-foreground">
+      Feature card showing workflow name, status, branch, duration, and run time.
+    </p>
+    <VariantGrid
+      registryName="ci-badge"
+      files={["registry/ci-badge/ci-badge.tsx"]}
+      columns={1}
+      fullWidth
+      items={[
+        {
+          label: "Card layout",
+          code: `<CIBadge owner="vercel" repo="next.js" layout="card" />`,
+          preview: <div className="flex justify-center"><CIBadge owner="vercel" repo="next.js" data={{ workflowName: "CI", status: "success", url: "#", branch: "main", startedAt: new Date(Date.now() - 1800000).toISOString(), durationSeconds: 142 }} layout="card" className="w-full max-w-sm" /></div>,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+  title="CIBadge"
+  props={[
+    {
+      name: "owner",
+      type: "string",
+      required: true,
+      description: 'GitHub username or organization (e.g. "vercel").',
+    },
+    {
+      name: "repo",
+      type: "string",
+      required: true,
+      description: 'GitHub repository name (e.g. "next.js").',
+    },
+    {
+      name: "workflow",
+      type: "string",
+      description: 'Workflow filename (e.g. "ci.yml") or workflow ID. Fetches the latest run across all workflows if omitted.',
+    },
+    {
+      name: "branch",
+      type: "string",
+      description: "Branch to filter by. Uses the repo's default branch if omitted.",
+    },
+    {
+      name: "layout",
+      type: '"inline" | "card"',
+      description: 'Display layout. Defaults to "inline".',
+    },
+    {
+      name: "size",
+      type: '"sm" | "default" | "lg"',
+      description: 'Badge size (inline only). Defaults to "default".',
+    },
+    {
+      name: "showDuration",
+      type: "boolean",
+      description: "Show run duration. Defaults to true for card, false for inline.",
+    },
+    {
+      name: "showBranch",
+      type: "boolean",
+      description: "Show branch name. Defaults to true for card, false for inline.",
+    },
+    {
+      name: "showWorkflow",
+      type: "boolean",
+      description: "Show workflow name. Defaults to true for card, false for inline.",
+    },
+    {
+      name: "data",
+      type: "CIStatusData",
+      description: "Pre-fetched CI status data. When provided, skips the GitHub API call.",
+    },
+  ]}
+/>
+
+## Notes
+
+- **ISR caching.** CI status data is cached for 10 minutes via `next.revalidate`. Set `GITHUB_TOKEN` to raise the rate limit from 60 → 5,000 req/hr.
+- **Pre-fetched data.** Pass the `data` prop to skip the API call — useful for static builds or when fetching data separately.
+- **Status colors.** Passing = green, failing = red, pending = amber (animated pulse), cancelled/skipped = gray.

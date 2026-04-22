@@ -1,0 +1,237 @@
+---
+title: "Download Sparkline"
+description: "Tiny inline SVG sparkline showing npm download trends over time."
+---
+
+import { DownloadSparkline } from "@/registry/download-sparkline/download-sparkline"
+
+<ComponentPreview name="download-sparkline-preview" />
+
+## Installation
+
+<InstallBlock name="download-sparkline" />
+
+## Usage
+
+<CodeLine code={`import { DownloadSparkline } from "@/components/download-sparkline"`} />
+
+<CodeLine code={`<DownloadSparkline package="react" />`} />
+
+Async server component — fetches daily download data from the npm API at build time, cached 1 hour via ISR. Pure SVG, zero charting dependencies.
+
+## Variants
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Chart types</h3>
+    <p className="text-sm text-muted-foreground">
+      Three chart types: line (default), area, and bar.
+    </p>
+    <VariantGrid
+      registryName="download-sparkline"
+      files={["registry/download-sparkline/download-sparkline.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Line",
+          code: `<DownloadSparkline package="react" showLabel />`,
+          preview: <DownloadSparkline package="react" showLabel />,
+        },
+        {
+          label: "Area",
+          code: `<DownloadSparkline package="react" variant="area" showLabel />`,
+          preview: <DownloadSparkline package="react" variant="area" showLabel />,
+        },
+        {
+          label: "Bar",
+          code: `<DownloadSparkline package="react" variant="bar" showLabel />`,
+          preview: <DownloadSparkline package="react" variant="bar" showLabel />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Time ranges</h3>
+    <p className="text-sm text-muted-foreground">
+      Three time ranges: last week, last month (default), and last year.
+    </p>
+    <VariantGrid
+      registryName="download-sparkline"
+      files={["registry/download-sparkline/download-sparkline.tsx"]}
+      columns={3}
+      items={[
+        {
+          label: "Last week",
+          code: `<DownloadSparkline package="react" range="last-week" showLabel />`,
+          preview: <DownloadSparkline package="react" range="last-week" showLabel />,
+        },
+        {
+          label: "Last month",
+          code: `<DownloadSparkline package="react" range="last-month" showLabel />`,
+          preview: <DownloadSparkline package="react" range="last-month" showLabel />,
+        },
+        {
+          label: "Last year",
+          code: `<DownloadSparkline package="react" range="last-year" showLabel />`,
+          preview: <DownloadSparkline package="react" range="last-year" showLabel />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## Examples
+
+<div className="flex flex-col gap-6">
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">With trend indicator</h3>
+    <p className="text-sm text-muted-foreground">
+      Shows percentage change comparing the first half vs second half of the time range, with a colored arrow.
+    </p>
+    <VariantGrid
+      registryName="download-sparkline"
+      files={["registry/download-sparkline/download-sparkline.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Trend + label",
+          code: `<DownloadSparkline package="react" showLabel showTrend />`,
+          preview: <DownloadSparkline package="react" showLabel showTrend />,
+        },
+        {
+          label: "Area with trend",
+          code: `<DownloadSparkline package="next" variant="area" showLabel showTrend />`,
+          preview: <DownloadSparkline package="next" variant="area" showLabel showTrend />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">With baseline and date range</h3>
+    <p className="text-sm text-muted-foreground">
+      Baseline shows a faint dashed line at the average. Date range labels the time period below the chart.
+    </p>
+    <VariantGrid
+      registryName="download-sparkline"
+      files={["registry/download-sparkline/download-sparkline.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Baseline + dates",
+          code: `<DownloadSparkline package="react" showLabel showBaseline showDateRange />`,
+          preview: <DownloadSparkline package="react" showLabel showBaseline showDateRange />,
+        },
+        {
+          label: "Everything",
+          code: `<DownloadSparkline package="react" variant="area" showLabel showTrend showBaseline showDateRange />`,
+          preview: <DownloadSparkline package="react" variant="area" showLabel showTrend showBaseline showDateRange />,
+        },
+      ]}
+    />
+  </div>
+
+  <div className="flex flex-col gap-4">
+    <h3 className="text-base font-medium">Custom sizing</h3>
+    <VariantGrid
+      registryName="download-sparkline"
+      files={["registry/download-sparkline/download-sparkline.tsx"]}
+      columns={2}
+      items={[
+        {
+          label: "Wide",
+          code: `<DownloadSparkline package="react" width={200} height={40} showLabel />`,
+          preview: <DownloadSparkline package="react" width={200} height={40} showLabel />,
+        },
+        {
+          label: "Compact",
+          code: `<DownloadSparkline package="react" width={80} height={24} showLabel />`,
+          preview: <DownloadSparkline package="react" width={80} height={24} showLabel />,
+        },
+      ]}
+    />
+  </div>
+</div>
+
+## API Reference
+
+<ApiRefTable
+  title="DownloadSparkline"
+  props={[
+    {
+      name: "package",
+      type: "string",
+      required: true,
+      description: 'npm package name (e.g. "react", "@tanstack/react-query").',
+    },
+    {
+      name: "range",
+      type: '"last-week" | "last-month" | "last-year"',
+      description: 'Time range. Defaults to "last-month".',
+    },
+    {
+      name: "variant",
+      type: '"line" | "area" | "bar"',
+      description: 'Chart type. Defaults to "line".',
+    },
+    {
+      name: "color",
+      type: "string",
+      description: 'Stroke/fill color. Defaults to "currentColor".',
+    },
+    {
+      name: "width",
+      type: "number",
+      description: "SVG width in pixels. Defaults to 120.",
+    },
+    {
+      name: "height",
+      type: "number",
+      description: "SVG height in pixels. Defaults to 32.",
+    },
+    {
+      name: "strokeWidth",
+      type: "number",
+      description: "Line stroke width (line/area only). Defaults to 1.5.",
+    },
+    {
+      name: "showEndpoint",
+      type: "boolean",
+      description: "Show a dot at the latest data point (line/area only). Defaults to true.",
+    },
+    {
+      name: "showLabel",
+      type: "boolean",
+      description: "Show formatted total downloads label. Defaults to false.",
+    },
+    {
+      name: "showTrend",
+      type: "boolean",
+      description: "Show percentage change indicator comparing the first half vs second half of the range. Defaults to false.",
+    },
+    {
+      name: "showDateRange",
+      type: "boolean",
+      description: 'Show date range label below the chart (e.g. "Mar 22 – Apr 21"). Defaults to false.',
+    },
+    {
+      name: "showBaseline",
+      type: "boolean",
+      description: "Show a faint dashed horizontal line at the average value. Defaults to false.",
+    },
+    {
+      name: "data",
+      type: "NpmDownloadPoint[]",
+      description: "Pre-fetched download data. When provided, skips the npm API call.",
+    },
+  ]}
+/>
+
+## Notes
+
+- **ISR caching.** Download data is cached for 1 hour via `next.revalidate`. No API key required.
+- **Pure SVG.** Zero charting library dependencies. The sparkline is rendered as a single inline SVG element.
+- **Trend calculation.** The trend percentage compares the average daily downloads in the first half of the range to the second half. Green arrow = increasing, red arrow = decreasing.
+- **Pre-fetched data.** Pass the `data` prop to skip the API call — useful for static builds or when fetching data separately.
+- **Scoped packages.** Supports scoped names like `@tanstack/react-query`.
