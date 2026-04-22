@@ -1,4 +1,4 @@
-# shadshields
+# shieldcn
 
 Beautiful README badges as a service. A shields.io alternative with the visual quality of shadcn/ui components.
 
@@ -11,19 +11,15 @@ Not a jalco ui subpage. A separate product that happens to share the same design
 ## Why this should be separate
 
 - Shields.io is a product, not a feature. This competes with it, so it should feel like a product.
-- Own domain means own SEO. "shadshields.dev" ranks on its own.
+- Own domain means own SEO. "shieldcn.dev" ranks on its own.
 - Own repo means contributors can work on badge coverage without touching the component library.
 - Own deploy means badge uptime is independent of docs site deploys.
 - Marketing surface: every badge image served is a backlink. Every README is an ad.
 - Can grow independently — more providers, a badge builder, an API, a GitHub App — without bloating jalco ui.
 
-## Domain options
+## Domain
 
-Pick one:
-- `shadshields.dev`
-- `shields.jalco.dev`
-- `svgbadge.dev`
-- `badgekit.dev`
+`shieldcn.dev`
 
 ## Scaffolding
 
@@ -44,7 +40,7 @@ Pick one:
 
 ```bash
 # Create repo
-mkdir shadshields && cd shadshields
+mkdir shieldcn && cd shieldcn
 git init
 
 # Scaffold Next.js
@@ -67,7 +63,7 @@ pnpm add -D husky lint-staged tsx
 ### Repo structure
 
 ```
-shadshields/
+shieldcn/
 ├── app/
 │   ├── layout.tsx                        ← root layout (Geist fonts, theme provider, metadata)
 │   ├── page.tsx                          ← landing page: hero, badge builder, comparison, examples
@@ -179,9 +175,9 @@ export default function Layout({ children }: { children: ReactNode }) {
 ## URL format
 
 ```
-https://shadshields.dev/{provider}/{...params}.svg           → SVG badge image
-https://shadshields.dev/{provider}/{...params}.json          → raw badge data
-https://shadshields.dev/{provider}/{...params}/shields.json  → shields.io compatible
+https://shieldcn.dev/{provider}/{...params}.svg           → SVG badge image
+https://shieldcn.dev/{provider}/{...params}.json          → raw badge data
+https://shieldcn.dev/{provider}/{...params}/shields.json  → shields.io compatible
 ```
 
 ### v1 badge types
@@ -210,10 +206,10 @@ https://shadshields.dev/{provider}/{...params}/shields.json  → shields.io comp
 ### Usage in markdown
 
 ```md
-![npm version](https://shadshields.dev/npm/react.svg)
-![stars](https://shadshields.dev/github/vercel/next.js/stars.svg?theme=blue)
-![CI](https://shadshields.dev/github/jal-co/ui/ci.svg?style=outline)
-![Discord](https://shadshields.dev/discord/1316199667142496307.svg)
+![npm version](https://shieldcn.dev/npm/react.svg)
+![stars](https://shieldcn.dev/github/vercel/next.js/stars.svg?theme=blue)
+![CI](https://shieldcn.dev/github/jal-co/ui/ci.svg?style=outline)
+![Discord](https://shieldcn.dev/discord/1316199667142496307.svg)
 ```
 
 ## SVG rendering engine
@@ -370,7 +366,7 @@ This lets people build their own badge rendering or consume the data for dashboa
 
 ### Shields.io endpoint compatibility
 
-Serve a shields.io-compatible JSON endpoint so people can use shadshields as a data source with shields.io rendering if they want:
+Serve a shields.io-compatible JSON endpoint so people can use shieldcn as a data source with shields.io rendering if they want:
 
 ```
 GET /npm/react/shields.json
@@ -388,10 +384,10 @@ Returns:
 
 This works with shields.io's [endpoint badge](https://shields.io/badges/endpoint-badge):
 ```md
-![npm](https://img.shields.io/endpoint?url=https://shadshields.dev/npm/react/shields.json)
+![npm](https://img.shields.io/endpoint?url=https://shieldcn.dev/npm/react/shields.json)
 ```
 
-So people can migrate gradually — use shadshields data with shields.io rendering first, then switch to shadshields rendering when ready.
+So people can migrate gradually — use shieldcn data with shields.io rendering first, then switch to shieldcn rendering when ready.
 
 ### Route handler
 
@@ -449,7 +445,7 @@ Never return a broken image. Always return a valid SVG.
 Simple, one-page site at `/`:
 - Hero: "Beautiful README badges" + a row of example badges rendered live as `<img>` tags
 - Badge builder: provider selector, package/repo input, style/theme dropdowns, live preview, copy-to-clipboard markdown
-- Comparison section: same badge in shields.io vs shadshields side by side
+- Comparison section: same badge in shields.io vs shieldcn side by side
 - URL reference: quick table of all badge types + params
 - Footer: "Built with jal-co/ui" link
 
@@ -471,10 +467,10 @@ Each badge doc page shows:
 
 ## Cross-linking with jalco ui
 
-- shadshields footer: "Badge components for React → jal-co/ui"
-- jalco ui docs: "Use these badges in your README → shadshields.dev"
-- jalco ui npm-badge, release-badge, ci-badge, discord-badge docs: add a "README badge" section with the shadshields URL equivalent
-- jalco ui README: use shadshields badges
+- shieldcn footer: "Badge components for React → jal-co/ui"
+- jalco ui docs: "Use these badges in your README → shieldcn.dev"
+- jalco ui npm-badge, release-badge, ci-badge, discord-badge docs: add a "README badge" section with the shieldcn URL equivalent
+- jalco ui README: use shieldcn badges
 
 ## Implementation order
 
@@ -513,7 +509,7 @@ Each badge doc page shows:
 - Badge URLs are intuitive
 - Landing page badge builder copies markdown to clipboard
 - Docs cover every badge type and customization option
-- jalco ui's own README uses shadshields badges
+- jalco ui's own README uses shieldcn badges
 
 ## Future (v2+)
 
