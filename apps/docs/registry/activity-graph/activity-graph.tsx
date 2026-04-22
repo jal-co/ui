@@ -132,18 +132,18 @@ function getMonthLabels(
   blockSize: number
 ): { label: string; offset: number }[] {
   const months: { label: string; offset: number }[] = []
-  let lastMonth = -1
+  let lastKey = ""
 
   for (let w = 0; w < weeks.length; w++) {
     const firstDay = weeks[w][0]
-    const month = firstDay.date.getMonth()
+    const key = `${firstDay.date.getFullYear()}-${firstDay.date.getMonth()}`
 
-    if (month !== lastMonth) {
+    if (key !== lastKey) {
       months.push({
         label: firstDay.date.toLocaleString("en-US", { month: "short" }),
         offset: w * (blockSize + GAP),
       })
-      lastMonth = month
+      lastKey = key
     }
   }
 
