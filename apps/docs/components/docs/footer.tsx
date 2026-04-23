@@ -53,6 +53,14 @@ export function SiteFooter() {
               >
                 Sponsor
               </Link>
+              <a
+                href="https://www.shieldcn.dev/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                shieldcn
+              </a>
             </div>
 
             <div className="flex flex-col gap-2">
