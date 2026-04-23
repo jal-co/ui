@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import { Heart } from "lucide-react"
 import { FumadocsSidebar } from "@/components/docs/fumadocs-sidebar"
 import { MobileNav } from "@/components/docs/mobile-nav"
@@ -31,7 +32,21 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         }}
       />
       <div className="relative mx-auto flex min-h-screen max-w-[1600px] flex-col border-x border-dashed border-border bg-background">
-      <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
+      <div className="sticky top-0 z-30">
+      <div className="flex items-center justify-center gap-2 border-b bg-foreground px-4 py-1.5 text-background">
+        <p className="text-xs font-medium tracking-wide sm:text-sm">
+          Introducing <span className="font-bold">shieldcn</span> — README badges, shadcn style.
+        </p>
+        <Link
+          href="https://www.shieldcn.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-xs font-semibold underline underline-offset-2 hover:opacity-80 sm:text-sm"
+        >
+          Check it out <ArrowRight className="size-3" />
+        </Link>
+      </div>
+      <header className="flex h-14 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6 flex h-14 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <MobileNav />
 
         <Link
@@ -68,10 +83,11 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
           <ThemeSwitcher />
         </div>
       </header>
+      </div>
 
       <div className="flex flex-1">
         <aside className="hidden w-64 shrink-0 border-r md:block">
-          <div className="sticky top-14 h-[calc(100vh-3.5rem)]">
+          <div className="sticky top-[5.75rem] h-[calc(100vh-5.75rem)]">
             <FumadocsSidebar tree={source.pageTree} />
           </div>
         </aside>
