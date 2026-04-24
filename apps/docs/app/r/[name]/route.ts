@@ -1,7 +1,7 @@
 /**
  * Dynamic registry route with download tracking.
  *
- * Serves registry items at /r/[name].json with Umami event tracking.
+ * Serves registry items at /r/[name].json with OpenPanel event tracking.
  * Uses generateStaticParams for build-time route generation while
  * still running tracking code at request time.
  */
@@ -9,7 +9,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { notFound } from "next/navigation"
 import { getAllItemNames, buildRegistryItemResponse } from "@/lib/registry"
-import { trackEvent } from "@/lib/umami"
+import { trackEvent } from "@/lib/openpanel"
 
 interface RouteParams {
   params: Promise<{ name: string }>
@@ -31,7 +31,6 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
   if (process.env.NODE_ENV === "production") {
     trackEvent({
       name: "registry-download",
-      url: `/r/${name}`,
       data: { component: itemName },
     })
   }

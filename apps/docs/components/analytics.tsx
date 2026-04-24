@@ -1,14 +1,14 @@
 "use client"
 
-import { useEffect } from "react"
-import { op } from "@/lib/openpanel"
+import { OpenPanelComponent } from "@openpanel/nextjs"
 
 export function Analytics() {
-  useEffect(() => {
-    // OpenPanel auto-tracks screen views, outgoing links, and data-track attributes
-    // Accessing op ensures the client is initialized on mount
-    void op
-  }, [])
-
-  return null
+  return (
+    <OpenPanelComponent
+      clientId={process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID ?? ""}
+      trackScreenViews
+      trackOutgoingLinks
+      trackAttributes
+    />
+  )
 }
