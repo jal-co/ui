@@ -48,6 +48,10 @@ pnpm registry:build # registry only
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+## Sponsors
+
+Analytics by [OpenPanel](https://openpanel.dev/open-source?utm_source=justinlevine.me).
+
 ## License
 
 [MIT](./LICENSE)
