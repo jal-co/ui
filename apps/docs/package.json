@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@chenglou/pretext": "^0.0.4",
+    "@openpanel/web": "^1.4.0",
     "@orama/orama": "^3.1.18",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",

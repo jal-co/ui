@@ -28,6 +28,17 @@ export function SiteFooter() {
               Open source React components for Tailwind CSS. Free forever, never
               paywalled.
             </p>
+            <p className="text-xs text-muted-foreground">
+              Analytics by{" "}
+              <a
+                href="https://openpanel.dev/open-source?utm_source=justinlevine.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-foreground"
+              >
+                OpenPanel
+              </a>
+            </p>
           </div>
 
           <div className="flex gap-10 text-sm">
