@@ -38,6 +38,9 @@ importers:
       '@types/mdx':
         specifier: ^2.0.13
         version: 2.0.13
+      '@usenotra/geo':
+        specifier: ^0.7.0
+        version: 0.7.0(zod@4.3.6)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -2106,6 +2109,15 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@usenotra/geo@0.7.0':
+    resolution: {integrity: sha512-YpRi6t/sFkCbStir0Wz96gYAGjSGfOTT7BeC2op7MbBwt8pGAalnZ+UgCCRoFVO0UQQ1glapNL8DiNjlpBBh9w==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^4.0.0
+    peerDependenciesMeta:
+      zod:
+        optional: true
+
   '@xstate/fsm@1.6.5':
     resolution: {integrity: sha512-b5o1I6aLNeYlU/3CPlj/Z91ybk1gUsKT+5NAJI+2W4UjvS5KLG28K9v5UvNoFVjHV8PajVZ00RH3vnjyQO7ZAw==}
 
@@ -2723,6 +2735,7 @@ packages:
   eslint@9.32.0:
     resolution: {integrity: sha512-LSehfdpgMeWcTZkWZVIJl+tkZ2nuSkyyB9C27MZqFWXuph7DvaowgcTvKqxvpLW1JZIk8PN7hFY3Rj9LQ7m7lg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: '*'
@@ -6894,6 +6907,10 @@ snapshots:
 
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
+
+  '@usenotra/geo@0.7.0(zod@4.3.6)':
+    optionalDependencies:
+      zod: 4.3.6
 
   '@xstate/fsm@1.6.5': {}
 
